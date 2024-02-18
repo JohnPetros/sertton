@@ -1,0 +1,16 @@
+export const ENDPOINTS = {
+  collection: 'collections',
+  customer: 'customers',
+  banner: 'banners',
+  product: 'products',
+  clients: 'clients',
+  categorie: 'categories',
+  variation: 'variations',
+  skus: 'skus',
+  brand: 'brands',
+  similar: 'similars',
+  comment: 'comments',
+  lead: 'leads',
+  review: 'reviews',
+  discount: 'progressive-discounts',
+}
