@@ -1,0 +1,33 @@
+{
+  "extends": "expo/tsconfig.base",
+  "include" : ["**/*"],
+  "compilerOptions": {
+    "strict": true,
+    "module": "ES2020",
+    "baseUrl": ".",
+    "paths": {
+      "@/@types/*": ["src/@types/*"],
+      "@/app/*": [
+        "src/app/*"
+      ],
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/providers/*": [
+        "/src/providers/*"
+      ],
+      "@/stores/*": [
+        "/src/stores/*"
+      ],
+      "@/services/*": [
+        "/src/services/*"
+      ],
+      "@/utils/*": [
+        "/src/utils/*"
+      ],
+      "@/__tests__/*": [
+        "/src/__tests__/*"
+      ]
+    }
+  }
+}
