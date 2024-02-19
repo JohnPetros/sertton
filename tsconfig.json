@@ -32,7 +32,7 @@
         "src/utils/*"
       ],
       "@/__tests__/*": [
-        "src/__tests__/*"
+        "src/_tests_/*"
       ]
     }
   }

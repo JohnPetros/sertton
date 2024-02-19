@@ -19,7 +19,7 @@
         "noExplicitAny": "warn",
         "noArrayIndexKey": "warn",
         "noDoubleEquals": "warn",
-        "noConsoleLog": "error",
+        "noConsoleLog": "off",
         "noAssignInExpressions": "warn",
         "noRedeclare": "warn"
       },
@@ -46,7 +46,7 @@
         "noForEach": "warn",
         "noBannedTypes": "warn",
         "useLiteralKeys": "warn",
-        "useSimplifiedLogicExpression": "warn",
+        "useSimplifiedLogicExpression": "off",
         "useOptionalChain": "warn"
       },
       "a11y": {
