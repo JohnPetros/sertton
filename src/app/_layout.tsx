@@ -1,17 +1,21 @@
+import { useFonts } from 'expo-font'
+import { useEffect } from 'react'
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { SplashScreen, Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
 
 import { TamaguiProvider } from '@/providers/TamaguiProvider'
-import { useFonts } from 'expo-font'
-import { useEffect } from 'react'
+
+import { injectHttpProvider } from '@/services/api/http'
+import { AxiosHttpProvider } from '@/services/api/http/axios'
+
+import { Providers } from '../providers'
 import StackLayout from './(stack)/_layout'
 
 export { ErrorBoundary } from 'expo-router'
 
-export const unstable_settings = {
-  initialRouteName: '(stack)',
-}
+injectHttpProvider(AxiosHttpProvider)
 
 SplashScreen.preventAutoHideAsync()
 
@@ -38,7 +42,7 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme()
 
   return (
-    <TamaguiProvider>
+    <Providers>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         {/* <Stack>
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
@@ -46,6 +50,6 @@ function RootLayoutNav() {
         </Stack> */}
         <StackLayout />
       </ThemeProvider>
-    </TamaguiProvider>
+    </Providers>
   )
 }

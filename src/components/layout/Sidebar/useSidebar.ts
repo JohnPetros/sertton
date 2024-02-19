@@ -1,13 +1,14 @@
+import { useApi } from '@/services/api'
 import { DrawerActions } from '@react-navigation/native'
-import { useRouter } from 'expo-router'
+import { AllRoutes, useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
-import { ROUTES } from 'src/utils/constants/routes'
 
 // import { useAppError } from '../../shared/AppError/useAppError'
 
-// import { useCache } from '@/services/cache'
+import { useCache } from '@/services/cache'
 // import { useProductsFilterStore } from '@/stores/productsFilterStore'
-// import { CACHE } from '@/utils/constants/cache'
+import { CACHE } from '@/utils/constants/cache'
+import { useDrawerStatus } from '@react-navigation/drawer'
 // import { ROUTES } from '@/utils/constants/routes'
 
 export function useSidebar() {
@@ -17,9 +18,9 @@ export function useSidebar() {
   //   (store) => store.actions.setCategoryId
   // )
 
-  // const api = useApi()
+  const api = useApi()
   const router = useRouter()
-  // const isOpen = useDrawerStatus()
+  const isOpen = useDrawerStatus()
   // const { throwAppError } = useAppError()
 
   // const { data: categories, error } = useCache({
@@ -38,11 +39,12 @@ export function useSidebar() {
   function handleCategory(categoryId: string) {
     setIsLoading(true)
     // setCategoryId(categoryId)
-    router.push(ROUTES.products)
+    router.push('/(stack)/privacy-policy')
   }
 
-  function handleNavigation(route: string) {
+  function handleNavigation(route: AllRoutes) {
     DrawerActions.closeDrawer()
+    // @ts-ignore
     router.push(route)
   }
 

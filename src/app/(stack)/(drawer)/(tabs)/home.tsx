@@ -1,9 +1,5 @@
-import { Text, YStack } from 'tamagui'
+import { Home } from '@/components/screens/Home'
 
 export default function HomeScreen() {
-  return (
-    <YStack>
-      <Text>ggg</Text>
-    </YStack>
-  )
+  return <Home />
 }

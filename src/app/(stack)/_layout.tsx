@@ -2,7 +2,7 @@ import { Stack } from 'expo-router'
 
 export default function StackLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }} initialRouteName='(drawer)'>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name='splash' />
       <Stack.Screen name='about' />
       <Stack.Screen name='privacy-policy' />

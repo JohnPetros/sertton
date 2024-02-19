@@ -1,4 +1,4 @@
-import { Tabs } from 'expo-router'
+import { Link, Tabs } from 'expo-router'
 import { House, MagnifyingGlass, ShoppingBag, ShoppingCart } from 'phosphor-react-native'
 
 import { View } from 'tamagui'
@@ -6,11 +6,8 @@ import { View } from 'tamagui'
 import { Badge } from '@/components/shared/Badge'
 import { Button } from '@/components/shared/Button'
 import { TAB_BAR_HEIGHT } from 'src/utils/constants/tab-bar-height'
-import { useTabbar } from './useTabbar'
 
 export function Tabbar() {
-  const { handleTabButton } = useTabbar()
-
   return (
     <Tabs
       screenOptions={{
@@ -26,13 +23,14 @@ export function Tabbar() {
         name='products'
         options={{
           tabBarIcon: ({ focused }) => (
-            <Button
-              background={focused ? 'primary' : 'outline'}
-              w={40}
-              h={40}
-              icon={<MagnifyingGlass size={24} />}
-              onPress={() => handleTabButton('products')}
-            />
+            <Link href='/(stack)/(drawer)/(tabs)/products' asChild>
+              <Button
+                background={focused ? 'primary' : 'outline'}
+                w={40}
+                h={40}
+                icon={<MagnifyingGlass size={24} />}
+              />
+            </Link>
           ),
         }}
       />
@@ -41,58 +39,56 @@ export function Tabbar() {
         name='home'
         options={{
           tabBarIcon: ({ focused }) => (
-            <Button
-              background={focused ? 'primary' : 'outline'}
-              w={40}
-              h={40}
-              icon={<House size={24} />}
-              onPress={() => handleTabButton('home')}
-            />
-          ),
-        }}
-      />
-
-      {/* <Tabs.Screen
-        name='cart'
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <View position='relative'>
-              {cartItemsQuantity >= 1 && (
-                <Badge number={cartItemsQuantity} isActive={focused} />
-              )}
+            <Link href='/(stack)/(drawer)/(tabs)/home' asChild>
               <Button
                 background={focused ? 'primary' : 'outline'}
                 w={40}
                 h={40}
-                icon={<ShoppingCart size={24} />}
-                onPress={() => handleTabButton('cart')}
+                icon={<House size={24} />}
               />
+            </Link>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name='cart'
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View position='relative'>
+              {/* {cartItemsQuantity >= 1 && (
+                <Badge number={cartItemsQuantity} isActive={focused} />
+              )} */}
+              <Link href='/(stack)/(drawer)/(tabs)/cart' asChild>
+                <Button
+                  background={focused ? 'primary' : 'outline'}
+                  w={40}
+                  h={40}
+                  icon={<ShoppingCart size={24} />}
+                />
+              </Link>
             </View>
           ),
         }}
-      /> */}
+      />
 
       <Tabs.Screen
         name='orders'
         options={{
           tabBarIcon: ({ focused }) => (
-            <Button
-              background={focused ? 'primary' : 'outline'}
-              w={40}
-              h={40}
-              icon={<ShoppingBag size={24} />}
-              onPress={() => handleTabButton('orders')}
-            />
+            <Link href='/(stack)/(drawer)/(tabs)/orders' asChild>
+              <Button
+                background={focused ? 'primary' : 'outline'}
+                w={40}
+                h={40}
+                icon={<ShoppingBag size={24} />}
+              />
+            </Link>
           ),
         }}
       />
 
-      <Tabs.Screen
-        name='product-details/[product_slug]'
-        options={{
-          href: null,
-        }}
-      />
+      <Tabs.Screen name='[productSlug]' options={{ href: null }} />
     </Tabs>
   )
 }
