@@ -1,9 +1,11 @@
 import { useState } from 'react'
 
+import { MESSAGES } from './tests/constants/messages'
 
 import { useApi } from '@/services/api'
 import { useValidation } from '@/services/validation'
-// import { useToast } from '@/utils/hooks/useToast'
+
+import { useToast } from '@/utils/hooks/useToast'
 
 export function useLeadsCapture() {
   const [email, setEmail] = useState('')
@@ -11,7 +13,7 @@ export function useLeadsCapture() {
   const [isLoading, setIsLoading] = useState(false)
 
   const api = useApi()
-  // const toast = useToast()
+  const toast = useToast()
   const validation = useValidation()
 
   async function handleSubmit() {
@@ -21,13 +23,13 @@ export function useLeadsCapture() {
       try {
         await api.saveLead(email)
         setIsLoading(true)
-        // toast.show(MESSAGES.successSubmit, 'success')
+        toast.show(MESSAGES.successSubmit, 'success')
       } catch (error) {
         const { errors } = api.handleError<{
           errors: { email: string[] }
         }>(error)
 
-        // toast.show(errors.email[0], 'error')
+        toast.show(errors.email[0], 'error')
       } finally {
         setIsLoading(false)
       }

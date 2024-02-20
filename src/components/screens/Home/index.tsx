@@ -1,9 +1,10 @@
-import { SCREEN } from '@/utils/constants/screen'
 import { ScrollView, YStack } from 'tamagui'
 
-import { Footer } from '@/components/shared/Footer'
-
+import { LeadsCapture } from './LeadsCapture'
 import { Marketing } from './Marketing'
+
+import { Footer } from '@/components/shared/Footer'
+import { SCREEN } from '@/utils/constants/screen'
 
 export function Home() {
   return (
@@ -14,10 +15,10 @@ export function Home() {
         </YStack> */}
 
         <Marketing />
-        {/* 
+
         <YStack mt={40}>
           <LeadsCapture />
-        </YStack> */}
+        </YStack>
 
         <Footer />
       </ScrollView>

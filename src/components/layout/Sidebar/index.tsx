@@ -30,8 +30,6 @@ export function Sidebar() {
     handleNavigation,
   } = useSidebar()
 
-  console.log({ categories })
-
   return (
     <SafeAreaView>
       <YStack py={24} h={SCREEN.height} px={SCREEN.paddingX} bg='$gray50'>

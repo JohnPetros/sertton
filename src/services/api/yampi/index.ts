@@ -4,6 +4,7 @@ import { useHttp } from '../http'
 
 import { YampiBannersController } from './controllers/YampiBannersController'
 import { YampiCategoriesController } from './controllers/YampiCategoriesController'
+import { YampiCheckoutController } from './controllers/YampiCheckoutController'
 import { YampiCollectionsController } from './controllers/YampiCollectionsController'
 import { YampiLeadsController } from './controllers/YampiLeadsController'
 import { YampiProductsController } from './controllers/YampiProductsController'
@@ -28,6 +29,7 @@ export function useYampiApi() {
 
     return {
       ...YampiBannersController(http),
+      ...YampiCheckoutController(http),
       ...YampiCategoriesController(http),
       ...YampiCollectionsController(http),
       ...YampiProductsController(http),
