@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { useHttp } from '../http'
 
 import { YampiBannersController } from './controllers/YampiBannersController'
+import { YampiBrandsController } from './controllers/YampiBrandsController'
 import { YampiCategoriesController } from './controllers/YampiCategoriesController'
 import { YampiCheckoutController } from './controllers/YampiCheckoutController'
 import { YampiCollectionsController } from './controllers/YampiCollectionsController'
@@ -29,6 +30,7 @@ export function useYampiApi() {
 
     return {
       ...YampiBannersController(http),
+      ...YampiBrandsController(http),
       ...YampiCheckoutController(http),
       ...YampiCategoriesController(http),
       ...YampiCollectionsController(http),

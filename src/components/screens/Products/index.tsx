@@ -1,5 +1,6 @@
 import { X } from 'phosphor-react-native'
-import { Button,  getTokens, getTokens, getTokens } from 'tamagui'
+
+import { Button, H2, Paragraph, YStack, getTokens } from 'tamagui'
 import { XStack } from 'tamagui'
 
 import { ProductsList } from './ProductsList'
@@ -29,23 +30,23 @@ export function Products() {
       {category && (
         <YStack mt={12}>
           <XStack gap={12}>
-            <H2 fontSize={16} color="$gray600">
+            <H2 fontSize={16} color='$gray600'>
               {category.name}
             </H2>
             <Button
               unstyled
               fontSize={12}
-              alignSelf="center"
-              alignItems="center"
-              flexDirection="row"
-              color="$white"
-              bg="$gray200"
+              alignSelf='center'
+              alignItems='center'
+              flexDirection='row'
+              color='$white'
+              bg='$gray200'
               borderRadius={8}
               paddingHorizontal={8}
               pressStyle={{ opacity: 0.7 }}
               onPress={handleRemoveCategory}
             >
-              <X size={16} color={getTokens().color.white.val} weight="bold" />
+              <X size={16} color={getTokens().color.white.val} weight='bold' />
               Remover categoria
             </Button>
           </XStack>

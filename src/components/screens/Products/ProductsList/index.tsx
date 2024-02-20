@@ -1,8 +1,8 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
-import { ArrowsDownUp, Faders, MagnifyingGlass } from 'phosphor-react-native'
 import { useCallback } from 'react'
-import { FlatList, View as ListContainer } from 'react-native'
-import { RefreshControl } from 'react-native-gesture-handler'
+import { FlatList, RefreshControl, View as ListContainer } from 'react-native'
+
+import { ArrowsDownUp, Faders, MagnifyingGlass } from 'phosphor-react-native'
+
 import { Button, Spinner, View, XStack, YStack, getTokens } from 'tamagui'
 
 // import { useTags } from './Tag/useTags'
@@ -10,20 +10,24 @@ import { Button, Spinner, View, XStack, YStack, getTokens } from 'tamagui'
 // import { Tag } from './Tag'
 import { useProductsList } from './useProductList'
 
+import { productsMock } from '@/__tests__/mocks/core/productsMock'
+
 import type { Product } from '@/@types/Product'
 import { Sorter } from '@/@types/Sorter'
-import { productsMock } from '@/__tests__/mocks/core/productsMock'
+
+import { useTags } from './Tag/useTags'
+
+import { Tag } from './Tag'
+
 import { EmptyListMessage } from '@/components/shared/EmptyListMessage'
-// import { EmptyItemsMessage } from '@/components/shared/EmptyItemsMessage'
-// import { Loading } from '@/components/shared/Loading'
+// import { EmptyItemsMessage } from '@/components
+import { Loading } from '@/components/shared/Loading'
 import { ProductItem } from '@/components/shared/ProductItem'
 import { Select } from '@/components/shared/Select'
+
+import { FiltersDialog } from '@/components/shared/FiltersDialog'
 import { SCREEN } from '@/utils/constants/screen'
 import { SORTERS } from '@/utils/constants/sorters'
-// import { SORTERS } from '@/utils/constants/sorters'
-
-const ICON_COLOR = getTokens().color.gray800.val
-const ICON_SIZE = 16
 
 export type ProductsListProps = {
   products: Product[]
@@ -55,8 +59,11 @@ export function ProductsList({
     setSelectedSorter,
     onEndReached,
   })
-  // const { brands, tags, handleTag } = useTags()
-  const bottomTabBarHeight = useBottomTabBarHeight()
+
+  const ICON_COLOR = getTokens().color.gray800.val
+  const ICON_SIZE = 16
+
+  const { brands, tags, handleTag } = useTags()
 
   const keyExtractor = useCallback((item: Product) => item.id.toString(), [])
 
@@ -74,7 +81,7 @@ export function ProductsList({
   }
 
   return (
-    <YStack pb={bottomTabBarHeight}>
+    <YStack pb={SCREEN.tabsPaddingBottom}>
       <XStack justifyContent='space-between' my={12}>
         <Select
           ariaLabel='Ordenar produtos por'
@@ -84,25 +91,28 @@ export function ProductsList({
           onChange={handleSelectChange}
         />
 
-        {/* <FiltersDialog brands={brands}>
+        <FiltersDialog brands={brands}>
           <Button
             unstyled
-            icon={<ArrowsDownUp size={16} weight="bold" />}
-            color="$gray800"
+            icon={<ArrowsDownUp size={16} weight='bold' />}
+            color='$gray800'
             fontSize={12}
-            alignSelf="center"
-            alignItems="center"
-            flexDirection="row"
+            alignSelf='center'
+            alignItems='center'
+            flexDirection='row'
             disabled={isFiltersDialogLoading}
+            pressStyle={{
+              opacity: 0.7,
+            }}
             onPress={handleFiltersDialogButton}
           >
             <Faders color={ICON_COLOR} size={ICON_SIZE} />
-            {isFiltersDialogLoading ? <Spinner color="$gray800" /> : 'Filtrar'}
+            {isFiltersDialogLoading ? <Spinner color='$gray800' /> : 'Filtrar'}
           </Button>
-        </FiltersDialog> */}
+        </FiltersDialog>
       </XStack>
 
-      {/* <XStack flexWrap="wrap" gap={8} mb={tags.length > 0 ? 8 : 0}>
+      <XStack flexWrap='wrap' gap={8} mb={tags.length > 0 ? 8 : 0}>
         {tags.map((tag) => (
           <Tag
             key={tag.id}
@@ -112,7 +122,7 @@ export function ProductsList({
             onPress={handleTag}
           />
         ))}
-      </XStack> */}
+      </XStack>
 
       {isLoading ? (
         <FlatList
@@ -152,13 +162,13 @@ export function ProductsList({
             onEndReached={handleListEndReached}
             ListFooterComponent={
               hasNextPage ? (
-                <View mt={-64}>
+                <View mt={-80}>
                   <Loading size={150} message='carregando mais produtos...' />
                 </View>
               ) : null
             }
             ListEmptyComponent={
-              <View h={SCREEN.height / 2}>
+              <View>
                 <EmptyListMessage
                   title='Oh não...'
                   subtitle='Nenhum produto foi encontrado'
@@ -168,7 +178,7 @@ export function ProductsList({
             }
             scrollEnabled={!isLoading}
             contentContainerStyle={{
-              paddingBottom: bottomTabBarHeight * 4 + 200,
+              paddingBottom: SCREEN.tabsPaddingBottom,
             }}
           />
         </ListContainer>

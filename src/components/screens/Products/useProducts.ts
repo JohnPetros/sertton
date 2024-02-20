@@ -46,6 +46,7 @@ export function useProducts() {
   })
 
   async function getProducts(page: number) {
+    console.log({ api })
     const { products, totalPages } = await api.getProducts({
       page,
       search,

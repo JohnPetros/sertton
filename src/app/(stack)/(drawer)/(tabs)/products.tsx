@@ -1,9 +1,5 @@
-import { Text, YStack } from 'tamagui'
+import { Products } from '@/components/screens/Products'
 
 export default function ProductsScreen() {
-  return (
-    <YStack>
-      <Text>ggg</Text>
-    </YStack>
-  )
+  return <Products />
 }

@@ -38,7 +38,7 @@ export function useSidebar() {
   function handleCategory(categoryId: string) {
     setIsLoading(true)
     setCategoryId(categoryId)
-    router.push('/(stack)/privacy-policy')
+    router.push('/(stack)/(drawer)/(tabs)/products')
   }
 
   function handleNavigation(route: AllRoutes) {

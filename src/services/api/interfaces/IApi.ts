@@ -1,3 +1,4 @@
+import { IBrandsController } from '../yampi/adapters/YampiBrandsController'
 import { IBannersController } from './IBannersController'
 import { ICategoriesController } from './ICategoriesController'
 import { ICheckoutController } from './ICheckoutController'
@@ -7,6 +8,7 @@ import { IProductsController } from './IProductsController'
 
 export interface IApi
   extends IBannersController,
+  IBrandsController,
   ICategoriesController,
   ICheckoutController,
   ICollectionsController,
