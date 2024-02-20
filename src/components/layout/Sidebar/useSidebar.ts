@@ -6,27 +6,26 @@ import { useEffect, useState } from 'react'
 // import { useAppError } from '../../shared/AppError/useAppError'
 
 import { useCache } from '@/services/cache'
-// import { useProductsFilterStore } from '@/stores/productsFilterStore'
+import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
 import { CACHE } from '@/utils/constants/cache'
 import { useDrawerStatus } from '@react-navigation/drawer'
-// import { ROUTES } from '@/utils/constants/routes'
 
 export function useSidebar() {
   const [canShowAllCategories, setCanShowAllCategories] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  // const setCategoryId = useProductsFilterStore(
-  //   (store) => store.actions.setCategoryId
-  // )
+  const setCategoryId = useProductsFilterStore(
+    (store) => store.actions.setCategoryId
+  )
 
   const api = useApi()
   const router = useRouter()
   const isOpen = useDrawerStatus()
   // const { throwAppError } = useAppError()
 
-  // const { data: categories, error } = useCache({
-  //   key: CACHE.keys.categories,
-  //   fetcher: api.getCategories,
-  // })
+  const { data: categories, error } = useCache({
+    key: CACHE.keys.categories,
+    fetcher: api.getCategories,
+  })
 
   // if (error) {
   //   throwAppError('Error ao mostrar categorias')
@@ -38,7 +37,7 @@ export function useSidebar() {
 
   function handleCategory(categoryId: string) {
     setIsLoading(true)
-    // setCategoryId(categoryId)
+    setCategoryId(categoryId)
     router.push('/(stack)/privacy-policy')
   }
 
@@ -48,14 +47,14 @@ export function useSidebar() {
     router.push(route)
   }
 
-  // useEffect(() => {
-  //   if (isOpen === 'closed') setIsLoading(false)
-  // }, [isOpen])
+  useEffect(() => {
+    if (isOpen === 'closed') setIsLoading(false)
+  }, [isOpen])
 
   return {
     canShowAllCategories,
     isLoading,
-    categories: [],
+    categories,
     handleCategory,
     handleShowAllCategories,
     handleNavigation,

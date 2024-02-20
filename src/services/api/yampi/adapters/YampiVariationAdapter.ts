@@ -2,7 +2,7 @@ import type { YampiVariation } from '../types/YampiVariation'
 
 import { Variation } from '@/@types/Variation'
 
-export function YampiVariationAdapter(yampiVariation: YampiVariation) {
+export const YampiVariationAdapter = (yampiVariation: YampiVariation) => {
   const variation: Variation = {
     id: String(yampiVariation.id),
     name: yampiVariation.name,

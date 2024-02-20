@@ -5,7 +5,7 @@ import { YampiVariationAdapter } from './YampiVariationAdapter'
 
 import type { Sku } from '@/@types/Sku'
 
-export function YampiSkuAdapter(yampiSku: YampiSku) {
+export const YampiSkuAdapter = (yampiSku: YampiSku) => {
   const imageUrl = yampiSku.images ? YampiImageAdapter(yampiSku.images.data[0]) : ''
   const variations =
     yampiSku.variations.length > 0 ? yampiSku.variations.map(YampiVariationAdapter) : []

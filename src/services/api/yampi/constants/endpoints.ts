@@ -4,7 +4,7 @@ export const ENDPOINTS = {
   banner: 'banners',
   product: 'products',
   clients: 'clients',
-  categorie: 'categories',
+  category: 'categories',
   variation: 'variations',
   skus: 'skus',
   brand: 'brands',

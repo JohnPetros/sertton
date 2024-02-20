@@ -1,14 +1,14 @@
 import { useHttp } from './http'
 import { IApi } from './interfaces/IApi'
-import { useYampi } from './yampi'
+import { useYampiApi } from './yampi'
 
 export function useApi(): IApi {
-  const yampi = useYampi()
+  const yampiApi = useYampiApi()
 
   const http = useHttp()
 
   const api = {
-    ...yampi,
+    ...yampiApi,
     handleError: <Error>(error: unknown) => http.handleError(error) as Error,
   }
 
