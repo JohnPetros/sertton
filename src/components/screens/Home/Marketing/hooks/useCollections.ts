@@ -8,7 +8,7 @@ export function useCollections() {
   // const { throwAppError } = useAppError()
 
   async function getProductsByCollection(collectionId: string) {
-    return await api.getProductsByCollection(collectionId)
+    return await api.getProductsByCollectionId(collectionId)
   }
 
   async function getCollections() {
@@ -32,6 +32,7 @@ export function useCollections() {
       return collections
     } catch (error) {
       api.handleError(error)
+      console.error(error)
       // throwAppError('Erro ao mostrar coleções')
     }
   }

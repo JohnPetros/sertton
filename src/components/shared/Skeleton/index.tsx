@@ -1,8 +1,9 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { ReactNode } from 'react'
+import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
 import { YStack, YStackProps } from 'tamagui'
 
-// const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
+const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient)
 
 type SkeletonProps = {
   children?: ReactNode
@@ -14,9 +15,9 @@ type SkeletonProps = {
 export function Skeleton({ children, width, height, isVisible, ...rest }: SkeletonProps) {
   return (
     <YStack accessible={true} {...rest}>
-      {/* <ShimmerPlaceholder width={width} height={height} visible={!isVisible}>
+      <ShimmerPlaceholder width={width} height={height} visible={!isVisible}>
         {children}
-      </ShimmerPlaceholder> */}
+      </ShimmerPlaceholder>
     </YStack>
   )
 }

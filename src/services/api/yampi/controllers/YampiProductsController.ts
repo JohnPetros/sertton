@@ -12,10 +12,14 @@ import { YampiProduct } from '../types/YampiProduct'
 
 export const YampiProductsController = (http: IHttp): IProductsController => {
   return {
-    async getProductsByCollection(collectionId: string) {
+    async getProductsByCollectionId(collectionId: string) {
+      console.log(`/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand&collection_id[]=${collectionId}`)
+
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand&collection_id[]=${collectionId}`
+        `/catalog/products?collection_id[]=${collectionId}`
       )
+
+      console.log({ response })
 
       return response.data.map(YampiProductAdapter)
     },

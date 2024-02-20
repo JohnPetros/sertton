@@ -1,15 +1,14 @@
 import { SCREEN } from '@/utils/constants/screen'
 import { ScrollView, YStack } from 'tamagui'
 
+import { Footer } from '@/components/shared/Footer'
+
 import { Marketing } from './Marketing'
 
 export function Home() {
   return (
     <YStack>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: SCREEN.tabsPaddingBottom }}
-      >
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* <YStack mt={12} mb={24} gap={24} px={SCREEN.paddingX}>
           <InformativeHighlights />
         </YStack> */}
@@ -20,7 +19,7 @@ export function Home() {
           <LeadsCapture />
         </YStack> */}
 
-        {/* <Footer /> */}
+        <Footer />
       </ScrollView>
     </YStack>
   )

@@ -13,7 +13,7 @@ export const YampiCollectionsController = (http: IHttp): ICollectionsController 
   return {
     async getCollections() {
       const response = await http.get<{ data: YampiCollection[] }>(
-        `/${RESOURCES.marketing}/${ENDPOINTS.banner}`
+        `/${RESOURCES.marketing}/${ENDPOINTS.banner}?includes=products`
       )
 
       return response.data.map(YampiCollectionAdapter)

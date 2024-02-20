@@ -1,21 +1,29 @@
-import { useFonts } from 'expo-font'
 import { useEffect } from 'react'
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
-import { SplashScreen, Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
 
-import { TamaguiProvider } from '@/providers/TamaguiProvider'
+import { useFonts } from 'expo-font'
+import { SplashScreen } from 'expo-router'
 
 import { injectHttpProvider } from '@/services/api/http'
 import { AxiosHttpProvider } from '@/services/api/http/axios'
 
+import { StyledSafeAreaView } from '@/components/shared/StyledSafeAreaView'
+
 import { Providers } from '../providers'
 import StackLayout from './(stack)/_layout'
+
+import { injectDateProvider } from '@/services/date'
+import { DayjsDateProvider } from '@/services/date/dayjs'
+import { injectValidationProvider } from '@/services/validation'
+import { ZodValidationProvider } from '@/services/validation/zod'
 
 export { ErrorBoundary } from 'expo-router'
 
 injectHttpProvider(AxiosHttpProvider)
+injectValidationProvider(ZodValidationProvider)
+injectDateProvider(DayjsDateProvider)
 
 SplashScreen.preventAutoHideAsync()
 
@@ -44,11 +52,13 @@ function RootLayoutNav() {
   return (
     <Providers>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        {/* <Stack>
+        <StyledSafeAreaView>
+          {/* <Stack>
           <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
           <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
         </Stack> */}
-        <StackLayout />
+          <StackLayout />
+        </StyledSafeAreaView>
       </ThemeProvider>
     </Providers>
   )
