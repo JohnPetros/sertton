@@ -9,6 +9,7 @@ import { YampiCheckoutController } from './controllers/YampiCheckoutController'
 import { YampiCollectionsController } from './controllers/YampiCollectionsController'
 import { YampiLeadsController } from './controllers/YampiLeadsController'
 import { YampiProductsController } from './controllers/YampiProductsController'
+import { YampiSkusController } from './controllers/YampiSkusController'
 
 const BASE_URL = process.env.EXPO_PUBLIC_YAMPI_BASE_URL
 const ALIAS = process.env.EXPO_PUBLIC_ALIAS
@@ -36,6 +37,7 @@ export function useYampiApi() {
       ...YampiCollectionsController(http),
       ...YampiProductsController(http),
       ...YampiLeadsController(http),
+      ...YampiSkusController(http),
     }
   }, [http])
 }

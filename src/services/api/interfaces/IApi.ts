@@ -5,6 +5,7 @@ import { ICheckoutController } from './ICheckoutController'
 import { ICollectionsController } from './ICollectionsController'
 import { ILeadsController } from './ILeadsController'
 import { IProductsController } from './IProductsController'
+import { ISkusController } from './ISkusController'
 
 export interface IApi
   extends IBannersController,
@@ -12,7 +13,8 @@ export interface IApi
   ICategoriesController,
   ICheckoutController,
   ICollectionsController,
+  ILeadsController,
   IProductsController,
-  ILeadsController {
+  ISkusController {
   handleError<Error>(error: unknown): Error
 }

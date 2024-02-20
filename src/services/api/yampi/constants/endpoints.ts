@@ -6,7 +6,7 @@ export const ENDPOINTS = {
   clients: 'clients',
   category: 'categories',
   variation: 'variations',
-  skus: 'skus',
+  sku: 'skus',
   brand: 'brands',
   similar: 'similars',
   comment: 'comments',
