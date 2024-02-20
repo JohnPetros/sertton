@@ -19,6 +19,9 @@
       "@/components/*": [
         "src/components/*"
       ],
+      "@/assets/*": [
+        "src/assets/*"
+      ],
       "@/providers/*": [
         "src/providers/*"
       ],
