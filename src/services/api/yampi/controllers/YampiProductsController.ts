@@ -31,26 +31,30 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
       )
       const { data, meta } = response
 
+      console.log('meta', meta.pagination.count)
+
       const products: Product[] = data.map(YampiProductAdapter)
+
       return {
         products,
-        totalPages: meta.pagination.total_pages,
+        totalProductsCount: meta.pagination.count,
       }
     },
 
     async getProductsByCollectionId(collectionId: string) {
-      console.log(`/catalog/products?include=images,skus,brand&collection_id[]=${collectionId}`)
-
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/catalog/products?collection_id[]=${collectionId}`
+        `/catalog/collections/${collectionId}/products?include=images,skus,brand,texts`
       )
 
       return response.data.map(YampiProductAdapter)
     },
 
     async getProductBySlug(slug: string) {
+      console.log(`/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`)
+
+
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
+        `/${RESOURCES.catalog}/${ENDPOINTS.collection}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
       )
 
       console.log('getProductBySlug', response)

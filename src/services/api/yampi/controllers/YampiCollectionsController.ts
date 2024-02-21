@@ -2,7 +2,7 @@ import { IHttp } from '../../http/interfaces/IHttp'
 
 import { ICollectionsController } from '../../interfaces/ICollectionsController'
 
-import { YampiBannerAdapter } from '../adapters/YampiBannerAdapter'
+
 import { YampiCollectionAdapter } from '../adapters/YampiCollectionAdapter'
 
 import { ENDPOINTS } from '../constants/endpoints'
@@ -13,7 +13,7 @@ export const YampiCollectionsController = (http: IHttp): ICollectionsController 
   return {
     async getCollections() {
       const response = await http.get<{ data: YampiCollection[] }>(
-        `/${RESOURCES.marketing}/${ENDPOINTS.banner}?includes=products`
+        `/${RESOURCES.catalog}/${ENDPOINTS.collection}?include=products`
       )
 
       return response.data.map(YampiCollectionAdapter)
