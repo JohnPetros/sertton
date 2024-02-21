@@ -12,7 +12,7 @@ type getProductsParams = {
 export interface IProductsController {
   getProducts(
     params: getProductsParams
-  ): Promise<{ products: Product[]; totalPages: number }>
+  ): Promise<{ products: Product[]; totalProductsCount: number }>
   getProductsByCollectionId(collectionId: string): Promise<Product[]>
   getProductBySlug(slug: string): Promise<Product>
   getSimiliarProducts(id: string): Promise<Product[]>

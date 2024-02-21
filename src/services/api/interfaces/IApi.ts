@@ -1,5 +1,5 @@
-import { IBrandsController } from '../yampi/adapters/YampiBrandsController'
 import { IBannersController } from './IBannersController'
+import { IBrandsController } from './IBrandsController'
 import { ICategoriesController } from './ICategoriesController'
 import { ICheckoutController } from './ICheckoutController'
 import { ICollectionsController } from './ICollectionsController'
