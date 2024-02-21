@@ -1,0 +1,13 @@
+import '../mocks/providers/ProvidersFixBug'
+
+import { renderHook } from '@testing-library/react-native'
+
+import { Providers } from '@/providers/index'
+
+function customRenderHook<Result, Props>(hook: (props: unknown) => Result) {
+  return renderHook<Result, Props>(hook, {
+    wrapper: ({ children }) => <Providers>{children}</Providers>,
+  })
+}
+
+export { customRenderHook as renderHook }
