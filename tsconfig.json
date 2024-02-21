@@ -34,7 +34,7 @@
       "@/utils/*": [
         "src/utils/*"
       ],
-      "@/__tests__/*": [
+      "@/_tests_/*": [
         "src/_tests_/*"
       ]
     }
