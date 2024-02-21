@@ -22,7 +22,7 @@ export function useSkuSelectors(
     [`skus?product_id=${productId}`, productId],
     () => api.getSkusByProductId(productId),
     {
-      enabled: !!productId,
+      enabled: Boolean(productId),
     }
   )
 

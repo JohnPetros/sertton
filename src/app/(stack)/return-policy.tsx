@@ -1,5 +1,5 @@
-import { Text } from 'tamagui'
+import { ReturnPolicy } from '@/components/screens/ReturnPolicy'
 
 export default function ReturnPolicyScreen() {
-  return <Text>privacy-policy</Text>
+  return <ReturnPolicy />
 }

@@ -81,7 +81,7 @@ export function ProductsList({
   }
 
   return (
-    <YStack pb={SCREEN.tabsPaddingBottom}>
+    <YStack pb={SCREEN.paddingBottom}>
       <XStack justifyContent='space-between' my={12}>
         <Select
           ariaLabel='Ordenar produtos por'
@@ -178,7 +178,7 @@ export function ProductsList({
             }
             scrollEnabled={!isLoading}
             contentContainerStyle={{
-              paddingBottom: SCREEN.tabsPaddingBottom,
+              paddingBottom: SCREEN.paddingBottom,
             }}
           />
         </ListContainer>

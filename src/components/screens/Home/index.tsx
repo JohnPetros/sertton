@@ -10,7 +10,7 @@ import { SCREEN } from '@/utils/constants/screen'
 
 export function Home() {
   return (
-    <YStack pb={SCREEN.tabsPaddingBottom}>
+    <YStack pb={SCREEN.paddingBottom}>
       <YStack px={SCREEN.paddingX} pb={12}>
         <Header />
         <Search />

@@ -1,5 +1,5 @@
-import { Text } from 'tamagui'
+import { TermsAndConditions } from '@/components/screens/Home/TermsAndConditions'
 
 export default function TermsAndConditionsScreen() {
-  return <Text>privacy-policy</Text>
+  return <TermsAndConditions />
 }

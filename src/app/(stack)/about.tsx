@@ -1,5 +1,5 @@
-import { Text } from 'tamagui'
+import { About } from '@/components/screens/About'
 
 export default function about() {
-  return <Text>about</Text>
+  return <About />
 }

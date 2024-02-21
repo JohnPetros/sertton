@@ -1,3 +1,5 @@
+import { PrivacyPolicy } from '@/components/screens/PrivacyPolicy'
+
 export default function PrivacyPolicyScreen() {
-  return <div>privacy-policy</div>
+  return <PrivacyPolicy />
 }

@@ -5,6 +5,7 @@ import { immer } from 'zustand/middleware/immer'
 import { INITIAL_CART_STORE_STATE } from './constants/initial-cart-store-state'
 import { CartStoreProps } from './types/CartStoreProps'
 
+import { MmkvStorageProvider } from '@/services/storage/mmkv'
 import { STORAGE } from '@/utils/constants/storage'
 
 const cartStore: StateCreator<
@@ -56,7 +57,7 @@ export const useCartStore = create(
   persist(immer(cartStore), {
     version: 1,
     name: STORAGE.keys.cart,
-    // storage: createJSONStorage(() => mmkvStorageProvider),
+    // storage: createJSONStorage(MmkvStorageProvider),
     partialize: (state) => {
       return Object.fromEntries(
         Object.entries(state).filter(([key]) => !['actions'].includes(key))
