@@ -11,6 +11,8 @@ eas.json
 # but map can be ignored and just published on npm
 **/types/**/*.d.ts.map
 
+android
+
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
