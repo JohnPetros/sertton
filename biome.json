@@ -40,7 +40,7 @@
       },
       "performance": {
         "noDelete": "warn",
-        "noAccumulatingSpread": "warn"
+        "noAccumulatingSpread": "off"
       },
       "complexity": {
         "noForEach": "warn",
