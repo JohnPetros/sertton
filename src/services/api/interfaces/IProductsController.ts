@@ -14,6 +14,6 @@ export interface IProductsController {
     params: getProductsParams
   ): Promise<{ products: Product[]; totalPages: number }>
   getProductsByCollectionId(collectionId: string): Promise<Product[]>
-  // getProductBySlug(slug: string): Promise<Product>
-  // getSimiliarProducts(id: string): Promise<Product[]>
+  getProductBySlug(slug: string): Promise<Product>
+  getSimiliarProducts(id: string): Promise<Product[]>
 }

@@ -1,95 +1,95 @@
-// import { useCallback, useEffect, useRef, useState } from 'react'
-// import { useQuery } from 'react-query'
-// import { useFocusEffect, useRouter } from 'expo-router'
-// import { ScrollView } from 'tamagui'
+import { useFocusEffect, useRouter } from 'expo-router'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useQuery } from 'react-query'
 
-// import type { Sku } from '@/@types/sku'
-// // import type { SkuSelectsRef } from '@/components/shared/SkuSelects/types/SkuSelectsRef'
-// import { useApi } from '@/services/api'
-// // import { useCartStore } from '@/stores/cartStore'
-// import { ROUTES } from '@/utils/constants/routes'
-// // import { useRefetchOnFocus } from '@/utils/hooks/useRefetchOnFocus'
+import { ScrollView } from 'tamagui'
 
-// export function useProductDetails(slug: string) {
-//   const api = useApi()
+import type { Sku } from '@/@types/Sku'
+import { SkuSelectorsRef } from '@/components/shared/SkuSelectors/types/SkuSelectorsRef'
 
-//   const {
-//     data: product,
-//     isLoading: isProductLoading,
-//     refetch,
-//   } = useQuery(['product', slug], () => api.getProductBySlug(slug))
+import { useApi } from '@/services/api'
+import { useCartStore } from '@/stores/CartStore'
 
-//   const { data: similarProducts } = useQuery(
-//     ['similiar_products', product?.id],
-//     () => api.getSimiliarProducts(String(product?.id)),
-//     {
-//       enabled: !!product?.id,
-//     }
-//   )
+export function useProductDetails(slug: string) {
+  const api = useApi()
 
-//   const addItem = useCartStore((store) => store.actions.addItem)
+  const {
+    data: product,
+    isLoading: isProductLoading,
+    refetch,
+  } = useQuery(['product', slug], () => api.getProductBySlug(slug))
 
-//   const [isLoading, setIsLoading] = useState(isProductLoading)
-//   const [selectedSku, setSelectedSku] = useState<Sku | null>(null)
-//   const skuSelectsRef = useRef<SkuSelectsRef | null>(null)
-//   const scrollRef = useRef<ScrollView | null>(null)
-//   const quantity = useRef(1)
+  const { data: similarProducts } = useQuery(
+    ['similiar_products', product?.id],
+    () => api.getSimiliarProducts(String(product?.id)),
+    {
+      enabled: !!product?.id,
+    }
+  )
 
-//   const router = useRouter()
+  const addItem = useCartStore((store) => store.actions.addItem)
 
-//   const hasVariations = Boolean(
-//     skuSelectsRef.current?.selectedSku?.variations.length
-//   )
+  const [isLoading, setIsLoading] = useState(isProductLoading)
+  const [selectedSku, setSelectedSku] = useState<Sku | null>(null)
+  const skuSelectsRef = useRef<SkuSelectorsRef | null>(null)
+  const scrollRef = useRef<ScrollView | null>(null)
+  const quantity = useRef(1)
 
-//   function handleSkuChange(sku: Sku) {
-//     setSelectedSku(sku)
-//   }
+  const router = useRouter()
 
-//   function handleQuantityChange(newQuantity: number) {
-//     quantity.current = newQuantity
-//   }
+  const hasVariations = Boolean(
+    skuSelectsRef.current?.selectedSku?.variations.length
+  )
 
-//   function handleAddToCart() {
-//     const shouldAddTocart = skuSelectsRef.current?.onAddSkuToCart()
+  function handleSkuChange(sku: Sku) {
+    setSelectedSku(sku)
+  }
 
-//     if (hasVariations && !shouldAddTocart) return
+  function handleQuantityChange(newQuantity: number) {
+    quantity.current = newQuantity
+  }
 
-//     if (product && selectedSku) {
-//       addItem({
-//         slug: product.slug,
-//         skuId: selectedSku.id,
-//         quantity: quantity.current,
-//       })
-//       router.push(ROUTES.cart)
-//     }
-//   }
+  function handleAddToCart() {
+    const shouldAddTocart = skuSelectsRef.current?.onAddSkuToCart()
 
-//   useEffect(() => {
-//     if (selectedSku) setIsLoading(false)
-//   }, [selectedSku])
+    if (hasVariations && !shouldAddTocart) return
 
-//   useFocusEffect(
-//     useCallback(() => {
-//       return () => {
-//         setIsLoading(true)
-//         setSelectedSku(null)
-//         scrollRef.current?.scrollTo({ y: 0 })
-//         quantity.current = 1
-//       }
-//     }, [product])
-//   )
+    if (product && selectedSku) {
+      addItem({
+        slug: product.slug,
+        skuId: selectedSku.id,
+        quantity: quantity.current,
+      })
+      router.push('/(stack)/(drawer)/(tabs)/cart')
+    }
+  }
 
-//   return {
-//     product,
-//     similarProducts,
-//     scrollRef,
-//     skuSelectsRef,
-//     selectedSku,
-//     isLoading: isLoading || isProductLoading,
-//     hasVariations,
-//     quantity: quantity.current,
-//     handleAddToCart,
-//     handleQuantityChange,
-//     handleSkuChange,
-//   }
-// }
+  useEffect(() => {
+    if (selectedSku) setIsLoading(false)
+  }, [selectedSku])
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        setIsLoading(true)
+        setSelectedSku(null)
+        scrollRef.current?.scrollTo({ y: 0 })
+        quantity.current = 1
+      }
+    }, [])
+  )
+
+  return {
+    product,
+    similarProducts,
+    scrollRef,
+    skuSelectsRef,
+    selectedSku,
+    isLoading: isLoading || isProductLoading,
+    hasVariations,
+    quantity: quantity.current,
+    handleAddToCart,
+    handleQuantityChange,
+    handleSkuChange,
+  }
+}

@@ -1,48 +1,53 @@
-// import { StyleSheet } from 'react-native'
-// // import { ReText } from 'react-native-redash'
-// import { getTokens, Text, XStack } from 'tamagui'
+import { StyleSheet } from 'react-native'
 
-// import { useTimer } from './useTimer'
+import { ReText } from 'react-native-redash'
 
-// type TimerProps = {
-//   initialHours: number
-//   initialMinutes: number
-//   initialSeconds: number
-//   fontSize?: number
-//   color?: 'primary' | 'secondary'
-// }
+import { Text, XStack, getTokens } from 'tamagui'
 
-// export function Timer({
-//   initialHours,
-//   initialMinutes,
-//   initialSeconds,
-//   fontSize = 24,
-//   color = 'primary',
-// }: TimerProps) {
-//   const { animatedHoursText, animatedMinutesText, animatedSecondsText } =
-//     useTimer({ initialHours, initialMinutes, initialSeconds })
+import { useTimer } from './useTimer'
 
-//   const colorToken = color === 'primary' ? 'blue500' : 'white'
+type TimerProps = {
+  initialHours: number
+  initialMinutes: number
+  initialSeconds: number
+  fontSize?: number
+  color?: 'primary' | 'secondary'
+}
 
-//   const reTextStyle = StyleSheet.create({
-//     style: {
-//       fontSize,
-//       fontWeight: '600',
-//       color: getTokens().color[colorToken].val,
-//     },
-//   })
+export function Timer({
+  initialHours,
+  initialMinutes,
+  initialSeconds,
+  fontSize = 24,
+  color = 'primary',
+}: TimerProps) {
+  const { animatedHoursText, animatedMinutesText, animatedSecondsText } = useTimer({
+    initialHours,
+    initialMinutes,
+    initialSeconds,
+  })
 
-//   return (
-//     <XStack alignItems="center" justifyContent="center" gap={2}>
-//       <ReText style={reTextStyle.style} text={animatedHoursText} />
-//       <Text color={`$${colorToken}`} fontWeight="600" fontSize={fontSize}>
-//         :
-//       </Text>
-//       <ReText style={reTextStyle.style} text={animatedMinutesText} />
-//       <Text color={`$${colorToken}`} fontWeight="600" fontSize={fontSize}>
-//         :
-//       </Text>
-//       <ReText style={reTextStyle.style} text={animatedSecondsText} />
-//     </XStack>
-//   )
-// }
+  const colorToken = color === 'primary' ? 'blue500' : 'white'
+
+  const reTextStyle = StyleSheet.create({
+    style: {
+      fontSize,
+      fontWeight: '600',
+      color: getTokens().color[colorToken].val,
+    },
+  })
+
+  return (
+    <XStack alignItems='center' justifyContent='center' gap={2}>
+      <ReText style={reTextStyle.style} text={animatedHoursText} />
+      <Text color={`$${colorToken}`} fontWeight='600' fontSize={fontSize}>
+        :
+      </Text>
+      <ReText style={reTextStyle.style} text={animatedMinutesText} />
+      <Text color={`$${colorToken}`} fontWeight='600' fontSize={fontSize}>
+        :
+      </Text>
+      <ReText style={reTextStyle.style} text={animatedSecondsText} />
+    </XStack>
+  )
+}

@@ -1,4 +1,5 @@
 import { ForwardedRef, forwardRef, useImperativeHandle } from 'react'
+
 import { Spinner } from 'tamagui'
 
 import { Select } from '../Select'
@@ -15,7 +16,7 @@ type SkuSelectsProps = {
   onSkuChange?: (sku: Sku) => void
 }
 
-export const SkuSelectorsComponent = (
+const SkuSelectorsComponent = (
   { productId, isDisabled, onSkuChange }: SkuSelectsProps,
   ref: ForwardedRef<SkuSelectorsRef>
 ) => {

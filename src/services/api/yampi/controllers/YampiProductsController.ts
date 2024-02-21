@@ -39,13 +39,29 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
     },
 
     async getProductsByCollectionId(collectionId: string) {
-      console.log(`/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand&collection_id[]=${collectionId}`)
+      console.log(`/catalog/products?include=images,skus,brand&collection_id[]=${collectionId}`)
 
       const response = await http.get<{ data: YampiProduct[] }>(
         `/catalog/products?collection_id[]=${collectionId}`
       )
 
-      console.log({ response })
+      return response.data.map(YampiProductAdapter)
+    },
+
+    async getProductBySlug(slug: string) {
+      const response = await http.get<{ data: YampiProduct[] }>(
+        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
+      )
+
+      console.log('getProductBySlug', response)
+
+      return YampiProductAdapter(response.data[0])
+    },
+
+    async getSimiliarProducts(id: string) {
+      const response = await http.get<{ data: YampiProduct[] }>(
+        `/${RESOURCES.catalog}/${ENDPOINTS.product}/${id}/${ENDPOINTS.similar}?include=images,skus,brand`
+      )
 
       return response.data.map(YampiProductAdapter)
     },

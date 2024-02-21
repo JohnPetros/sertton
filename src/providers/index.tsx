@@ -1,4 +1,6 @@
 import { ReactNode } from 'react'
+
+import { PortalProvider } from '@gorhom/portal'
 import { CacheProvider } from './CacheProvider'
 import { TamaguiProvider } from './TamaguiProvider'
 
@@ -9,7 +11,9 @@ type ProvidersProps = {
 export function Providers({ children }: ProvidersProps) {
   return (
     <CacheProvider>
-      <TamaguiProvider>{children}</TamaguiProvider>
+      <TamaguiProvider>
+        <PortalProvider>{children}</PortalProvider>
+      </TamaguiProvider>
     </CacheProvider>
   )
 }
