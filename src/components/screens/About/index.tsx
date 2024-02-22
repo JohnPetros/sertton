@@ -5,15 +5,15 @@ import { Contacts } from '@/components/shared/Contacts'
 import { Indentification } from '@/components/shared/Identification'
 import { Logo } from '@/components/shared/Logo'
 
+import { ScreenTitle } from '@/components/shared/ScreenTitle'
 import { SCREEN } from '@/utils/constants/screen'
 
 export function About() {
   return (
     <YStack px={SCREEN.paddingX}>
       <BackButton />
-      <H1 fontSize={24} color='$gray800'>
-        Sobre a Sertton Industrial
-      </H1>
+      <ScreenTitle>Sobre a Sertton Industrial</ScreenTitle>
+
       <ScrollView
         // contentContainerStyle={{ paddingBottom: SCREEN.paddingBottom }}
         showsVerticalScrollIndicator={false}

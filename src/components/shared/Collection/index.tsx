@@ -51,8 +51,8 @@ export function Collection({ name, products, isLoading }: CollectionProps) {
             </View>
           )}
           horizontal
-          initialNumToRender={2}
-          maxToRenderPerBatch={2}
+          initialNumToRender={3}
+          maxToRenderPerBatch={3}
           getItemLayout={(_, index) => ({
             index,
             length: PRODUCT_WIDTH + PRODUCTS_LIST_GAP,

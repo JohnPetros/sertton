@@ -7,5 +7,5 @@ export const SCREEN = {
   width,
   height,
   paddingX: 24,
-  tabsPaddingBottom: TAB_BAR_HEIGHT * 2,
+  paddingBottom: TAB_BAR_HEIGHT * 2,
 }

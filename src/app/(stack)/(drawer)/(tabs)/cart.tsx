@@ -1,9 +1,5 @@
-import { Text, YStack } from 'tamagui'
+import { Cart } from '@/components/shared/Cart'
 
 export default function CartScreen() {
-  return (
-    <YStack>
-      <Text>ggg</Text>
-    </YStack>
-  )
+  return <Cart />
 }

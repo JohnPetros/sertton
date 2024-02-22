@@ -3,15 +3,16 @@ import { H1, H2, Paragraph, ScrollView, YStack } from 'tamagui'
 import { Accordion } from '@/components/shared/Accordion'
 import { BackButton } from '@/components/shared/BackButton'
 import { List } from '@/components/shared/List'
+import { ScreenTitle } from '@/components/shared/ScreenTitle'
+
 import { SCREEN } from '@/utils/constants/screen'
 
 export function TermsAndConditions() {
   return (
     <YStack px={SCREEN.paddingX}>
       <BackButton />
-      <H1 fontSize={24} color='$gray800'>
-        Termos e condições
-      </H1>
+      <ScreenTitle>Termos e condições</ScreenTitle>
+
       <ScrollView
         contentContainerStyle={{ paddingBottom: SCREEN.paddingBottom }}
         showsVerticalScrollIndicator={false}

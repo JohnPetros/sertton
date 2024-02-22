@@ -57,7 +57,7 @@ export const useCartStore = create(
   persist(immer(cartStore), {
     version: 1,
     name: STORAGE.keys.cart,
-    // storage: createJSONStorage(MmkvStorageProvider),
+    storage: createJSONStorage(MmkvStorageProvider),
     partialize: (state) => {
       return Object.fromEntries(
         Object.entries(state).filter(([key]) => !['actions'].includes(key))

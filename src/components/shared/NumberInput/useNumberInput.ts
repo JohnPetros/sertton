@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 
+import { useDebouncedCallback } from 'use-debounce'
 import { NumberInputProps } from './types/NumberInputProps'
 
 export type UseNumberInputParams = Omit<NumberInputProps, 'label'>
@@ -13,6 +14,18 @@ export function useNumberInput({
 }: UseNumberInputParams) {
   const [numberValue, setNumberValue] = useState(number ?? 1)
 
+  function checkMaxValue(value: number) {
+    if (max && value > max) {
+      return true
+    }
+
+    return false
+  }
+
+  function handleInputValueChange(value: number) {
+    setNumberValue(value)
+  }
+
   function handleDecreaseValue() {
     const updatedNumber = numberValue - 1
 
@@ -24,7 +37,9 @@ export function useNumberInput({
   function handleIncreaseValue() {
     const updatedNumber = numberValue + 1
 
-    if (max && updatedNumber > max) {
+    const isOverMax = !checkMaxValue(updatedNumber)
+
+    if (isOverMax) {
       if (onReachMax) onReachMax()
       return
     }
@@ -32,17 +47,30 @@ export function useNumberInput({
     setNumberValue(updatedNumber)
   }
 
+  const debouncedHandleInputValueChange = useDebouncedCallback(handleInputValueChange, 2000)
+
+
   useEffect(() => {
+    if (!numberValue) return
+
+    const isOverMax = checkMaxValue(numberValue)
+
+    if (isOverMax) {
+      if (onReachMax) onReachMax()
+      if (max) setNumberValue(max)
+      return
+    }
     onChangeNumber(numberValue)
   }, [numberValue])
 
   useEffect(() => {
     onChangeNumber(number)
-  }, [number])
+  }, [number, onChangeNumber])
 
   return {
     numberValue,
     handleDecreaseValue,
     handleIncreaseValue,
+    handleInputValueChange,
   }
 }

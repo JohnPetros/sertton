@@ -7,7 +7,11 @@ import { Badge } from '@/components/shared/Badge'
 import { Button } from '@/components/shared/Button'
 import { TAB_BAR_HEIGHT } from 'src/utils/constants/tab-bar-height'
 
+import { useCartStore } from '@/stores/CartStore'
+
 export function Tabbar() {
+  const cartItemsQuantity = useCartStore((store) => store.state.items.length)
+
   return (
     <Tabs
       screenOptions={{
@@ -56,9 +60,9 @@ export function Tabbar() {
         options={{
           tabBarIcon: ({ focused }) => (
             <View position='relative'>
-              {/* {cartItemsQuantity >= 1 && (
-                <Badge number={cartItemsQuantity} isActive={focused} />
-              )} */}
+              {cartItemsQuantity >= 1 && (
+                <Badge isActive={focused}>{cartItemsQuantity.toString()}</Badge>
+              )}
               <Link href='/(stack)/(drawer)/(tabs)/cart' asChild>
                 <Button
                   background={focused ? 'primary' : 'outline'}

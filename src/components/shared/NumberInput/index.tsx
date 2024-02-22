@@ -1,6 +1,6 @@
 import { Minus, Plus } from 'phosphor-react-native'
 
-import { Text, View, XStack, getTokens } from 'tamagui'
+import { Input, View, XStack, getTokens } from 'tamagui'
 
 import { useNumberInput } from './useNumberInput'
 
@@ -23,7 +23,12 @@ export function NumberInput({
   onChangeNumber,
   onReachMax,
 }: NumberInputProps) {
-  const { numberValue, handleDecreaseValue, handleIncreaseValue } = useNumberInput({
+  const {
+    numberValue,
+    handleDecreaseValue,
+    handleIncreaseValue,
+    handleInputValueChange,
+  } = useNumberInput({
     number,
     min,
     max,
@@ -49,7 +54,17 @@ export function NumberInput({
         h={44}
         aria-label={label}
       >
-        <Text fontSize={16}>{numberValue}</Text>
+        <Input
+          keyboardType='numeric'
+          borderRadius={0}
+          borderWidth={0}
+          borderColor='$red100'
+          bg='$colorTransparent'
+          textAlign='center'
+          w='100%'
+          value={numberValue.toString()}
+          onChangeText={(value) => handleInputValueChange(Number(value))}
+        />
       </View>
 
       <Button

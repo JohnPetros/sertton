@@ -10,7 +10,7 @@ import { SCREEN } from '@/utils/constants/screen'
 import { useBanners } from './hooks/useBanners'
 import { useCollections } from './hooks/useCollections'
 
-import { collectionsMock } from '@/__tests__/mocks/core/collectionsMock'
+import { collectionsMock } from '@/_tests_/mocks/core/collectionsMock'
 
 export function Marketing() {
   const { banners, areBannersLoading } = useBanners()

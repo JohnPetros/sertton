@@ -3,15 +3,15 @@ import { Text } from 'tamagui'
 
 import { BackButton } from '@/components/shared/BackButton'
 import { Contacts } from '@/components/shared/Contacts'
+import { ScreenTitle } from '@/components/shared/ScreenTitle'
 import { SCREEN } from '@/utils/constants/screen'
 
 export function ReturnPolicy() {
   return (
     <YStack px={SCREEN.paddingX}>
       <BackButton />
-      <H1 fontSize={24} color='$gray800'>
-        Políticas de devolução
-      </H1>
+      <ScreenTitle>Políticas de devolução</ScreenTitle>
+
       <ScrollView
         // contentContainerStyle={{ paddingBottom: SCREEN. }}
         showsVerticalScrollIndicator={false}

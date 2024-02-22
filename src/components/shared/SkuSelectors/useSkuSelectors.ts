@@ -134,14 +134,14 @@ export function useSkuSelectors(
     variationNames: string[],
     allVariations: Variation[]
   ) {
-    const variationNamesAmount = variationNames.length
+    const variationNamesCount = variationNames.length
 
     for (const variation of allVariations) {
-      const variationsMatchesAmount = allVariations.filter(
+      const variationsMatchesCount = allVariations.filter(
         (currentVariation) => currentVariation.value === variation.value
       ).length
 
-      if (variationsMatchesAmount === variationNamesAmount) {
+      if (variationsMatchesCount === variationNamesCount) {
         return variation.name
       }
     }
@@ -166,6 +166,8 @@ export function useSkuSelectors(
 
     removeObjectFromArray<string>(variationNames.current, firstVariationName)
 
+    console.log({ firstVariationName })
+
     variationNames.current.unshift(firstVariationName)
 
     const nonRemainingvariations = removeRemainingVariations(firstVariationName)
@@ -188,6 +190,7 @@ export function useSkuSelectors(
         ...currentSelectedVariationValues,
         selectedVariationValue,
       ]
+
       const selectedSku = getSelectedSku()
 
       const allVariations = getAllVariations()

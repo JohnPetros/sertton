@@ -216,7 +216,6 @@ export const productsMock: Product[] = [
         width: 40,
         length: 40,
         imageUrl: 'http://image.png',
-
         variations: [
           {
             id: 'var-1001',

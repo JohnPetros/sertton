@@ -19,7 +19,7 @@ import { SkuSelectors } from '@/components/shared/SkuSelectors'
 import { SCREEN } from '@/utils/constants/screen'
 
 export function ProductDetails() {
-  const { product_slug } = useGlobalSearchParams()
+  const { productSlug } = useGlobalSearchParams()
 
   const {
     product,
@@ -33,7 +33,7 @@ export function ProductDetails() {
     handleAddToCart,
     handleQuantityChange,
     handleSkuChange,
-  } = useProductDetails(String(product_slug))
+  } = useProductDetails(String(productSlug))
   const bottomTabBarHeight = useBottomTabBarHeight()
 
   return (

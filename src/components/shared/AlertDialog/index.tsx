@@ -13,7 +13,7 @@ type AlertProps = {
   children?: ReactNode
 }
 
-export const AlertDialogComponent = (
+const AlertDialogComponent = (
   { onConfirm, onCancel, title, children: trigger }: AlertProps,
   ref: ForwardedRef<AlertDialogRef>
 ) => {
@@ -64,6 +64,8 @@ export const AlertDialogComponent = (
             textAlign='center'
             lineHeight={24}
             color='$gray800'
+            fontWeight='600'
+            letterSpacing={0.5}
           >
             {title}
           </AlertDialog.Title>

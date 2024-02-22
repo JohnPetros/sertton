@@ -2,7 +2,7 @@ import { Product } from '@/@types/Product'
 import { IHttp } from '../../http/interfaces/IHttp'
 
 import { IProductsController } from '../../interfaces/IProductsController'
-import { Meta } from '../../types/Meta'
+import { Meta } from '../types/Meta'
 
 import { YampiProductAdapter } from '../adapters/YampiProductAdapter'
 
@@ -31,13 +31,12 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
       )
       const { data, meta } = response
 
-      console.log('meta', meta.pagination.count)
-
       const products: Product[] = data.map(YampiProductAdapter)
 
       return {
         products,
         totalProductsCount: meta.pagination.count,
+        perPage: meta.pagination.per_page,
       }
     },
 
@@ -50,11 +49,8 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
     },
 
     async getProductBySlug(slug: string) {
-      console.log(`/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`)
-
-
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/${RESOURCES.catalog}/${ENDPOINTS.collection}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
+        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
       )
 
       console.log('getProductBySlug', response)

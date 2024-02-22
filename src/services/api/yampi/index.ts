@@ -7,6 +7,7 @@ import { YampiBrandsController } from './controllers/YampiBrandsController'
 import { YampiCategoriesController } from './controllers/YampiCategoriesController'
 import { YampiCheckoutController } from './controllers/YampiCheckoutController'
 import { YampiCollectionsController } from './controllers/YampiCollectionsController'
+import { YampiDiscountsController } from './controllers/YampiDiscountsController'
 import { YampiLeadsController } from './controllers/YampiLeadsController'
 import { YampiProductsController } from './controllers/YampiProductsController'
 import { YampiSkusController } from './controllers/YampiSkusController'
@@ -35,6 +36,7 @@ export function useYampiApi() {
       ...YampiCheckoutController(http),
       ...YampiCategoriesController(http),
       ...YampiCollectionsController(http),
+      ...YampiDiscountsController(http),
       ...YampiProductsController(http),
       ...YampiLeadsController(http),
       ...YampiSkusController(http),
