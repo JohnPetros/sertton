@@ -1,9 +1,5 @@
-import { Text, YStack } from 'tamagui'
+import { Orders } from '@/components/shared/Order'
 
 export default function OrdersScreen() {
-  return (
-    <YStack>
-      <Text>ggg</Text>
-    </YStack>
-  )
+  return <Orders />
 }

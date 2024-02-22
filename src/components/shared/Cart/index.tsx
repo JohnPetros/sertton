@@ -3,6 +3,8 @@ import { FlatList } from 'react-native'
 
 import { View, XStack, YStack, getTokens } from 'tamagui'
 
+import { useCart } from './useCart'
+
 import { PRODUCT_CART_ITEM_WIDTH } from './constants/product-cart-item-width'
 
 import { cartProductsMock } from '@/_tests_/mocks/core/cartProductsMock'
@@ -17,7 +19,6 @@ import { ScreenTitle } from '@/components/shared/ScreenTitle'
 import { Skeleton } from '@/components/shared/Skeleton'
 
 import { SCREEN } from '@/utils/constants/screen'
-import { useCart } from '@/utils/hooks/useCart'
 
 export function Cart() {
   const {
