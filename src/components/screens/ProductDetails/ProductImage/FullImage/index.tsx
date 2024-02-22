@@ -11,6 +11,7 @@ import { useFullImage } from './useFullImage'
 import { Button } from '@/components/shared/Button'
 import { Image } from '@/components/shared/Product'
 import { SCREEN } from '@/utils/constants/screen'
+import { Portal } from '@gorhom/portal'
 import { FullImageRef } from './types/FullImageRef'
 
 const AnimatedView = Animated.createAnimatedComponent(View)
@@ -28,8 +29,6 @@ const FullImageComponent = ({ url }: FullImageProps, ref: ForwardedRef<FullImage
       close,
     }
   })
-
-  return null
 
   return (
     <Portal>
@@ -49,9 +48,9 @@ const FullImageComponent = ({ url }: FullImageProps, ref: ForwardedRef<FullImage
         <YStack flex={1} position='relative' zIndex={1000} justifyContent='center'>
           <Button
             position='absolute'
+            background='transparent'
             top={64}
             right={4}
-            background='transparent'
             onPress={close}
           >
             <X size={40} color={getTokens().color.white.val} />

@@ -61,7 +61,8 @@ export function useProductsList({
   }, [products])
 
   useEffect(() => {
-    totalProducts.current = 0
+    if (currentSearchValue)
+      totalProducts.current = 0
   }, [currentSearchValue])
 
   return {

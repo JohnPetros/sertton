@@ -5,12 +5,9 @@ import { ArrowsDownUp, Faders, MagnifyingGlass } from 'phosphor-react-native'
 
 import { Button, Spinner, View, XStack, YStack, getTokens } from 'tamagui'
 
-// import { useTags } from './Tag/useTags'
-// import { FiltersDialog } from './FiltersDialog'
-// import { Tag } from './Tag'
 import { useProductsList } from './useProductList'
 
-import { productsMock } from '@/__tests__/mocks/core/productsMock'
+import { productsMock } from '@/_tests_/mocks/core/productsMock'
 
 import type { Product } from '@/@types/Product'
 import { Sorter } from '@/@types/Sorter'
@@ -20,12 +17,11 @@ import { useTags } from './Tag/useTags'
 import { Tag } from './Tag'
 
 import { EmptyListMessage } from '@/components/shared/EmptyListMessage'
-// import { EmptyItemsMessage } from '@/components
+import { FiltersDialog } from '@/components/shared/FiltersDialog'
 import { Loading } from '@/components/shared/Loading'
 import { ProductItem } from '@/components/shared/ProductItem'
 import { Select } from '@/components/shared/Select'
 
-import { FiltersDialog } from '@/components/shared/FiltersDialog'
 import { SCREEN } from '@/utils/constants/screen'
 import { SORTERS } from '@/utils/constants/sorters'
 
@@ -63,6 +59,8 @@ export function ProductsList({
   const ICON_COLOR = getTokens().color.gray800.val
   const ICON_SIZE = 16
 
+  console.log({ hasNextPage })
+
   const { brands, tags, handleTag } = useTags()
 
   const keyExtractor = useCallback((item: Product) => item.id.toString(), [])
@@ -81,7 +79,7 @@ export function ProductsList({
   }
 
   return (
-    <YStack pb={SCREEN.paddingBottom}>
+    <YStack>
       <XStack justifyContent='space-between' my={12}>
         <Select
           ariaLabel='Ordenar produtos por'
@@ -143,45 +141,45 @@ export function ProductsList({
           numColumns={2}
         />
       ) : (
-        <ListContainer style={{ height: 1000 }}>
-          <FlatList
-            key={'products-list'}
-            data={data}
-            keyExtractor={(item) => String(item.id)}
-            refreshControl={
-              <RefreshControl
-                refreshing={isLoading}
-                onRefresh={onRefresh}
-                colors={[getTokens().color.blue400.val]}
-              />
-            }
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-            onEndReachedThreshold={0.00001}
-            numColumns={1}
-            onEndReached={handleListEndReached}
-            ListFooterComponent={
-              hasNextPage ? (
-                <View mt={-80}>
-                  <Loading size={150} message='carregando mais produtos...' />
-                </View>
-              ) : null
-            }
-            ListEmptyComponent={
-              <View>
-                <EmptyListMessage
-                  title='Oh não...'
-                  subtitle='Nenhum produto foi encontrado'
-                  icon={MagnifyingGlass}
-                />
+        <FlatList
+          key={'products-list'}
+          data={data}
+          keyExtractor={(item) => String(item.id)}
+          refreshControl={
+            <RefreshControl
+              refreshing={isLoading}
+              onRefresh={onRefresh}
+              colors={[getTokens().color.blue400.val]}
+            />
+          }
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          onEndReachedThreshold={0.00001}
+          numColumns={1}
+          initialNumToRender={5}
+          maxToRenderPerBatch={10}
+          onEndReached={handleListEndReached}
+          ListFooterComponent={
+            hasNextPage ? (
+              <View mt={-36}>
+                <Loading size={150} message='carregando mais produtos...' />
               </View>
-            }
-            scrollEnabled={!isLoading}
-            contentContainerStyle={{
-              paddingBottom: SCREEN.paddingBottom,
-            }}
-          />
-        </ListContainer>
+            ) : null
+          }
+          ListEmptyComponent={
+            <View>
+              <EmptyListMessage
+                title='Oh não...'
+                subtitle='Nenhum produto foi encontrado'
+                icon={MagnifyingGlass}
+              />
+            </View>
+          }
+          scrollEnabled={!isLoading}
+          contentContainerStyle={{
+            paddingBottom: SCREEN.paddingBottom * 4,
+          }}
+        />
       )}
     </YStack>
   )

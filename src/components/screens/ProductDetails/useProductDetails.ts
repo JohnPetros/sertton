@@ -13,6 +13,8 @@ import { useCartStore } from '@/stores/CartStore'
 export function useProductDetails(slug: string) {
   const api = useApi()
 
+  console.log({ slug })
+
   const {
     data: product,
     isLoading: isProductLoading,

@@ -46,16 +46,13 @@ export function useProducts() {
   })
 
   async function getProducts(page: number) {
-    console.log({ api })
-    const { products, totalPages } = await api.getProducts({
+    return await api.getProducts({
       page,
       search,
       sorter: selectedSorter,
       categoryId,
       brandsIds,
     })
-
-    return { products, totalPages }
   }
 
   const { data, isLoading, fetchNextPage, refetch } = useInfiniteQuery(
@@ -66,12 +63,25 @@ export function useProducts() {
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        const totalProducts = allPages.reduce((total, currentPage) => {
+        const currentTotalProductsCount = allPages.reduce((total, currentPage) => {
           return total + currentPage.products.length
         }, 0)
 
+        console.log({ currentTotalProductsCount })
+
+        let totalProductsCount = lastPage.totalProductsCount
+
+        const restCount = totalProductsCount % 10
+
+        if (restCount !== 0) {
+          totalProductsCount -= restCount
+        }
+
+        console.log('currentTotalProductsCount', (currentTotalProductsCount - lastPage.perPage))
+        console.log({ totalProductsCount })
+
         hasNextPage.current =
-          Math.ceil(totalProducts / PER_PAGE) < lastPage.totalPages
+          currentTotalProductsCount !== totalProductsCount
 
         return hasNextPage.current ? currentPage.current + 1 : undefined
       },
