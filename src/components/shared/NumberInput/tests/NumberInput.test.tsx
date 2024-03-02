@@ -29,8 +29,6 @@ describe('NumberInput component', () => {
 
     const inputContainer = screen.getByTestId(TEST_IDS.inputContainer)
 
-    console.log(inputContainer.props)
-
     expect(inputContainer.props.accessibilityLabel).toBe(labelMock)
   })
 

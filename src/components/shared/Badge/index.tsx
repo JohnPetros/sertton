@@ -6,7 +6,6 @@ type BadgeProps = {
 }
 
 export function Badge({ children, isActive }: BadgeProps) {
-  console.log({ children })
   return (
     <View
       position='absolute'

@@ -31,8 +31,6 @@ export function useCartDialog({
   }
 
   function handleAddCartItem() {
-    console.log(skuSelectsRef.current)
-    console.log(!skuSelectsRef.current)
     if (!skuSelectsRef.current) return
 
     const { onAddSkuToCart, selectedSku } = skuSelectsRef.current

@@ -12,8 +12,6 @@ export const YampiCategoriesController = (http: IHttp): ICategoriesController =>
         `/${RESOURCES.catalog}/${ENDPOINTS.category}`
       )
 
-      console.log('categories', { response })
-
       return response.data.map(YampiCategoryAdapter)
     },
 

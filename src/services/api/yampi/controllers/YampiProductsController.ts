@@ -53,8 +53,6 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
         `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
       )
 
-      console.log('getProductBySlug', response)
-
       return YampiProductAdapter(response.data[0])
     },
 

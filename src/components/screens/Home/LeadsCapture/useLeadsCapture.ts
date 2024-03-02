@@ -30,8 +30,6 @@ export function useLeadsCapture() {
           errors: { email: string[] }
         }>(error)
 
-        console.log(error)
-
         toast.show(errors.email[0], 'error')
       } finally {
         setIsLoading(false)

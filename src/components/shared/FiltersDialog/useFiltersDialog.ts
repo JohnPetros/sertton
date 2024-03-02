@@ -45,8 +45,6 @@ export function useFiltersDialog(brands: Brand[]) {
 
     await wait(500)
 
-    console.log(brandsIds.current)
-
     setProductBrandsIds(brandsIds.current)
   }
 
