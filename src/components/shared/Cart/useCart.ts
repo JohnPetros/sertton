@@ -1,4 +1,4 @@
-import { Linking } from 'react-native'
+import * as Linking from 'expo-linking';
 
 import type { CartProduct } from '@/@types/CartProduct'
 
@@ -6,14 +6,17 @@ import { useCartStore } from '@/stores/CartStore'
 
 import { useApi } from '@/services/api'
 import { useCache } from '@/services/cache'
+import { useRouter } from 'expo-router';
 
-const YAMPI_PURCHASE_URL = process.env.YAMPI_PURCHASE_URL
+const YAMPI_PURCHASE_URL = process.env.EXPO_PUBLIC_YAMPI_PURCHASE_URL
 
 export function useCart() {
   const items = useCartStore((store) => store.state.items)
   const removeAllItems = useCartStore((store) => store.actions.removeAllItems)
 
   const api = useApi()
+
+  const router = useRouter()
 
   async function getCartProducts() {
     const products: CartProduct[] = []
@@ -74,6 +77,9 @@ export function useCart() {
       .join(',')
 
     Linking.openURL(`${YAMPI_PURCHASE_URL}/${skusUri}`)
+
+    router.push('/(stack)/(drawer)/(tabs)/home')
+    removeAllItems()
   }
 
   return {
