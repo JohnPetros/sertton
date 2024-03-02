@@ -19,17 +19,13 @@ import { Label } from 'tamagui'
 import { useSelect } from './useSelect'
 
 import { Button } from '@/components/shared/Button'
+
 import { TEST_IDS } from './tests/constants/test-ids'
+import { SelectRef } from './types/SelectRef'
 
 type DefaultValue = 'Selecionar'
 
 const DEFAULT_VALUE: DefaultValue = 'Selecionar'
-
-export type SelectRef = {
-  value: string
-  reset: () => void
-  open: () => void
-}
 
 type SelectProps = {
   items: string[]
