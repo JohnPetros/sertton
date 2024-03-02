@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-import { useDebouncedCallback } from 'use-debounce'
 import { NumberInputProps } from './types/NumberInputProps'
 
 export type UseNumberInputParams = Omit<NumberInputProps, 'label'>
@@ -37,7 +36,7 @@ export function useNumberInput({
   function handleIncreaseValue() {
     const updatedNumber = numberValue + 1
 
-    const isOverMax = !checkMaxValue(updatedNumber)
+    const isOverMax = checkMaxValue(updatedNumber)
 
     if (isOverMax) {
       if (onReachMax) onReachMax()
@@ -46,8 +45,6 @@ export function useNumberInput({
 
     setNumberValue(updatedNumber)
   }
-
-  const debouncedHandleInputValueChange = useDebouncedCallback(handleInputValueChange, 2000)
 
 
   useEffect(() => {
@@ -60,8 +57,9 @@ export function useNumberInput({
       if (max) setNumberValue(max)
       return
     }
+
     onChangeNumber(numberValue)
-  }, [numberValue])
+  }, [numberValue, max])
 
   useEffect(() => {
     onChangeNumber(number)
