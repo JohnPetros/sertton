@@ -1,11 +1,12 @@
 import { useState } from 'react'
 
-import { MESSAGES } from './tests/constants/messages'
+import { MESSAGES } from './constants/messages'
 
 import { useApi } from '@/services/api'
 import { useValidation } from '@/services/validation'
 
 import { useToast } from '@/utils/hooks/useToast'
+import { VALIDATION_ERRORS } from '@/services/validation/constants/validation-errors'
 
 export function useLeadsCapture() {
   const [email, setEmail] = useState('')
@@ -29,12 +30,14 @@ export function useLeadsCapture() {
           errors: { email: string[] }
         }>(error)
 
+        console.log(error)
+
         toast.show(errors.email[0], 'error')
       } finally {
         setIsLoading(false)
       }
     } else {
-      setError('E-mail inválido')
+      setError(VALIDATION_ERRORS.email.regex)
     }
   }
 

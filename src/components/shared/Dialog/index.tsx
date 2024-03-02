@@ -13,13 +13,14 @@ type DialogProps = {
   title: string
   children: ReactNode
   content: ReactNode
+  isLoading?: boolean
   width?: number
   height?: number
   onOpenChange?: (isOpen: boolean) => void
 }
 
 export const DialogComponent = (
-  { children, content, title, width, height, onOpenChange }: DialogProps,
+  { children, content, title, width, height, isLoading, onOpenChange }: DialogProps,
   ref: ForwardedRef<DialogRef>
 ) => {
   const { close, open, handleOpenChange, isOpen } = useDialog(onOpenChange ?? null)
@@ -62,7 +63,7 @@ export const DialogComponent = (
             <D.Title fontSize={20} color='$gray900' fontWeight='600'>
               {title}
             </D.Title>
-            <D.Close asChild>
+            <D.Close asChild disabled={isLoading}>
               <Button testID={TEST_IDS.close} pressStyle={{ opacity: 0.7 }} mr={-24}>
                 <X />
               </Button>

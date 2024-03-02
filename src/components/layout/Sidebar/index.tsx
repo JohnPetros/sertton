@@ -4,19 +4,12 @@ import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
 import { CaretDown, CaretUp } from 'phosphor-react-native'
 import { SafeAreaView } from 'react-native'
 import { SCREEN } from 'src/utils/constants/screen'
-import { ListItem, Separator, Spinner, View, YGroup, YStack } from 'tamagui'
+import { ListItem, Spinner, View, YGroup, YStack } from 'tamagui'
 import { TEST_IDS } from './tests/test-ids'
 
 import { RouteButton } from './RouteButton'
 import { ROUTE_BUTTONS } from './constants/route-buttons'
 import { useSidebar } from './useSidebar'
-
-// import { RouteButton } from '@/components/layout/Sidebar/RouteButton'
-// import { useSidebar } from '@/components/layout/Sidebar/useSidebar'
-// import { Button } from '@/components/shared/Button'
-// import { Contacts } from '@/components/shared/Contacts'
-// import { useProductsFilterStore } from '@/stores/productsFilterStore'
-// import { SCREEN } from '@/utils/constants/screen'
 
 export function Sidebar() {
   const selectedCategoryId = useProductsFilterStore((store) => store.state.categoryId)

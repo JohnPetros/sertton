@@ -1,5 +1,5 @@
-import { Text } from 'tamagui'
+import { Splash } from '@/components/screens/Splash'
 
 export default function SplashScreen() {
-  return <Text>privacy-policy</Text>
+  return <Splash />
 }

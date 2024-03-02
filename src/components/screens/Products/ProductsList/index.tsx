@@ -59,8 +59,6 @@ export function ProductsList({
   const ICON_COLOR = getTokens().color.gray800.val
   const ICON_SIZE = 16
 
-  console.log({ hasNextPage })
-
   const { brands, tags, handleTag } = useTags()
 
   const keyExtractor = useCallback((item: Product) => item.id.toString(), [])

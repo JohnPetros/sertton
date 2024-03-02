@@ -18,7 +18,7 @@ export function Summary({
   itemsAmount,
 }: CartSummaryProps) {
   return (
-    <YStack separator={<Separator bg='$gray400' />} gap={8}>
+    <YStack gap={8}>
       <XStack justifyContent='space-between' alignItems='center'>
         <Text fontSize={16} color='$gray600'>
           Produtos ({itemsAmount} {itemsAmount > 1 ? 'items' : 'item'})
@@ -27,6 +27,7 @@ export function Summary({
           {formatPrice(subtotal)}
         </Text>
       </XStack>
+      <Separator bg='$gray400' />
       <XStack justifyContent='space-between' alignItems='center'>
         <Text fontSize={16} color='$green500'>
           Desconto
@@ -35,6 +36,7 @@ export function Summary({
           - {formatPrice(discount)}
         </Text>
       </XStack>
+      <Separator bg='$gray400' />
       {shipment > 0 && (
         <XStack justifyContent='space-between' alignItems='center'>
           <Text fontSize={16} color='$gray600'>
@@ -45,6 +47,7 @@ export function Summary({
           </Text>
         </XStack>
       )}
+      <Separator bg='$gray400' />
       <XStack justifyContent='space-between' alignItems='center'>
         <Text fontSize={16} color='$gray600' fontWeight='600'>
           Total

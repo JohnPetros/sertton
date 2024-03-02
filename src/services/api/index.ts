@@ -4,6 +4,7 @@ import { useYampiApi } from './yampi'
 
 export function useApi(): IApi {
   const yampiApi = useYampiApi()
+  // const shipmentServiceApi = useShipmentServiceApi()
 
   const http = useHttp()
 

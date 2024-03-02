@@ -67,18 +67,13 @@ export function useProducts() {
           return total + currentPage.products.length
         }, 0)
 
-        console.log({ currentTotalProductsCount })
-
         let totalProductsCount = lastPage.totalProductsCount
 
         const restCount = totalProductsCount % 10
 
-        if (restCount !== 0) {
+        if (totalProductsCount !== 1 && restCount !== 0) {
           totalProductsCount -= restCount
         }
-
-        console.log('currentTotalProductsCount', (currentTotalProductsCount - lastPage.perPage))
-        console.log({ totalProductsCount })
 
         hasNextPage.current =
           currentTotalProductsCount !== totalProductsCount

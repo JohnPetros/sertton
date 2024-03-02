@@ -47,6 +47,7 @@ const DocumentDialogComponent = (
       ref={dialogRef}
       title='Identifique-se'
       width={320}
+      isLoading={isLoading}
       content={
         <YStack gap={24}>
           <Paragraph>

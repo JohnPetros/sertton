@@ -1,16 +1,17 @@
-import { CaretDown } from 'phosphor-react-native'
 import { ReactNode } from 'react'
 import { View } from 'react-native'
 import Animated from 'react-native-reanimated'
+import { CaretDown } from 'phosphor-react-native'
 import { Text, XStack, YStack, getTokens } from 'tamagui'
 
 import { useAccordion } from '@/components/shared/Accordion/useAccordion'
+import { Button } from '../Button'
 
 const AnimatedYStack = Animated.createAnimatedComponent(YStack)
 
 const PADDING_X = 24
 
-interface AccordionProps {
+type AccordionProps = {
   label: ReactNode
   children: ReactNode
 }
@@ -27,18 +28,12 @@ export function Accordion({ children, label }: AccordionProps) {
       py={12}
       w='100%'
     >
-      <XStack
-        role='button'
-        justifyContent='space-between'
-        alignItems='center'
-        onStartShouldSetResponder={() => {
-          toggle()
-          return true
-        }}
-      >
+      <XStack justifyContent='space-between' alignItems='center'>
         <Text color='$gray800'>{label}</Text>
 
-        <CaretDown color={getTokens().color.gray400.val} size={PADDING_X} />
+        <Button background='transparent' onPress={toggle}>
+          <CaretDown color={getTokens().color.gray400.val} size={PADDING_X} />
+        </Button>
       </XStack>
       <Animated.View style={contentAnimatedStyle}>
         <YStack position='absolute' top={0} left={0}>

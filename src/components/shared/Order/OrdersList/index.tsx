@@ -30,9 +30,6 @@ export function OrdersList() {
 
   const mask = useMask(personType === 'natural' ? 'cpf' : 'cnpj')
 
-  console.log(isLoading)
-  console.log(orders?.length)
-
   return (
     <>
       <DocumentDialog
@@ -91,6 +88,8 @@ export function OrdersList() {
           })}
           showsVerticalScrollIndicator={false}
           disableIntervalMomentum={true}
+          initialNumToRender={3}
+          maxToRenderPerBatch={3}
           scrollEnabled={!isLoading}
         />
       )}

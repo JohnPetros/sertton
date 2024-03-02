@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import type { PersonType } from '@/@types/Customer'
 import type { DialogRef } from '@/components/shared/Dialog/types/DialogRef'
 import { useValidation } from '@/services/validation'
+import { Keyboard } from 'react-native'
 
 export function useDocumentDialog(
   onValidateDocument: (
@@ -49,7 +50,7 @@ export function useDocumentDialog(
         ? validation.validateCpf(cpf)
         : validation.validateCnpj(cnpj)
 
-    console.log({ personType })
+    Keyboard.dismiss()
 
     if (documentValidation.isValid) {
       try {

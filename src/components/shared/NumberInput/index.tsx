@@ -5,6 +5,7 @@ import { Input, View, XStack, getTokens } from 'tamagui'
 import { useNumberInput } from './useNumberInput'
 
 import { Button } from '@/components/shared/Button'
+import { TEST_IDS } from './tests/constants/test-ids'
 
 export type NumberInputProps = {
   label: string
@@ -46,6 +47,7 @@ export function NumberInput({
       />
 
       <View
+        testID={TEST_IDS.inputContainer}
         bg='$gray100'
         borderRadius={4}
         alignItems='center'
@@ -55,6 +57,7 @@ export function NumberInput({
         aria-label={label}
       >
         <Input
+          testID={TEST_IDS.input}
           keyboardType='numeric'
           borderRadius={0}
           borderWidth={0}

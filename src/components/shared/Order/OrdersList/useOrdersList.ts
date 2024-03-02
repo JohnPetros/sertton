@@ -1,5 +1,5 @@
 import { useFocusEffect } from 'expo-router'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { PersonType } from '@/@types/Customer'
 import type { DialogRef } from '@/components/shared/Dialog/types/DialogRef'
@@ -47,7 +47,10 @@ export function useOrdersList() {
       setCustomerDocument(validatedDocument)
       setPersonType(personType)
 
-      documentDialogRef.current?.close()
+      setTimeout(() => {
+        documentDialogRef.current?.close()
+      }, 1000)
+
     },
     [storage]
   )

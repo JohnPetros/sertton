@@ -1,5 +1,6 @@
 import { Circle } from 'phosphor-react-native'
-import { ListItem, Text, YGroup, getTokens } from 'tamagui'
+import { ListItem, Text, View, YGroup, getTokens } from 'tamagui'
+import { TEST_IDS } from './tests/constants/test-ids'
 
 type ListProps = {
   items: string[]
@@ -24,7 +25,9 @@ export function List({ items, bgColor = '$gray50', isNumeric = false }: ListProp
             {isNumeric ? (
               <Text color='$gray800'>{index + 1}.</Text>
             ) : (
-              <Circle size={8} color={getTokens().color.gray800.val} weight='fill' />
+              <View testID={`${TEST_IDS.circle}-${index}`}>
+                <Circle size={8} color={getTokens().color.gray800.val} weight='fill' />
+              </View>
             )}
             <Text textAlign='left' flexWrap='wrap' flex={1}>
               {item}

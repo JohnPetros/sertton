@@ -7,13 +7,13 @@ import { useFonts } from 'expo-font'
 import { SplashScreen } from 'expo-router'
 
 import { injectHttpProvider } from '@/services/api/http'
-import { AxiosHttpProvider } from '@/services/api/http/axios'
 
 import { StyledSafeAreaView } from '@/components/shared/StyledSafeAreaView'
 
 import { Providers } from '../providers'
 import StackLayout from './(stack)/_layout'
 
+import { AxiosHttpProvider } from '@/services/api/http/axios'
 import { injectDateProvider } from '@/services/date'
 import { DayjsDateProvider } from '@/services/date/dayjs'
 import { injectValidationProvider } from '@/services/validation'
