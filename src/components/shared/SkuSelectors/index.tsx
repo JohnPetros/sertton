@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef, useImperativeHandle } from 'react'
+import { ForwardedRef, forwardRef, useImperativeHandle, useRef } from 'react'
 
 import { Spinner } from 'tamagui'
 
@@ -9,6 +9,7 @@ import { useSkuSelectors } from './useSkuSelectors'
 import { SkuSelectorsRef } from './types/SkuSelectorsRef'
 
 import type { Sku } from '@/@types/Sku'
+import { SelectRef } from '../Select/useSelect'
 
 type SkuSelectsProps = {
   productId: string
@@ -20,18 +21,18 @@ const SkuSelectorsComponent = (
   { productId, isDisabled, onSkuChange }: SkuSelectsProps,
   ref: ForwardedRef<SkuSelectorsRef>
 ) => {
+  const selectRefs = useRef<SelectRef[]>([])
+
   const {
     selectedSku,
     variations,
     variationNames,
-    selectedVariationsValues,
     errors,
     isLoading,
-    selectRefs,
     onAddSkuToCart,
     handleSelectChange,
     getVariationValuesByVariationName,
-  } = useSkuSelectors(productId, onSkuChange ?? null)
+  } = useSkuSelectors(productId, onSkuChange ?? null, selectRefs)
 
   useImperativeHandle(
     ref,

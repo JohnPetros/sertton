@@ -10,10 +10,7 @@ import { SelectRef } from "../../Select/types/SelectRef"
 
 jest.mock('@/services/api')
 
-jest.useFakeTimers()
-
 const onSkuChangeMock = jest.fn()
-
 const resetMock = jest.fn()
 const openMock = jest.fn()
 
@@ -30,7 +27,6 @@ describe('useSkuSelectors hook', () => {
       const skusMock = await apiMock.getSkusByProductId(product.id)
 
       expect(result.current.skus).toEqual(skusMock)
-
     })
   })
 

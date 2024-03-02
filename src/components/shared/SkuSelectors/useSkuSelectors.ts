@@ -176,8 +176,6 @@ export function useSkuSelectors(
     const selectedSku = skus[0]
     setSelectedSku(selectedSku)
 
-    console.log({ firstSkuVariations })
-
     return firstSkuVariations
   }
 
@@ -225,7 +223,6 @@ export function useSkuSelectors(
 
   function getSelectedSku() {
     if (!skus) return
-    console.log({ selectedVariationsValues })
     return skus.find(verifyVariationValuesMatch) ?? skus[0]
   }
 
