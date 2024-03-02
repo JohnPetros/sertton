@@ -13,8 +13,16 @@ export const skusMock: Sku[] = [
     length: 10,
     imageUrl: 'http://example.com/sku1.jpg',
     variations: [
-      { id: 'var1', name: 'Variation  1', value: 'Variation 1 value' },
-      { id: 'var2', name: 'Variation  2', value: 'Variation 2 value' },
+      {
+        id: 'var-123',
+        name: 'Color',
+        value: 'Blue',
+      },
+      {
+        id: 'var-124',
+        name: 'Size',
+        value: 'M',
+      },
     ],
     stock: 100,
     yampiToken: 'token1',
@@ -31,8 +39,16 @@ export const skusMock: Sku[] = [
     length: 20,
     imageUrl: 'http://example.com/sku2.jpg',
     variations: [
-      { id: 'var3', name: 'Variation  3', value: 'Variation 3 value' },
-      { id: 'var4', name: 'Variation  4', value: 'Variation 4 value' },
+      {
+        id: 'var-123',
+        name: 'Color',
+        value: 'Red',
+      },
+      {
+        id: 'var-123',
+        name: 'Size',
+        value: 'S',
+      },
     ],
     stock: 200,
     yampiToken: 'token2',
