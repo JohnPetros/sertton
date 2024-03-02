@@ -6,7 +6,7 @@ import { XStack } from 'tamagui'
 import { ContactType } from '@/@types/Contact'
 import { Button } from '@/components/shared/Button'
 import { useContacts } from '@/components/shared/Contacts/useContacts'
-import { CONTACTS } from 'src/utils/constants/contacts'
+import { CONTACTS } from './constants/contacts'
 
 export function Contacts() {
   const { handleContactUrl } = useContacts()
