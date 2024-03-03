@@ -36,7 +36,6 @@ export function Summary({
           - {formatPrice(discount)}
         </Text>
       </XStack>
-      <Separator bg='$gray400' />
       {shipment > 0 && (
         <XStack justifyContent='space-between' alignItems='center'>
           <Text fontSize={16} color='$gray600'>

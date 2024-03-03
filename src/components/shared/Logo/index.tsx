@@ -7,6 +7,7 @@ export function Logo() {
       resizeMode='contain'
       w={96}
       h={48}
+      alt='Sertton'
     />
   )
 }

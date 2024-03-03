@@ -61,10 +61,6 @@ export function useNumberInput({
     onChangeNumber(numberValue)
   }, [numberValue, max])
 
-  useEffect(() => {
-    onChangeNumber(number)
-  }, [number, onChangeNumber])
-
   return {
     numberValue,
     handleDecreaseValue,
