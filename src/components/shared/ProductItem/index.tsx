@@ -72,8 +72,8 @@ const ProductItemComponent = ({
           <XStack justifyContent='space-between'>
             {!isLoading && (
               <>
-                <Product.SalePrice price={skus[0].discountPrice} />
-                <Product.DiscountPrice price={skus[0].salePrice} />
+                <Product.DiscountPrice price={skus[0].discountPrice} />
+                <Product.SalePrice price={skus[0].salePrice} />
               </>
             )}
           </XStack>

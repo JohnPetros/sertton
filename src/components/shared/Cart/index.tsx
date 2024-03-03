@@ -107,14 +107,16 @@ export function Cart() {
                 <CartSummary items={products ?? []} isLoading={isLoading} />
               )}
 
-              <Skeleton isVisible={isLoading} height={44} width={SCREEN.width}>
-                <Button
-                  onPress={redirectToCheckout}
-                  w={SCREEN.width - SCREEN.paddingX * 2}
-                >
-                  Finalizar compra
-                </Button>
-              </Skeleton>
+              {!isCartEmpty && (
+                <Skeleton isVisible={isLoading} height={44} width={SCREEN.width}>
+                  <Button
+                    onPress={redirectToCheckout}
+                    w={SCREEN.width - SCREEN.paddingX * 2}
+                  >
+                    Finalizar compra
+                  </Button>
+                </Skeleton>
+              )}
             </YStack>
           </Skeleton>
         </YStack>

@@ -31,8 +31,8 @@ export function ProductInfo({ productName, sku, isLoading }: InfoProps) {
         {sku && (
           <XStack alignItems='flex-start' gap={12}>
             <YStack>
-              <SalePrice fontSize={24} price={sku?.salePrice} />
-              <DiscountPrice fontSize={14} price={sku?.discountPrice} />
+              <SalePrice fontSize={14} price={sku?.salePrice} />
+              <DiscountPrice fontSize={24} price={sku?.discountPrice} />
             </YStack>
             <Discount salesPrice={sku?.salePrice} discountPrice={sku?.discountPrice} />
           </XStack>

@@ -6,7 +6,7 @@ import { ProductDescription } from './ProductDescription'
 import { ProductImage } from './ProductImage'
 import { ProductInfo } from './ProductInfo'
 import { ProductStock } from './ProductStock'
-import { ShipmentServices } from './ShipmentServices'
+// import { ShipmentServices } from './ShipmentServices'
 import { useProductDetails } from './useProductDetails'
 
 import { Button } from '@/components/shared/Button'

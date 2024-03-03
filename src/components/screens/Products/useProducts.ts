@@ -12,8 +12,6 @@ import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
 
 import { CACHE } from '@/utils/constants/cache'
 
-const PER_PAGE = 20
-
 export function useProducts() {
   const api = useApi()
   const currentPage = useRef(0)
@@ -24,7 +22,7 @@ export function useProducts() {
   const { search, categoryId, brandsIds } = useProductsFilterStore(
     (store) => store.state
   )
-  const setCateforyId = useProductsFilterStore(
+  const setCategoryId = useProductsFilterStore(
     (store) => store.actions.setCategoryId
   )
 
@@ -76,7 +74,7 @@ export function useProducts() {
         }
 
         hasNextPage.current =
-          currentTotalProductsCount !== totalProductsCount
+          currentTotalProductsCount < totalProductsCount
 
         return hasNextPage.current ? currentPage.current + 1 : undefined
       },
@@ -84,7 +82,7 @@ export function useProducts() {
   )
 
   function handleRemoveCategory() {
-    setCateforyId('')
+    setCategoryId('')
   }
 
   function handleProductsListEndReached() {

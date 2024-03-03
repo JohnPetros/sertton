@@ -7,6 +7,7 @@ import { Footer } from '@/components/shared/Footer'
 import { Header } from '@/components/shared/Header'
 import { Search } from '@/components/shared/Search'
 import { SCREEN } from '@/utils/constants/screen'
+import { InformativeHighlights } from './InformativeHighlights'
 
 export function Home() {
   return (

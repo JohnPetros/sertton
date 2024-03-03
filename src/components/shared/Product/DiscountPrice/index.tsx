@@ -9,10 +9,10 @@ type PriceProps = {
 export function DiscountPrice({ price, ...rest }: PriceProps) {
   return (
     <Text
-      color='$gray400'
+      color='$blue500'
+      fontWeight='600'
       textTransform='uppercase'
-      textDecorationLine='line-through'
-      fontSize={14}
+      fontSize={16}
       {...rest}
     >
       {formatPrice(price)}

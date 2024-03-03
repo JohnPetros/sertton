@@ -32,7 +32,7 @@ export function Collection({ name, products, isLoading }: CollectionProps) {
           isVisible={isLoading}
           mb={isLoading ? 12 : 0}
         >
-          <H2 color='$blue500' fontSize={24} mb={12}>
+          <H2 color='$blue500' fontSize={24} fontWeight='600' mb={12}>
             {name}
           </H2>
         </Skeleton>

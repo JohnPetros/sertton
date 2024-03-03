@@ -9,10 +9,10 @@ type PriceProps = {
 export function SalePrice({ price, ...rest }: PriceProps) {
   return (
     <Text
-      color='$blue500'
-      fontWeight='600'
+      color='$gray400'
       textTransform='uppercase'
-      fontSize={16}
+      textDecorationLine='line-through'
+      fontSize={14}
       {...rest}
     >
       {formatPrice(price)}

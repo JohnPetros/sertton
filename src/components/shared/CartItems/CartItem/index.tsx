@@ -79,8 +79,8 @@ export function CartItem({
           <XStack w={halfWidth} alignItems='center' justifyContent='space-between'>
             {selectedSku && (
               <YStack>
-                <Product.DiscountPrice price={selectedSku.discountPrice} />
                 <Product.SalePrice price={selectedSku.salePrice} />
+                <Product.DiscountPrice price={selectedSku.discountPrice} />
               </YStack>
             )}
             <AlertDialog
