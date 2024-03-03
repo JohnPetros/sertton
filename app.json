@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#F2F2F2FF"
+      "backgroundColor": "#FFF"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,8 +20,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#F2F2F2FF"
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#FFF"
       },
       "package": "com.joaopcarvalho.sertton"
     },
