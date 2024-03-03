@@ -1,5 +1,5 @@
 import { ViewProps } from 'react-native'
-import { Image as TImage, View } from 'tamagui'
+import { Image as Img, View } from 'tamagui'
 
 import { SIZES } from './constants/sizes'
 import { TEST_IDS } from './constants/test-ids'
@@ -22,13 +22,15 @@ export function Image({ url, size, width, height }: ImageProps) {
       w={width}
       h={height}
     >
-      <TImage
-        testID={TEST_IDS.image}
-        source={{ uri: url }}
-        w={SIZES[size]}
-        h={SIZES[size]}
-        resizeMode='contain'
-      />
+      {url && (
+        <Img
+          testID={TEST_IDS.image}
+          source={{ uri: url }}
+          w={SIZES[size]}
+          h={SIZES[size]}
+          resizeMode='contain'
+        />
+      )}
     </View>
   )
 }
