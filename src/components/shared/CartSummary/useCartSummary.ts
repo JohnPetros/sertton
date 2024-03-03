@@ -36,6 +36,9 @@ export function useCartSummary(products: CartProduct[]) {
       if (selectedSku && quantity)
         return total + selectedSku.salePrice * quantity
 
+      if (!selectedSku && quantity)
+        return total + product.skus[0].salePrice
+
       return total
     }, 0)
 
@@ -52,6 +55,9 @@ export function useCartSummary(products: CartProduct[]) {
         return (
           total + (selectedSku.salePrice - selectedSku.discountPrice) * quantity
         )
+
+      if (!selectedSku && quantity)
+        return total + (product.skus[0].salePrice - product.skus[0].discountPrice) * quantity
 
       return total
     }, 0)

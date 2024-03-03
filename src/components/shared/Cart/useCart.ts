@@ -76,6 +76,8 @@ export function useCart() {
       .map((sku) => `${sku.yampiToken}:${sku.quantity}`)
       .join(',')
 
+    console.log(skusUri)
+
     Linking.openURL(`${YAMPI_PURCHASE_URL}/${skusUri}`)
 
     router.push('/(stack)/(drawer)/(tabs)/home')

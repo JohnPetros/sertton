@@ -63,7 +63,7 @@ export function Cart() {
           <FlatList
             key='cart-items-loading'
             data={productsMock}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View mb={32}>
                 <CartItem
@@ -81,7 +81,7 @@ export function Cart() {
           <FlatList
             key='cart-items'
             data={products}
-            keyExtractor={(item) => String(item.id)}
+            keyExtractor={(item) => item.selectedSkuId}
             renderItem={({ item }) => (
               <View mb={32}>
                 <CartItem
