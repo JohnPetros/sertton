@@ -7,6 +7,7 @@ import { useSearch } from './useSearch'
 
 import { Button } from '@/components/shared/Button'
 import { SCREEN } from '@/utils/constants/screen'
+import { TEST_IDS } from './tests/constants/test-ids'
 
 const BUTTON_WIDTH = 48
 const GAP = 8
@@ -24,7 +25,7 @@ export function Search({ isFetching }: SearchProps) {
   return (
     <XStack gap={GAP}>
       <Input
-        testID='search-input'
+        testID={TEST_IDS.input}
         placeholder='Exemplo: Arremate'
         w={INPUT_WIDTH}
         label='Procurar produto'
@@ -34,7 +35,7 @@ export function Search({ isFetching }: SearchProps) {
         onChangeText={setSearchValue}
       />
       <Button
-        testID='search-button'
+        testID={TEST_IDS.button}
         w={BUTTON_WIDTH}
         background='primary'
         alignSelf='flex-end'
@@ -42,7 +43,7 @@ export function Search({ isFetching }: SearchProps) {
         disabled={isLoading}
       >
         {isLoading ? (
-          <Spinner testID='spinner' size='small' color='$white' />
+          <Spinner testID={TEST_IDS.spinner} size='small' color='$white' />
         ) : (
           <MagnifyingGlass color={getTokens().color.white.val} />
         )}

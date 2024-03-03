@@ -1,6 +1,5 @@
 import { View } from 'react-native'
 
-// phosphor-react-native test bug fix
 const Icon = () => <View />
 
 jest.mock('phosphor-react-native', () => ({
@@ -23,6 +22,12 @@ jest.mock('phosphor-react-native', () => ({
     return <Icon />
   },
   CurrencyCircleDollar: () => {
+    return <Icon />
+  },
+  MagnifyingGlass: () => {
+    return <Icon />
+  },
+  Check: () => {
     return <Icon />
   },
 }))
