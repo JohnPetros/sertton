@@ -44,12 +44,10 @@ export function useOrdersList() {
         `${personType}:${validatedDocument}`
       )
 
+      documentDialogRef.current?.close()
+
       setCustomerDocument(validatedDocument)
       setPersonType(personType)
-
-      setTimeout(() => {
-        documentDialogRef.current?.close()
-      }, 1000)
 
     },
     [storage]

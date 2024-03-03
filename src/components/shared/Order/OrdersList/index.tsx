@@ -88,8 +88,8 @@ export function OrdersList() {
           })}
           showsVerticalScrollIndicator={false}
           disableIntervalMomentum={true}
-          initialNumToRender={3}
-          maxToRenderPerBatch={3}
+          initialNumToRender={7}
+          maxToRenderPerBatch={7}
           scrollEnabled={!isLoading}
         />
       )}
