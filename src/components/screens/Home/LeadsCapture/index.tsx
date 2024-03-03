@@ -19,6 +19,7 @@ export function LeadsCapture() {
         </H2>
         <Input
           testID={TEST_IDS.input}
+          keyboardType='email-address'
           value={email}
           onChangeText={handleEmailChange}
           error={error}
