@@ -19,7 +19,9 @@ export function useSearch(isFetching: boolean) {
   function handleSearch() {
     if (!isFetching) {
       setSearch(searchValue.trim())
+
       if (pathname !== ROUTES.products) router.push('/(stack)/(drawer)/(tabs)/products')
+
       Keyboard.dismiss()
     }
   }
@@ -31,6 +33,12 @@ export function useSearch(isFetching: boolean) {
   useEffect(() => {
     setSearchValue(currentSearchValue)
   }, [currentSearchValue])
+
+  useEffect(() => {
+    if (!isFetching && !searchValue) {
+      setSearch('')
+    }
+  }, [isFetching, searchValue, setSearch])
 
   return {
     searchValue,
