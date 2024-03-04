@@ -1,15 +1,19 @@
+import { Category } from "@/@types/Category"
 
-import { IBrandsController } from '../../interfaces/IBrandsController'
+import { categoriesMock } from "@/_tests_/mocks/core/categoriesMock"
 
-import { Brand } from '@/@types/Brand'
-import { brandsMock } from '@/_tests_/mocks/core/brandsMock'
+import { ICategoriesController } from "../../interfaces/ICategoriesController"
 
-export function InMemoryCategoriesController(): IBrandsController {
-  const brands: Brand[] = brandsMock
+export function InMemoryCategoriesController(): ICategoriesController {
+  const categories: Category[] = categoriesMock
 
   return {
-    async getBrands() {
-      return brands
+    async getCategories() {
+      return categories
+    },
+
+    async getCategoryById(categoryId) {
+      return categories.find((category) => category.id === categoryId) ?? null
     },
   }
 }
