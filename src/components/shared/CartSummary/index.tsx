@@ -7,16 +7,15 @@ import { useCartSummary } from './useCartSummary'
 import type { CartProduct } from '@/@types/CartProduct'
 
 import { Summary } from '@/components/shared/Summary'
-import { SCREEN } from '@/utils/constants/screen'
 
 type CartSummaryProps = {
   items: CartProduct[]
-  shipment?: number
+  shipmentCost?: number
   isLoading: boolean
 }
 
-export function CartSummary({ items, shipment = 0, isLoading }: CartSummaryProps) {
-  const { subtotal, totalDiscount, totalItems, totalToPay } = useCartSummary(items)
+export function CartSummary({ items, shipmentCost = 0, isLoading }: CartSummaryProps) {
+  const { subtotalCost, totalDiscount, itemsCount, totalCost } = useCartSummary(items)
 
   if (isLoading)
     return (
@@ -40,11 +39,11 @@ export function CartSummary({ items, shipment = 0, isLoading }: CartSummaryProps
 
   return (
     <Summary
-      subtotal={subtotal}
-      itemsAmount={totalItems}
+      subtotal={subtotalCost}
+      itemsCount={itemsCount}
       discount={totalDiscount}
-      total={totalToPay + shipment}
-      shipment={shipment}
+      total={totalCost + shipmentCost}
+      shipmentCost={shipmentCost}
     />
   )
 }
