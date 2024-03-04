@@ -63,14 +63,12 @@ export const productsMock: Product[] = [
         width: 20,
         length: 20,
         imageUrl: '',
-        // ... other image sizes
         variations: [
           {
             id: 'var-456',
             name: 'Material',
             value: 'Plastic',
           },
-          // ... other variations
         ],
         stock: 200,
         yampiToken: 'YAMPITOKEN456',
@@ -107,7 +105,6 @@ export const productsMock: Product[] = [
             name: 'Color',
             value: 'Blue',
           },
-          // ... other variations
         ],
         stock: 300,
         yampiToken: 'YAMPITOKEN789',
@@ -145,7 +142,6 @@ export const productsMock: Product[] = [
             name: 'Material',
             value: 'Metal',
           },
-          // ... other variations
         ],
         stock: 400,
         yampiToken: 'YAMPITOKEN1001',
@@ -184,7 +180,6 @@ export const productsMock: Product[] = [
             name: 'Material',
             value: 'Metal',
           },
-          // ... other variations
         ],
         stock: 400,
         yampiToken: 'YAMPITOKEN1001',
@@ -222,7 +217,6 @@ export const productsMock: Product[] = [
             name: 'Material',
             value: 'Metal',
           },
-          // ... other variations
         ],
         stock: 400,
         yampiToken: 'YAMPITOKEN1001',
