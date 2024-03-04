@@ -13,4 +13,7 @@ export const VALIDATION_ERRORS = {
     length: 'Deve conter 14 dígitos',
     inUse: 'CNPJ já utilizado por outro usuário',
   },
+  zipcode: {
+    length: 'Deve conter 8 números',
+  },
 }
