@@ -20,8 +20,8 @@ export function YampiDiscountsController(
       )
 
       const discounts: Discount[] = response.data.map((discount) => ({
-        minValue: discount.min_value,
-        maxValue: discount.max_value,
+        minCost: discount.min_value,
+        maxCost: discount.max_value,
         percent: discount.percent,
       }))
 

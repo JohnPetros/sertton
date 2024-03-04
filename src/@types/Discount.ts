@@ -1,5 +1,5 @@
 export type Discount = {
-  minValue: 0
-  maxValue: 100
-  percent: 5
+  minCost: number
+  maxCost: number
+  percent: number
 }
