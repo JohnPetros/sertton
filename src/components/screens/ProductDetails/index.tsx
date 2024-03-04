@@ -2,13 +2,6 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { useGlobalSearchParams } from 'expo-router'
 import { ScrollView, View, YStack } from 'tamagui'
 
-import { ProductDescription } from './ProductDescription'
-import { ProductImage } from './ProductImage'
-import { ProductInfo } from './ProductInfo'
-import { ProductStock } from './ProductStock'
-// import { ShipmentServices } from './ShipmentServices'
-import { useProductDetails } from './useProductDetails'
-
 import { Button } from '@/components/shared/Button'
 import { Collection } from '@/components/shared/Collection'
 import { Header } from '@/components/shared/Header'
@@ -16,7 +9,15 @@ import { NumberInput } from '@/components/shared/NumberInput'
 import { Search } from '@/components/shared/Search'
 import { Skeleton } from '@/components/shared/Skeleton'
 import { SkuSelectors } from '@/components/shared/SkuSelectors'
+import { ShipmentServicesCalculator } from '@/components/shared/ShipmentServices'
+
 import { SCREEN } from '@/utils/constants/screen'
+
+import { ProductDescription } from './ProductDescription'
+import { ProductImage } from './ProductImage'
+import { ProductInfo } from './ProductInfo'
+import { ProductStock } from './ProductStock'
+import { useProductDetails } from './useProductDetails'
 
 export function ProductDetails() {
   const { productSlug } = useGlobalSearchParams()
@@ -105,18 +106,18 @@ export function ProductDetails() {
               )}
             </YStack>
 
-            {/* {selectedSku && product && (
+            {selectedSku && product && (
               <View mt={24}>
                 <Skeleton isVisible={isLoading} width={SCREEN.width - 48} height={40}>
-                  <ShipmentServices
-                    product={{
+                  <ShipmentServicesCalculator
+                    sku={{
                       ...selectedSku,
                       quantity,
                     }}
                   />
                 </Skeleton>
               </View>
-            )} */}
+            )}
 
             {product && !isLoading && (
               <YStack mt={24} gap={24}>
