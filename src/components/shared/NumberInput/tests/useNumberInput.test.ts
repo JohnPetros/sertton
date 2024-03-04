@@ -43,6 +43,70 @@ describe('useNumberInput hook', () => {
     expect(result.current.numberValue).toBe(defaulNumber - 1)
   })
 
+  it('should update number value state on change number input', () => {
+    const defaulNumber = 100
+
+    const { result } = renderHook(() =>
+      useNumberInput({
+        number: defaulNumber,
+        onChangeNumber: onChangeNumberMock,
+        onReachMax: onReachMaxMock,
+        min: 1,
+        max: 500,
+      })
+    )
+
+    const newNumberValue = 10
+
+    act(() => {
+      result.current.handleInputValueChange(newNumberValue)
+    })
+
+    expect(result.current.numberValue).toBe(newNumberValue)
+  })
+
+  it('should set number value state to min number if the changed value is less than the min number', () => {
+    const defaulNumber = 100
+    const min = 10
+
+    const { result } = renderHook(() =>
+      useNumberInput({
+        number: defaulNumber,
+        onChangeNumber: onChangeNumberMock,
+        onReachMax: onReachMaxMock,
+        min,
+        max: 500,
+      })
+    )
+
+    act(() => {
+      result.current.handleInputValueChange(-10)
+    })
+
+    expect(result.current.numberValue).toBe(min)
+  })
+
+  it('should set number value state to max number if the changed value is greater than the max number', () => {
+    const defaulNumber = 100
+    const max = 500
+
+    const { result } = renderHook(() =>
+      useNumberInput({
+        number: defaulNumber,
+        onChangeNumber: onChangeNumberMock,
+        onReachMax: onReachMaxMock,
+        min: 10,
+        max,
+      })
+    )
+
+    act(() => {
+      result.current.handleInputValueChange(max * 2)
+    })
+
+    expect(result.current.numberValue).toBe(max)
+  })
+
   it('should not decrease number value when the new number is less than the minimum', () => {
     const defaulNumber = 100
     const min = 100

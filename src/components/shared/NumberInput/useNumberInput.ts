@@ -58,8 +58,13 @@ export function useNumberInput({
       return
     }
 
+    if (numberValue < min) {
+      setNumberValue(min)
+      return
+    }
+
     onChangeNumber(numberValue)
-  }, [numberValue, max])
+  }, [numberValue, max, min])
 
   return {
     numberValue,
