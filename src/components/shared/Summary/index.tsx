@@ -6,22 +6,22 @@ type CartSummaryProps = {
   discount: number
   subtotal: number
   total: number
-  shipment?: number
-  itemsAmount: number
+  shipmentCost?: number
+  itemsCount: number
 }
 
 export function Summary({
   total,
   subtotal,
   discount,
-  shipment = 0,
-  itemsAmount,
+  shipmentCost = 0,
+  itemsCount,
 }: CartSummaryProps) {
   return (
     <YStack gap={8}>
       <XStack justifyContent='space-between' alignItems='center'>
         <Text fontSize={16} color='$gray600'>
-          Produtos ({itemsAmount} {itemsAmount > 1 ? 'items' : 'item'})
+          Produtos ({itemsCount} {itemsCount > 1 ? 'items' : 'item'})
         </Text>
         <Text fontSize={16} color='$gray600' fontWeight='600'>
           {formatPrice(subtotal)}
@@ -36,13 +36,13 @@ export function Summary({
           - {formatPrice(discount)}
         </Text>
       </XStack>
-      {shipment > 0 && (
+      {shipmentCost > 0 && (
         <XStack justifyContent='space-between' alignItems='center'>
           <Text fontSize={16} color='$gray600'>
             Frete
           </Text>
           <Text fontSize={16} color='$gray600' fontWeight='600'>
-            + {formatPrice(shipment)}
+            + {formatPrice(shipmentCost)}
           </Text>
         </XStack>
       )}
