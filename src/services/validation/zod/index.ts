@@ -3,6 +3,7 @@ import { SafeParseReturnType } from 'zod'
 import { IValidation } from '../interfaces/IValidation'
 
 import { cnpjSchema } from './schemas/cnpjSchema'
+import { zipcodeSchema } from './schemas/zipcodeSchema'
 import { cpfSchema } from './schemas/cpfSchema'
 import { emailSchema } from './schemas/emailSchema'
 
@@ -20,6 +21,12 @@ export const ZodValidationProvider = (): IValidation => {
       const emailValidation = emailSchema.safeParse(email)
 
       return returnValidation(emailValidation)
+    },
+
+    validateZipcode(zipcode: string) {
+      const cepValidation = zipcodeSchema.safeParse(zipcode)
+
+      return returnValidation(cepValidation)
     },
 
     validateCpf(cpf: string) {
