@@ -5,6 +5,8 @@ import { YampiPaymentAdapter } from '../adapters/YampiPaymentAdapter'
 import { RESOURCES } from '../constants/resources'
 import { YampiPayment } from '../types/YampiPayment'
 
+const YAMPI_PURCHASE_URL = process.env.EXPO_PUBLIC_YAMPI_PURCHASE_URL
+
 export const YampiCheckoutController = (
   http: IHttp
 ): ICheckoutController => {
@@ -15,6 +17,12 @@ export const YampiCheckoutController = (
       )
 
       return response.data.map(YampiPaymentAdapter)
+    },
+
+    getCheckoutUrl() {
+      if (!YAMPI_PURCHASE_URL) throw new Error('Yampi purchase url is not provided')
+
+      return YAMPI_PURCHASE_URL
     },
   }
 }

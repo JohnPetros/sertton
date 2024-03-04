@@ -7,6 +7,7 @@ import { ENDPOINTS } from '../constants/endpoints'
 import { RESOURCES } from '../constants/resources'
 
 import { ICommentsController } from '../../interfaces/ICommentsController'
+import { Comment } from '@/@types/Comment'
 
 export function YampiCommentsController(
   http: IHttp
@@ -19,7 +20,13 @@ export function YampiCommentsController(
 
       console.log(response.data)
 
-      return response.data
+      const comments: Comment[] = []
+
+      return comments
+    },
+
+    postComment(comment: Comment) {
+      throw new Error('Method not implemented')
     },
   }
 }
