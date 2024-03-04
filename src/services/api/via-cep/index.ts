@@ -9,7 +9,7 @@ import { ViaCepAddress } from './types/ViaCepAddress'
 
 const BASE_URL = process.env.EXPO_PUBLIC_VIA_CEP_BASE_URL
 
-export function useViaCep(): IAddressesController {
+export function useViaCepApi(): IAddressesController {
   if (!BASE_URL) throw new Error('Ivalid Via Cep Base Url')
 
   const http = useHttp()
