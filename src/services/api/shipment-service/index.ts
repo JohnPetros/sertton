@@ -11,7 +11,7 @@ import { useHttp } from "../http"
 const BASE_URL = process.env.EXPO_PUBLIC_SHIPMENT_SERVICE_BASE_URL
 
 export function useShipmentServiceApi(): IShipmentServiceController {
-  if (!BASE_URL) throw new Error('Ivalid Shipment Serivce Base Url')
+  if (!BASE_URL) throw new Error('Ivalid Shipment Service Base Url')
 
   const http = useHttp()
 
