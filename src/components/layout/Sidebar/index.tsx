@@ -1,15 +1,17 @@
+import { SafeAreaView } from 'react-native'
+import { ListItem, Spinner, View, YGroup, YStack } from 'tamagui'
+import { CaretDown, CaretUp } from 'phosphor-react-native'
+
 import { Button } from '@/components/shared/Button'
 import { Contacts } from '@/components/shared/Contacts'
+
 import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
-import { CaretDown, CaretUp } from 'phosphor-react-native'
-import { SafeAreaView } from 'react-native'
-import { SCREEN } from 'src/utils/constants/screen'
-import { ListItem, Spinner, View, YGroup, YStack } from 'tamagui'
-import { TEST_IDS } from './tests/test-ids'
 
 import { RouteButton } from './RouteButton'
 import { ROUTE_BUTTONS } from './constants/route-buttons'
+import { TEST_IDS } from './tests/test-ids'
 import { useSidebar } from './useSidebar'
+import { SCREEN } from '@/utils/constants/screen'
 
 export function Sidebar() {
   const selectedCategoryId = useProductsFilterStore((store) => store.state.categoryId)
