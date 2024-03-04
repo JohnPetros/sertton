@@ -7,7 +7,7 @@ import { useApi } from '@/services/api'
 export function useShipmentServicesDialog(
   zipcode: string,
   shipmentServices: ShipmentService[],
-  onOpenChange: (isOpen: boolean) => void
+  onOpenChange: (isOpen: boolean) => void,
 ) {
   const [shipmentServicesNames, setShipmentServicesNames] = useState<string[]>(
     []
@@ -16,13 +16,23 @@ export function useShipmentServicesDialog(
     Address,
     'zipcode' | 'city' | 'uf'
   > | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   const api = useApi()
 
   async function handleDialogOpenChange(isOpen: boolean) {
     onOpenChange(isOpen)
 
-    if (isOpen && shipmentServices) {
+    console.log(shipmentServices)
+
+    if (!isOpen) {
+      setIsLoading(true)
+      setAddress(null)
+      return
+    }
+
+    if (isOpen && shipmentServices.length) {
+
       const shipmentServicesNames: string[] = []
 
       for (const shipmentService of shipmentServices) {
@@ -35,16 +45,20 @@ export function useShipmentServicesDialog(
 
       if (address)
         setAddress({
-          zipCode: zipcode,
+          zipcode: zipcode,
           city: address.city,
           uf: address.uf,
         })
+      else setAddress(null)
     }
+
+    setIsLoading(false)
   }
 
   return {
     handleDialogOpenChange,
     shipmentServicesNames,
     address,
+    isLoading,
   }
 }
