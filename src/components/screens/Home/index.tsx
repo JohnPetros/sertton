@@ -1,16 +1,19 @@
 import { ScrollView, YStack } from 'tamagui'
 
-import { LeadsCapture } from './LeadsCapture'
-import { Marketing } from './Marketing'
-
 import { Footer } from '@/components/shared/Footer'
 import { Header } from '@/components/shared/Header'
 import { Search } from '@/components/shared/Search'
 import { SCREEN } from '@/utils/constants/screen'
 
+import { useHome } from './useHome'
+
 import { InformativeHighlights } from './InformativeHighlights'
+import { LeadsCapture } from './LeadsCapture'
+import { Marketing } from './Marketing'
 
 export function Home() {
+  useHome()
+
   return (
     <YStack pb={SCREEN.paddingBottom}>
       <YStack px={SCREEN.paddingX} pb={12}>
