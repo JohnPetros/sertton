@@ -1,7 +1,7 @@
 import { ForwardedRef, ReactNode, forwardRef, useImperativeHandle } from 'react'
 import { AlertDialog, XStack } from 'tamagui'
 
-import { useAlert } from '@/components/shared/AlertDialog/useAlertDialog'
+import { useAlertDialog } from '@/components/shared/AlertDialog/useAlertDialog'
 import { Button } from '@/components/shared/Button'
 
 import { AlertDialogRef } from './types/AlertDialogRef'
@@ -17,7 +17,7 @@ const AlertDialogComponent = (
   { onConfirm, onCancel, title, children: trigger }: AlertProps,
   ref: ForwardedRef<AlertDialogRef>
 ) => {
-  const { open, close, handleOpenChange, isOpen } = useAlert(onCancel)
+  const { open, close, handleOpenChange, isOpen } = useAlertDialog(onCancel)
 
   useImperativeHandle(ref, () => {
     return {

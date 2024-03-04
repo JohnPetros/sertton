@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export function useAlert(onCancel: (() => void) | undefined) {
+export function useAlertDialog(onCancel: (() => void) | undefined) {
   const [isOpen, setIsOpen] = useState(false)
 
   function handleOpenChange(isOpen: boolean) {
