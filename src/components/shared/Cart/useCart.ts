@@ -1,14 +1,13 @@
-import * as Linking from 'expo-linking';
+import * as Linking from 'expo-linking'
+import { useRouter } from 'expo-router'
 
 import type { CartProduct } from '@/@types/CartProduct'
+import type { ProcessedSku } from '@/@types/ProcessedSku'
 
 import { useCartStore } from '@/stores/CartStore'
 
 import { useApi } from '@/services/api'
 import { useCache } from '@/services/cache'
-import { useRouter } from 'expo-router';
-
-const YAMPI_PURCHASE_URL = process.env.EXPO_PUBLIC_YAMPI_PURCHASE_URL
 
 export function useCart() {
   const items = useCartStore((store) => store.state.items)
@@ -23,6 +22,7 @@ export function useCart() {
 
     for (const item of items) {
       const product = await api.getProductBySlug(item.slug)
+
       if (product)
         products.push({
           ...product,
@@ -47,9 +47,9 @@ export function useCart() {
   }
 
   function getSelectedSkus() {
-    if (!data) return
+    if (!data) return []
 
-    const selectedSkus = []
+    const selectedSkus: ProcessedSku[] = []
 
     for (const product of data) {
       const selectedSku = product.skus.find(
@@ -59,7 +59,6 @@ export function useCart() {
       if (selectedSku)
         selectedSkus.push({
           quantity: product.quantity,
-          name: product.name,
           ...selectedSku,
         })
     }
@@ -70,15 +69,15 @@ export function useCart() {
   function redirectToCheckout() {
     const skus = getSelectedSkus()
 
-    if (!skus?.length || !YAMPI_PURCHASE_URL) return
+    if (!skus?.length) return
 
     const skusUri = skus
       .map((sku) => `${sku.yampiToken}:${sku.quantity}`)
       .join(',')
 
-    console.log(skusUri)
+    const checkoutUrl = api.getCheckoutUrl()
 
-    Linking.openURL(`${YAMPI_PURCHASE_URL}/${skusUri}`)
+    Linking.openURL(`${checkoutUrl}/${skusUri}`)
 
     router.push('/(stack)/(drawer)/(tabs)/home')
     removeAllItems()
@@ -87,7 +86,6 @@ export function useCart() {
   return {
     products: data,
     totalCartItems: items.length,
-    error,
     isLoading: isLoading || isFetching,
     getSelectedSkus,
     handleRemoveAllItems,

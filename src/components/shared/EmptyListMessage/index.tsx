@@ -1,4 +1,3 @@
-import { Link } from 'expo-router'
 import { Icon, SmileySad } from 'phosphor-react-native'
 import { ReactNode } from 'react'
 import { Paragraph, Text, XStack, YStack, getTokens } from 'tamagui'

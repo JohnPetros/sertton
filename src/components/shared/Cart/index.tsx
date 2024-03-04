@@ -1,5 +1,6 @@
 import { ShoppingCart, TrashSimple } from 'phosphor-react-native'
 import { FlatList } from 'react-native'
+import { Link } from 'expo-router'
 
 import { View, XStack, YStack, getTokens } from 'tamagui'
 
@@ -19,7 +20,7 @@ import { ScreenTitle } from '@/components/shared/ScreenTitle'
 import { Skeleton } from '@/components/shared/Skeleton'
 
 import { SCREEN } from '@/utils/constants/screen'
-import { Link } from 'expo-router'
+import { TEST_IDS } from './tests/test-ids'
 
 export function Cart() {
   const {
@@ -40,15 +41,17 @@ export function Cart() {
         <ScreenTitle>Meu Carrinho</ScreenTitle>
 
         {!isCartEmpty && (
-          <AlertDialog
-            title='Deseja realmente limpar o carrinho?'
-            onConfirm={handleRemoveAllItems}
-          >
-            <Button background='transparent' mr={-12}>
-              <TrashSimple color={getTokens().color.gray400.val} weight='bold' />
-              Limpar carrinho
-            </Button>
-          </AlertDialog>
+          <YStack testID={TEST_IDS.alertDialog}>
+            <AlertDialog
+              title='Deseja realmente limpar o carrinho?'
+              onConfirm={handleRemoveAllItems}
+            >
+              <Button background='transparent' mr={-12}>
+                <TrashSimple color={getTokens().color.gray400.val} weight='bold' />
+                Limpar carrinho
+              </Button>
+            </AlertDialog>
+          </YStack>
         )}
       </XStack>
 
@@ -69,41 +72,45 @@ export function Cart() {
             }
           />
         ) : isLoading ? (
-          <FlatList
-            key='cart-items-loading'
-            data={productsMock}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <View mb={32}>
-                <CartItem
-                  data={item}
-                  quantity={item.quantity}
-                  selectedSkuId={item.selectedSkuId}
-                  width={PRODUCT_CART_ITEM_WIDTH}
-                  isLoading={true}
-                />
-              </View>
-            )}
-            showsVerticalScrollIndicator={false}
-          />
+          <View testID={TEST_IDS.itemsListPlaceholder}>
+            <FlatList
+              key='cart-items-loading'
+              data={productsMock}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <View mb={32}>
+                  <CartItem
+                    data={item}
+                    quantity={item.quantity}
+                    selectedSkuId={item.selectedSkuId}
+                    width={PRODUCT_CART_ITEM_WIDTH}
+                    isLoading={true}
+                  />
+                </View>
+              )}
+              showsVerticalScrollIndicator={false}
+            />
+          </View>
         ) : (
-          <FlatList
-            key='cart-items'
-            data={products}
-            keyExtractor={(item) => item.selectedSkuId}
-            renderItem={({ item }) => (
-              <View mb={32}>
-                <CartItem
-                  data={item}
-                  quantity={item.quantity}
-                  selectedSkuId={item.selectedSkuId}
-                  width={PRODUCT_CART_ITEM_WIDTH}
-                  isLoading={false}
-                />
-              </View>
-            )}
-            contentContainerStyle={{ paddingBottom: 180 }}
-          />
+          <View testID={TEST_IDS.itemsList}>
+            <FlatList
+              key='cart-items'
+              data={products}
+              keyExtractor={(item) => item.selectedSkuId}
+              renderItem={({ item }) => (
+                <View mb={32}>
+                  <CartItem
+                    data={item}
+                    quantity={item.quantity}
+                    selectedSkuId={item.selectedSkuId}
+                    width={PRODUCT_CART_ITEM_WIDTH}
+                    isLoading={false}
+                  />
+                </View>
+              )}
+              contentContainerStyle={{ paddingBottom: 180 }}
+            />
+          </View>
         )}
         <YStack zIndex={50} position='absolute' bottom={0} py={12} bg='$gray50' w='100%'>
           <Skeleton
@@ -113,7 +120,9 @@ export function Cart() {
           >
             <YStack gap={8}>
               {!isCartEmpty && (
-                <CartSummary items={products ?? []} isLoading={isLoading} />
+                <YStack testID={TEST_IDS.cartSummary}>
+                  <CartSummary items={products ?? []} isLoading={isLoading} />
+                </YStack>
               )}
 
               {!isCartEmpty && (
