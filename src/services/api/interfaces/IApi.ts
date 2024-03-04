@@ -9,11 +9,15 @@ import { ILeadsController } from './ILeadsController'
 import { IOrdersController } from './IOrdersController'
 import { IProductsController } from './IProductsController'
 import { ISkusController } from './ISkusController'
+import { ICommentsController } from './ICommentsController'
+import { IAddressesController } from './IAddressesController'
 
-export interface IApi
-  extends IBannersController,
+export interface IApi extends
+  IAddressesController,
+  IBannersController,
   IBrandsController,
   ICategoriesController,
+  ICommentsController,
   ICheckoutController,
   ICollectionsController,
   IDiscountsController,
