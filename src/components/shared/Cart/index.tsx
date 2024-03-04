@@ -19,6 +19,7 @@ import { ScreenTitle } from '@/components/shared/ScreenTitle'
 import { Skeleton } from '@/components/shared/Skeleton'
 
 import { SCREEN } from '@/utils/constants/screen'
+import { Link } from 'expo-router'
 
 export function Cart() {
   const {
@@ -57,7 +58,15 @@ export function Cart() {
             title='Seu carrinho está vazio'
             subtitle='Navegue pela loja e adiciona produtos.'
             icon={ShoppingCart}
-            callback={<Button>Procurar produtos</Button>}
+            callback={
+              <Link
+                href='/(stack)/(drawer)/(tabs)/products'
+                asChild
+                style={{ marginTop: 12 }}
+              >
+                <Button>Procurar produtos</Button>
+              </Link>
+            }
           />
         ) : isLoading ? (
           <FlatList

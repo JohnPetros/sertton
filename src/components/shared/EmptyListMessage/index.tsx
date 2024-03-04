@@ -17,25 +17,17 @@ export function EmptyListMessage({
   callback,
 }: EmptyItemsMessage) {
   return (
-    <YStack flex={1} alignItems='center' justifyContent='center'>
+    <YStack alignItems='center' justifyContent='center' gap={16}>
       <XStack alignItems='flex-start'>
         <Icon size={48} color={getTokens().color.gray600.val} />
         <SmileySad size={32} weight='bold' color={getTokens().color.gray600.val} />
       </XStack>
-      <Text fontSize={24} color='$gray600' fontWeight='600' mt={12}>
+      <Text textAlign='center' color='$gray600' fontSize={24} fontWeight='600'>
         {title}
       </Text>
-      {subtitle && (
-        <Paragraph color='$gray600' mt={4}>
-          {subtitle}
-        </Paragraph>
-      )}
+      {subtitle && <Paragraph color='$gray600'>{subtitle}</Paragraph>}
 
-      {callback && (
-        <Link href='/(stack)/(drawer)/(tabs)/products' asChild style={{ marginTop: 12 }}>
-          {callback}
-        </Link>
-      )}
+      {callback && callback}
     </YStack>
   )
 }
