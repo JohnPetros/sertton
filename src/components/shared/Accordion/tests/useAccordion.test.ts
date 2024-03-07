@@ -10,6 +10,7 @@ jest.mock('react-native-reanimated', () => {
   return {
     ...originalModule,
     runOnUI: jest.fn((callback) => callback),
+    withTiming: jest.fn((param) => param),
     measure: jest.fn().mockReturnValueOnce({ height: 100 })
   }
 })

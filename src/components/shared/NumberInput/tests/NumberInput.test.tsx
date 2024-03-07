@@ -5,7 +5,7 @@ import { act, fireEvent, screen } from '@testing-library/react-native'
 import { NumberInput } from '..'
 
 import { render } from '@/_tests_/customs/customRender'
-import { useNumberInputMock } from './mocks/useInputMock'
+import { useNumberInputMock } from './mocks/useNumberInputMock'
 import { TEST_IDS } from './constants/test-ids'
 
 const onChangeNumberMock = jest.fn()

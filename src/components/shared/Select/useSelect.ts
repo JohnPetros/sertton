@@ -12,8 +12,8 @@ export type SelectRef = {
 
 export function useSelect(
   defaultValue: string,
+  onChange: (value: string) => void,
   hasError = false,
-  onChange: (value: string) => void
 ) {
   const [selectedValue, setSelectedValue] = useState(defaultValue)
   const [isOpen, setIsOpen] = useState(false)

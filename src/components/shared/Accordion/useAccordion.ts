@@ -23,10 +23,7 @@ export function useAccordion(
 
   const containerAnimatedStyle = useAnimatedStyle(() => {
     return {
-      backgroundColor: interpolateColor(
-        withTiming(isOpen.value, {
-          duration: ANIMATION_DURATION,
-        }),
+      backgroundColor: interpolateColor(isOpen.value,
         [1, 0],
         [openColor, closedColor]
       ),
@@ -46,7 +43,10 @@ export function useAccordion(
       height.value = !height.value ? Number(measuredHeight) : 0
     })()
 
-    isOpen.value = isOpen.value === 0 ? 1 : 0
+    isOpen.value = withTiming(isOpen.value === 0 ? 1 : 0, {
+      duration: ANIMATION_DURATION,
+    })
+
   }
 
   return {

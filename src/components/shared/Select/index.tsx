@@ -61,7 +61,7 @@ export const SelectComponent = (
     selectedValue,
     isOpen,
     error,
-  } = useSelect(defaultValue, hasError, onChange)
+  } = useSelect(defaultValue, onChange, hasError)
   const id = useId()
 
   useImperativeHandle(ref, () => {

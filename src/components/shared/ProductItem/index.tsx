@@ -1,4 +1,4 @@
-import { AllRoutes, Link } from 'expo-router'
+import { Link } from 'expo-router'
 import { memo } from 'react'
 import { View, XStack, YStack } from 'tamagui'
 
