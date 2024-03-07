@@ -69,4 +69,13 @@ jest.mock('phosphor-react-native', () => ({
   Minus: () => {
     return <Icon />
   },
+  X: () => {
+    return <Icon />
+  },
+  ArrowsDownUp: () => {
+    return <Icon />
+  },
+  Faders: () => {
+    return <Icon />
+  },
 }))
