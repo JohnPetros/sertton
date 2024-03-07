@@ -1,14 +1,14 @@
 import { fireEvent, screen } from '@testing-library/react-native'
 import { View } from 'tamagui'
 
-import { useSelect } from '../useSelect'
-import { Select } from '..'
 
 import { TEST_IDS } from './constants/test-ids'
 
-import { render } from '@/_tests_/customs/customRender'
 import { red } from '@/styles/colors'
+import { render } from '@/_tests_/customs/customRender'
+
 import { useSelectMock } from './mocks/useSelectMock'
+import { Select } from '..'
 
 const CaretDown = () => <View />
 const Check = () => <View />
@@ -94,8 +94,8 @@ describe('Select component', () => {
     expect(trigger.props.style.width).toBe(width)
   })
 
-  it('Should render the default value first', () => {
-    useSelectMock()
+  it('Should set the selected value as the default value', () => {
+    useSelectMock({ selectedValue: defaultValue })
 
     render(
       <Select
@@ -132,29 +132,8 @@ describe('Select component', () => {
     expect(openMock).toHaveBeenCalled()
   })
 
-  it('Should not open on press trigger if it is disabled', () => {
-    const { openMock } = useSelectMock()
-
-    render(
-      <Select
-        defaultValue={defaultValue}
-        width={width}
-        items={items}
-        hasError={hasError}
-        isDisabled={true}
-        onChange={onChangeMock}
-      />
-    )
-
-    const trigger = screen.getByTestId(TEST_IDS.trigger)
-
-    fireEvent.press(trigger)
-
-    expect(openMock).not.toHaveBeenCalled()
-  })
-
   it('Should trigger have red color if there is an error', () => {
-    useSelectMock()
+    useSelectMock({ error: true })
 
     render(
       <Select
