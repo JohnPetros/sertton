@@ -19,18 +19,6 @@
 </div>
 <br>
 
-<p align="center">
- <a href="#-sobre-o-projeto">Motivação</a> |
- <a href="#-demonstração">Demonstração</a> | 
- <a href="#-funcionalidades">Funcionalidades</a> | 
- <a href="#-deploy">Deploy</a> | 
- <a href="#-tecnologias">Tecnologias</a> | 
- <a href="#-como-rodar-a-aplicação">Como  rodar a aplicação?</a> | 
- <a href="#-como-contribuir">Como contribuir</a> | 
- <a href="#-layout">Layout</a> | 
- <a href="#-license">Licença</a>
-</p>
-
 ## 🖥️ Sobre o Projeto
 
 Sertton é um aplicativo e-commerce voltado para o nicho de peças de carroceria para veículos de transporte de grande porte.
