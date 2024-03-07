@@ -1,43 +1,30 @@
-import { useEffect, useRef, useState } from 'react'
-
-import { ProductsListProps } from '.'
-
+import { useEffect, useRef } from 'react'
 
 import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
 
 import { SCREEN } from '@/utils/constants/screen'
 import { SORTERS } from '@/utils/constants/sorters'
-import { wait } from '@/utils/helpers/wait'
 
-type Layout = 'mosaic' | 'list'
+import { ProductsListProps } from '.'
 
 export function useProductsList({
   products,
   onEndReached,
-  setSelectedSorter,
+  onSelectSorter,
 }: Omit<ProductsListProps, 'isLoading' | 'hasNextPage' | 'onRefresh'>) {
-  const [layout, setLayout] = useState<Layout>('list')
-  const [isFiltersDialogLoading, setIsFiltersDialogLoading] = useState(false)
   const isFetching = useRef(false)
-  const totalProducts = useRef(0)
+  const totalProductsCount = useRef(0)
   const data = products.slice(0)
 
   const currentSearchValue = useProductsFilterStore(
     (store) => store.state.search
   )
 
-  const productWidth =
-    layout === 'list'
-      ? SCREEN.width - SCREEN.paddingX * 2
-      : (SCREEN.width - SCREEN.paddingX * 2) / 2 - 12
-
-  function handleLayoutToggle() {
-    setLayout(layout === 'list' ? 'mosaic' : 'list')
-  }
+  const productWidth = SCREEN.width - SCREEN.paddingX * 2
 
   function handleSelectChange(sorterName: string) {
     const sorter = SORTERS.find((sorte) => sorte.name === sorterName) ?? null
-    setSelectedSorter(sorter)
+    onSelectSorter(sorter)
   }
 
   function handleListEndReached() {
@@ -47,32 +34,22 @@ export function useProductsList({
     }
   }
 
-  async function handleFiltersDialogButton() {
-    setIsFiltersDialogLoading(true)
-    await wait(1500)
-    setIsFiltersDialogLoading(false)
-  }
-
   useEffect(() => {
-    if (products.length > totalProducts.current) {
-      totalProducts.current = products.length
+    if (products.length > totalProductsCount.current) {
+      totalProductsCount.current = products.length
       isFetching.current = false
     }
   }, [products])
 
   useEffect(() => {
     if (currentSearchValue)
-      totalProducts.current = 0
+      totalProductsCount.current = 0
   }, [currentSearchValue])
 
   return {
     data,
-    layout,
     productWidth,
-    isFiltersDialogLoading,
-    handleFiltersDialogButton,
     handleSelectChange,
     handleListEndReached,
-    handleLayoutToggle,
   }
 }

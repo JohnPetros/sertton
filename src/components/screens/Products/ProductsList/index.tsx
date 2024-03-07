@@ -29,7 +29,7 @@ export type ProductsListProps = {
   products: Product[]
   isLoading: boolean
   hasNextPage: boolean
-  setSelectedSorter: (sorter: Sorter | null) => void
+  onSelectSorter: (sorter: Sorter | null) => void
   onEndReached: () => void
   onRefresh: () => void
 }
@@ -39,20 +39,17 @@ export function ProductsList({
   isLoading,
   hasNextPage,
   onRefresh,
-  setSelectedSorter,
+  onSelectSorter,
   onEndReached,
 }: ProductsListProps) {
   const {
     data,
-    layout,
     productWidth,
-    isFiltersDialogLoading,
     handleSelectChange,
     handleListEndReached,
-    handleFiltersDialogButton,
   } = useProductsList({
     products,
-    setSelectedSorter,
+    onSelectSorter,
     onEndReached,
   })
 
@@ -96,19 +93,17 @@ export function ProductsList({
             alignSelf='center'
             alignItems='center'
             flexDirection='row'
-            disabled={isFiltersDialogLoading}
             pressStyle={{
               opacity: 0.7,
             }}
-            onPress={handleFiltersDialogButton}
           >
             <Faders color={ICON_COLOR} size={ICON_SIZE} />
-            {isFiltersDialogLoading ? <Spinner color='$gray800' /> : 'Filtrar'}
+            Filtrar
           </Button>
         </FiltersDialog>
       </XStack>
 
-      <XStack flexWrap='wrap' gap={8} mb={tags.length > 0 ? 8 : 0}>
+      {tags.length > 0 && <XStack flexWrap='wrap' gap={8} mb={tags.length > 0 ? 8 : 0}>
         {tags.map((tag) => (
           <Tag
             key={tag.id}
@@ -118,10 +113,11 @@ export function ProductsList({
             onPress={handleTag}
           />
         ))}
-      </XStack>
+      </XStack>}
 
       {isLoading ? (
         <FlatList
+          testID='products-list-loading'
           key='productsMock'
           data={productsMock}
           keyExtractor={keyExtractor}
@@ -130,7 +126,7 @@ export function ProductsList({
               <ProductItem
                 data={item}
                 isLoading={true}
-                isColumn={layout === 'mosaic'}
+                isColumn={false}
                 width={productWidth}
               />
             </View>
@@ -140,7 +136,8 @@ export function ProductsList({
         />
       ) : (
         <FlatList
-          key={'products-list'}
+          testID='products-list-loading'
+          key='products-list'
           data={data}
           keyExtractor={(item) => String(item.id)}
           refreshControl={
@@ -159,7 +156,7 @@ export function ProductsList({
           onEndReached={handleListEndReached}
           ListFooterComponent={
             hasNextPage ? (
-              <View mt={-36}>
+              <View testID='loading' mt={-36}>
                 <Loading size={150} message='carregando mais produtos...' />
               </View>
             ) : null

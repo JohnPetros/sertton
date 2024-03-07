@@ -9,7 +9,7 @@ const ProductItem = ({ data }: ProductItemProps) => (
   </View>
 )
 
-jest.mock('../../../ProductItem', () => ({
+jest.mock('@/components/shared/ProductItem', () => ({
   ProductItem: (productItemProps: ProductItemProps) => {
     return <ProductItem {...productItemProps} />
   },

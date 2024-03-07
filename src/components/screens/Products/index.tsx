@@ -61,7 +61,7 @@ export function Products() {
         isLoading={isLoading}
         hasNextPage={hasNextPage}
         onRefresh={refetch}
-        setSelectedSorter={setSelectedSorter}
+        onSelectSorter={setSelectedSorter}
         onEndReached={handleProductsListEndReached}
       />
     </YStack>
