@@ -30,4 +30,43 @@ jest.mock('phosphor-react-native', () => ({
   Check: () => {
     return <Icon />
   },
+  ListBullets: () => {
+    return <Icon />
+  },
+  ShoppingCart: () => {
+    return <Icon />
+  },
+  TrashSimple: () => {
+    return <Icon />
+  },
+  SmileySad: () => {
+    return <Icon />
+  },
+  ArrowLeft: () => {
+    return <Icon />
+  },
+  CaretDown: () => {
+    return <Icon />
+  },
+  CaretUp: () => {
+    return <Icon />
+  },
+  Scroll: () => {
+    return <Icon />
+  },
+  User: () => {
+    return <Icon />
+  },
+  Lock: () => {
+    return <Icon />
+  },
+  Plus: () => {
+    return <Icon />
+  },
+  Trash: () => {
+    return <Icon />
+  },
+  Minus: () => {
+    return <Icon />
+  },
 }))

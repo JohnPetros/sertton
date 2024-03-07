@@ -1,6 +1,6 @@
 import { renderHook } from "@/_tests_/customs/customRenderHook"
 import { useInformativeHighlights } from "../useInformativeHighlights"
-import { useRefMock } from "@/_tests_/mocks/hooks/useRefMock"
+import { useRefMock } from "@/_tests_/mocks/libs/react/useRefMock"
 import { SliderRef } from "@/components/shared/Slider/types/SliderRef"
 
 const setSlideIndexMock = jest.fn()

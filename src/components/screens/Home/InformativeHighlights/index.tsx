@@ -1,17 +1,26 @@
-import SwiperFlatList from 'react-native-swiper-flatlist'
-import { getTokens, Text, XStack } from 'tamagui'
+import { useRef } from 'react'
 import { ArrowLeft, ArrowRight } from 'phosphor-react-native'
+import { getTokens, XStack } from 'tamagui'
 
+import { Slider } from '@/components/shared/Slider'
+import { SliderRef } from '@/components/shared/Slider/types/SliderRef'
 import { Button } from '@/components/shared/Button'
+
 import { SCREEN } from '@/utils/constants/screen'
 
 import { INFORMATIVE_HIGHLIGHTS } from './constants/Informative-highlights'
 
+import { InformativeHiglight } from './types/InformativeHighlight'
+
 import { useInformativeHighlights } from './useInformativeHighlights'
+import { Text } from 'tamagui'
 
 export function InformativeHighlights() {
-  const { swiperRef, handlePrev, handleNext } = useInformativeHighlights(
-    INFORMATIVE_HIGHLIGHTS.length - 1
+  const sliderRef = useRef<SliderRef>(null)
+
+  const { handlePreviousButtonPress, handleNextButtonPress } = useInformativeHighlights(
+    INFORMATIVE_HIGHLIGHTS.length - 1,
+    sliderRef
   )
 
   return (
@@ -22,16 +31,11 @@ export function InformativeHighlights() {
         left={-24}
         zIndex={50}
         background='transparent'
-        onPress={handlePrev}
+        onPress={handlePreviousButtonPress}
         icon={<ArrowLeft size={16} weight='bold' color={getTokens().color.gray800.val} />}
       />
-      <SwiperFlatList
-        ref={swiperRef}
-        autoplay
-        autoplayDelay={2}
-        autoplayLoop
-        disableGesture
-        autoplayInvertDirection
+      <Slider<InformativeHiglight>
+        innerRef={sliderRef}
         data={INFORMATIVE_HIGHLIGHTS}
         renderItem={({ item }) => {
           const Icon = item.icon
@@ -58,7 +62,7 @@ export function InformativeHighlights() {
         right={-24}
         zIndex={50}
         background='transparent'
-        onPress={handleNext}
+        onPress={handleNextButtonPress}
         icon={
           <ArrowRight size={16} weight='bold' color={getTokens().color.gray800.val} />
         }

@@ -1,18 +1,12 @@
 import { ShoppingCart, TrashSimple } from 'phosphor-react-native'
+import { View, XStack, YStack, getTokens } from 'tamagui'
 import { FlatList } from 'react-native'
 import { Link } from 'expo-router'
-
-import { View, XStack, YStack, getTokens } from 'tamagui'
-
-import { useCart } from './useCart'
-
-import { PRODUCT_CART_ITEM_WIDTH } from './constants/product-cart-item-width'
 
 import { cartProductsMock } from '@/_tests_/mocks/core/cartProductsMock'
 
 import { AlertDialog } from '@/components/shared/AlertDialog'
 import { Button } from '@/components/shared/Button'
-import { CartItem } from '@/components/shared/CartItems/CartItem'
 import { CartSummary } from '@/components/shared/CartSummary'
 import { EmptyListMessage } from '@/components/shared/EmptyListMessage'
 import { Header } from '@/components/shared/Header'
@@ -20,7 +14,12 @@ import { ScreenTitle } from '@/components/shared/ScreenTitle'
 import { Skeleton } from '@/components/shared/Skeleton'
 
 import { SCREEN } from '@/utils/constants/screen'
+
 import { TEST_IDS } from './tests/test-ids'
+import { PRODUCT_CART_ITEM_WIDTH } from './constants/product-cart-item-width'
+
+import { CartItem } from './CartItem'
+import { useCart } from './useCart'
 
 export function Cart() {
   const {
@@ -80,7 +79,9 @@ export function Cart() {
               renderItem={({ item }) => (
                 <View mb={32}>
                   <CartItem
-                    data={item}
+                    name={item.name}
+                    skus={item.skus}
+                    imageUrl={item.imageUrl}
                     quantity={item.quantity}
                     selectedSkuId={item.selectedSkuId}
                     width={PRODUCT_CART_ITEM_WIDTH}
@@ -100,7 +101,9 @@ export function Cart() {
               renderItem={({ item }) => (
                 <View mb={32}>
                   <CartItem
-                    data={item}
+                    name={item.name}
+                    skus={item.skus}
+                    imageUrl={item.imageUrl}
                     quantity={item.quantity}
                     selectedSkuId={item.selectedSkuId}
                     width={PRODUCT_CART_ITEM_WIDTH}

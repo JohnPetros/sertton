@@ -5,7 +5,7 @@ import { productsMock } from "@/_tests_/mocks/core/productsMock"
 import { useApiMock } from "@/_tests_/mocks/services/apiMock"
 import { act, waitFor } from "@testing-library/react-native"
 import { skusMock } from "@/_tests_/mocks/core/skusMock"
-import { useRefMock } from "@/_tests_/mocks/hooks/useRefMock"
+import { useRefMock } from "@/_tests_/mocks/libs/react/useRefMock"
 import { SelectRef } from "../../Select/types/SelectRef"
 
 jest.mock('@/services/api')
