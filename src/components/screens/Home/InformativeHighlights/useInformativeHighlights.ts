@@ -1,34 +1,32 @@
-import { useRef } from 'react'
-import SwiperFlatList from 'react-native-swiper-flatlist'
+import { SliderRef } from '@/components/shared/Slider/types/SliderRef'
+import { RefObject } from 'react'
 
-export function useInformativeHighlights(lastIndex: number) {
-  const swiperRef = useRef<SwiperFlatList | null>(null)
+export function useInformativeHighlights(
+  lastIndex: number,
+  swiperRef: RefObject<SliderRef>
+) {
 
-  function handlePrev() {
-    const currentIndex = swiperRef.current?.getCurrentIndex()
+  function handlePreviousButtonPress() {
+    const currentIndex = swiperRef.current?.getCurrentSlideIndex()
 
-    if (currentIndex) {
+    if (currentIndex || currentIndex === 0) {
       const prevIndex = currentIndex - 1
-      swiperRef.current?.scrollToIndex({
-        index: prevIndex < 0 ? lastIndex : prevIndex,
-      })
+      swiperRef.current?.setSlideIndex(prevIndex < 0 ? lastIndex : prevIndex)
     }
   }
 
-  function handleNext() {
-    const currentIndex = swiperRef.current?.getCurrentIndex()
+  function handleNextButtonPress() {
+    const currentIndex = swiperRef.current?.getCurrentSlideIndex()
 
-    if (currentIndex) {
+    if (currentIndex || currentIndex === 0) {
       const nextIndex = currentIndex + 1
-      swiperRef.current?.scrollToIndex({
-        index: nextIndex > lastIndex ? 0 : nextIndex,
-      })
+      swiperRef.current?.setSlideIndex(nextIndex > lastIndex ? 0 : nextIndex)
     }
   }
 
   return {
-    handlePrev,
-    handleNext,
+    handlePreviousButtonPress,
+    handleNextButtonPress,
     swiperRef,
   }
 }

@@ -1,12 +1,13 @@
 import {
   ChatTeardropText,
   CreditCard,
-  Icon,
   LockSimple,
   Truck,
 } from 'phosphor-react-native'
 
-export const INFORMATIVE_HIGHLIGHTS: { text: string; icon: Icon }[] = [
+import type { InformativeHiglight } from '../types/InformativeHighlight'
+
+export const INFORMATIVE_HIGHLIGHTS: InformativeHiglight[] = [
   {
     text: 'Envio rápido e garantido, para todo Brasil',
     icon: Truck,
