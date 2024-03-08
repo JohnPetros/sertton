@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import ErrorBoundary from 'react-native-error-boundary'
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useColorScheme } from 'react-native'
@@ -21,6 +22,9 @@ import { ZodValidationProvider } from '@/services/validation/zod'
 import { MmkvStorageProvider } from '@/services/storage/mmkv'
 import { injectStorageProvider } from '@/services/storage'
 
+import { useAppError } from '@/utils/hooks/useAppError'
+import { AppError } from '@/components/shared/AppError'
+
 export { ErrorBoundary } from 'expo-router'
 
 injectHttpProvider(AxiosHttpProvider)
@@ -36,6 +40,11 @@ export default function RootLayout() {
     InterBold: require('@tamagui/font-inter/otf/Inter-Bold.otf'),
   })
 
+  const colorScheme = useColorScheme()
+
+  const { handleAppError } = useAppError()
+
+
   useEffect(() => {
     if (interLoaded || interError) {
       SplashScreen.hideAsync()
@@ -46,23 +55,13 @@ export default function RootLayout() {
     return null
   }
 
-  return <RootLayoutNav />
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme()
-
-  return (
-    <Providers>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <StyledSafeAreaView>
-          {/* <Stack>
-          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-          <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
-        </Stack> */}
+  return <Providers>
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <StyledSafeAreaView>
+        <ErrorBoundary onError={handleAppError} FallbackComponent={AppError}>
           <StackLayout />
-        </StyledSafeAreaView>
-      </ThemeProvider>
-    </Providers>
-  )
+        </ErrorBoundary>
+      </StyledSafeAreaView>
+    </ThemeProvider>
+  </Providers >
 }
