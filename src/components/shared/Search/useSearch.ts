@@ -10,12 +10,6 @@ export function useSearch(isFetching: boolean) {
   const currentSearchValue = useProductsFilterStore(
     (store) => store.state.search
   )
-  const brandsIds = useProductsFilterStore(
-    (store) => store.state.brandsIds
-  )
-  const categoryId = useProductsFilterStore(
-    (store) => store.state.categoryId
-  )
 
   const [searchValue, setSearchValue] = useState(currentSearchValue)
   const [isLoading, setIsloading] = useState(false)
@@ -40,12 +34,6 @@ export function useSearch(isFetching: boolean) {
   useEffect(() => {
     setSearchValue(currentSearchValue)
   }, [currentSearchValue])
-
-  // useEffect(() => {
-  //   if (!isFetching && !searchValue && !categoryId && !brandsIds.length) {
-  //     setSearch('')
-  //   }
-  // }, [isFetching, searchValue, categoryId, brandsIds, setSearch])
 
   return {
     searchValue,

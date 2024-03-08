@@ -4,20 +4,21 @@ import { useInfiniteQuery } from 'react-query'
 import { Product } from '@/@types/Product'
 import { Sorter } from '@/@types/Sorter'
 
-// import { useAppError } from '@/components/shared/AppError/useAppError'
 import { useApi } from '@/services/api'
 import { useCache } from '@/services/cache'
 
 import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
 
 import { CACHE } from '@/utils/constants/cache'
+import { useToast } from '@/utils/hooks/useToast'
 
 export function useProducts() {
   const api = useApi()
+
   const currentPage = useRef(0)
   const hasNextPage = useRef(true)
 
-  // const { throwAppError } = useAppError()
+  const toast = useToast()
 
   const { search, categoryId, brandsIds } = useProductsFilterStore(
     (store) => store.state
@@ -32,7 +33,7 @@ export function useProducts() {
     try {
       return await api.getCategoryById(categoryId)
     } catch (error) {
-      // throwAppError('Erro ao definir categoria de produtos')
+      toast.show('Erro ao definir categoria de produtos', 'error')
     }
   }
 

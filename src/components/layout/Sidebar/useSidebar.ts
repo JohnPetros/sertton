@@ -9,6 +9,7 @@ import { useCache } from '@/services/cache'
 import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
 import { CACHE } from '@/utils/constants/cache'
 import { useDrawerStatus } from '@react-navigation/drawer'
+import { useAppError } from '@/utils/hooks/useAppError'
 
 export function useSidebar() {
   const [canShowAllCategories, setCanShowAllCategories] = useState(false)
@@ -20,16 +21,16 @@ export function useSidebar() {
   const api = useApi()
   const router = useRouter()
   const isOpen = useDrawerStatus()
-  // const { throwAppError } = useAppError()
+  const { throwAppError } = useAppError()
 
   const { data: categories, error } = useCache({
     key: CACHE.keys.categories,
     fetcher: api.getCategories,
   })
 
-  // if (error) {
-  //   throwAppError('Error ao mostrar categorias')
-  // }
+  if (error) {
+    throwAppError('Error ao mostrar categorias')
+  }
 
   function handleShowAllCategories() {
     setCanShowAllCategories(!canShowAllCategories)

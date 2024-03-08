@@ -1,14 +1,10 @@
+import { WHATSAPP_NUMBER } from '@/utils/constants/whatsapp'
 import { Contact } from '../types/Contact'
-
-const WHATSAPP = {
-  number: '5512988233818',
-  text: 'Olá, gostaria de saber mais sobre a Sertton.',
-}
 
 export const CONTACTS: Contact[] = [
   {
     type: 'whatsapp',
-    url: `whatsapp://send?phone=${WHATSAPP.number}&text=${WHATSAPP.text}`,
+    url: `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=Olá, gostaria de saber mais sobre a Sertton.`,
     title: '(12) 988233818',
   },
   {

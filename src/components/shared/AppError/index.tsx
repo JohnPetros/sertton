@@ -10,10 +10,10 @@ import { WHATSAPP_NUMBER } from '@/utils/constants/whatsapp'
 
 type AppErrorProps = {
   error: Error
-  reTryApp: VoidFunction
+  resetError: VoidFunction
 }
 
-export function AppError({ error, reTryApp }: AppErrorProps) {
+export function AppError({ error, resetError }: AppErrorProps) {
   const { message } = useAppError(error.message)
 
   return (
@@ -42,7 +42,7 @@ export function AppError({ error, reTryApp }: AppErrorProps) {
             😢 Ops, temos um problema
           </H1>
           <Paragraph color='$gray700' textAlign='center'>{message}.</Paragraph>
-          <Button onPress={reTryApp}>Tentar novamente</Button>
+          <Button onPress={resetError}>Tentar novamente</Button>
           <Anchor
             href={`whatsapp://send?phone=${WHATSAPP_NUMBER}&text=Olá, estou tendo um erro no aplicativo.`}
             color='$blue400'

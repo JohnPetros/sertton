@@ -1,11 +1,11 @@
 import { useQuery } from 'react-query'
 
-// import { useAppError } from '@/components/shared/AppError/useAppError'
 import { useApi } from '@/services/api'
+import { useAppError } from '@/utils/hooks/useAppError'
 
 export function useCollections() {
   const api = useApi()
-  // const { throwAppError } = useAppError()
+  const { throwAppError } = useAppError()
 
   async function getProductsByCollection(collectionId: string) {
     return await api.getProductsByCollectionId(collectionId)
@@ -33,7 +33,7 @@ export function useCollections() {
     } catch (error) {
       api.handleError(error)
       console.error(error)
-      // throwAppError('Erro ao mostrar coleções')
+      throwAppError('Erro ao mostrar coleções')
     }
   }
 
