@@ -1,5 +1,6 @@
 import { config as configBase } from '@tamagui/config'
 import { createTamagui } from 'tamagui'
+
 import { tokens } from './src/styles/tokens'
 
 export const config = createTamagui({ ...configBase, tokens })

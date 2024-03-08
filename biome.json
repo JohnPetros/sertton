@@ -3,6 +3,13 @@
   "organizeImports": {
     "enabled": false
   },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentWidth": 2,
+      "lineEnding": "lf"
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -63,15 +70,23 @@
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 90,
-    "ignore": ["**/*/generated-new.ts", "**/*/generated-v2.ts"]
+    "lineWidth": 40,
+    "ignore": [
+      "**/*/generated-new.ts",
+      "**/*/generated-v2.ts"
+    ],
+    "lineEnding": "lf"
   },
   "javascript": {
     "formatter": {
-      "trailingComma": "es5",
-      "jsxQuoteStyle": "single",
+      "enabled": true,
       "semicolons": "asNeeded",
-      "quoteStyle": "single"
+      "indentWidth": 2,
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "single",
+      "lineWidth": 10,
+      "quoteProperties": "asNeeded",
+      "arrowParentheses": "always"
     }
   }
 }
