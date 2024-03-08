@@ -7,6 +7,7 @@
     "upgrade:tamagui:canary": "yarn up '*tamagui*'@canary '@tamagui/*'@canary",
     "start": "expo start",
     "android": "expo run:android",
+    "apk": "eas build -p android --profile apk",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll"
@@ -54,7 +55,8 @@
     "react-query": "^3.39.3",
     "tamagui": "^1.89.30",
     "use-debounce": "^10.0.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "expo-clipboard": "~5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
