@@ -1,4 +1,4 @@
-// import * as Clipboard from 'expo-clipboard'
+import * as Clipboard from 'expo-clipboard'
 
 import { useToast } from '@/utils/hooks/useToast'
 
@@ -7,7 +7,7 @@ export function useClipboard(text: string, message: string) {
 
   async function copy() {
     try {
-      // await Clipboard.setStringAsync(text)
+      await Clipboard.setStringAsync(text)
 
       toast.show(message)
     } catch (error) {
