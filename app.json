@@ -4,7 +4,7 @@
     "slug": "sertton",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon-large.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -20,9 +20,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
+        "foregroundImage": "./assets/images/icon-large.png",
         "backgroundColor": "#FFF"
       },
+      "icon": "./assets/images/icon-large.png",
       "package": "com.joaopcarvalho.sertton"
     },
     "web": {
