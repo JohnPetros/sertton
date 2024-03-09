@@ -44,7 +44,9 @@ O aplicativo consome via API Rest os dados da loja virtual da **Sertton Industri
 
 ## ✨ Funcionalidades
 
-### Listagem de produtos
+### ✅ Requisitos Funcionais
+
+#### Listagem de produtos
 
 - [x] Deve ser possível listar todos os produtos que possuem estoque maior que 0
 - [x] Cada produto deve exibir:
@@ -57,33 +59,35 @@ O aplicativo consome via API Rest os dados da loja virtual da **Sertton Industri
 - [x] As exibição dos dados do produto deve se adaptar ao espaço que ele ocupa na tela
 - [x] Deve ser possível dar zoom na imagem do produto
   
-### Seleção de SKU (Tipo de um produto)
+#### Seleção de SKU (Tipo de um produto)
 - Deve ser possível selecionar um único SKU de um produto antes de adicioná-lo ao carrinho
 -  A seleção do SKU deve ser com base nas variações disponíveis para o produto. Ex: Se o usuário escolher Material: Inox e Tamanho: Médio, seleciona o SKU que atende essas características
 - Caso o produto não tenha variação, o SKU é o próprio produto em si.
 
-### Filtragem de produtos
+#### Filtragem de produtos
 
 - [x] Deve ser possível filtrar produtos por:
   - nome
   - categoria
+    - o filtro deve conter apenas uma categoria
   - marca
+    - o filtro pode conter mais de uma marca
 - [x] Deve ser possível filtrar utilizando de forma simuntânea os filtros listado acima
 - [x] Deve ser possível pesquisar um produto pelo nome em mais de uma tela
 
-### Ordenação de produtos
+#### Ordenação de produtos
 
 - [x] Deve ser possível ordenar produtos por ordem alfabética, seja o inverso (Z-A) ou não (A-Z)
 
 
-### Cálculo de Frete
+#### Cálculo de Frete
 
 - [x] Deve ser possível calcular cusot de frete de um produto com base no CEP do usuário
 - [x] Deve ser possível o usuário calcular o frete antes de ir para o checkout
 - [x] Deve ser exibido para o usuário uma tabela de preço para cada transportadora especifica
 - [x] Deve ser exibido para o usuário uma tabela de preço para cada transportadora especifica
 
-### Carrinho
+#### Carrinho
 
 - [x] Deve haver uma tela própria para o carrinho
 - [x] Deve ser possível inserir um produto no carrinho
@@ -95,26 +99,18 @@ O aplicativo consome via API Rest os dados da loja virtual da **Sertton Industri
 - [x] Não deve ser possível alterar a quantidade menor para menor que 1
 - [x] Todos os produtos do carrinho devem ser removidos se o usuário for redirecionado para o checkout
 - [x] Os produtos do carrinho devem ser persistidos de modo que o usuário possa acessá-los novamente mesmo que ele feche e abre o aplicativo novamente  
-- [x] O produto no carrinho diz respeito ao SKU selectionado pelo usuário
+- [x] O produto no carrinho deve dizer a respeito a um do seus SKU, que por sua vez são definidos pelas variações escolhidas pelo usuário. Ex.: variações: material: Inox e tamanho: Médio definem o SKU que contém essas características 
 
-### Banners
-
-- [x] Devem ser exibidos banners que capturem a atenção do cliente
-
-### Coleções
-
-- [x] Devem ser exibidos coleções de produtos que compartilham o mesmo tema ou categoria
-
-### Capturador de leads
+#### Capturador de leads
 
 - [x] Deve ser possível cadastrar o `e-mail` do cliente/lead na tela `Home`
 - [x] Não deve ser possível inserir o `e-mail` de um cliente/lead já cadastrado
 
-### Contato
+#### Contato
 
 - [x] Deve ser possível o usuário entrar em contato com alguém da `Sertton` via whatsapp ou e-mail
 
-### Listagem de pedidos
+#### Listagem de pedidos
 
 - [x] Deve ser possível listar todos os pedidos do usuário
 - [x] A lista de pedidos deve ser com base no CPF ou CNPJ utilizado para fazer o pedido
@@ -130,9 +126,28 @@ O aplicativo consome via API Rest os dados da loja virtual da **Sertton Industri
     - Se for por boleto, permitir o usuário acessar o pdf do boleto gerado pelo pedido
 - [] Deve ser possível o usuário arquivar o pedido de forma que não seja possível mais acessá-lo no aplicativo
 
-### Informações relevantes
+### ☑️ Requisitos não funcionais
+
+#### Informações relevantes
 
 - [x] Deve ser exibido ao usuário informações sobre a empresa Sertton, termos e condições, política de devolução de produto
+
+#### Listagem paginada de produtos
+
+- [x] Todos os produtos não devem ser carregados todos de uma vez mas conforme o usuário desce a tela para visualizar mais produtos
+
+#### Banners
+
+- [x] Devem ser exibidos banners que capturem a atenção do cliente
+
+#### Coleções
+
+- [x] Devem ser exibidos coleções de produtos que compartilham o mesmo tema ou categoria
+
+#### Botão de carrinho
+
+- [x] Deve ser possível adicionar um produto ao carrinho sem o usuário precisar ver a tela de detalhes desse produto
+- [x] O botão de carrinho deve seguir as regras da funcionalidade de carrinho
 
 ---
 
@@ -278,5 +293,5 @@ Esta aplicação está sob licença do MIT. Consulte o [Arquivo de licença](LIC
 ---
 
 <p align="center">
-   Feito com 💜 por **[John Petros](https://github.com/JohnPetros)** 👋🏻
+  Feito com 💜 por John Petros 👋🏻
 </p>
