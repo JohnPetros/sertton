@@ -15,7 +15,7 @@ export function useAppError(errorMessage = '') {
   }
 
   useEffect(() => {
-    if (errorMessage && !message) {
+    if (!errorMessage || !message) {
       if (!errorMessage) {
         setMessage('Erro desconhecido')
         return

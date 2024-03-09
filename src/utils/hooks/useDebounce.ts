@@ -10,7 +10,6 @@ export function useDebounce(
   const debouncedCallback = useDebouncedCallback(callback, delay)
 
   useEffect(() => {
-
     return () => {
       debouncedCallback.cancel()
     }
