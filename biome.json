@@ -70,11 +70,8 @@
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 40,
-    "ignore": [
-      "**/*/generated-new.ts",
-      "**/*/generated-v2.ts"
-    ],
+    "lineWidth": 80,
+    "ignore": ["**/*/generated-new.ts", "**/*/generated-v2.ts"],
     "lineEnding": "lf"
   },
   "javascript": {
@@ -84,7 +81,7 @@
       "indentWidth": 2,
       "quoteStyle": "single",
       "jsxQuoteStyle": "single",
-      "lineWidth": 10,
+      "lineWidth": 80,
       "quoteProperties": "asNeeded",
       "arrowParentheses": "always"
     }
