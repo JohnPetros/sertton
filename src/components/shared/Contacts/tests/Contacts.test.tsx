@@ -12,7 +12,9 @@ jest.mock('../useContacts.ts')
 
 describe('Contacts component', () => {
   it.each(CONTACTS)('should render $type contact button', ({ title }) => {
-    jest.mocked(useContacts).mockReturnValueOnce({ handleContactUrl: jest.fn() })
+    jest
+      .mocked(useContacts)
+      .mockReturnValueOnce({ handleContactUrl: jest.fn() })
 
     render(<Contacts />)
 
@@ -37,6 +39,6 @@ describe('Contacts component', () => {
       fireEvent.press(contactButton)
 
       expect(handleContactUrlMock).toHaveBeenCalledWith(url)
-    }
+    },
   )
 })

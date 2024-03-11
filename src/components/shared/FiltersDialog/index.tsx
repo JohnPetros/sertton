@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useRef } from 'react'
 import { FlatList } from 'react-native'
 import { Text, YGroup, YStack } from 'tamagui'
 
@@ -9,6 +9,7 @@ import type { Brand } from '@/@types/Brand'
 import { Button } from '@/components/shared/Button'
 import { Checkbox } from '@/components/shared/Checkbox'
 import { Dialog } from '@/components/shared/Dialog'
+import { DialogRef } from '../Dialog/types/DialogRef'
 
 type FiltersDialogProps = {
   brands: Brand[]
@@ -16,13 +17,14 @@ type FiltersDialogProps = {
 }
 
 export function FiltersDialog({ children, brands }: FiltersDialogProps) {
+  const dialogRef = useRef<DialogRef>(null)
+
   const {
     checkedBrandsIds,
-    dialogRef,
     handleBrandCheckbox,
     handleDialogOpenChange,
     handleFilterButton,
-  } = useFiltersDialog(brands)
+  } = useFiltersDialog(brands, dialogRef)
 
   return (
     <Dialog

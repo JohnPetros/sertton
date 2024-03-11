@@ -1,22 +1,23 @@
-import { useRef } from 'react'
+import { RefObject, useRef } from 'react'
 
 import { Brand } from '@/@types/Brand'
 
 import { DialogRef } from '@/components/shared/Dialog/types/DialogRef'
 
 import { useProductsFilterStore } from '@/stores/ProductsFilterStore'
-import { wait } from '@/utils/helpers/wait'
 
-export function useFiltersDialog(brands: Brand[]) {
+export function useFiltersDialog(
+  brands: Brand[],
+  dialogRef: RefObject<DialogRef>,
+) {
   const checkedBrandsIds = useProductsFilterStore(
-    (store) => store.state.brandsIds
+    (store) => store.state.brandsIds,
   )
   const setProductBrandsIds = useProductsFilterStore(
-    (store) => store.actions.setBrandsIds
+    (store) => store.actions.setBrandsIds,
   )
 
   const brandsIds = useRef<string[]>(checkedBrandsIds)
-  const dialogRef = useRef<DialogRef | null>(null)
 
   function addBrandId(id: string) {
     brandsIds.current = [...brandsIds.current, id]
@@ -43,12 +44,11 @@ export function useFiltersDialog(brands: Brand[]) {
   async function handleFilterButton() {
     dialogRef.current?.close()
 
-    await wait(500)
-
     setProductBrandsIds(brandsIds.current)
   }
 
   return {
+    brandsIds,
     brands,
     checkedBrandsIds,
     dialogRef,
