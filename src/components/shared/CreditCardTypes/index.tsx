@@ -2,6 +2,7 @@ import { SvgUri } from 'react-native-svg'
 import { useCreditCardTypes } from './useCreditCardTypes'
 
 import { Skeleton } from '@/components/shared/Skeleton'
+import { View } from 'tamagui'
 
 export function CreditCardTypes() {
   const { creditCardTypes, isLoading } = useCreditCardTypes()
@@ -25,7 +26,11 @@ export function CreditCardTypes() {
   return (
     <>
       {creditCardTypes?.map((creditCardType) => {
-        return <SvgUri key={creditCardType.id} uri={creditCardType.icon} />
+        return (
+          <View testID={creditCardType.id}>
+            <SvgUri key={creditCardType.id} uri={creditCardType.icon} />
+          </View>
+        )
       })}
     </>
   )
