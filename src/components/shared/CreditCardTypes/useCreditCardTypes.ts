@@ -4,18 +4,14 @@ import { useApi } from '@/services/api'
 
 import type { Payment } from '@/@types/Payment'
 
-export function parsePaymentToCreditCardTypes(
-  payment: Payment[]
-) {
-  return payment
-    .filter(
-      (paymentConfig) =>
-        paymentConfig.isCreditCard && paymentConfig.isActive
-    )
-}
-
 export function useCreditCardTypes() {
   const api = useApi()
+
+  function parsePaymentToCreditCardTypes(payment: Payment[]) {
+    return payment.filter(
+      (paymentConfig) => paymentConfig.isCreditCard && paymentConfig.isActive,
+    )
+  }
 
   async function getCreditCardTypes() {
     try {
@@ -32,5 +28,6 @@ export function useCreditCardTypes() {
   return {
     creditCardTypes: data,
     isLoading,
+    parsePaymentToCreditCardTypes,
   }
 }
