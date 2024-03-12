@@ -1,10 +1,10 @@
-
+import { paymentsMock } from '@/_tests_/mocks/core/paymentsMock'
 import { ICheckoutController } from '../../interfaces/ICheckoutController'
 
 export function InMemoryCheckoutController(): ICheckoutController {
   return {
-    getPayments() {
-      throw new Error('Method not implemented')
+    async getPayments() {
+      return paymentsMock
     },
 
     getCheckoutUrl() {

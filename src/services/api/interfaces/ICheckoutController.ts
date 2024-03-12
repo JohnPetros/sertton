@@ -1,4 +1,4 @@
-import { Payment } from "@/@types/Payment"
+import { Payment } from '@/@types/Payment'
 
 export interface ICheckoutController {
   getPayments(): Promise<Payment[]>
