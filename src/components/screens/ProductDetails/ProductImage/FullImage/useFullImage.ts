@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import {
+  SharedValue,
   useAnimatedStyle,
-  useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
 
@@ -9,14 +9,18 @@ import { SCREEN } from '@/utils/constants/screen'
 
 const ANIMATION_DURATION = 400
 
-export function useFullImage() {
+export function useFullImage(positionX: SharedValue<number>) {
   const [isVisible, setIsVisible] = useState(false)
-
-  const positionX = useSharedValue(SCREEN.width)
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: positionX.value }],
+      transform: [
+        {
+          translateX: withTiming(positionX.value, {
+            duration: ANIMATION_DURATION,
+          }),
+        },
+      ],
     }
   })
 
@@ -30,11 +34,11 @@ export function useFullImage() {
 
   useEffect(() => {
     if (isVisible) {
-      positionX.value = withTiming(0, { duration: ANIMATION_DURATION })
+      positionX.value = 0
       return
     }
 
-    positionX.value = withTiming(SCREEN.width, { duration: ANIMATION_DURATION })
+    positionX.value = SCREEN.width
   }, [positionX, isVisible])
 
   return {

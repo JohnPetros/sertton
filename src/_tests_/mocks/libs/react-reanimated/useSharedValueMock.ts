@@ -1,4 +1,4 @@
-import { SharedValue } from "react-native-reanimated"
+import { SharedValue } from 'react-native-reanimated'
 
 export function useSharedValueMock(initialValue: number) {
   let value = initialValue
@@ -10,7 +10,7 @@ export function useSharedValueMock(initialValue: number) {
 
     get value() {
       return value
-    }
+    },
   }
 
   return sharedValue as SharedValue<number>
