@@ -1,8 +1,7 @@
 import { ForwardedRef, forwardRef, useImperativeHandle } from 'react'
 
-import Animated from 'react-native-reanimated'
+import Animated, { useSharedValue } from 'react-native-reanimated'
 
-// import { Portal } from '@gorhom/portal'
 import { X } from 'phosphor-react-native'
 import { View, YStack, getTokens } from 'tamagui'
 
@@ -20,8 +19,13 @@ type FullImageProps = {
   url: string
 }
 
-const FullImageComponent = ({ url }: FullImageProps, ref: ForwardedRef<FullImageRef>) => {
-  const { animatedStyle, open, close } = useFullImage()
+const FullImageComponent = (
+  { url }: FullImageProps,
+  ref: ForwardedRef<FullImageRef>,
+) => {
+  const positionX = useSharedValue(0)
+
+  const { animatedStyle, open, close } = useFullImage(positionX)
 
   useImperativeHandle(ref, () => {
     return {
@@ -33,6 +37,7 @@ const FullImageComponent = ({ url }: FullImageProps, ref: ForwardedRef<FullImage
   return (
     <Portal>
       <AnimatedView
+        testID='animated-view'
         flex={1}
         top={0}
         left={0}
@@ -45,8 +50,14 @@ const FullImageComponent = ({ url }: FullImageProps, ref: ForwardedRef<FullImage
         bg='$gray900'
         style={animatedStyle}
       >
-        <YStack flex={1} position='relative' zIndex={1000} justifyContent='center'>
+        <YStack
+          flex={1}
+          position='relative'
+          zIndex={1000}
+          justifyContent='center'
+        >
           <Button
+            testID='close-button'
             position='absolute'
             background='transparent'
             top={64}
@@ -56,7 +67,13 @@ const FullImageComponent = ({ url }: FullImageProps, ref: ForwardedRef<FullImage
             <X size={40} color={getTokens().color.white.val} />
           </Button>
           <View mt={-100}>
-            <Image url={url} size='xLarge' width={SCREEN.width} height={400} />
+            <Image
+              testID='image'
+              url={url}
+              size='xLarge'
+              width={SCREEN.width}
+              height={400}
+            />
           </View>
         </YStack>
       </AnimatedView>
