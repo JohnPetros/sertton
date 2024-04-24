@@ -19,7 +19,7 @@ type SearchProps = {
 
 export function Search({ isFetching }: SearchProps) {
   const { handleSearch, setSearchValue, isLoading, searchValue } = useSearch(
-    isFetching ?? false
+    isFetching ?? false,
   )
 
   return (

@@ -22,6 +22,8 @@ export function Products() {
     handleProductsListEndReached,
   } = useProducts()
 
+  console.log({ handleRemoveCategory })
+
   return (
     <YStack px={24}>
       <Header />
@@ -34,6 +36,7 @@ export function Products() {
               {category.name}
             </H2>
             <Button
+              testID='remove-category-button'
               unstyled
               fontSize={12}
               alignSelf='center'

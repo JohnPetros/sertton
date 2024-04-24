@@ -4,6 +4,7 @@ import { PortalProvider } from '@gorhom/portal'
 import { CacheProvider } from './CacheProvider'
 import { TamaguiProvider } from './TamaguiProvider'
 import { ToastProvider } from './ToastProvider'
+import { NavigationContainer } from '@react-navigation/native'
 
 type ProvidersProps = {
   children: ReactNode
@@ -14,7 +15,9 @@ export function Providers({ children }: ProvidersProps) {
     <CacheProvider>
       <TamaguiProvider>
         <ToastProvider>
-          <PortalProvider>{children}</PortalProvider>
+          <PortalProvider>
+            <NavigationContainer>{children}</NavigationContainer>
+          </PortalProvider>
         </ToastProvider>
       </TamaguiProvider>
     </CacheProvider>
