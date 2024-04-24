@@ -7,7 +7,7 @@ const handleNavigationMock = jest.fn()
 const handleShowAllCategoriesMock = jest.fn()
 
 export function useSidebarMock(
-  mockedReturn?: Partial<ReturnType<typeof useSidebar>>
+  mockedReturn?: Partial<ReturnType<typeof useSidebar>>,
 ) {
   jest.mocked(useSidebar).mockReturnValueOnce({
     categories: categoriesMock,

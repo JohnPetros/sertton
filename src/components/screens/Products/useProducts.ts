@@ -21,10 +21,10 @@ export function useProducts() {
   const toast = useToast()
 
   const { search, categoryId, brandsIds } = useProductsFilterStore(
-    (store) => store.state
+    (store) => store.state,
   )
   const setCategoryId = useProductsFilterStore(
-    (store) => store.actions.setCategoryId
+    (store) => store.actions.setCategoryId,
   )
 
   const [selectedSorter, setSelectedSorter] = useState<Sorter | null>(null)
@@ -62,24 +62,26 @@ export function useProducts() {
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        const currentTotalProductsCount = allPages.reduce((total, currentPage) => {
-          return total + currentPage.products.length
-        }, 0)
+        const currentTotalProductsCount = allPages.reduce(
+          (total, currentPage) => {
+            return total + currentPage.products.length
+          },
+          0,
+        )
 
-        let totalProductsCount = lastPage.totalProductsCount
+        const totalProductsCount = lastPage.totalProductsCount
 
-        const restCount = totalProductsCount % 10
+        // const restCount = totalProductsCount % 10
 
-        if (totalProductsCount !== 1 && restCount !== 0) {
-          totalProductsCount -= restCount
-        }
+        // if (totalProductsCount !== 1 && restCount !== 0) {
+        //   totalProductsCount -= restCount
+        // }
 
-        hasNextPage.current =
-          currentTotalProductsCount < totalProductsCount
+        hasNextPage.current = currentTotalProductsCount < totalProductsCount
 
         return hasNextPage.current ? currentPage.current + 1 : undefined
       },
-    }
+    },
   )
 
   function handleRemoveCategory() {
