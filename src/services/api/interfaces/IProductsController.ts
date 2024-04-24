@@ -1,7 +1,7 @@
 import { Product } from '@/@types/Product'
 import { Sorter } from '@/@types/Sorter'
 
-type getProductsParams = {
+export type GetProductsParams = {
   page: number
   search: string
   sorter: Sorter | null
@@ -10,9 +10,11 @@ type getProductsParams = {
 }
 
 export interface IProductsController {
-  getProducts(
-    params: getProductsParams
-  ): Promise<{ products: Product[]; totalProductsCount: number, perPage: number }>
+  getProducts(params: GetProductsParams): Promise<{
+    products: Product[]
+    totalProductsCount: number
+    perPage: number
+  }>
   getProductsByCollectionId(collectionId: string): Promise<Product[]>
   getProductBySlug(slug: string): Promise<Product | null>
   getSimiliarProducts(id: string): Promise<Product[]>

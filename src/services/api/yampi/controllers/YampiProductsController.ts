@@ -27,7 +27,7 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
         : ''
 
       const response = await http.get<{ data: YampiProduct[]; meta: Meta }>(
-        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand${searchParam}${sorterParam}${categoryParam}${brandsIdsParam}&page=${page}&limit=20`
+        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand${searchParam}${sorterParam}${categoryParam}${brandsIdsParam}&page=${page}&limit=20`,
       )
       const { data, meta } = response
 
@@ -42,7 +42,7 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
 
     async getProductsByCollectionId(collectionId: string) {
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/catalog/collections/${collectionId}/products?include=images,skus,brand,texts`
+        `/catalog/collections/${collectionId}/products?include=images,skus,brand,texts`,
       )
 
       return response.data.map(YampiProductAdapter)
@@ -50,7 +50,7 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
 
     async getProductBySlug(slug: string) {
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`
+        `/${RESOURCES.catalog}/${ENDPOINTS.product}?include=images,skus,brand,texts&search=${slug}&searchFields=slug`,
       )
 
       return YampiProductAdapter(response.data[0])
@@ -58,7 +58,7 @@ export const YampiProductsController = (http: IHttp): IProductsController => {
 
     async getSimiliarProducts(id: string) {
       const response = await http.get<{ data: YampiProduct[] }>(
-        `/${RESOURCES.catalog}/${ENDPOINTS.product}/${id}/${ENDPOINTS.similar}?include=images,skus,brand`
+        `/${RESOURCES.catalog}/${ENDPOINTS.product}/${id}/${ENDPOINTS.similar}?include=images,skus,brand`,
       )
 
       return response.data.map(YampiProductAdapter)
