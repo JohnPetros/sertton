@@ -58,7 +58,7 @@ const DocumentDialogComponent = (
             Digite seu e-mail para buscarmos os pedidos vinculados a ele.
           </Paragraph>
           <Tabs
-            label='Você deve digitar seu CPF ou CNPJ que foi usada para fazer o pedido.'
+            label='Você deve digitar seu CPF ou CNPJ que foi usado para fazer o pedido.'
             onTabChange={handleTabsChange}
             tabs={[
               {
@@ -69,6 +69,7 @@ const DocumentDialogComponent = (
                 content: (
                   <YStack mt={24}>
                     <Input
+                      testID='cpf-input'
                       label='CPF'
                       keyboardType='numeric'
                       placeholder='00.000.000-00'
@@ -89,6 +90,7 @@ const DocumentDialogComponent = (
                 content: (
                   <YStack mt={24}>
                     <Input
+                      testID='cnpj-input'
                       label='CNPJ'
                       keyboardType='numeric'
                       placeholder='00.000.000/0000-00'
@@ -105,7 +107,11 @@ const DocumentDialogComponent = (
           />
 
           <Button onPress={handleSubmit}>
-            {isLoading ? <Spinner color='$white' /> : 'Buscar pedidos'}
+            {isLoading ? (
+              <Spinner testID='spinner' color='$white' />
+            ) : (
+              'Buscar pedidos'
+            )}
           </Button>
         </YStack>
       }

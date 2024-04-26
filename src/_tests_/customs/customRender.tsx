@@ -9,7 +9,14 @@ import { Providers } from '@/providers/index'
 jest.useFakeTimers()
 
 function customRender(component: ReactNode) {
-  return renderComponent(<Providers>{component}</Providers>)
+  const jestUtils = renderComponent(<Providers>{component}</Providers>)
+
+  return {
+    ...jestUtils,
+    rerender: (component: ReactNode) => {
+      jestUtils.rerender(<Providers>{component}</Providers>)
+    },
+  }
 }
 
 export { customRender as render }
