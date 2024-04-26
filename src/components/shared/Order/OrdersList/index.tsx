@@ -1,26 +1,27 @@
+import { RefObject } from 'react'
 import { useRouter } from 'expo-router'
 import { Bag } from 'phosphor-react-native'
 import { FlatList } from 'react-native'
 import { Text, View, XStack, YStack } from 'tamagui'
 
+import { processedOrdersMock } from '@/_tests_/mocks/core/processedOrdersMock'
+import { Button } from '@/components/shared/Button'
+import { useMask } from '@/utils/hooks/useMask'
+import { SCREEN } from '@/utils/constants/screen'
+
 import { OrderItem } from './OrderItem'
 import { useOrdersList } from './useOrdersList'
-
-import { processedOrdersMock } from '@/_tests_/mocks/core/processedOrdersMock'
-
-import { Button } from '@/components/shared/Button'
 import { DocumentDialog } from '../../DocumentDialog'
-import { useMask } from '@/utils/hooks/useMask'
 import { EmptyListMessage } from '../../EmptyListMessage'
-import { SCREEN } from '@/utils/constants/screen'
-import { useRef } from 'react'
-import { DialogRef } from '../../Dialog/types/DialogRef'
+import type { DialogRef } from '../../Dialog/types/DialogRef'
 
 const ORDER_ITEM_HEIGHT = 124
 
-export function OrdersList() {
-  const documentDialogRef = useRef<DialogRef>(null)
+type OrdersListProps = {
+  documentDialogRef: RefObject<DialogRef>
+}
 
+export function OrdersList({ documentDialogRef }: OrdersListProps) {
   const {
     orders,
     isLoading,
@@ -58,8 +59,8 @@ export function OrdersList() {
       {isLoading ? (
         <FlatList
           data={processedOrdersMock}
-          renderItem={({ item }) => (
-            <View mb={24}>
+          renderItem={({ item, index }) => (
+            <View testID={`loading-order-item-${index}`} mb={24}>
               <OrderItem data={item} isLoading={true} />
             </View>
           )}
@@ -71,8 +72,8 @@ export function OrdersList() {
         <FlatList
           data={orders}
           extraData={isLoading}
-          renderItem={({ item }) => (
-            <View mb={24}>
+          renderItem={({ item, index }) => (
+            <View testID={`order-item-${index}`} mb={24}>
               <OrderItem data={item} isLoading={false} />
             </View>
           )}

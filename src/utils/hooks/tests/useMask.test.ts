@@ -1,10 +1,10 @@
 import { mask as originalMarkFunction } from 'react-native-mask-text'
 
-import type { Mask } from "@/@types/Mask"
-import { renderHook } from "@/_tests_/customs/customRenderHook"
-import { MASKS } from "@/utils/constants/masks"
+import type { Mask } from '@/@types/Mask'
+import { renderHook } from '@/_tests_/customs/customRenderHook'
+import { MASKS } from '@/utils/constants/masks'
 
-import { useMask } from "../useMask"
+import { useMask } from '../useMask'
 
 describe('useMask hook', () => {
   it.each(Object.keys(MASKS))('should format value', (mask) => {

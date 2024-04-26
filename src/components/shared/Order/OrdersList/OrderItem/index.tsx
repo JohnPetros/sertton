@@ -14,7 +14,7 @@ import { Accordion } from '@/components/shared/Accordion'
 import { Skeleton } from '@/components/shared/Skeleton'
 import { SCREEN } from '@/utils/constants/screen'
 
-type OrderItemProps = {
+export type OrderItemProps = {
   data: ProcessedOrder
   isLoading: boolean
 }
