@@ -21,7 +21,7 @@ const ProductItemComponent = ({
   width = 150,
 }: ProductItemProps) => {
   return (
-    <Link href={`/(stack)/(drawer)/(tabs)/${slug}`} asChild>
+    <Link testID='link' href={`/(stack)/(drawer)/(tabs)/${slug}`} asChild>
       <View
         w={width}
         flexDirection={isColumn ? 'column' : 'row'}
@@ -32,13 +32,25 @@ const ProductItemComponent = ({
         <View position='relative'>
           {!isLoading && (
             <>
-              <View position='absolute' top={8} left={8} zIndex={50}>
+              <View
+                testID='discount-percentage'
+                position='absolute'
+                top={8}
+                left={8}
+                zIndex={50}
+              >
                 <Product.Discount
                   discountPrice={skus[0].discountPrice}
                   salesPrice={skus[0].salePrice}
                 />
               </View>
-              <View position='absolute' bottom={8} right={8} zIndex={50}>
+              <View
+                testID='cart-button'
+                position='absolute'
+                bottom={8}
+                right={8}
+                zIndex={50}
+              >
                 <Product.CartButton product={{ id, slug, name, skus }} />
               </View>
             </>
@@ -46,12 +58,14 @@ const ProductItemComponent = ({
 
           <Skeleton width={width} height={180} isVisible={isLoading}>
             {imageUrl && (
-              <Product.Image
-                url={imageUrl}
-                size='medium'
-                width={!isColumn ? width / 2 : width}
-                height={180}
-              />
+              <View testID={imageUrl}>
+                <Product.Image
+                  url={imageUrl}
+                  size='medium'
+                  width={!isColumn ? width / 2 : width}
+                  height={180}
+                />
+              </View>
             )}
           </Skeleton>
         </View>
@@ -72,8 +86,12 @@ const ProductItemComponent = ({
           <XStack justifyContent='space-between'>
             {!isLoading && (
               <>
-                <Product.DiscountPrice price={skus[0].discountPrice} />
-                <Product.SalePrice price={skus[0].salePrice} />
+                <View testID='discount-price'>
+                  <Product.DiscountPrice price={skus[0].discountPrice} />
+                </View>
+                <View testID='sale-price'>
+                  <Product.SalePrice price={skus[0].salePrice} />
+                </View>
               </>
             )}
           </XStack>
@@ -83,6 +101,9 @@ const ProductItemComponent = ({
   )
 }
 
-export const ProductItem = memo(ProductItemComponent, (previusProps, currentProps) => {
-  return previusProps.isLoading === currentProps.isLoading
-})
+export const ProductItem = memo(
+  ProductItemComponent,
+  (previusProps, currentProps) => {
+    return previusProps.isLoading === currentProps.isLoading
+  },
+)

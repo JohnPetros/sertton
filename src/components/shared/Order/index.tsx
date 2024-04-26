@@ -1,5 +1,4 @@
 import { YStack } from 'tamagui'
-import { H1 } from 'tamagui'
 
 import { OrdersList } from './OrdersList'
 

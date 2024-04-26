@@ -45,6 +45,9 @@ jest.mock('phosphor-react-native', () => ({
   ArrowLeft: () => {
     return <Icon />
   },
+  ArrowDown: () => {
+    return <Icon />
+  },
   CaretDown: () => {
     return <Icon />
   },
@@ -76,6 +79,12 @@ jest.mock('phosphor-react-native', () => ({
     return <Icon />
   },
   Faders: () => {
+    return <Icon />
+  },
+  Discount: () => {
+    return <Icon />
+  },
+  Percent: () => {
     return <Icon />
   },
 }))
