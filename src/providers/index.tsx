@@ -15,9 +15,7 @@ export function Providers({ children }: ProvidersProps) {
     <CacheProvider>
       <TamaguiProvider>
         <ToastProvider>
-          <PortalProvider>
-            <NavigationContainer>{children}</NavigationContainer>
-          </PortalProvider>
+          <PortalProvider>{children}</PortalProvider>
         </ToastProvider>
       </TamaguiProvider>
     </CacheProvider>

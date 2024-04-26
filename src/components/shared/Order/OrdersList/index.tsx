@@ -13,19 +13,26 @@ import { DocumentDialog } from '../../DocumentDialog'
 import { useMask } from '@/utils/hooks/useMask'
 import { EmptyListMessage } from '../../EmptyListMessage'
 import { SCREEN } from '@/utils/constants/screen'
+import { useRef } from 'react'
+import { DialogRef } from '../../Dialog/types/DialogRef'
 
 const ORDER_ITEM_HEIGHT = 124
 
 export function OrdersList() {
+  const documentDialogRef = useRef<DialogRef>(null)
+
   const {
     orders,
     isLoading,
     customerDocument,
     personType,
-    documentDialogRef,
     handleValidateDocument,
     handleEditCustomerDocument,
-  } = useOrdersList()
+  } = useOrdersList(
+    documentDialogRef.current?.open ?? null,
+    documentDialogRef.current?.close ?? null,
+  )
+
   const router = useRouter()
 
   const mask = useMask(personType === 'natural' ? 'cpf' : 'cnpj')
@@ -42,7 +49,9 @@ export function OrdersList() {
           <Text fontSize={20} fontWeight='600' color='$blue500'>
             {mask(customerDocument)}
           </Text>
-          <Button onPress={handleEditCustomerDocument}>Alterar documento</Button>
+          <Button onPress={handleEditCustomerDocument}>
+            Alterar documento
+          </Button>
         </XStack>
       )}
 
