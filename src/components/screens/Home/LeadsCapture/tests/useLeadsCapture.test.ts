@@ -11,6 +11,7 @@ import { useToastMock } from '@/_tests_/mocks/hooks/useToastMock'
 import { MESSAGES } from '../constants/messages'
 
 jest.mock('@/services/api')
+jest.mock('@/services/storage')
 jest.mock('@/utils/hooks/useToast')
 
 describe('useLeadsCapture hook', () => {
