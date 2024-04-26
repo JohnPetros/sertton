@@ -3,13 +3,13 @@ import { useRef, useState } from 'react'
 import type { PersonType } from '@/@types/Customer'
 import type { DialogRef } from '@/components/shared/Dialog/types/DialogRef'
 import { useValidation } from '@/services/validation'
-import { Keyboard } from 'react-native'
 
 export function useDocumentDialog(
   onValidateDocument: (
     validatedDocument: string,
-    personType: PersonType
-  ) => Promise<void>
+    personType: PersonType,
+  ) => Promise<void>,
+  dismissKeyboard: () => void,
 ) {
   const [cpf, setCpf] = useState('')
   const [cnpj, setCnpj] = useState('')
@@ -50,13 +50,16 @@ export function useDocumentDialog(
         ? validation.validateCpf(cpf)
         : validation.validateCnpj(cnpj)
 
-    Keyboard.dismiss()
+    dismissKeyboard()
 
     if (documentValidation.isValid) {
       try {
         setIsLoading(true)
 
-        await onValidateDocument(personType === 'natural' ? cpf : cnpj, personType)
+        await onValidateDocument(
+          personType === 'natural' ? cpf : cnpj,
+          personType,
+        )
       } catch (error) {
         console.error(error)
       } finally {

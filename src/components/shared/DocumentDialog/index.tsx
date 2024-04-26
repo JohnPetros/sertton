@@ -1,5 +1,6 @@
 import { Buildings, User } from 'phosphor-react-native'
 import { ForwardedRef, forwardRef, useImperativeHandle } from 'react'
+import { Keyboard } from 'react-native'
 
 import { Paragraph, Spinner, YStack } from 'tamagui'
 
@@ -14,12 +15,15 @@ import { Input } from '@/components/shared/Input'
 import { Tabs } from '@/components/shared/Tabs'
 
 type DocumentDialogProps = {
-  onValidateDocument: (validatedDocument: string, personType: PersonType) => Promise<void>
+  onValidateDocument: (
+    validatedDocument: string,
+    personType: PersonType,
+  ) => Promise<void>
 }
 
 const DocumentDialogComponent = (
   { onValidateDocument }: DocumentDialogProps,
-  ref: ForwardedRef<DialogRef>
+  ref: ForwardedRef<DialogRef>,
 ) => {
   const {
     cnpj,
@@ -33,7 +37,7 @@ const DocumentDialogComponent = (
     handleCnpjChange,
     handleTabsChange,
     handleSubmit,
-  } = useDocumentDialog(onValidateDocument)
+  } = useDocumentDialog(onValidateDocument, Keyboard.dismiss)
 
   useImperativeHandle(ref, () => {
     return {
