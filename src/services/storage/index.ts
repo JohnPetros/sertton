@@ -1,4 +1,4 @@
-import { IStorage } from "./interface/IStorage"
+import { IStorage } from './interfaces/IStorage'
 
 let storage: IStorage
 

@@ -1,6 +1,6 @@
 import { MMKV } from 'react-native-mmkv'
 
-import { IStorage } from '../interface/IStorage'
+import { IStorage } from '../interfaces/IStorage'
 
 import { STORAGE } from '@/utils/constants/storage'
 
