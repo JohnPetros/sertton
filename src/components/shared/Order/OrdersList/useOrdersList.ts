@@ -1,8 +1,10 @@
+import { useCallback, useRef, useState } from 'react'
 import { useFocusEffect } from 'expo-router'
-import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { PersonType } from '@/@types/Customer'
+import type { PersonType } from '@/@types/Customer'
+
 import type { DialogRef } from '@/components/shared/Dialog/types/DialogRef'
+
 import { useApi } from '@/services/api'
 import { useCache } from '@/services/cache'
 import { useStorage } from '@/services/storage'
@@ -10,17 +12,19 @@ import { useStorage } from '@/services/storage'
 import { CACHE } from '@/utils/constants/cache'
 import { STORAGE } from '@/utils/constants/storage'
 
-export function useOrdersList() {
+export function useOrdersList(
+  openDocumentDialog: VoidFunction | null,
+  closeDocumentDialog: VoidFunction | null,
+) {
   const [customerDocument, setCustomerDocument] = useState('')
   const [personType, setPersonType] = useState<PersonType>('legal')
-  const documentDialogRef = useRef<DialogRef | null>(null)
 
   const api = useApi()
   const storage = useStorage()
 
   async function getOrders() {
     try {
-      return await api.getOrdersByCustomerDocument(customerDocument)
+      return await api.getProcessedOrdersByCustomerDocument(customerDocument)
     } catch (error) {
       api.handleError(error)
     }
@@ -34,50 +38,60 @@ export function useOrdersList() {
   })
 
   function handleEditCustomerDocument() {
-    documentDialogRef.current?.open()
+    if (openDocumentDialog) {
+      openDocumentDialog()
+    }
   }
 
   const handleValidateDocument = useCallback(
     async (validatedDocument: string, personType: PersonType) => {
       await storage.setItem(
         STORAGE.keys.customer.document,
-        `${personType}:${validatedDocument}`
+        `${personType}:${validatedDocument}`,
       )
 
-      documentDialogRef.current?.close()
+      if (closeDocumentDialog) {
+        closeDocumentDialog()
+      }
 
       setCustomerDocument(validatedDocument)
       setPersonType(personType)
-
     },
-    [storage]
+    [storage, closeDocumentDialog],
   )
 
   useFocusEffect(
     useCallback(() => {
       async function getCustomerDocument() {
         const storagedcostumerDocument = await storage.getItem(
-          STORAGE.keys.customer.document
+          STORAGE.keys.customer.document,
         )
 
         if (!storagedcostumerDocument) {
-          documentDialogRef.current?.open()
-        } else if (!orders) {
+          if (openDocumentDialog) {
+            openDocumentDialog()
+          }
+        } else if (!orders?.length) {
           const [personType, document] = storagedcostumerDocument.split(':')
 
           if (!personType || !document) {
-            documentDialogRef.current?.open()
+            if (openDocumentDialog) {
+              openDocumentDialog()
+            }
             return
           }
 
           setPersonType(personType as PersonType)
           setCustomerDocument(document)
-          documentDialogRef.current?.close()
+
+          if (closeDocumentDialog) {
+            closeDocumentDialog()
+          }
         }
       }
 
       getCustomerDocument()
-    }, [orders, storage.getItem])
+    }, [orders, storage.getItem, openDocumentDialog, closeDocumentDialog]),
   )
 
   return {
@@ -85,7 +99,6 @@ export function useOrdersList() {
     isLoading,
     customerDocument,
     personType,
-    documentDialogRef,
     handleValidateDocument,
     handleEditCustomerDocument,
   }
