@@ -28,11 +28,8 @@ export function ShipmentServicesDialog({
   shipmentServices,
   onOpenChange,
 }: ShippmentServicesDialogProps) {
-  const { address, isLoading, handleDialogOpenChange } = useShipmentServicesDialog(
-    zipcode,
-    shipmentServices,
-    onOpenChange
-  )
+  const { address, isLoading, handleDialogOpenChange } =
+    useShipmentServicesDialog(zipcode, shipmentServices, onOpenChange)
 
   return (
     <Dialog
@@ -70,8 +67,8 @@ export function ShipmentServicesDialog({
                     {address.city} - {address.uf}
                   </Text>
                   <Paragraph fontSize={12} color='$gray400'>
-                    Prazo de entrega a partir da aprovação de pagamento e envio ao
-                    operador logístico.
+                    Prazo de entrega a partir da aprovação de pagamento e envio
+                    ao operador logístico.
                   </Paragraph>
                 </>
               )}
