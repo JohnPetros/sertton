@@ -57,6 +57,9 @@ jest.mock('phosphor-react-native', () => ({
   Scroll: () => {
     return <Icon />
   },
+  AddressBook: () => {
+    return <Icon />
+  },
   User: () => {
     return <Icon />
   },
