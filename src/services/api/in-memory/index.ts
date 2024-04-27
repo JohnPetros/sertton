@@ -1,5 +1,6 @@
 import { IApi } from '../interfaces/IApi'
 
+import { InMemoryAddressesController } from './controllers/InMemoryAddressesController'
 import { InMemoryBannersController } from './controllers/InMemoryBannersController'
 import { InMemoryBrandsController } from './controllers/InMemoryBrandsController'
 import { InMemoryCategoriesController } from './controllers/InMemoryCategoriesController'
@@ -12,6 +13,7 @@ import { InMemorySkusController } from './controllers/InMemorySkusController'
 
 export function useInMemoryApi(): IApi {
   return {
+    ...InMemoryAddressesController(),
     ...InMemoryCollectionsController(),
     ...InMemoryCheckoutController(),
     ...InMemoryBrandsController(),
