@@ -9,9 +9,6 @@ export function useShipmentServicesDialog(
   shipmentServices: ShipmentService[],
   onOpenChange: (isOpen: boolean) => void,
 ) {
-  const [shipmentServicesNames, setShipmentServicesNames] = useState<string[]>(
-    []
-  )
   const [address, setAddress] = useState<Pick<
     Address,
     'zipcode' | 'city' | 'uf'
@@ -23,8 +20,6 @@ export function useShipmentServicesDialog(
   async function handleDialogOpenChange(isOpen: boolean) {
     onOpenChange(isOpen)
 
-    console.log(shipmentServices)
-
     if (!isOpen) {
       setIsLoading(true)
       setAddress(null)
@@ -32,14 +27,11 @@ export function useShipmentServicesDialog(
     }
 
     if (isOpen && shipmentServices.length) {
-
       const shipmentServicesNames: string[] = []
 
       for (const shipmentService of shipmentServices) {
         shipmentServicesNames.push(shipmentService.name)
       }
-
-      setShipmentServicesNames(shipmentServicesNames)
 
       const address = await api.getAddressByZipcode(zipcode)
 
@@ -56,9 +48,8 @@ export function useShipmentServicesDialog(
   }
 
   return {
-    handleDialogOpenChange,
-    shipmentServicesNames,
     address,
     isLoading,
+    handleDialogOpenChange,
   }
 }
