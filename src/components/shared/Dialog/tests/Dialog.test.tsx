@@ -52,7 +52,7 @@ describe('Dialog component', () => {
         onOpenChange={onOpenChangeMock}
       >
         <Trigger />
-      </Dialog>
+      </Dialog>,
     )
 
     expect(screen.getByText(title)).toBeTruthy()
@@ -60,7 +60,7 @@ describe('Dialog component', () => {
     expect(screen.getByTestId(triggerTestId)).toBeTruthy()
   })
 
-  it('should not render title, content is not open', () => {
+  it('should not render title and content if it is not open', () => {
     jest.mocked(useDialog).mockReturnValueOnce({
       isOpen: false,
       open: openMock,
@@ -77,7 +77,7 @@ describe('Dialog component', () => {
         onOpenChange={onOpenChangeMock}
       >
         <Trigger />
-      </Dialog>
+      </Dialog>,
     )
 
     expect(screen.queryByText(title)).not.toBeTruthy()
@@ -101,7 +101,7 @@ describe('Dialog component', () => {
         onOpenChange={onOpenChangeMock}
       >
         <Trigger />
-      </Dialog>
+      </Dialog>,
     )
 
     const dialog = screen.getByTestId(TEST_IDS.dialog)
@@ -127,7 +127,7 @@ describe('Dialog component', () => {
         onOpenChange={onOpenChangeMock}
       >
         <Trigger />
-      </Dialog>
+      </Dialog>,
     )
 
     const trigger = screen.getByTestId(triggerTestId)
@@ -156,7 +156,7 @@ describe('Dialog component', () => {
         onOpenChange={onOpenChangeMock}
       >
         <Trigger />
-      </Dialog>
+      </Dialog>,
     )
 
     const closeButton = screen.getByTestId(TEST_IDS.close)
