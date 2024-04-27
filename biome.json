@@ -71,7 +71,10 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 80,
-    "ignore": ["**/*/generated-new.ts", "**/*/generated-v2.ts"],
+    "ignore": [
+      "**/*/generated-new.ts",
+      "**/*/generated-v2.ts"
+    ],
     "lineEnding": "lf"
   },
   "javascript": {
