@@ -31,6 +31,7 @@ export function ShipmentServicesCalculator({ sku }: ShipmentServicesProps) {
   return (
     <XStack gap={8} alignItems='flex-end' justifyContent='center'>
       <Input
+        testID='zipcode-input'
         keyboardType='numeric'
         w={INPUT_WIDTH}
         label='Calcular frete'
@@ -45,6 +46,7 @@ export function ShipmentServicesCalculator({ sku }: ShipmentServicesProps) {
         shipmentServices={shipmentServices}
       >
         <Button
+          testID='calculate-button'
           icon={<Truck size={24} color={getTokens().color.white.val} />}
           w={BUTTON_WIDTH}
           onPress={handleCalculateShipmentServices}
