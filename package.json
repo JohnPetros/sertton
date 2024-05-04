@@ -10,7 +10,7 @@
     "apk": "eas build -p android --profile apk",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest"
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.1.3",
