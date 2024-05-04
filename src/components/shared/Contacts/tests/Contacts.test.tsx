@@ -1,20 +1,31 @@
-import '@/_tests_/mocks/providers/ProvidersFixBug'
-
+import { View } from 'react-native'
 import { fireEvent, screen } from '@testing-library/react-native'
 
 import { CONTACTS } from '../constants/contacts'
-import { useContacts } from '../useContacts'
 import { Contacts } from '..'
 
 import { render } from '@/_tests_/customs/customRender'
+import { useContactsMock } from './mocks/useContactsMock'
+
+const Icon = () => <View />
+
+jest.mock('phosphor-react-native', () => ({
+  WhatsappLogo: () => {
+    return <Icon />
+  },
+  Phone: () => {
+    return <Icon />
+  },
+  EnvelopeSimple: () => {
+    return <Icon />
+  },
+}))
 
 jest.mock('../useContacts.ts')
 
 describe('Contacts component', () => {
   it.each(CONTACTS)('should render $type contact button', ({ title }) => {
-    jest
-      .mocked(useContacts)
-      .mockReturnValueOnce({ handleContactUrl: jest.fn() })
+    useContactsMock()
 
     render(<Contacts />)
 
@@ -26,11 +37,7 @@ describe('Contacts component', () => {
   it.each(CONTACTS)(
     'should handle contact url on press $type contact button',
     ({ url }) => {
-      const handleContactUrlMock = jest.fn()
-
-      jest
-        .mocked(useContacts)
-        .mockReturnValueOnce({ handleContactUrl: handleContactUrlMock })
+      const { handleContactUrlMock } = useContactsMock()
 
       render(<Contacts />)
 
