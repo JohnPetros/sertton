@@ -34,13 +34,11 @@ export function useCart() {
     return products
   }
 
-  const { data, error, isLoading, isFetching } = useCache(
-    {
-      key: 'cart-products',
-      dependencies: [items],
-      fetcher: getCartProducts,
-    }
-  )
+  const { data, isLoading, isFetching } = useCache({
+    key: 'cart-products',
+    dependencies: [items],
+    fetcher: getCartProducts,
+  })
 
   function handleRemoveAllItems() {
     removeAllItems()
@@ -53,7 +51,7 @@ export function useCart() {
 
     for (const product of data) {
       const selectedSku = product.skus.find(
-        (sku) => sku.id === product.selectedSkuId
+        (sku) => sku.id === product.selectedSkuId,
       )
 
       if (selectedSku)
@@ -77,6 +75,7 @@ export function useCart() {
 
     const checkoutUrl = api.getCheckoutUrl()
 
+    console.log(`${checkoutUrl}/${skusUri}`)
     Linking.openURL(`${checkoutUrl}/${skusUri}`)
 
     router.push('/(stack)/(drawer)/(tabs)/home')

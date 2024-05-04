@@ -27,8 +27,8 @@ export function CreditCardTypes() {
     <>
       {creditCardTypes?.map((creditCardType) => {
         return (
-          <View testID={creditCardType.id}>
-            <SvgUri key={creditCardType.id} uri={creditCardType.icon} />
+          <View key={creditCardType.id} testID={creditCardType.id}>
+            <SvgUri uri={creditCardType.icon} />
           </View>
         )
       })}
