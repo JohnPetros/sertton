@@ -21,15 +21,16 @@ describe('useSidebar hook', () => {
   })
 
   it('should fetch categories on first render', async () => {
+    useRouterMock()
     const apiMock = useApiMock()
 
-    await waitFor(async () => {
-      const { result } = renderHook(useSidebar)
-
-      const categories = await apiMock.getCategories()
-
-      expect(result.current.categories).toEqual(categories)
+    const { result } = await waitFor(async () => {
+      return renderHook(useSidebar)
     })
+
+    const categories = await apiMock.getCategories()
+
+    expect(result.current.categories).toEqual(categories)
   })
 
   it('should return both canShowAllCategories and isLoading as false on first render', async () => {
@@ -55,33 +56,33 @@ describe('useSidebar hook', () => {
   })
 
   it('should be loading after selecting a category', async () => {
-    await waitFor(async () => {
-      const { result } = renderHook(useSidebar)
+    useRouterMock()
 
-      const categoryId = 'category id'
+    const { result } = renderHook(useSidebar)
 
-      act(() => {
-        result.current.handleCategory(categoryId)
-      })
+    const categoryId = 'category id'
 
-      expect(result.current.isLoading).toBe(true)
+    act(() => {
+      result.current.handleCategory(categoryId)
     })
+
+    expect(result.current.isLoading).toBe(true)
   })
 
   it('should set store category id after selecting a category', async () => {
+    useRouterMock()
+
     const { setCategoryIdMock } = useProductsFilterStoreMock()
 
-    await waitFor(() => {
-      const { result } = renderHook(useSidebar)
+    const { result } = renderHook(useSidebar)
 
-      const categoryId = 'category id'
+    const categoryId = 'category id'
 
-      act(() => {
-        result.current.handleCategory(categoryId)
-      })
-
-      expect(setCategoryIdMock).toHaveBeenCalledWith(categoryId)
+    act(() => {
+      result.current.handleCategory(categoryId)
     })
+
+    expect(setCategoryIdMock).toHaveBeenCalledWith(categoryId)
   })
 
   it('should redirect user to products screen after selecting a category', async () => {

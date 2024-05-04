@@ -1,25 +1,26 @@
-import { renderHook } from "@/_tests_/customs/customRenderHook"
+import { renderHook } from '@/_tests_/customs/customRenderHook'
 
 import { useDebounce } from '../useDebounce'
-import { DebouncedState, useDebouncedCallback } from 'use-debounce'
+import { useDebouncedCallback } from 'use-debounce'
 
 jest.mock('use-debounce', () => ({
   useDebouncedCallback: jest.fn(),
 }))
 
-
 const callbackMock = jest.fn()
 
 describe('useDebounce hook', () => {
   it('should return a debounced function', () => {
-    // @ts-ignore
+    const mockCancel = jest.fn()
+
+    // @ts-ignored
     useDebouncedCallback.mockReturnValue({
-      cancel: jest.fn(),
+      cancel: mockCancel,
     })
 
     const { result } = renderHook(() => useDebounce(callbackMock, 100))
 
-    expect(result.current).toBe({ cancel: jest.fn() })
+    expect(jest.isMockFunction(result.current.cancel)).toBe(true)
   })
 
   it('should call the cancel method on unmount', () => {
@@ -30,7 +31,7 @@ describe('useDebounce hook', () => {
       cancel: mockCancel,
     })
 
-    const { unmount } = renderHook(() => useDebounce(() => { }, 500))
+    const { unmount } = renderHook(() => useDebounce(() => {}, 500))
 
     unmount()
 

@@ -22,8 +22,6 @@ export function Products() {
     handleProductsListEndReached,
   } = useProducts()
 
-  console.log({ handleRemoveCategory })
-
   return (
     <YStack px={24}>
       <Header />

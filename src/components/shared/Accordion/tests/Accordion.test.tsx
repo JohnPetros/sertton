@@ -1,8 +1,8 @@
-import { render } from "@/_tests_/customs/customRender"
-import { Accordion } from ".."
-import { View } from "react-native"
-import { screen } from "@testing-library/react-native"
-import { useAccordionMock } from "./mocks/useAccordionMock"
+import { render } from '@/_tests_/customs/customRender'
+import { Accordion } from '..'
+import { View } from 'react-native'
+import { screen } from '@testing-library/react-native'
+import { useAccordionMock } from './mocks/useAccordionMock'
 
 jest.mock('../useAccordion.ts')
 
@@ -16,7 +16,7 @@ describe('Accordion component', () => {
     render(
       <Accordion label={label}>
         <View testID={contentId} />
-      </Accordion>
+      </Accordion>,
     )
 
     const content = screen.getByTestId(contentId)
@@ -25,13 +25,15 @@ describe('Accordion component', () => {
   })
 
   it('should render label', () => {
+    useAccordionMock()
+
     const label = 'Accordion label'
     const contentId = 'accordion-content-id'
 
     render(
       <Accordion label={label}>
         <View testID={contentId} />
-      </Accordion>
+      </Accordion>,
     )
 
     expect(screen.getByText(label)).toBeTruthy()
@@ -46,7 +48,7 @@ describe('Accordion component', () => {
     render(
       <Accordion label={label}>
         <View testID={contentId} />
-      </Accordion>
+      </Accordion>,
     )
 
     expect(screen.getByText(label)).toBeTruthy()
@@ -63,7 +65,7 @@ describe('Accordion component', () => {
     render(
       <Accordion label={label}>
         <View testID={contentId} />
-      </Accordion>
+      </Accordion>,
     )
 
     const animatedContainer = screen.getByTestId('animated-container')
@@ -72,7 +74,10 @@ describe('Accordion component', () => {
   })
 
   it('should have content animated style', () => {
-    const animatedStyle: { height: number, overflow: 'hidden' } = { height: 100, overflow: 'hidden' }
+    const animatedStyle: { height: number; overflow: 'hidden' } = {
+      height: 100,
+      overflow: 'hidden',
+    }
 
     useAccordionMock({ contentAnimatedStyle: animatedStyle })
 
@@ -82,7 +87,7 @@ describe('Accordion component', () => {
     render(
       <Accordion label={label}>
         <View testID={contentId} />
-      </Accordion>
+      </Accordion>,
     )
 
     const animatedContainer = screen.getByTestId('animated-content')

@@ -3,7 +3,7 @@ import { View } from 'tamagui'
 
 import { ProductItemProps } from '@/components/shared/ProductItem'
 
-const ProductItem = ({ data }: ProductItemProps) => (
+export const ProductItem = ({ data }: ProductItemProps) => (
   <View>
     <Text>{data.name}</Text>
   </View>

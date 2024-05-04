@@ -1,4 +1,4 @@
-import { Variation } from "@/@types/Variation";
+import { Variation } from '@/@types/Variation'
 
 export const variationsMock: Variation[] = [
   {

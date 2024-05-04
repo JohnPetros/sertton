@@ -1,5 +1,4 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
-import { useQuery } from 'react-query'
 
 import type { Sku } from '@/@types/Sku'
 import type { Variation } from '@/@types/Variation'
@@ -12,21 +11,19 @@ import { useCache } from '@/services/cache'
 export function useSkuSelectors(
   productId: string,
   onSkuChange: ((sku: Sku) => void) | null,
-  selectRefs: MutableRefObject<SelectRef[]>
+  selectRefs: MutableRefObject<SelectRef[]>,
 ) {
   const [selectedSku, setSelectedSku] = useState<Sku | null>(null)
   const [variations, setVariations] = useState<Variation[]>([])
   const [errors, setErrors] = useState<boolean[]>([])
   const [isLoading, setIsloading] = useState(true)
 
-  const { data: skus } = useCache(
-    {
-      key: `skus?product_id=${productId}`,
-      dependencies: [productId],
-      fetcher: async () => api.getSkusByProductId(productId),
-      isEnabled: Boolean(productId)
-    }
-  )
+  const { data: skus } = useCache({
+    key: `skus?product_id=${productId}`,
+    dependencies: [productId],
+    fetcher: async () => api.getSkusByProductId(productId),
+    isEnabled: Boolean(productId),
+  })
 
   const variationNames = useRef<string[]>([])
   const selectedVariationsValues = useRef<string[]>([])
@@ -67,17 +64,17 @@ export function useSkuSelectors(
 
   function checkSkuMatch(
     selectedVariationValue: string,
-    variationValue: string
+    variationValue: string,
   ) {
     if (!skus) return false
 
     return skus.some((sku) => {
       const selectedVariation = sku.variations.find(
-        (variation) => variation.value === selectedVariationValue
+        (variation) => variation.value === selectedVariationValue,
       )
 
       const currentVariation = sku.variations.find(
-        (variation) => variation.value === variationValue
+        (variation) => variation.value === variationValue,
       )
 
       if (selectedVariation && currentVariation) return true
@@ -91,7 +88,7 @@ export function useSkuSelectors(
 
     for (const variation of allVariations) {
       const isAlreadyIncluded = nonFistVariations.some(
-        (currentVariation) => currentVariation.value === variation.value
+        (currentVariation) => currentVariation.value === variation.value,
       )
       if (!isAlreadyIncluded && variation.name === firstVariationName) {
         nonFistVariations.push(variation)
@@ -103,14 +100,14 @@ export function useSkuSelectors(
 
   function insertNonFistVariations(
     selectedVariationValue: string,
-    firstVariationName: string
+    firstVariationName: string,
   ) {
     const allVariations = getAllVariations()
 
     const nonFistvariations = removeNonFistVariations(firstVariationName)
 
     const nonFistVariations = allVariations.filter(
-      (variation) => variation.name !== firstVariationName
+      (variation) => variation.name !== firstVariationName,
     )
 
     const variations: Variation[] = []
@@ -118,7 +115,7 @@ export function useSkuSelectors(
     for (const variation of nonFistVariations) {
       const isFirstVariationName = variation.name === firstVariationName
       const shouldPush = !variations.some(
-        (currentCariation) => currentCariation.value === variation.value
+        (currentCariation) => currentCariation.value === variation.value,
       )
 
       const hasSkuMatch = checkSkuMatch(selectedVariationValue, variation.value)
@@ -133,13 +130,13 @@ export function useSkuSelectors(
 
   function getFirstVariationName(
     variationNames: string[],
-    allVariations: Variation[]
+    allVariations: Variation[],
   ) {
     const variationNamesCount = variationNames.length
 
     for (const variation of allVariations) {
       const variationMatchesCount = allVariations.filter(
-        (currentVariation) => currentVariation.value === variation.value
+        (currentVariation) => currentVariation.value === variation.value,
       ).length
 
       if (variationMatchesCount === variationNamesCount) {
@@ -162,7 +159,7 @@ export function useSkuSelectors(
 
     const firstVariationName = getFirstVariationName(
       variationNames.current,
-      allVariations
+      allVariations,
     )
 
     removeObjectFromArray<string>(variationNames.current, firstVariationName)
@@ -181,10 +178,10 @@ export function useSkuSelectors(
 
   function handleSelectedVariationChange(
     selectedVariationValue: string,
-    currentSelectedVariationValues: string[]
+    currentSelectedVariationValues: string[],
   ) {
     const selectedVariation = variations.find(
-      (variation) => variation.value === selectedVariationValue
+      (variation) => variation.value === selectedVariationValue,
     )
 
     if (selectedVariation) {
@@ -199,7 +196,7 @@ export function useSkuSelectors(
 
       const firstVariationName = getFirstVariationName(
         variationNames.current,
-        allVariations
+        allVariations,
       )
 
       const isFirstVariationName =
@@ -215,7 +212,6 @@ export function useSkuSelectors(
   }
 
   function verifyVariationValuesMatch(sku: Sku) {
-
     return sku.variations.every((variation) => {
       return selectedVariationsValues.current.includes(variation.value)
     })
@@ -235,7 +231,7 @@ export function useSkuSelectors(
       ...new Set(
         selectRefs.current
           .map((selectRef) => selectRef.value)
-          .filter((currentValue) => !!currentValue && currentValue !== value)
+          .filter((currentValue) => !!currentValue && currentValue !== value),
       ),
     ]
 
@@ -306,7 +302,6 @@ export function useSkuSelectors(
     selectedVariationsValues: selectedVariationsValues.current,
     errors,
     isLoading,
-    selectRefs,
     setSkusVariations,
     handleSelectChange,
     getVariationValuesByVariationName,

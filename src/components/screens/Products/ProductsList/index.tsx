@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import { FlatList, RefreshControl, View as ListContainer } from 'react-native'
+import { FlatList, RefreshControl } from 'react-native'
 
 import { ArrowsDownUp, Faders, MagnifyingGlass } from 'phosphor-react-native'
 
-import { Button, Spinner, View, XStack, YStack, getTokens } from 'tamagui'
+import { Button, View, XStack, YStack, getTokens } from 'tamagui'
 
 import { useProductsList } from './useProductList'
 
@@ -42,16 +42,12 @@ export function ProductsList({
   onSelectSorter,
   onEndReached,
 }: ProductsListProps) {
-  const {
-    data,
-    productWidth,
-    handleSelectChange,
-    handleListEndReached,
-  } = useProductsList({
-    products,
-    onSelectSorter,
-    onEndReached,
-  })
+  const { data, productWidth, handleSelectChange, handleListEndReached } =
+    useProductsList({
+      products,
+      onSelectSorter,
+      onEndReached,
+    })
 
   const ICON_COLOR = getTokens().color.gray800.val
   const ICON_SIZE = 16
@@ -103,17 +99,19 @@ export function ProductsList({
         </FiltersDialog>
       </XStack>
 
-      {tags.length > 0 && <XStack flexWrap='wrap' gap={8} mb={tags.length > 0 ? 8 : 0}>
-        {tags.map((tag) => (
-          <Tag
-            key={tag.id}
-            id={tag.id}
-            title={tag.title}
-            type={tag.type}
-            onPress={handleTag}
-          />
-        ))}
-      </XStack>}
+      {tags.length > 0 && (
+        <XStack flexWrap='wrap' gap={8} mb={tags.length > 0 ? 8 : 0}>
+          {tags.map((tag) => (
+            <Tag
+              key={tag.id}
+              id={tag.id}
+              title={tag.title}
+              type={tag.type}
+              onPress={handleTag}
+            />
+          ))}
+        </XStack>
+      )}
 
       {isLoading ? (
         <FlatList

@@ -24,7 +24,7 @@ describe('AlertDialog component', () => {
         onCancel={onCancelMock}
       >
         <Button testID={triggerId} />
-      </AlertDialog>
+      </AlertDialog>,
     )
 
     expect(screen.getByTestId(triggerId)).toBeTruthy()
@@ -36,7 +36,11 @@ describe('AlertDialog component', () => {
     const title = 'alert dialog title'
 
     render(
-      <AlertDialog title={title} onConfirm={onConfirmMock} onCancel={onCancelMock} />
+      <AlertDialog
+        title={title}
+        onConfirm={onConfirmMock}
+        onCancel={onCancelMock}
+      />,
     )
 
     expect(screen.getByText(title)).toBeTruthy()
@@ -50,7 +54,7 @@ describe('AlertDialog component', () => {
         title='alert dialog title'
         onConfirm={onConfirmMock}
         onCancel={onCancelMock}
-      />
+      />,
     )
 
     expect(screen.getByText(/confirmar/i)).toBeTruthy()
@@ -65,7 +69,7 @@ describe('AlertDialog component', () => {
         title='alert dialog title'
         onConfirm={onConfirmMock}
         onCancel={onCancelMock}
-      />
+      />,
     )
 
     const confirmButton = screen.getByText(/confirmar/i)
