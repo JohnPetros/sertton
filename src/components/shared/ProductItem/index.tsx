@@ -1,7 +1,6 @@
 import { Link } from 'expo-router'
 import { memo } from 'react'
 import { View, XStack, YStack } from 'tamagui'
-
 import * as Product from '../Product'
 
 import type { Product as ProductData } from '@/@types/Product'

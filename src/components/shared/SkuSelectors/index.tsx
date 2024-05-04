@@ -19,7 +19,7 @@ type SkuSelectsProps = {
 
 const SkuSelectorsComponent = (
   { productId, isDisabled, onSkuChange }: SkuSelectsProps,
-  ref: ForwardedRef<SkuSelectorsRef>
+  ref: ForwardedRef<SkuSelectorsRef>,
 ) => {
   const selectRefs = useRef<SelectRef[]>([])
 
@@ -42,10 +42,11 @@ const SkuSelectorsComponent = (
         onAddSkuToCart,
       }
     },
-    [selectedSku, onAddSkuToCart]
+    [selectedSku, onAddSkuToCart],
   )
 
-  if (isLoading) return <Spinner size='large' color='$blue600' />
+  if (isLoading)
+    return <Spinner testID='spinner' size='large' color='$blue600' />
 
   if (variations.length)
     return (
@@ -64,7 +65,9 @@ const SkuSelectorsComponent = (
             width='100%'
             defaultValue={'Selecionar'}
             items={hasValues ? values : ['Selecionar']}
-            onChange={(variationChange) => handleSelectChange(index, variationChange)}
+            onChange={(variationChange) =>
+              handleSelectChange(index, variationChange)
+            }
             isDisabled={!hasValues || isDisabled}
             hasError={errors[index]}
           />

@@ -27,7 +27,7 @@ type DefaultValue = 'Selecionar'
 
 const DEFAULT_VALUE: DefaultValue = 'Selecionar'
 
-type SelectProps = {
+export type SelectProps = {
   items: string[]
   defaultValue: string | DefaultValue
   width: number | string
@@ -49,7 +49,7 @@ export const SelectComponent = (
     hasError = false,
     onChange,
   }: SelectProps,
-  ref: ForwardedRef<SelectRef>
+  ref: ForwardedRef<SelectRef>,
 ) => {
   const {
     open,
@@ -81,7 +81,12 @@ export const SelectComponent = (
       opacity={isDisabled ? 0.3 : 1}
     >
       {label && id && (
-        <Label htmlFor={id} color='#111' fontSize={12} textTransform='uppercase'>
+        <Label
+          htmlFor={id}
+          color='#111'
+          fontSize={12}
+          textTransform='uppercase'
+        >
           {label}
         </Label>
       )}
@@ -147,12 +152,22 @@ export const SelectComponent = (
             <S.Group
               separator={
                 <View px={12}>
-                  <Separator bg='$gray400' alignSelf='stretch' vertical={false} />
+                  <Separator
+                    bg='$gray400'
+                    alignSelf='stretch'
+                    vertical={false}
+                  />
                 </View>
               }
             >
               {items.map((item, index) => (
-                <S.Item key={item} index={index} value={item} alignItems='center'>
+                <S.Item
+                  testID={`${TEST_IDS.item}-${index + 1}`}
+                  key={item}
+                  index={index}
+                  value={item}
+                  alignItems='center'
+                >
                   <S.ItemText fontSize={14} fontWeight='600'>
                     {item}
                   </S.ItemText>
