@@ -76,7 +76,7 @@ export function ShipmentServicesDialog({
               {!address && (
                 <EmptyListMessage
                   title='Nenhum endereço encontrado para esse CEP'
-                  subtitle='Pressione em "X" para tentar novamente'
+                  subtitle=''
                   icon={AddressBook}
                   callback={null}
                 />
