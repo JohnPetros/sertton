@@ -1,12 +1,12 @@
-import { useMemo } from "react"
+import { useMemo } from 'react'
 
-import { Sku } from "@/@types/Sku"
+import { Sku } from '@/@types/Sku'
 
-import { ShipmentService } from "@/@types/ShipmentService"
+import { ShipmentService } from '@/@types/ShipmentService'
 
-import { IShipmentServiceController } from "../interfaces/IShipmentServicesController"
+import { IShipmentServiceController } from '../interfaces/IShipmentServicesController'
 
-import { useHttp } from "../http"
+import { useHttp } from '../http'
 
 const BASE_URL = process.env.EXPO_PUBLIC_SHIPMENT_SERVICE_BASE_URL
 
@@ -22,14 +22,18 @@ export function useShipmentServiceApi(): IShipmentServiceController {
     return {
       async getShipmentServices(
         zipcode: string,
-        products: (Sku & { quantity: number })[]
+        products: (Sku & { quantity: number })[],
       ) {
-        return await http.post<ShipmentService[]>(
+        const response = await http.post<ShipmentService[]>(
           '/shipment/calculate',
-          { products, zipcode }
+          {
+            products,
+            zipcode,
+          },
         )
+
+        return response
       },
     }
   }, [http])
 }
-

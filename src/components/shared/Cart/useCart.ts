@@ -75,7 +75,6 @@ export function useCart() {
 
     const checkoutUrl = api.getCheckoutUrl()
 
-    console.log(`${checkoutUrl}/${skusUri}`)
     Linking.openURL(`${checkoutUrl}/${skusUri}`)
 
     router.push('/(stack)/(drawer)/(tabs)/home')

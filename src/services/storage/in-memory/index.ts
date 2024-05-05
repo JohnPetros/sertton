@@ -7,8 +7,6 @@ export const InMemoryStorageProvider = (): IStorage => {
   return {
     async getItem(key: string): Promise<string | null> {
       const item = storage.find((item) => item.key === key)
-      console.log({ storage })
-      console.log({ item })
       return item?.value ?? null
     },
 
