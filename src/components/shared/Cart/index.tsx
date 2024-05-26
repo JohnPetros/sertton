@@ -46,7 +46,10 @@ export function Cart() {
               onConfirm={handleRemoveAllItems}
             >
               <Button background='transparent' mr={-12}>
-                <TrashSimple color={getTokens().color.gray400.val} weight='bold' />
+                <TrashSimple
+                  color={getTokens().color.gray400.val}
+                  weight='bold'
+                />
                 Limpar carrinho
               </Button>
             </AlertDialog>
@@ -115,7 +118,14 @@ export function Cart() {
             />
           </View>
         )}
-        <YStack zIndex={50} position='absolute' bottom={0} py={12} bg='$gray50' w='100%'>
+        <YStack
+          zIndex={50}
+          position='absolute'
+          bottom={0}
+          py={12}
+          bg='$gray50'
+          w='100%'
+        >
           <Skeleton
             width={SCREEN.width - SCREEN.paddingX * 2}
             height={180}
@@ -129,7 +139,11 @@ export function Cart() {
               )}
 
               {!isCartEmpty && (
-                <Skeleton isVisible={isLoading} height={44} width={SCREEN.width}>
+                <Skeleton
+                  isVisible={isLoading}
+                  height={44}
+                  width={SCREEN.width}
+                >
                   <Button
                     onPress={redirectToCheckout}
                     w={SCREEN.width - SCREEN.paddingX * 2}
