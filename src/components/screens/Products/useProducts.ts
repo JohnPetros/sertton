@@ -69,13 +69,13 @@ export function useProducts() {
           0,
         )
 
-        const totalProductsCount = lastPage.totalProductsCount
+        let totalProductsCount = lastPage.totalProductsCount
 
-        // const restCount = totalProductsCount % 10
+        const restCount = totalProductsCount % 10
 
-        // if (totalProductsCount !== 1 && restCount !== 0) {
-        //   totalProductsCount -= restCount
-        // }
+        if (totalProductsCount !== 1 && restCount !== 0) {
+          totalProductsCount -= restCount
+        }
 
         hasNextPage.current = currentTotalProductsCount < totalProductsCount
 
