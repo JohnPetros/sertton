@@ -6,6 +6,7 @@
     "upgrade:tamagui": "yarn up '*tamagui*'@latest '@tamagui/*'@latest",
     "upgrade:tamagui:canary": "yarn up '*tamagui*'@canary '@tamagui/*'@canary",
     "start": "expo start",
+    "dev:build": "eas build --profile development --platform android",
     "android": "expo run:android",
     "apk": "eas build -p android --profile apk",
     "ios": "expo run:ios",
