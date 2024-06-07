@@ -33,9 +33,27 @@ O aplicativo consome via API Rest os dados da loja virtual da **Sertton Industri
 
 <table align="center">
   <tr>
-    <td align="center" width="700">
-    <span>Página da Urna funcionando<br/></span>
-    <img alt="Home page" src=".github/sertton-funcionando.gif" alt="Demonstração da urna funcionando" />
+    <td align="center" width="700" height="320">
+      <span>Tela home<br/></span>
+      <img src="documentation/images/home.jpeg" alt="Tela home" />
+    </td>
+    <td align="center" width="700" height="320">
+      <span>Tela de lista de produtos<br/></span>
+      <img src="documentation/images/products-list.jpeg" alt="Tela de lista de produtos" />
+    </td>
+     <td align="center" width="700" height="320">
+      <span>Tela de detalhes de produto<br/></span>
+      <img src="documentation/images/product-details.jpeg" alt="Tela de detalhes de produto" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="700" height="320">
+      <span>Tela de carrinho<br/></span>
+      <img src="documentation/images/cart.jpeg" alt="Tela de carrinho" />
+    </td>
+    <td align="center" width="700" height="320">
+      <span>Tela de lista de pedidos<br/></span>
+      <img src="documentation/images/orders-list.jpeg" alt="Tela de lista de pedidos" />
     </td>
   </tr>
 </table>
@@ -192,7 +210,7 @@ Antes de baixar o projeto você necessecitará ter instalado na sua máquina as 
 - [Git](https://git-scm.com/)
 - [NodeJS](https://nodejs.org/en)
 - [Expo](https://nodejs.org/en)
-- [Yarn](https://yarnpkg.com/) ou [NPM](https://www.npmjs.com/)
+- [Yarn](https://yarnpkg.com/) ou [NPM](https://www.npmjs.com/) (Eu usarei npm no tutorial)
 
 > Além disto é bom ter um editor para trabalhar com o código, como o [VSCode](https://code.visualstudio.com/)
 
@@ -210,30 +228,24 @@ $ cd sertton
 
 # Instale as dependências
 $ npm install
-# ou
-$ yarn add
 
 # Gere o código nativo necessário para executar todas as dependências
-$ npx expo prebuild
-# ou
-$ yarn expo prebuild
+$ npm build
 
-# Execute a aplicação em modo de desenvolvimenro
-$ npm run dev
-# ou
-$ yarn dev
+# Execute a aplicação em modo de desenvolvimento
+$ npm start
 
 ```
 
-> Você irá precisar um emulador de android (se não estiver em um ambiente Mac) para ver o aplicativo funcionando. Porém você pode gerar o expo development build do projecto e executá-lo tanto no emulador quanto no seu dispositivo físico.
+> Você irá precisar um emulador de android para ver o aplicativo funcionando. Porém você pode gerar o expo development build do projeto e executá-lo tanto no emulador quanto no seu dispositivo físico.
 
 ```bash
-# Instale o expo development client
-$ npx expo install expo-dev-client
 
-# Gere a build do projeto
+# Gere o development build do projeto
 $ eas build --profile development --platform android
 ```
+
+> Baixe a build gerado na plataforma do EAS no emulador ou no dispositivo seu dispositivo físico e execute npm start novamente
 
 > Veja a [documentação](https://docs.expo.dev/develop/development-builds/create-a-build/) para mais detalhes a respeito do expo development build
 
@@ -242,17 +254,7 @@ $ eas build --profile development --platform android
 ```bash
 # Execute os testes
 $ npm run test
-# ou
-$ yarn test
 ```
-
-###
-
----
-
-## 🚚 Deploy
-
-O deploy dessa aplicação foi realizada usando a plataforma da **[Render](https://dashboard.render.com/)**, o que implica dizer que você pode acessar aplicação funcionando acessando esse **[link](https://sertton-app.onrender.com/)**.
 
 ---
 
@@ -276,13 +278,15 @@ $ git push origin minha-feature
 
 > Você deve substituir 'minha-feature' pelo nome da feature que você está adicionando
 
+> Veja a [minha lista de emojis para cada tipo de commit](https://gist.github.com/JohnPetros/1f63f8cf07c719c5d2c5e011e2eac770) que eu estou utilizando para manter a consistência entre as mensagens de commit 
+
 > Você também pode abrir um [nova issue](https://github.com/JohnPetros/sertton/issues) a respeito de algum problema, dúvida ou sugestão para o projeto. Ficarei feliz em poder ajudar, assim como melhorar este projeto
 
 ---
 
 ## 🎨 Layout
 
-O design do projeto pode ser acessada nesse [link](https://www.figma.com/file/8DRd8OlhogKoCcofQD1QX4/Sertton-Industrial?type=design&t=pbdOp6tdnmj2kTmc-6).
+O design do projeto foi feita utilizando a ferramenta [Figma](https://www.figma.com/) que pode ser acessada por esse [link](https://www.figma.com/file/8DRd8OlhogKoCcofQD1QX4/Sertton-Industrial?type=design&t=pbdOp6tdnmj2kTmc-6).
 
 ---
 
