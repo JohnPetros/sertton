@@ -4,7 +4,7 @@
     "slug": "sertton",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon-small.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -20,16 +20,16 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon-small.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#FFF"
       },
-      "icon": "./assets/images/icon-small.png",
+      "icon": "./assets/images/icon.png",
       "package": "com.joaopcarvalho.sertton"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon.png"
     },
     "plugins": [
       "expo-router",
