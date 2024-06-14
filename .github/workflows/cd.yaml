@@ -23,7 +23,7 @@ jobs:
           node-version: 18.x
 
       - name: EAS setup
-        uses: expo/expo-github-action@
+        uses: expo/expo-github-action@v8
         with:
           eas-version: latest
           packager: npm
