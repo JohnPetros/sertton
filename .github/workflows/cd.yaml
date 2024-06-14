@@ -27,7 +27,7 @@ jobs:
         with:
           eas-version: latest
           packager: npm
-          token: ${{ EAS_TOKEN }}
+          token: ${{ secrets.EAS_TOKEN }}
 
       - name: Build
-        run: eas build --platform android --profile Client --non-interactive --non-wait
+        run: eas build --platform android --profile devClient --non-interactive --non-wait
