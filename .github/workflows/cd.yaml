@@ -22,6 +22,9 @@ jobs:
         with:
           node-version: 18.x
 
+      - name: EAS Token
+        run: echo "EAS Token - ${{ secrets.EAS_TOKEN }}"
+
       - name: EAS setup
         uses: expo/expo-github-action@v8
         with:
