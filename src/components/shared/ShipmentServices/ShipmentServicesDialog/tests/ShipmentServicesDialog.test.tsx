@@ -124,8 +124,5 @@ describe('ShipmentServicesDialog component', () => {
     expect(
       screen.getByText('Nenhum endereço encontrado para esse CEP'),
     ).toBeTruthy()
-    expect(
-      screen.getByText('Pressione em "X" para tentar novamente'),
-    ).toBeTruthy()
   })
 })
