@@ -22,9 +22,6 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: EAS Token
-        run: echo "EAS Token - ${{ secrets.EAS_TOKEN }}"
-
       - name: EAS setup
         uses: expo/expo-github-action@v8
         with:
@@ -33,4 +30,4 @@ jobs:
           token: ${{ secrets.EAS_TOKEN }}
 
       - name: Build
-        run: eas build --platform android --profile devClient --non-interactive --no-wait
+        run: eas build --platform android --profile development --non-interactive --no-wait
