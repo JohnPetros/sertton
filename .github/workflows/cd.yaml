@@ -13,6 +13,21 @@ jobs:
 
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
-  step:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Node setup
+        uses: actions/node-setup@v3
+        with:
+          node-version: 18.x
+
+      - name: EAS setup
+        uses: expo/expo-github-action@
+        with:
+          eas-version: latest
+          packager: npm
+          token: ${{ EAS_TOKEN }}
+
+      - name: Build
+        run: eas build --platform android --profile devClient --non-interactive --non-wait
