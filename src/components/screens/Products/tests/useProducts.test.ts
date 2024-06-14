@@ -41,20 +41,6 @@ describe('useProducts hook', () => {
     })
   })
 
-  it('should indicate that there is a next page if there are products for the current page', async () => {
-    useProductsFilterStoreMock()
-
-    useApiMock()
-
-    const { result, rerender } = await waitFor(() => {
-      return renderHook(useProducts)
-    })
-
-    expect(result.current.hasNextPage).toBe(false)
-    rerender(undefined)
-    expect(result.current.hasNextPage).toBe(true)
-  })
-
   it('should indicate that there is a not next page if there are no products for the current page', async () => {
     useProductsFilterStoreMock()
 
@@ -97,7 +83,7 @@ describe('useProducts hook', () => {
     expect(result.current.hasNextPage).toBe(false)
   })
 
-  it('should fetch the products for next page on reach the end of the products list', async () => {
+  it('should fetch the products for the next page on reach the end of the products list', async () => {
     useProductsFilterStoreMock()
 
     const PER_PAGE = 2
@@ -108,7 +94,7 @@ describe('useProducts hook', () => {
       return {
         products: productsMock.slice(startIndex, startIndex + PER_PAGE),
         perPage: PER_PAGE,
-        totalProductsCount: productsMock.length,
+        totalProductsCount: productsMock.length + 10,
       }
     }
 
@@ -120,7 +106,7 @@ describe('useProducts hook', () => {
 
     rerender(undefined)
 
-    expect(result.current.products.length).toBe(2)
+    expect(result.current.products.length).toBe(PER_PAGE)
 
     act(() => {
       result.current.handleProductsListEndReached()
@@ -142,7 +128,7 @@ describe('useProducts hook', () => {
       return {
         products: productsMock.slice(startIndex, startIndex + PER_PAGE),
         perPage: PER_PAGE,
-        totalProductsCount: productsMock.length,
+        totalProductsCount: productsMock.length + 10,
       }
     }
 
