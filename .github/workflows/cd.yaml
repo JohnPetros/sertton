@@ -29,5 +29,8 @@ jobs:
           packager: npm
           token: ${{ secrets.EAS_TOKEN }}
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Build
         run: eas build --platform android --profile development --non-interactive --no-wait
