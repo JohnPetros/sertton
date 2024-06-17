@@ -32,5 +32,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
-        run: eas build --platform android --profile development --non-interactive --no-wait
+      - name: Google Play API key JSON generation
+        env:
+          GOOGLE_PLAY_API_KEY: ${{ secrets.GOOGLE_PLAY_API_KEY }}
+        run: |
+          echo $GOOGLE_PLAY_API_KEY > google-play-api-key.base64
+          base64 -d -i google-play-api-key.base64 > google-play-api-key.json
+
+      - name: Build and submit
+        run: eas build --platform android --profile production --non-interactive --auto-submit-with-profile=deploy --no-wait
