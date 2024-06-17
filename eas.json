@@ -1,0 +1,39 @@
+{
+  "cli": {
+    "version": ">= 3.13.3"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "devClient": {
+      "android": {
+        "buildType": "apk",
+        "distribution": "internal"
+      }
+    },
+    "apk": {
+      "autoIncrement": true,
+      "android": {
+        "buildType": "apk",
+        "autoIncrement": "versionCode"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "android": {
+        "autoIncrement": "versionCode"
+      }
+    }
+  },
+  "submit": {
+    "deploy": {
+      "android": {
+        "track": "internal",
+        "serviceAccountKeyPath": "./google-play-api-key.json",
+        "releaseStatus": "draft"
+      }
+    }
+  }
+}
