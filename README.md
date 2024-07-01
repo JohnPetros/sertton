@@ -171,7 +171,7 @@ O aplicativo consome via API Rest os dados da loja virtual da **Sertton Industri
 
 ## ⚙️ Arquitetura
 
-## 🛠️ Tecnologias, ferramentas e serviços externos
+### 🛠️ Tecnologias, ferramentas e serviços externos
 
 Este projeto foi desenvolvido usando as seguintes tecnologias:
 
