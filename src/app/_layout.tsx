@@ -1,7 +1,11 @@
 import { useEffect } from 'react'
 import ErrorBoundary from 'react-native-error-boundary'
 
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native'
 import { useColorScheme } from 'react-native'
 
 import { useFonts } from 'expo-font'
@@ -24,6 +28,7 @@ import { injectStorageProvider } from '@/services/storage'
 
 import { useAppError } from '@/utils/hooks/useAppError'
 import { AppError } from '@/components/shared/AppError'
+import { NetworkChecker } from '@/components/layout/network-checker'
 
 export { ErrorBoundary } from 'expo-router'
 
@@ -44,7 +49,6 @@ export default function RootLayout() {
 
   const { handleAppError } = useAppError()
 
-
   useEffect(() => {
     if (interLoaded || interError) {
       SplashScreen.hideAsync()
@@ -55,13 +59,20 @@ export default function RootLayout() {
     return null
   }
 
-  return <Providers>
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <StyledSafeAreaView>
-        <ErrorBoundary onError={handleAppError} FallbackComponent={AppError}>
-          <StackLayout />
-        </ErrorBoundary>
-      </StyledSafeAreaView>
-    </ThemeProvider>
-  </Providers >
+  return (
+    <Providers>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <StyledSafeAreaView>
+          <NetworkChecker>
+            <ErrorBoundary
+              onError={handleAppError}
+              FallbackComponent={AppError}
+            >
+              <StackLayout />
+            </ErrorBoundary>
+          </NetworkChecker>
+        </StyledSafeAreaView>
+      </ThemeProvider>
+    </Providers>
+  )
 }
