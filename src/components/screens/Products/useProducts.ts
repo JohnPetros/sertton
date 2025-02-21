@@ -58,7 +58,6 @@ export function useProducts() {
     ['products', selectedSorter, search, categoryId, brandsIds],
     ({ pageParam = 1 }) => {
       currentPage.current = pageParam
-      console.log({ pageParam })
       return getProducts(pageParam)
     },
     {
@@ -102,8 +101,6 @@ export function useProducts() {
       return [...products, ...currentPage.products]
     }, [] as Product[])
   }, [data])
-
-  console.log(products.length)
 
   return {
     products,

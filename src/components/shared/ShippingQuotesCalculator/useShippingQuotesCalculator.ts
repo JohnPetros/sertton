@@ -29,7 +29,6 @@ export function useShippingQuotesCalculator(sku: ProcessedSku) {
     }
 
     try {
-      console.log('sku', sku)
       return await api.calculateShippingQuotes(zipcode, [sku])
     } catch (error) {
       // console.error(error)

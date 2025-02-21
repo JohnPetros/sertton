@@ -20,7 +20,7 @@ export function useViaCepApi(): IAddressesController {
 
     return {
       async getAddressByZipcode(
-        zipcode: string
+        zipcode: string,
       ): Promise<Omit<Address, 'number' | 'receiver' | 'id'> | null> {
         const data = await http.get<ViaCepAddress>(`/${zipcode}/json/`)
 
