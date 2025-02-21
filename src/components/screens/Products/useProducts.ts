@@ -58,6 +58,7 @@ export function useProducts() {
     ['products', selectedSorter, search, categoryId, brandsIds],
     ({ pageParam = 1 }) => {
       currentPage.current = pageParam
+      console.log({ pageParam })
       return getProducts(pageParam)
     },
     {
@@ -79,6 +80,8 @@ export function useProducts() {
 
         hasNextPage.current = currentTotalProductsCount < totalProductsCount
 
+        console.log(hasNextPage.current ? currentPage.current + 1 : undefined)
+
         return hasNextPage.current ? currentPage.current + 1 : undefined
       },
     },
@@ -89,6 +92,7 @@ export function useProducts() {
   }
 
   function handleProductsListEndReached() {
+    console.log('next page')
     fetchNextPage()
   }
 
@@ -101,6 +105,8 @@ export function useProducts() {
       return [...products, ...currentPage.products]
     }, [] as Product[])
   }, [data])
+
+  console.log(products.length)
 
   return {
     products,

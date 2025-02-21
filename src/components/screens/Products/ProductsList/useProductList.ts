@@ -12,12 +12,12 @@ export function useProductsList({
   onEndReached,
   onSelectSorter,
 }: Omit<ProductsListProps, 'isLoading' | 'hasNextPage' | 'onRefresh'>) {
-  const isFetching = useRef(false)
+  const isFetching = useRef(true)
   const totalProductsCount = useRef(0)
   const data = products.slice(0)
 
   const currentSearchValue = useProductsFilterStore(
-    (store) => store.state.search
+    (store) => store.state.search,
   )
 
   const productWidth = SCREEN.width - SCREEN.paddingX * 2
@@ -42,8 +42,7 @@ export function useProductsList({
   }, [products])
 
   useEffect(() => {
-    if (currentSearchValue)
-      totalProductsCount.current = 0
+    if (currentSearchValue) totalProductsCount.current = 0
   }, [currentSearchValue])
 
   return {
