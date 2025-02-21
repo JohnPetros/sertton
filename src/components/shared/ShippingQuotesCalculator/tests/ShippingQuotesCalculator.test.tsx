@@ -5,11 +5,11 @@ import { ShippingQuotesCalculator } from '..'
 import { useShippingQuotesCalculatorMock } from './useShipmentServicesCalculatorMock'
 
 jest.mock('@/services/api')
-jest.mock('../useShipingQuotesCalculator.ts')
+jest.mock('../useShippingQuotesCalculator.ts')
 
 const skuMock = { ...skusMock[0], quantity: 2 }
 
-describe('ShipingQuotesCalculator component', () => {
+describe('ShippingQuotesCalculator component', () => {
   it('should handle zipcode input change', () => {
     const { handleZipcodeChangeMock } = useShippingQuotesCalculatorMock()
 
