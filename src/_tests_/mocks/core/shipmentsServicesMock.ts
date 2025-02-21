@@ -1,6 +1,6 @@
-import type { ShipmentService } from '@/@types/ShipmentService'
+import { ShippingQuote } from '@/@types/ShippingQuote'
 
-export const shipmentServicesMock: ShipmentService[] = [
+export const shippingQuotesMock: ShippingQuote[] = [
   {
     name: 'Express Delivery',
     service: 'Fastest',

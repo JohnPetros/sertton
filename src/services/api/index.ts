@@ -1,12 +1,12 @@
 import { useHttp } from './http'
 import { IApi } from './interfaces/IApi'
-import { useShipmentServiceApi } from './shipment-service'
+import { useServerlessShippingApi } from './serverless-shipping'
 import { useViaCepApi } from './via-cep'
 import { useYampiApi } from './yampi'
 
 export function useApi(): IApi {
   const yampiApi = useYampiApi()
-  const shipmentServiceApi = useShipmentServiceApi()
+  const shipmentServiceApi = useServerlessShippingApi()
   const viaCepApi = useViaCepApi()
 
   const http = useHttp()

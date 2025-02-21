@@ -3,13 +3,11 @@ import { getTokens, XStack } from 'tamagui'
 
 import { ProcessedSku } from '@/@types/ProcessedSku'
 
-import { ShipmentServicesDialog } from './ShipmentServicesDialog'
-
-import { useShipmentServicesCalculator } from './useShipmentServicesCalculator'
-
 import { Button } from '@/components/shared/Button'
 import { Input } from '@/components/shared/Input'
 import { SCREEN } from '@/utils/constants/screen'
+import { useShippingQuotesCalculator } from './useShippingQuotesCalculator'
+import { ShippingQuotesDialog } from './ShippingQuotesDialog'
 
 const BUTTON_WIDTH = 48
 const GAP = 8
@@ -19,14 +17,14 @@ type ShipmentServicesProps = {
   sku: ProcessedSku
 }
 
-export function ShipmentServicesCalculator({ sku }: ShipmentServicesProps) {
+export function ShippingQuotesCalculator({ sku }: ShipmentServicesProps) {
   const {
-    shipmentServices,
+    shippingQuotes,
     zipcode,
     handleZipcodeChange,
     handleShipmentServicesDialogOpenChange,
     handleCalculateShipmentServices,
-  } = useShipmentServicesCalculator(sku)
+  } = useShippingQuotesCalculator(sku)
 
   return (
     <XStack gap={8} alignItems='flex-end' justifyContent='center'>
@@ -40,10 +38,10 @@ export function ShipmentServicesCalculator({ sku }: ShipmentServicesProps) {
         onChangeText={handleZipcodeChange}
         mask='cep'
       />
-      <ShipmentServicesDialog
+      <ShippingQuotesDialog
         onOpenChange={handleShipmentServicesDialogOpenChange}
         zipcode={zipcode}
-        shipmentServices={shipmentServices}
+        shippingQuotes={shippingQuotes}
       >
         <Button
           testID='calculate-button'
@@ -51,7 +49,7 @@ export function ShipmentServicesCalculator({ sku }: ShipmentServicesProps) {
           w={BUTTON_WIDTH}
           onPress={handleCalculateShipmentServices}
         />
-      </ShipmentServicesDialog>
+      </ShippingQuotesDialog>
     </XStack>
   )
 }

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
 import type { Address } from '@/@types/Address'
-import type { ShipmentService } from '@/@types/ShipmentService'
+import type { ShippingQuote } from '@/@types/ShippingQuote'
 import { useApi } from '@/services/api'
 import { useToast } from '@/utils/hooks/useToast'
 
-export function useShipmentServicesDialog(
+export function useShippingQuotesDialog(
   zipcode: string,
-  shipmentServices: ShipmentService[],
+  shippingQuotes: ShippingQuote[],
   onOpenChange: (isOpen: boolean) => void,
 ) {
   const [address, setAddress] = useState<Pick<
@@ -33,11 +33,11 @@ export function useShipmentServicesDialog(
       return
     }
 
-    if (isOpen && shipmentServices.length) {
-      const shipmentServicesNames: string[] = []
+    if (isOpen && shippingQuotes.length) {
+      const shippingQuotesNames: string[] = []
 
-      for (const shipmentService of shipmentServices) {
-        shipmentServicesNames.push(shipmentService.name)
+      for (const shipmentService of shippingQuotes) {
+        shippingQuotesNames.push(shipmentService.name)
       }
 
       try {
@@ -62,8 +62,8 @@ export function useShipmentServicesDialog(
   }
 
   useEffect(() => {
-    if (shipmentServices.length) handleDialogOpenChange(true)
-  }, [shipmentServices])
+    if (shippingQuotes.length) handleDialogOpenChange(true)
+  }, [shippingQuotes])
 
   return {
     address,

@@ -1,18 +1,18 @@
 import { renderHook } from '@/_tests_/customs/customRenderHook'
-import { useShipmentServicesCalculator } from '../useShipmentServicesCalculator'
 import { skusMock } from '@/_tests_/mocks/core/skusMock'
 import { useApiMock } from '@/_tests_/mocks/services/apiMock'
 import { act, waitFor } from '@testing-library/react-native'
-import { shipmentServicesMock } from '@/_tests_/mocks/core/shipmentsServicesMock'
 import { injectProviders } from '@/providers/helpers/injectProviders'
 import { useToastMock } from '@/_tests_/mocks/hooks/useToastMock'
+import { useShippingQuotesCalculator } from '../useShippingQuotesCalculator'
+import { shippingQuotesMock } from '@/_tests_/mocks/core/shipmentsServicesMock'
 
 jest.mock('@/services/api')
 jest.mock('@/utils/hooks/useToast')
 
 const processedSku = { ...skusMock[0], quantity: 4 }
 
-describe('useShipmentServicesCalculator hooks', () => {
+describe('useShippingQuotesCalculator hooks', () => {
   beforeAll(() => {
     injectProviders()
   })
@@ -21,7 +21,7 @@ describe('useShipmentServicesCalculator hooks', () => {
     useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     expect(typeof result.current.handleZipcodeChange).toBe('function')
@@ -37,7 +37,7 @@ describe('useShipmentServicesCalculator hooks', () => {
     useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     const zipcode = 'zipcode mock'
@@ -50,13 +50,13 @@ describe('useShipmentServicesCalculator hooks', () => {
   })
 
   it('should a show error toast message if zipcode is not set or shouldCalculate if false', async () => {
-    const getShipmentServicesMock = jest.fn()
+    const calculateShippingQuotesMock = jest.fn()
 
-    useApiMock({ getShipmentServices: getShipmentServicesMock })
+    useApiMock({ calculateShippingQuotes: calculateShippingQuotesMock })
     const toastMock = useToastMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     act(() => {
@@ -65,18 +65,18 @@ describe('useShipmentServicesCalculator hooks', () => {
 
     await waitFor(() => {
       expect(toastMock.showMock).toHaveBeenCalledWith('Cep inválido', 'error')
-      expect(getShipmentServicesMock).not.toHaveBeenCalled()
+      expect(calculateShippingQuotesMock).not.toHaveBeenCalled()
     })
   })
 
   it('should a show error toast message if zipcode is not valid', async () => {
-    const getShipmentServicesMock = jest.fn()
+    const calculateShippingQuotesMock = jest.fn()
 
-    useApiMock({ getShipmentServices: getShipmentServicesMock })
+    useApiMock({ calculateShippingQuotes: calculateShippingQuotesMock })
     const toastMock = useToastMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     act(() => {
@@ -90,13 +90,13 @@ describe('useShipmentServicesCalculator hooks', () => {
 
     await waitFor(() => {
       expect(toastMock.showMock).toHaveBeenCalledWith('Cep inválido', 'error')
-      expect(getShipmentServicesMock).not.toHaveBeenCalled()
+      expect(calculateShippingQuotesMock).not.toHaveBeenCalled()
     })
   })
 
   it('should a show error toast message if Api throw an error', async () => {
     useApiMock({
-      getShipmentServices: async () => {
+      calculateShippingQuotes: async () => {
         throw new Error('Api error mock')
       },
     })
@@ -104,7 +104,7 @@ describe('useShipmentServicesCalculator hooks', () => {
     const toastMock = useToastMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     act(() => {
@@ -126,11 +126,11 @@ describe('useShipmentServicesCalculator hooks', () => {
 
   it('should fetch shipment services on handle calculate shipment services and when there is a valid zipcode', async () => {
     useApiMock({
-      getShipmentServices: async () => shipmentServicesMock,
+      calculateShippingQuotes: async () => shippingQuotesMock,
     })
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     act(() => {
@@ -143,19 +143,19 @@ describe('useShipmentServicesCalculator hooks', () => {
     })
 
     await waitFor(() => {
-      expect(result.current.shipmentServices).toEqual(shipmentServicesMock)
+      expect(result.current.shippingQuotes).toEqual(shippingQuotesMock)
     })
   })
 
   it('should refetch shipment services after fetch shipment services for the first time', async () => {
-    const getShipmentServicesMock = jest.fn()
+    const calculateShippingQuotesMock = jest.fn()
 
     useApiMock({
-      getShipmentServices: getShipmentServicesMock,
+      calculateShippingQuotes: calculateShippingQuotesMock,
     })
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     expect(result.current.shouldCalculate).toBe(false)
@@ -172,23 +172,23 @@ describe('useShipmentServicesCalculator hooks', () => {
     expect(result.current.shouldCalculate).toBe(true)
 
     await waitFor(() => {
-      expect(getShipmentServicesMock).toHaveBeenCalled()
+      expect(calculateShippingQuotesMock).toHaveBeenCalled()
     })
 
     act(() => {
       result.current.handleCalculateShipmentServices()
     })
 
-    expect(getShipmentServicesMock).toHaveBeenCalled()
+    expect(calculateShippingQuotesMock).toHaveBeenCalled()
   })
 
   it('should change shouldCalculate value on handle shipment services dialog open change', async () => {
     useApiMock({
-      getShipmentServices: async () => shipmentServicesMock,
+      calculateShippingQuotes: async () => shippingQuotesMock,
     })
 
     const { result } = renderHook(() =>
-      useShipmentServicesCalculator(processedSku),
+      useShippingQuotesCalculator(processedSku),
     )
 
     expect(result.current.shouldCalculate).toBe(false)

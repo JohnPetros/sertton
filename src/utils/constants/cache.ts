@@ -5,6 +5,6 @@ export const CACHE = {
     brands: '/brands',
     banners: '/banners',
     orders: '/orders',
-    shipmentServices: '/shipment-services',
+    shippingQuotes: '/shipping-quotes',
   },
 }

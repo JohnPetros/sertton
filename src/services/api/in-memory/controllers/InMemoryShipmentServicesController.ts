@@ -1,13 +1,13 @@
 import type { ProcessedSku } from '@/@types/ProcessedSku'
-import type { ShipmentService } from '@/@types/ShipmentService'
+import type { ShipmentService } from '@/@types/ShippingQuote'
 
-import { IShipmentServiceController } from '../../interfaces/IShipmentServicesController'
+import { IShipmentServiceController } from '../../interfaces/ShippingService'
 
 export function InMemoryShipmentServicesController(): IShipmentServiceController {
   const shipmentServices: ShipmentService[] = []
 
   return {
-    async getShipmentServices(
+    async calculateShippingQuotes(
       zipcode: string,
       processedSkus: ProcessedSku[],
     ): Promise<ShipmentService[]> {

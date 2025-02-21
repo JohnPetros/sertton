@@ -8,16 +8,14 @@ import { useValidation } from '@/services/validation'
 import { CACHE } from '@/utils/constants/cache'
 import { useCache } from '@/services/cache'
 
-export function useShipmentServicesCalculator(sku: ProcessedSku) {
+export function useShippingQuotesCalculator(sku: ProcessedSku) {
   const [zipcode, setZipcode] = useState('')
   const [shouldCalculate, setShouldCalculate] = useState(false)
-
   const api = useApi()
-
   const toast = useToast()
   const validation = useValidation()
 
-  async function getShipmentServices() {
+  async function getShippingQuotes() {
     if (!shouldCalculate || !zipcode) {
       toast.show('Cep inválido', 'error')
       return
@@ -31,8 +29,10 @@ export function useShipmentServicesCalculator(sku: ProcessedSku) {
     }
 
     try {
-      return await api.getShipmentServices(zipcode, [sku])
+      console.log('sku', sku)
+      return await api.calculateShippingQuotes(zipcode, [sku])
     } catch (error) {
+      // console.error(error)
       api.handleError(error)
       toast.show(
         `Não foi possível calcular frete para o CEP ${zipcode}`,
@@ -41,9 +41,9 @@ export function useShipmentServicesCalculator(sku: ProcessedSku) {
     }
   }
 
-  const { data: shipmentServices, refetch } = useCache({
-    key: CACHE.keys.shipmentServices,
-    fetcher: getShipmentServices,
+  const { data: shippingQuotes, refetch } = useCache({
+    key: CACHE.keys.shippingQuotes,
+    fetcher: getShippingQuotes,
     dependencies: [shouldCalculate],
     isEnabled: shouldCalculate,
   })
@@ -66,7 +66,7 @@ export function useShipmentServicesCalculator(sku: ProcessedSku) {
   }
 
   return {
-    shipmentServices: shipmentServices ?? [],
+    shippingQuotes: shippingQuotes ?? [],
     zipcode,
     shouldCalculate,
     handleCalculateShipmentServices,

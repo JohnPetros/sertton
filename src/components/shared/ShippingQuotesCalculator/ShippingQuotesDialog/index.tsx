@@ -1,35 +1,34 @@
 import { ReactNode } from 'react'
 import { Paragraph, ScrollView, Text, XStack, YStack } from 'tamagui'
 
-import type { ShipmentService } from '@/@types/ShipmentService'
-
 import { Dialog } from '@/components/shared/Dialog'
 import { Table } from '@/components/shared/Table'
 import { Row } from '@/components/shared/Table/Row'
 
 import { formatPrice } from '@/utils/helpers/formatPrice'
 
-import { useShipmentServicesDialog } from './useShipmentServicesDialog'
 import { EmptyListMessage } from '../../EmptyListMessage'
 import { AddressBook } from 'phosphor-react-native'
 import { SCREEN } from '@/utils/constants/screen'
 import { Loading } from '../../Loading'
+import { ShippingQuote } from '@/@types/ShippingQuote'
+import { useShippingQuotesDialog } from './useShipmentServicesDialog'
 
 type ShippmentServicesDialogProps = {
   children: ReactNode
   zipcode: string
-  shipmentServices: ShipmentService[]
+  shippingQuotes: ShippingQuote[]
   onOpenChange: (isOpen: boolean) => void
 }
 
-export function ShipmentServicesDialog({
+export function ShippingQuotesDialog({
   children,
   zipcode,
-  shipmentServices,
+  shippingQuotes,
   onOpenChange,
 }: ShippmentServicesDialogProps) {
   const { address, isLoading, handleDialogOpenChange } =
-    useShipmentServicesDialog(zipcode, shipmentServices, onOpenChange)
+    useShippingQuotesDialog(zipcode, shippingQuotes, onOpenChange)
 
   return (
     <Dialog
@@ -85,7 +84,7 @@ export function ShipmentServicesDialog({
               {address && (
                 <YStack mt={12}>
                   <Table header={['Tipo', 'Prazo', 'Valor']}>
-                    {shipmentServices.map((shipmentService) => (
+                    {shippingQuotes.map((shipmentService) => (
                       <Row
                         key={shipmentService.name}
                         cells={[
