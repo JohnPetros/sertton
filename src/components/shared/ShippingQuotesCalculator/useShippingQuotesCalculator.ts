@@ -61,7 +61,7 @@ export function useShippingQuotesCalculator(sku: ProcessedSku) {
     setShouldCalculate(true)
   }
 
-  function handleShipmentServicesDialogOpenChange(isOpen: boolean) {
+  function handleShippingQuotesDialogOpenChange(isOpen: boolean) {
     setShouldCalculate(isOpen)
   }
 
@@ -70,7 +70,7 @@ export function useShippingQuotesCalculator(sku: ProcessedSku) {
     zipcode,
     shouldCalculate,
     handleCalculateShipmentServices,
-    handleShipmentServicesDialogOpenChange,
+    handleShippingQuotesDialogOpenChange,
     handleZipcodeChange,
   }
 }

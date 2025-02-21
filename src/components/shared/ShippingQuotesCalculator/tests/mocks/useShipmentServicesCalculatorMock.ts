@@ -1,4 +1,4 @@
-import { useShippingQuotesCalculator } from '../useShippingQuotesCalculator'
+import { useShippingQuotesCalculator } from '../../useShippingQuotesCalculator'
 
 export function useShippingQuotesCalculatorMock(
   returnUseShippingQuotesCalculatorMock?: Partial<
@@ -6,23 +6,23 @@ export function useShippingQuotesCalculatorMock(
   >,
 ) {
   const handleZipcodeChangeMock = jest.fn()
-  const handleShipmentServicesDialogOpenChangeMock = jest.fn()
+  const handleShippingQuotesDialogOpenChangeMock = jest.fn()
   const handleCalculateShipmentServicesMock = jest.fn()
 
   jest.mocked(useShippingQuotesCalculator).mockReturnValueOnce({
-    shipmentServices: [],
+    shippingQuotes: [],
     zipcode: '',
     shouldCalculate: false,
     handleZipcodeChange: handleZipcodeChangeMock,
-    handleShipmentServicesDialogOpenChange:
-      handleShipmentServicesDialogOpenChangeMock,
+    handleShippingQuotesDialogOpenChange:
+      handleShippingQuotesDialogOpenChangeMock,
     handleCalculateShipmentServices: handleCalculateShipmentServicesMock,
     ...returnUseShippingQuotesCalculatorMock,
   })
 
   return {
     handleZipcodeChangeMock,
-    handleShipmentServicesDialogOpenChangeMock,
+    handleShippingQuotesDialogOpenChangeMock,
     handleCalculateShipmentServicesMock,
   }
 }

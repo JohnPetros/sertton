@@ -1,18 +1,17 @@
-import { cartProductsMock } from '@/_tests_/mocks/core/cartProductsMock'
-import { useShipmentServicesDialog } from '../../useShipmentServicesDialog'
+import { useShippingQuotesDialog } from '../../useShippingQuotesDialog'
 
 const handleDialogOpenChangeMock = jest.fn()
 
-export function useShipmentServicesDialogMock(
-  useShipmentServicesDialogMock?: Partial<
-    ReturnType<typeof useShipmentServicesDialog>
+export function useShippingQuotesDialogMock(
+  useShippingQuotesDialogMock?: Partial<
+    ReturnType<typeof useShippingQuotesDialog>
   >,
 ) {
-  jest.mocked(useShipmentServicesDialog).mockReturnValueOnce({
+  jest.mocked(useShippingQuotesDialog).mockReturnValueOnce({
     address: null,
     isLoading: false,
     handleDialogOpenChange: handleDialogOpenChangeMock,
-    ...useShipmentServicesDialogMock,
+    ...useShippingQuotesDialogMock,
   })
 
   return {

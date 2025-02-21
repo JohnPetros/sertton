@@ -25,7 +25,7 @@ describe('useShippingQuotesCalculator hooks', () => {
     )
 
     expect(typeof result.current.handleZipcodeChange).toBe('function')
-    expect(typeof result.current.handleShipmentServicesDialogOpenChange).toBe(
+    expect(typeof result.current.handleShippingQuotesDialogOpenChange).toBe(
       'function',
     )
     expect(typeof result.current.handleCalculateShipmentServices).toBe(
@@ -200,7 +200,7 @@ describe('useShippingQuotesCalculator hooks', () => {
     expect(result.current.shouldCalculate).toBe(true)
 
     act(() => {
-      result.current.handleShipmentServicesDialogOpenChange(false)
+      result.current.handleShippingQuotesDialogOpenChange(false)
     })
 
     expect(result.current.shouldCalculate).toBe(false)

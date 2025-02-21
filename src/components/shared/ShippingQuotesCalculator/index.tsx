@@ -22,7 +22,7 @@ export function ShippingQuotesCalculator({ sku }: ShipmentServicesProps) {
     shippingQuotes,
     zipcode,
     handleZipcodeChange,
-    handleShipmentServicesDialogOpenChange,
+    handleShippingQuotesDialogOpenChange,
     handleCalculateShipmentServices,
   } = useShippingQuotesCalculator(sku)
 
@@ -39,7 +39,7 @@ export function ShippingQuotesCalculator({ sku }: ShipmentServicesProps) {
         mask='cep'
       />
       <ShippingQuotesDialog
-        onOpenChange={handleShipmentServicesDialogOpenChange}
+        onOpenChange={handleShippingQuotesDialogOpenChange}
         zipcode={zipcode}
         shippingQuotes={shippingQuotes}
       >

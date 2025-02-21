@@ -2,7 +2,7 @@ import { render } from '@/_tests_/customs/customRender'
 import { skusMock } from '@/_tests_/mocks/core/skusMock'
 import { fireEvent, screen } from '@testing-library/react-native'
 import { ShippingQuotesCalculator } from '..'
-import { useShippingQuotesCalculatorMock } from './useShipmentServicesCalculatorMock'
+import { useShippingQuotesCalculatorMock } from './mocks/useShipmentServicesCalculatorMock'
 
 jest.mock('@/services/api')
 jest.mock('../useShippingQuotesCalculator.ts')

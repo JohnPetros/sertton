@@ -1,29 +1,29 @@
 import { render } from '@/_tests_/customs/customRender'
-import { ShipmentServicesDialog } from '..'
-import { useShipmentServicesDialogMock } from './mocks/useShipmentServicesDialogMock'
+import { ShippingQuotesDialog } from '..'
+import { useShippingQuotesDialogMock } from './mocks/useShipmentServicesDialogMock'
 import { act, fireEvent, screen } from '@testing-library/react-native'
 import { Button } from 'react-native'
 import { addressesMock } from '@/_tests_/mocks/core/addressesMock'
-import { shipmentServicesMock } from '@/_tests_/mocks/core/shipmentsServicesMock'
+import { shippingQuotesMock } from '@/_tests_/mocks/core/shipmentsServicesMock'
 import { formatPrice } from '@/utils/helpers/formatPrice'
 
-jest.mock('../useShipmentServicesDialog.ts')
+jest.mock('../useShippingQuotesDialog.ts')
 
 const addressMock = addressesMock[0]
 const onOpenChangeMock = jest.fn()
 
-describe('ShipmentServicesDialog component', () => {
+describe('ShippingQuotesDialog component', () => {
   it('should render a loading if it is loading', () => {
-    useShipmentServicesDialogMock({ isLoading: true })
+    useShippingQuotesDialogMock({ isLoading: true })
 
     render(
-      <ShipmentServicesDialog
+      <ShippingQuotesDialog
         onOpenChange={onOpenChangeMock}
-        shipmentServices={[]}
+        shippingQuotes={[]}
         zipcode=''
       >
         <Button testID='trigger' title='' />
-      </ShipmentServicesDialog>,
+      </ShippingQuotesDialog>,
     )
 
     act(() => {
@@ -34,16 +34,16 @@ describe('ShipmentServicesDialog component', () => {
   })
 
   it("should render a address' zipcode, city and uf if there is an address and it is not loading", () => {
-    useShipmentServicesDialogMock({ isLoading: false, address: addressMock })
+    useShippingQuotesDialogMock({ isLoading: false, address: addressMock })
 
     render(
-      <ShipmentServicesDialog
+      <ShippingQuotesDialog
         onOpenChange={onOpenChangeMock}
-        shipmentServices={[]}
+        shippingQuotes={[]}
         zipcode=''
       >
         <Button testID='trigger' title='' />
-      </ShipmentServicesDialog>,
+      </ShippingQuotesDialog>,
     )
 
     act(() => {
@@ -57,23 +57,23 @@ describe('ShipmentServicesDialog component', () => {
   })
 
   it("should render a address' shipment services if it is not loading and there is an address and shipment services", () => {
-    useShipmentServicesDialogMock({ isLoading: false, address: addressMock })
+    useShippingQuotesDialogMock({ isLoading: false, address: addressMock })
 
     const { rerender } = render(
-      <ShipmentServicesDialog
+      <ShippingQuotesDialog
         onOpenChange={onOpenChangeMock}
-        shipmentServices={[]}
+        shippingQuotes={[]}
         zipcode=''
       >
         <Button testID='trigger' title='' />
-      </ShipmentServicesDialog>,
+      </ShippingQuotesDialog>,
     )
 
     act(() => {
       fireEvent.press(screen.getByTestId('trigger'))
     })
 
-    for (const shipmentService of shipmentServicesMock) {
+    for (const shipmentService of shippingQuotesMock) {
       expect(screen.queryByText(shipmentService.name)).not.toBeTruthy()
       expect(
         screen.queryByText(`até ${shipmentService.days} dias úteis`),
@@ -83,19 +83,19 @@ describe('ShipmentServicesDialog component', () => {
       ).not.toBeTruthy()
     }
 
-    useShipmentServicesDialogMock({ isLoading: false, address: addressMock })
+    useShippingQuotesDialogMock({ isLoading: false, address: addressMock })
 
     rerender(
-      <ShipmentServicesDialog
+      <ShippingQuotesDialog
         onOpenChange={onOpenChangeMock}
-        shipmentServices={shipmentServicesMock}
+        shippingQuotes={shippingQuotesMock}
         zipcode=''
       >
         <Button testID='trigger' title='' />
-      </ShipmentServicesDialog>,
+      </ShippingQuotesDialog>,
     )
 
-    for (const shipmentService of shipmentServicesMock) {
+    for (const shipmentService of shippingQuotesMock) {
       expect(screen.getByText(shipmentService.name)).toBeTruthy()
       expect(
         screen.getByText(`até ${shipmentService.days} dias úteis`),
@@ -105,16 +105,16 @@ describe('ShipmentServicesDialog component', () => {
   })
 
   it('should render empty message text if it is not loading', () => {
-    useShipmentServicesDialogMock({ isLoading: false, address: null })
+    useShippingQuotesDialogMock({ isLoading: false, address: null })
 
     render(
-      <ShipmentServicesDialog
+      <ShippingQuotesDialog
         onOpenChange={onOpenChangeMock}
-        shipmentServices={[]}
+        shippingQuotes={[]}
         zipcode=''
       >
         <Button testID='trigger' title='' />
-      </ShipmentServicesDialog>,
+      </ShippingQuotesDialog>,
     )
 
     act(() => {

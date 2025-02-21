@@ -1,8 +1,8 @@
 import { renderHook } from '@/_tests_/customs/customRenderHook'
-import { useShipmentServicesDialog } from '../useShipmentServicesDialog'
+import { useShippingQuotesDialog } from '../useShippingQuotesDialog'
 import { act, waitFor } from '@testing-library/react-native'
 import { useApiMock } from '@/_tests_/mocks/services/apiMock'
-import { shipmentServicesMock } from '@/_tests_/mocks/core/shipmentsServicesMock'
+import { shippingQuotesMock } from '@/_tests_/mocks/core/shipmentsServicesMock'
 import { addressesMock } from '@/_tests_/mocks/core/addressesMock'
 
 jest.mock('@/services/api')
@@ -10,12 +10,12 @@ jest.mock('@/services/api')
 const addressMock = addressesMock[0]
 const onOpenChangeMock = jest.fn()
 
-describe('useShipmentServicesDialog hook', () => {
+describe('useShippmentServicesDialog hook', () => {
   it('should pass isOpen value to onOpenChange callback', () => {
     useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesDialog(addressMock.zipcode, [], onOpenChangeMock),
+      useShippingQuotesDialog(addressMock.zipcode, [], onOpenChangeMock),
     )
 
     const isOpen = true
@@ -31,9 +31,9 @@ describe('useShipmentServicesDialog hook', () => {
     const apiMock = useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesDialog(
+      useShippingQuotesDialog(
         addressMock.zipcode,
-        shipmentServicesMock,
+        shippingQuotesMock,
         onOpenChangeMock,
       ),
     )
@@ -61,9 +61,9 @@ describe('useShipmentServicesDialog hook', () => {
     useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesDialog(
+      useShippingQuotesDialog(
         addressMock.zipcode,
-        shipmentServicesMock,
+        shippingQuotesMock,
         onOpenChangeMock,
       ),
     )
@@ -83,9 +83,9 @@ describe('useShipmentServicesDialog hook', () => {
     const apiMock = useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesDialog(
+      useShippingQuotesDialog(
         addressMock.zipcode,
-        shipmentServicesMock,
+        shippingQuotesMock,
         onOpenChangeMock,
       ),
     )
@@ -122,9 +122,9 @@ describe('useShipmentServicesDialog hook', () => {
     useApiMock()
 
     const { result } = renderHook(() =>
-      useShipmentServicesDialog(
+      useShippingQuotesDialog(
         addressMock.zipcode,
-        shipmentServicesMock,
+        shippingQuotesMock,
         onOpenChangeMock,
       ),
     )

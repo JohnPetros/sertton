@@ -12,7 +12,7 @@ import { AddressBook } from 'phosphor-react-native'
 import { SCREEN } from '@/utils/constants/screen'
 import { Loading } from '../../Loading'
 import { ShippingQuote } from '@/@types/ShippingQuote'
-import { useShippingQuotesDialog } from './useShipmentServicesDialog'
+import { useShippingQuotesDialog } from './useShippingQuotesDialog'
 
 type ShippmentServicesDialogProps = {
   children: ReactNode
