@@ -9,7 +9,7 @@ import { NumberInput } from '@/components/shared/NumberInput'
 import { Search } from '@/components/shared/Search'
 import { Skeleton } from '@/components/shared/Skeleton'
 import { SkuSelectors } from '@/components/shared/SkuSelectors'
-import { ShipmentServicesCalculator } from '@/components/shared/ShipmentServices'
+import { ShippingQuotesCalculator } from '@/components/shared/ShippingQuotesCalculator'
 
 import { SCREEN } from '@/utils/constants/screen'
 
@@ -64,7 +64,11 @@ export function ProductDetails() {
               sku={selectedSku}
               isLoading={isLoading}
             />
-            <YStack mt={hasVariations ? 12 : 0} gap={32} alignItems='flex-start'>
+            <YStack
+              mt={hasVariations ? 12 : 0}
+              gap={32}
+              alignItems='flex-start'
+            >
               <View position='relative'>
                 <View position='absolute' zIndex={50}>
                   <Skeleton
@@ -98,7 +102,11 @@ export function ProductDetails() {
               </Skeleton>
 
               {isLoading ? (
-                <Skeleton isVisible={isLoading} width={SCREEN.width} height={40} />
+                <Skeleton
+                  isVisible={isLoading}
+                  width={SCREEN.width}
+                  height={40}
+                />
               ) : (
                 <Button w='100%' onPress={handleAddToCart}>
                   Adicionar ao carinho
@@ -108,8 +116,12 @@ export function ProductDetails() {
 
             {selectedSku && product && (
               <View mt={24}>
-                <Skeleton isVisible={isLoading} width={SCREEN.width - 48} height={40}>
-                  <ShipmentServicesCalculator
+                <Skeleton
+                  isVisible={isLoading}
+                  width={SCREEN.width - 48}
+                  height={40}
+                >
+                  <ShippingQuotesCalculator
                     sku={{
                       ...selectedSku,
                       quantity,
