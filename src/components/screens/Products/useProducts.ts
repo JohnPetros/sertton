@@ -80,8 +80,6 @@ export function useProducts() {
 
         hasNextPage.current = currentTotalProductsCount < totalProductsCount
 
-        console.log(hasNextPage.current ? currentPage.current + 1 : undefined)
-
         return hasNextPage.current ? currentPage.current + 1 : undefined
       },
     },
@@ -92,7 +90,6 @@ export function useProducts() {
   }
 
   function handleProductsListEndReached() {
-    console.log('next page')
     fetchNextPage()
   }
 

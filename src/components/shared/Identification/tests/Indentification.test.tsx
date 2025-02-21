@@ -16,7 +16,7 @@ describe('Indentification component', () => {
       screen.getByText('Rua Tomatssu Iawasse 233 - Vila Nova Bonsucesso'),
     ).toBeTruthy()
     expect(
-      screen.getByText('© 2024 Sertton Brasil Distribuidora Ltda'),
+      screen.getByText('© 2025 Sertton Brasil Distribuidora Ltda'),
     ).toBeTruthy()
     expect(screen.getByText('CNPJ: 33.805.461/0001-90')).toBeTruthy()
   })

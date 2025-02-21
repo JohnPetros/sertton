@@ -1,4 +1,4 @@
-import type { ProcessedOrder } from "@/@types/ProcessedOrder"
+import type { ProcessedOrder } from '@/@types/ProcessedOrder'
 
 export const processedOrdersMock: ProcessedOrder[] = [
   {
@@ -20,7 +20,7 @@ export const processedOrdersMock: ProcessedOrder[] = [
       number: 4,
       neighborhood: 'Central',
       deliveryDays: 3,
-      deliveryDate: '2024-02-21',
+      deliveryDate: '2025-02-21',
       receiver: 'John Doe',
     },
     products: [
@@ -43,7 +43,7 @@ export const processedOrdersMock: ProcessedOrder[] = [
       pdf: null,
       method: 'credit-card',
     },
-    createdAt: '2024-02-15T10:00:00Z',
+    createdAt: '2025-02-15T10:00:00Z',
   },
   {
     status: {
@@ -63,7 +63,7 @@ export const processedOrdersMock: ProcessedOrder[] = [
       number: 10,
       neighborhood: 'South',
       deliveryDays: 5,
-      deliveryDate: '2024-02-22',
+      deliveryDate: '2025-02-22',
       receiver: 'Jane Smith',
     },
     products: [
@@ -86,7 +86,7 @@ export const processedOrdersMock: ProcessedOrder[] = [
       pdf: 'path/to/debit-card-invoice.pdf',
       method: 'ticket',
     },
-    createdAt: '2024-02-14T10:00:00Z',
+    createdAt: '2025-02-14T10:00:00Z',
   },
   {
     status: {
@@ -106,7 +106,7 @@ export const processedOrdersMock: ProcessedOrder[] = [
       number: 12,
       neighborhood: 'North',
       deliveryDays: 1,
-      deliveryDate: '2024-02-20',
+      deliveryDate: '2025-02-20',
       receiver: 'Alice Johnson',
     },
     products: [
@@ -129,6 +129,6 @@ export const processedOrdersMock: ProcessedOrder[] = [
       pdf: null,
       method: 'credit-card',
     },
-    createdAt: '2024-02-13T10:00:00Z',
+    createdAt: '2025-02-13T10:00:00Z',
   },
 ]
