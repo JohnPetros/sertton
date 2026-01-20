@@ -57,7 +57,7 @@ class SkuFaker {
       height: props.height ?? faker.randomGenerator.decimal(scale: 50, min: 1),
       width: props.width ?? faker.randomGenerator.decimal(scale: 50, min: 1),
       length: props.length ?? faker.randomGenerator.decimal(scale: 50, min: 1),
-      imageUrl: props.imageUrl ?? faker.image.image(random: true),
+      imageUrl: props.imageUrl ?? faker.image.loremPicsum(),
       variations: props.variations ?? variationFaker.fakeManyDto(count: 2),
       stock: props.stock ?? faker.randomGenerator.integer(100, min: 0),
       yampiToken: props.yampiToken ?? faker.guid.guid(),
