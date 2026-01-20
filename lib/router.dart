@@ -3,9 +3,9 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/index.dart';
+import 'package:sertton/ui/global/widgets/layout/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/index.dart';
-import 'package:sertton/ui/global/widgets/layout/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/orders/widgets/screens/orders/index.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
