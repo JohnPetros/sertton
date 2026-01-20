@@ -22,4 +22,4 @@ Ao finalizar a escrita do código de **cada tarefa**, execute os passos de valid
     Execute `flutter analyze`.
     - *Se houver erros:* Corrija-os imediatamente. Não prossiga com erros de linter.
 
----
+Prefira usar o MCP do dart para executar os comandos acima.
