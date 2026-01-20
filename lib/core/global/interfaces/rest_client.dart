@@ -1,24 +1,14 @@
 import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/rest/types/json.dart';
 
 abstract class RestClient {
-  Future<RestResponse<Body>> get<Body>(
+  Future<RestResponse<Json>> get(String path, {Json? queryParams});
+  Future<RestResponse<Json>> post(String path, {Json? body, Json? queryParams});
+  Future<RestResponse<Json>> put(String path, {Json? body, Json? queryParams});
+  Future<RestResponse<Json>> delete(
     String path, {
-    Map<String, String>? queryParams,
-  });
-  Future<RestResponse<Body>> post<Body>(
-    String path, {
-    Body? body,
-    Map<String, String>? queryParams,
-  });
-  Future<RestResponse<Body>> put<Body>(
-    String path, {
-    Body? body,
-    Map<String, String>? queryParams,
-  });
-  Future<RestResponse<Body>> delete<Body>(
-    String path, {
-    Body? body,
-    Map<String, String>? queryParams,
+    Json? body,
+    Json? queryParams,
   });
   void setBaseUrl(String baseUrl);
   void setHeader(String key, String value);

@@ -21,8 +21,8 @@ class RestResponse<Body> {
     throw Exception('Rest Response failed');
   }
 
-  RestResponse<NewBody> mapBody<NewBody>(NewBody Function(Body?) mapper) {
-    if (_errorMessage != null) {
+  RestResponse<NewBody> mapBody<NewBody>(NewBody? Function(Body) mapper) {
+    if (_errorMessage != null || _body == null) {
       throw Exception('Rest Response failed');
     }
     return RestResponse(body: mapper(_body), statusCode: _statusCode);
@@ -38,7 +38,7 @@ class RestResponse<Body> {
 
   String get errorMessage {
     if (_errorMessage != null) {
-      return _errorMessage!;
+      return _errorMessage;
     }
     throw Exception('Rest Response failed');
   }
