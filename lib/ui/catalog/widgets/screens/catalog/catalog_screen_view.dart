@@ -1,3 +1,4 @@
+import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/index.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class CatalogScreenView extends StatelessWidget {
@@ -7,12 +8,7 @@ class CatalogScreenView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       headers: const [AppBar(title: Text('Catálogo'))],
-      child: Center(
-        child: Text(
-          'Tela de Catálogo',
-          style: Theme.of(context).typography.large,
-        ),
-      ),
+      child: Center(child: ProductList()),
     );
   }
 }
