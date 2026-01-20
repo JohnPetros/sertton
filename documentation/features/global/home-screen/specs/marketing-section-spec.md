@@ -25,35 +25,42 @@ Implementar a seção de marketing na tela Home ("Home Screen"), que serve como 
 ### Camada UI
 **Localização:** `lib/ui/global/widgets/screens/home/marketing-section/`
 
-- **Widget `MarketingSection`**: Widget container principal.
+- **Widget `MarketingSectionView`** (MVP): Widget container principal.
     - Responsável por consumir o `MarketingSectionPresenter`.
-    - Renderiza o layout combinando Banners e Coleções.
+    - Renderiza layouts de carregamento (Skeletons) e o layout intercalado (Coleção > Banner > Coleção...).
 - **Presenter `MarketingSectionPresenter`**:
     - Gerencia o estado da seção (loading, data, error).
-    - Orquestra chamadas para buscar banners e coleções.
-- **Widget `MarketingBanner`**:
-    - Exibe a imagem do banner.
-    - Deve ser não clicável.
-- **Widget `MarketingCollection`**:
-    - Exibe o título da coleção.
-    - Exibe lista horizontal de `ProductCard` (reutilizar widget existente) com scroll horizontal fluido.
+    - Orquestra chamadas para buscar banners e metadados de coleções (sem produtos).
+- **Sub-Widgets em pastas próprias (MVP)**:
+    - **Banner:** `marketing-banner/`
+        - `MarketingBannerView`: Exibe a imagem (com suporte a skeleton interno).
+        - `MarketingBannerPresenter`: Sanitiza URLs.
+        - `MarketingBannerSkeleton`: Estado de carregamento.
+    - **Collection:** `marketing-collection/`
+        - `MarketingCollectionView`: Exibe título e grid/lista de produtos.
+        - `MarketingCollectionPresenter`: Busca produtos sob demanda (`fetchProductsByCollection`).
+        - `MarketingCollectionSkeleton`: Estado de carregamento.
 
 ### Camada Rest
 **Localização:** `lib/rest/yampi/mappers/`
 
 - **Mapper `YampiCollectionMapper`**:
-    - Responsável por transformar a resposta JSON da API em `CollectionDto`.
+    - Transforma JSON da API em `CollectionDto`.
 
 ## O que deve ser modificado?
 
 ### Camada Rest
 - **`YampiCatalogService`** (`lib/rest/yampi/services/yampi_catalog_service.dart`):
-    - Implementar o método `fetchCollections()`.
-    - Implementar o método `fetchProductsByCollection(String collectionId)` (se necessário para carregar produtos sob demanda, ou garantir que `fetchCollections` já traga produtos).
+    - Implementar `fetchCollections()` (traz apenas metadados).
+    - Implementar `fetchProductsByCollection(id)` (usado pelo widget de coleção).
+- **`YampiMarketingService`**:
+    - Ajustar endpoint e lógica de filtro/sublist de banners.
 
 ### Camada UI
-- **`HomeScreen`** (`lib/ui/global/widgets/screens/home/home_screen_view.dart`):
-    - Adicionar o widget `MarketingSection` na estrutura da tela (provavelmente dentro de um `CustomScrollView` ou `SingleChildScrollView`).
+- **`HomeScreenView`** (`lib/ui/global/widgets/screens/home/home_screen_view.dart`):
+    - Integrar `MarketingSectionView`.
+- **`ProductCard`** (`lib/ui/catalog/widgets/screens/catalog/products-list/product-card/`):
+    - Adicionar suporte a layout vertical (`isColumn`).
 
 ## O que deve ser removido?
 - N/A
@@ -61,4 +68,3 @@ Implementar a seção de marketing na tela Home ("Home Screen"), que serve como 
 ## Usar como referência
 - `ProductsList` para listagem de produtos.
 - `CatalogScreen` para estrutura de presenter/view.
-
