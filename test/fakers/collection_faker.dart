@@ -6,20 +6,19 @@ import 'package:sertton/core/catalog/dtos/fakers/product_faker.dart';
 typedef Props = ({String? id, String? name, List<ProductDto>? products});
 
 class CollectionFaker {
-  final faker = Faker();
-  final productFaker = ProductFaker();
+  static final _faker = Faker();
 
-  CollectionDto fakeDto({
+  static CollectionDto fakeDto({
     Props props = (id: null, name: null, products: null),
   }) {
     return CollectionDto(
-      id: props.id ?? faker.guid.guid(),
-      name: props.name ?? faker.lorem.words(3).join(' '),
-      products: props.products ?? productFaker.fakeManyDto(count: 5),
+      id: props.id ?? _faker.guid.guid(),
+      name: props.name ?? _faker.lorem.words(3).join(' '),
+      products: props.products ?? ProductFaker.fakeManyDto(count: 5),
     );
   }
 
-  List<CollectionDto> fakeManyDto({
+  static List<CollectionDto> fakeManyDto({
     int count = 10,
     Props props = (id: null, name: null, products: null),
   }) {

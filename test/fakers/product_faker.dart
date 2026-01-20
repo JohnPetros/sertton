@@ -18,11 +18,9 @@ typedef Props = ({
 });
 
 class ProductFaker {
-  final faker = Faker();
-  final brandFaker = BrandFaker();
-  final skuFaker = SkuFaker();
+  static final _faker = Faker();
 
-  ProductDto fakeDto({
+  static ProductDto fakeDto({
     Props props = (
       id: null,
       slug: null,
@@ -35,26 +33,26 @@ class ProductFaker {
       brand: null,
     ),
   }) {
-    final productName = props.name ?? faker.lorem.words(3).join(' ');
+    final productName = props.name ?? _faker.lorem.words(3).join(' ');
     final slug = props.slug ?? productName.toLowerCase().replaceAll(' ', '-');
 
     return ProductDto(
-      id: props.id ?? faker.guid.guid(),
+      id: props.id ?? _faker.guid.guid(),
       slug: slug,
       skuCode:
           props.skuCode ??
-          'PRD-${faker.randomGenerator.integer(999999, min: 100000)}',
+          'PRD-${_faker.randomGenerator.integer(999999, min: 100000)}',
       name: productName,
-      description: props.description ?? faker.lorem.sentences(3).join(' '),
+      description: props.description ?? _faker.lorem.sentences(3).join(' '),
       specifications:
-          props.specifications ?? faker.lorem.sentences(2).join(' '),
-      skus: props.skus ?? skuFaker.fakeManyDto(count: 3),
-      imageUrl: props.imageUrl ?? faker.image.loremPicsum(),
-      brand: props.brand ?? brandFaker.fakeDto(),
+          props.specifications ?? _faker.lorem.sentences(2).join(' '),
+      skus: props.skus ?? SkuFaker.fakeManyDto(count: 3),
+      imageUrl: props.imageUrl ?? _faker.image.loremPicsum(),
+      brand: props.brand ?? BrandFaker.fakeDto(),
     );
   }
 
-  List<ProductDto> fakeManyDto({
+  static List<ProductDto> fakeManyDto({
     int count = 10,
     Props props = (
       id: null,

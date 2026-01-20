@@ -4,9 +4,9 @@ import 'package:sertton/core/catalog/dtos/category_dto.dart';
 typedef Props = ({String? id, String? name, String? description});
 
 class CategoryFaker {
-  final faker = Faker();
+  static final faker = Faker();
 
-  CategoryDto fakeDto({
+  static CategoryDto fakeDto({
     Props props = (id: null, name: null, description: null),
   }) {
     return CategoryDto(
@@ -16,7 +16,7 @@ class CategoryFaker {
     );
   }
 
-  List<CategoryDto> fakeManyDto({
+  static List<CategoryDto> fakeManyDto({
     int count = 10,
     Props props = (id: null, name: null, description: null),
   }) {
