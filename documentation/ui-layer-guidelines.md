@@ -108,11 +108,14 @@ lib/ui/
 
 ### ✅ Fazer
 
+- Todo e qualquer widget deve ser o padrão MVP (Model-View-Presenter)
+- Caso o widget tenha apenas a parte visual, ele deve conter apenas a View e index.dart
 - Separar View de Presenter
 - Usar Signals para estado local
 - Usar ConsumerWidget para acessar providers
 - Criar arquivos index.dart para exportação
 - Componentizar widgets complexos
+- Ao criar um widget interno de um widget maior, crie uma pasta para ele dentor da pasta do widget maior.
 
 ### ❌ Evitar
 
