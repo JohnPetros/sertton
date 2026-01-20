@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
-import 'package:sertton/core/catalog/dtos/fakers/product_faker.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-skeleton/index.dart';
@@ -12,11 +11,12 @@ import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
+import '../../../../../../fakers/product_faker.dart';
+
 class MockProductsListPresenter extends Mock implements ProductsListPresenter {}
 
 void main() {
   late MockProductsListPresenter presenter;
-  final productFaker = ProductFaker();
 
   setUp(() {
     presenter = MockProductsListPresenter();
@@ -79,7 +79,7 @@ void main() {
   });
 
   testWidgets('should show list of products when loaded', (tester) async {
-    final products = productFaker.fakeManyDto(count: 3);
+    final products = ProductFaker.fakeManyDto(count: 3);
     when(() => presenter.products).thenReturn(signal(products));
     when(() => presenter.hasMore).thenReturn(signal(false));
 
@@ -95,7 +95,7 @@ void main() {
   testWidgets(
     'should show loading skeleton at the bottom when hasMore is true',
     (tester) async {
-      final products = productFaker.fakeManyDto(count: 3);
+      final products = ProductFaker.fakeManyDto(count: 3);
       when(() => presenter.products).thenReturn(signal(products));
       when(() => presenter.hasMore).thenReturn(signal(true));
 
@@ -112,7 +112,7 @@ void main() {
   testWidgets('should call loadMoreProducts when scrolling to bottom', (
     tester,
   ) async {
-    final products = productFaker.fakeManyDto(count: 10);
+    final products = ProductFaker.fakeManyDto(count: 10);
     when(() => presenter.products).thenReturn(signal(products));
     when(() => presenter.hasMore).thenReturn(signal(true));
 
@@ -128,7 +128,7 @@ void main() {
   });
 
   testWidgets('should call refresh when pull to refresh', (tester) async {
-    final products = productFaker.fakeManyDto(count: 3);
+    final products = ProductFaker.fakeManyDto(count: 3);
     when(() => presenter.products).thenReturn(signal(products));
     when(() => presenter.hasMore).thenReturn(signal(false));
 

@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:sertton/core/catalog/dtos/fakers/product_faker.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/global/responses/pagination_response.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';
 
+import '../../../../../../fakers/product_faker.dart';
+
 class MockCatalogService extends Mock implements CatalogService {}
 
 void main() {
   late MockCatalogService catalogService;
-  final productFaker = ProductFaker();
 
   setUp(() {
     catalogService = MockCatalogService();
@@ -18,7 +18,7 @@ void main() {
 
   group('ProductsListPresenter', () {
     test('should load products on initialization', () async {
-      final products = productFaker.fakeManyDto(count: 10);
+      final products = ProductFaker.fakeManyDto(count: 10);
       final pagination = PaginationResponse(
         items: products,
         itemsPerPage: 10,
@@ -63,7 +63,7 @@ void main() {
     });
 
     test('should load more products successfully', () async {
-      final initialProducts = productFaker.fakeManyDto(count: 10);
+      final initialProducts = ProductFaker.fakeManyDto(count: 10);
       final initialPagination = PaginationResponse(
         items: initialProducts,
         itemsPerPage: 10,
@@ -78,7 +78,7 @@ void main() {
       final presenter = ProductsListPresenter(catalogService);
       await Future.delayed(Duration.zero);
 
-      final moreProducts = productFaker.fakeManyDto(count: 10);
+      final moreProducts = ProductFaker.fakeManyDto(count: 10);
       final morePagination = PaginationResponse(
         items: moreProducts,
         itemsPerPage: 10,
@@ -98,7 +98,7 @@ void main() {
     });
 
     test('should not load more products if currently loading', () async {
-      final products = productFaker.fakeManyDto(count: 10);
+      final products = ProductFaker.fakeManyDto(count: 10);
       final pagination = PaginationResponse(
         items: products,
         itemsPerPage: 10,
@@ -120,7 +120,7 @@ void main() {
     });
 
     test('should not load more products if hasMore is false', () async {
-      final products = productFaker.fakeManyDto(count: 10);
+      final products = ProductFaker.fakeManyDto(count: 10);
       final pagination = PaginationResponse(
         items: products,
         itemsPerPage: 10,
@@ -143,7 +143,7 @@ void main() {
     });
 
     test('refresh should reset and reload products', () async {
-      final initialProducts = productFaker.fakeManyDto(count: 10);
+      final initialProducts = ProductFaker.fakeManyDto(count: 10);
       final initialPagination = PaginationResponse(
         items: initialProducts,
         itemsPerPage: 10,
@@ -158,7 +158,7 @@ void main() {
       final presenter = ProductsListPresenter(catalogService);
       await Future.delayed(Duration.zero);
 
-      final refreshedProducts = productFaker.fakeManyDto(count: 5);
+      final refreshedProducts = ProductFaker.fakeManyDto(count: 5);
       final refreshedPagination = PaginationResponse(
         items: refreshedProducts,
         itemsPerPage: 10,
