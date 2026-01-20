@@ -1,11 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import '../../../../../../fakers/brand_faker.dart';
+import '../../../../../../fakers/category_faker.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/filters_bar_presenter.dart';
-
-import '../../../../../../fakers/brand_faker.dart';
-import '../../../../../../fakers/category_faker.dart';
 
 class MockCatalogService extends Mock implements CatalogService {}
 

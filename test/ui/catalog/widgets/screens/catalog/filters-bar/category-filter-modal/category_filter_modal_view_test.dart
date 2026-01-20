@@ -1,10 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sertton/core/catalog/dtos/category_dto.dart';
+import '../../../../../../../fakers/category_faker.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/category-filter-modal/category_filter_modal_view.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-
-import '../../../../../../../fakers/category_faker.dart';
 
 void main() {
   group('CategoryFilterModalView', () {

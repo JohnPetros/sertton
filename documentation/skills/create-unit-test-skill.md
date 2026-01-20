@@ -1,37 +1,51 @@
-# Create Unit/Widget Test Skill
+# Create Unit/Widget Test Skill 🧪
 
 **Objetivo:**
-Orientar a criação de testes unitários e de widget padronizados e eficientes para Presenters e Widgets.
+Orientar a criação de testes unitários e de widget padronizados e eficientes, garantindo a integridade da lógica nos Presenters e a fidelidade visual e funcional dos Widgets.
 
 **Entrada:**
-*   Arquivo de código fonte: `Widget`, que inclui `View` (UI) e `Presenter` (lógica).
-*   Dependências relacionadas (DTOs, Repositórios, Serviços).
+*   **Código Fonte:** Arquivo do `Widget` (View) e seu respectivo `Presenter`.
 
-**Diretrizes de Execução:**
+---
 
-1.  **Adesão às Normas do Projeto:**
-    *   **Obrigatório:** Consulte e siga as diretrizes detalhadas em [documentation/unit-tests-guidelines.md](../unit-tests-guidelines.md).
-    *   **UI/Widgets:** Para testes de widgets, considere também as boas práticas de UI em [documentation/ui-layer-guidelines.md](../ui-layer-guidelines.md).
+## 📋 Diretrizes de Execução
 
-2.  **Geração de Dados (Fakers):**
-    *   Utilize classes `Faker` para instanciar DTOs e modelos com dados fictícios.
-    *   **Ação Necessária:** Se um Faker necessário não existir para um DTO, sua primeira tarefa é criá-lo (ex: `BrandFaker` para `BrandDto`).
-    *   **Importante:** Os fakers ficam na pasta `test/fakers/<nome do módulo ao qual o DTO pertence>`.
+### 1. Adesão às Normas do Projeto
+*   **Obrigatório:** Siga rigorosamente as diretrizes em [unit-tests-guidelines.md](../unit-tests-guidelines.md).
+*   **Contexto de UI:** Ao testar Widgets, aplique as boas práticas descritas em [ui-layer-guidelines.md](../ui-layer-guidelines.md).
 
-3.  **Qualidade de Código:**
-    *   **Clean Code:** Não inclua comentários no código de teste gerado. O código deve ser legível e expressivo por si só.
+### 2. Estrutura e Nomenclatura 📁
+*   **Organização:** Crie os testes no diretório `test/` espelhando a estrutura original em `lib/`.
+*   **Padrão de Nomes:**
+    *   **Views:** `nome_view_test.dart`
+    *   **Presenters:** `nome_presenter_test.dart`
+    *   *Exemplo:* `lib/ui/home/home_view.dart` ➡️ `test/ui/home/home_view_test.dart`.
 
-4.  **Cobertura de Widgets Internos:**
-    *   Caso o widget principal possua widgets internos ou sub-componentes complexos, crie testes dedicados para cada um deles.
+### 3. Preparação de Dados (Fakers)
+*   **Uso de Fakers:** Utilize classes `Faker` para instanciar DTOs e modelos. Isso garante dados consistentes e facilita a manutenção.
+*   **Ação Pró-ativa:** Se o `Faker` para um DTO específico não existir, **crie-o primeiro** em `test/fakers/<modulo>/`.
+*   **Localização:** Mantenha os fakers organizados na estrutura de pastas correspondente em `test/fakers/`.
 
-5.  **Validação:**
-    *   Utilize o MCP do Dart (`run_tests`) para executar e validar os testes criados sempre que possível.
+### 4. Estratégia de Teste (Bottom-Up) 🪜
+*   **Hierarquia de Widgets:** Ao testar um widget que compõe outros sub-widgets, siga a ordem **do mais interno para o mais externo**.
+*   **Isolamento:** Garanta que os componentes menores estejam validados antes de testar a integração no componente pai.
 
-6. Caso tenha sido passado um widget, certifique-se que tenha testes tanto para o presenter quanto para a view
+### 5. Escopo e Cobertura 🎯
+*   **Dualidade Widget/Presenter:** Se um componente visual for fornecido, é obrigatório criar testes tanto para a **View** (interações e renderização) quanto para o **Presenter** (lógica de estado).
+*   **Componentes Complexos:** Sub-componentes complexos devem possuir seus próprios arquivos de teste dedicados.
 
-**Passo a Passo Sugerido:**
+### 6. Qualidade e Clean Code
+*   **Código Autoexplicativo:** O código de teste deve ser legível por si só. **Não inclua comentários** desnecessários; utilize nomes de testes descritivos.
+*   **Mocks:** Utilize `mocktail` para a criação de dublês de teste, seguindo o padrão do projeto.
 
-1.  **Setup:** Crie o arquivo de teste no diretório `test/` espelhando a estrutura de `lib/` (ex: `lib/feature/home.dart` -> `test/feature/home_test.dart`).
-2.  **Mocking:** Configure os mocks das dependências usando `mocktail`.
-3.  **Implementação:** Escreva os testes cobrindo cenários de sucesso e erro.
-4.  **Execução:** Rode os testes e ajuste conforme necessário.
+---
+
+## 🚀 Workflow Sugerido
+
+1.  **🔍 Setup:** Crie o arquivo de teste em `test/` espelhando a estrutura original em `lib/` (ex: `lib/ui/home/home_view.dart` -> `test/ui/home/home_view_test.dart`).
+2.  **🎭 Mocking:** Configure as dependências necessárias utilizando `mocktail`.
+3.  **🛠️ Implementação:** Escreva os casos de teste cobrindo:
+    *   Fluxos de sucesso (Happy Path).
+    *   Tratamento de erros e exceções.
+    *   Estados de carregamento (Loading) e vazio (Empty), se aplicável.
+4.  **✅ Validação:** Utilize o MCP do Dart (`run_tests`) para validar a implementação e garantir que não houve regressões.

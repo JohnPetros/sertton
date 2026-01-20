@@ -19,12 +19,12 @@ Padronizar a criação de Pull Requests (PRs), garantindo descrições claras qu
 3.  **Estrutura da Descrição (Body):**
     O corpo do PR deve seguir o template abaixo, preenchendo as seções relevantes. **Nota:** Utilize sempre formatação Markdown para garantir legibilidade e organização. Evite usar título principal `#`, use apenas subtítulos como `##` e demais com nível abaixo.
 
-    *   🎯 **Objetivo:** Explique *por que* este PR foi criado e qual o seu propósito central.
+    *   🎯 **Objetivo (obrigatório):** Explique *por que* este PR foi criado e qual o seu propósito central.
     *   #️⃣ **Issues relacionadas (opcional):** Vincule tarefas ou bugs utilizando as palavras-chave do GitHub (ex: `fixes #123`).
     *   🐛 **Causa do bug (opcional):** Caso seja um `fix`, detalhe a razão técnica raiz do problema.
-    *   📋 **Changelog:** Liste de forma técnica as principais modificações realizadas no código.
-    *   🧪 **Como testar (opcional):** Forneça um guia passo a passo para que o revisor possa validar as alterações.
-    *   👀 **Observações:** Adicione informações sobre decisões de arquitetura, limitações identificadas ou novos contextos.
+    *   📋 **Changelog (obrigatório):** Liste de forma técnica as principais modificações realizadas no código.
+    *   🧪 **Como testar (obrigatório):** Forneça um guia passo a passo para que o revisor possa validar as alterações.
+    *   👀 **Observações (opcional):** Adicione informações sobre decisões de arquitetura, limitações identificadas ou novos contextos.
 
 4.  **Criação via GitHub MCP:**
     *   **Atenção:** Nunca utilize comandos `git` diretamente no terminal em qualquer etapa do processo. 

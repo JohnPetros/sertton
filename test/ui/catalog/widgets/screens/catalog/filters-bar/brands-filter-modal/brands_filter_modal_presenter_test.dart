@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sertton/core/catalog/dtos/brand_dto.dart';
-import 'package:sertton/core/catalog/dtos/fakers/brand_faker.dart';
+import '../../../../../../../fakers/brand_faker.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/brands-filter-modal/brands_filter_modal_presenter.dart';
 
 void main() {

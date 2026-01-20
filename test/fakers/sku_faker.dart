@@ -1,7 +1,6 @@
 import 'package:faker/faker.dart';
 import 'package:sertton/core/catalog/dtos/sku_dto.dart';
 import 'package:sertton/core/catalog/dtos/variation_dto.dart';
-
 import 'variation_faker.dart';
 
 typedef Props = ({

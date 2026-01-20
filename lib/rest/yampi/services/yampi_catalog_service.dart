@@ -7,6 +7,7 @@ import 'package:sertton/core/global/responses/pagination_response.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_brand_mapper.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_category_mapper.dart';
+import 'package:sertton/rest/yampi/mappers/yampi_collection_mapper.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_product_mapper.dart';
 import 'package:sertton/rest/yampi/services/yampi_service.dart';
 
@@ -60,15 +61,27 @@ class YampiCatalogService extends YampiService implements CatalogService {
   }
 
   @override
-  Future<RestResponse<List<CollectionDto>>> fetchCollections() {
-    throw UnimplementedError();
+  Future<RestResponse<List<CollectionDto>>> fetchCollections() async {
+    final response = await super.restClient.get(
+      '/catalog/collections?include=products',
+    );
+    return response.mapBody<List<CollectionDto>>((body) {
+      if (response.isFailure) return [];
+      return YampiCollectionMapper.toDtoList(body);
+    });
   }
 
   @override
   Future<RestResponse<List<ProductDto>>> fetchProductsByCollection(
     String collectionId,
-  ) {
-    throw UnimplementedError();
+  ) async {
+    final response = await super.restClient.get(
+      '/catalog/collections/$collectionId/products?include=images,skus,brand,texts',
+    );
+    return response.mapBody<List<ProductDto>>((body) {
+      if (response.isFailure) return [];
+      return YampiProductMapper.toDtoList(body);
+    });
   }
 
   String _buildFilterParams({

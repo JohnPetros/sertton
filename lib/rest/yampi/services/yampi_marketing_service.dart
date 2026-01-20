@@ -9,7 +9,7 @@ class YampiMarketingService extends YampiService implements MarketingService {
 
   @override
   Future<RestResponse<List<BannerDto>>> fetchBanners() async {
-    final response = await super.restClient.get('/banners');
+    final response = await super.restClient.get('/marketing/banners');
     return response.mapBody((body) {
       if (response.isFailure) return [];
       return YampiBannerMapper.toDtoList(body);

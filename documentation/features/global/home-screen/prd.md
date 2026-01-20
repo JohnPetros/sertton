@@ -39,13 +39,13 @@ A tela deve ser renderizada em uma lista vertical única (`ScrollView`), compost
 
 Esta seção deve seguir uma ordem estrita e repetitiva para manter o usuário engajado:
 
-1.  **Banner Promocional #1**: Destaque visual principal.
-2.  **Coleção de Produtos #1**: Lista horizontal de produtos de uma categoria específica (ex: "Lançamentos").
-3.  **Banner Promocional #2**: Destaque secundário.
-4.  **Coleção de Produtos #2**: Lista horizontal de produtos de outra categoria (ex: "Mais Vendidos").
+1.  **Coleção de Produtos #1**: Lista horizontal de produtos de uma categoria específica (ex: "Lançamentos").
+2.  **Banner Promocional #1**: Destaque visual principal.
+3.  **Coleção de Produtos #2**: Lista horizontal de produtos de outra categoria (ex: "Mais Vendidos").
+4.  **Banner Promocional #2**: Destaque secundário.
 
 *   **Requisitos de UI**:
-    *   **Banners**: Imagens de alta qualidade, proporção 16:9 ou similar, clicáveis.
+    *   **Banners**: Imagens de alta qualidade, proporção 2:1 (ampla), visualização apenas (não clicáveis no MVP).
     *   **Coleções**: Título da coleção visível + Lista horizontal de cards de produto (Imagem, Nome, Preço).
 
 ### 4.3. Captura de Leads (Newsletter)

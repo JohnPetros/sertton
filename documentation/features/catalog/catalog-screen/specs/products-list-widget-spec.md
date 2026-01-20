@@ -15,27 +15,27 @@ Este widget será o componente principal da tela de catálogo, renderizando os p
 
 ### Camada Core
 
-| Recurso | Caminho | Descrição |
-|---------|---------|-----------|
-| `ProductDto` | `lib/core/catalog/dtos/product_dto.dart` | DTO com campos: `id`, `slug`, `skuCode`, `name`, `description`, `specifications`, `skus`, `imageUrl`, `brand` |
-| `SkuDto` | `lib/core/catalog/dtos/sku_dto.dart` | DTO do SKU com preços (`costPrice`, `salePrice`, `discountPrice`), dimensões e `stock` |
-| `BrandDto` | `lib/core/catalog/dtos/brand_dto.dart` | DTO com `id` e `name` da marca/fabricante |
-| `PaginationResponse<T>` | `lib/core/global/responses/pagination_response.dart` | Wrapper de paginação com `items`, `itemsPerPage`, `currentPage`, `totalItems`, `totalPages` |
-| `CatalogService` | `lib/core/catalog/interfaces/catalog_service.dart` | Interface com método `fetchProducts()` retornando `RestResponse<PaginationResponse<ProductDto>>` |
+| Recurso                 | Caminho                                              | Descrição                                                                                                     |
+| ----------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `ProductDto`            | `lib/core/catalog/dtos/product_dto.dart`             | DTO com campos: `id`, `slug`, `skuCode`, `name`, `description`, `specifications`, `skus`, `imageUrl`, `brand` |
+| `SkuDto`                | `lib/core/catalog/dtos/sku_dto.dart`                 | DTO do SKU com preços (`costPrice`, `salePrice`, `discountPrice`), dimensões e `stock`                        |
+| `BrandDto`              | `lib/core/catalog/dtos/brand_dto.dart`               | DTO com `id` e `name` da marca/fabricante                                                                     |
+| `PaginationResponse<T>` | `lib/core/global/responses/pagination_response.dart` | Wrapper de paginação com `items`, `itemsPerPage`, `currentPage`, `totalItems`, `totalPages`                   |
+| `CatalogService`        | `lib/core/catalog/interfaces/catalog_service.dart`   | Interface com método `fetchProducts()` retornando `RestResponse<PaginationResponse<ProductDto>>`              |
 
 ### Camada Rest
 
-| Recurso | Caminho | Descrição |
-|---------|---------|-----------|
-| `YampiCatalogService` | `lib/rest/yampi/services/yampi_catalog_service.dart` | Implementação do `CatalogService` que busca produtos da API Yampi |
-| `catalogServiceProvider` | `lib/rest/services.dart` | Provider Riverpod para injetar `CatalogService` |
+| Recurso                  | Caminho                                              | Descrição                                                         |
+| ------------------------ | ---------------------------------------------------- | ----------------------------------------------------------------- |
+| `YampiCatalogService`    | `lib/rest/yampi/services/yampi_catalog_service.dart` | Implementação do `CatalogService` que busca produtos da API Yampi |
+| `catalogServiceProvider` | `lib/rest/services.dart`                             | Provider Riverpod para injetar `CatalogService`                   |
 
 ### Camada UI
 
-| Recurso | Caminho | Descrição |
-|---------|---------|-----------|
-| `CatalogScreenView` | `lib/ui/catalog/widgets/screens/catalog/catalog_screen_view.dart` | Tela de catálogo que renderiza o `ProductList` |
-| `ProductListView` | `lib/ui/catalog/widgets/screens/catalog/products-list/product_list_view.dart` | Widget View atual (incompleto) |
+| Recurso                 | Caminho                                                                             | Descrição                                                 |
+| ----------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| `CatalogScreenView`     | `lib/ui/catalog/widgets/screens/catalog/catalog_screen_view.dart`                   | Tela de catálogo que renderiza o `ProductList`            |
+| `ProductListView`       | `lib/ui/catalog/widgets/screens/catalog/products-list/product_list_view.dart`       | Widget View atual (incompleto)                            |
 | `ProductsListPresenter` | `lib/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart` | Presenter atual com `futureSignal` para fetch de produtos |
 
 ---
@@ -164,7 +164,7 @@ product-skeleton/
 ###### Arquivo: `index.dart`
 
 ```dart
-import 'product_card_view.dart';
+import '../spec/product_card_view.dart';
 typedef ProductCard = ProductCardView;
 ```
 
@@ -225,7 +225,7 @@ typedef ProductCard = ProductCardView;
 
 **Arquivo:** `index.dart`
 ```dart
-import 'discount_badge_view.dart';
+import '../spec/discount_badge_view.dart';
 typedef DiscountBadge = DiscountBadgeView;
 ```
 
@@ -274,7 +274,7 @@ typedef DiscountBadge = DiscountBadgeView;
 
 **Arquivo:** `index.dart`
 ```dart
-import 'product_image_view.dart';
+import '../spec/product_image_view.dart';
 typedef ProductImage = ProductImageView;
 ```
 
@@ -321,7 +321,7 @@ typedef ProductImage = ProductImageView;
 
 **Arquivo:** `index.dart`
 ```dart
-import 'add_to_cart_button_view.dart';
+import '../spec/add_to_cart_button_view.dart';
 typedef AddToCartButton = AddToCartButtonView;
 ```
 
@@ -401,7 +401,7 @@ typedef AddToCartButton = AddToCartButtonView;
 
 **Arquivo:** `index.dart`
 ```dart
-import 'product_info_view.dart';
+import '../spec/product_info_view.dart';
 typedef ProductInfo = ProductInfoView;
 ```
 
@@ -437,13 +437,13 @@ typedef ProductInfo = ProductInfoView;
 
 ## Usar como referência
 
-| Padrão | Arquivo de Referência |
-|--------|----------------------|
-| Estrutura MVP (View + Presenter) | `lib/ui/catalog/widgets/screens/catalog/products-list/` |
-| Uso de Signals com futureSignal | `products_list_presenter.dart` |
-| Barrel pattern (index.dart) | `lib/ui/catalog/widgets/screens/catalog/products-list/index.dart` |
-| Injeção de dependência via Provider | `products_list_presenter.dart` → `presenterProvider` |
-| Mapeamento de DTOs | `lib/rest/yampi/mappers/yampi_product_mapper.dart` |
+| Padrão                              | Arquivo de Referência                                             |
+| ----------------------------------- | ----------------------------------------------------------------- |
+| Estrutura MVP (View + Presenter)    | `lib/ui/catalog/widgets/screens/catalog/products-list/`           |
+| Uso de Signals com futureSignal     | `products_list_presenter.dart`                                    |
+| Barrel pattern (index.dart)         | `lib/ui/catalog/widgets/screens/catalog/products-list/index.dart` |
+| Injeção de dependência via Provider | `products_list_presenter.dart` → `presenterProvider`              |
+| Mapeamento de DTOs                  | `lib/rest/yampi/mappers/yampi_product_mapper.dart`                |
 
 ---
 
