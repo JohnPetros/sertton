@@ -1,5 +1,5 @@
 ---
-trigger: model_decision
+trigger: always_on
 description: Descreve quais são as boas práticas de codificação no projeto
 ---
 
