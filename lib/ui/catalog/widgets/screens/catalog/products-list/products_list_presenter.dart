@@ -13,6 +13,7 @@ class ProductsListPresenter {
   final error = signal<String?>(null);
   final categoryId = signal<String?>(null);
   final brandsIds = signal<List<String>>([]);
+  final query = signal<String?>(null);
 
   int _currentPage = 1;
 
@@ -30,6 +31,7 @@ class ProductsListPresenter {
       page: 1,
       categoryId: categoryId.value,
       brandsIds: brandsIds.value,
+      query: query.value,
     );
 
     if (!response.isFailure) {
@@ -54,6 +56,7 @@ class ProductsListPresenter {
       page: nextPage,
       categoryId: categoryId.value,
       brandsIds: brandsIds.value,
+      query: query.value,
     );
 
     if (!response.isFailure) {
@@ -75,9 +78,19 @@ class ProductsListPresenter {
     await loadProducts();
   }
 
-  void applyFilter({String? categoryId, List<String> brandsIds = const []}) {
+  void applyFilter({
+    String? categoryId,
+    List<String> brandsIds = const [],
+    String? query,
+  }) {
     this.categoryId.value = categoryId;
     this.brandsIds.value = brandsIds;
+    this.query.value = query;
+    refresh();
+  }
+
+  void search(String? term) {
+    query.value = term;
     refresh();
   }
 }

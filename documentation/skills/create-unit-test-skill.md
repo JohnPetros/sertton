@@ -38,6 +38,11 @@ Orientar a criação de testes unitários e de widget padronizados e eficientes,
 *   **Código Autoexplicativo:** O código de teste deve ser legível por si só. **Não inclua comentários** desnecessários; utilize nomes de testes descritivos.
 *   **Mocks:** Utilize `mocktail` para a criação de dublês de teste, seguindo o padrão do projeto.
 
+### 7. Dart MCP
+
+* **Obrigatório:** Utilize apenas o MCP do Dart para executar os testes.
+
+
 ---
 
 ## 🚀 Workflow Sugerido

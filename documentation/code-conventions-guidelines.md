@@ -12,6 +12,12 @@ Este documento estabelece as convenções de código adotadas no projeto Sertton
 *   **Legibilidade:** O código deve ser autoexplicativo. Evite abreviações obscuras.
 *   **Dart & Flutter:** Siga as boas práticas oficiais descritas em [Effective Dart](https://dart.dev/guides/language/effective-dart).
 
+## 4. Widgets
+
+- Quando for criar um widget, sempre crie um arquivo para ele na pasta `ui/<nome-do-widget>/`.
+- Sempre siga o padrão de arquitetura MVU (Model, View, Update) para widgets.
+
+
 ## 3. Organização de Importações
 As importações devem ser organizadas em blocos separados por uma linha em branco, seguindo rigorosamente a ordem das camadas da arquitetura:
 

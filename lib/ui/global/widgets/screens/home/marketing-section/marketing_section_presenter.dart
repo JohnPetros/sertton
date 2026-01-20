@@ -46,7 +46,10 @@ class MarketingSectionPresenter {
           responses[1] as RestResponse<List<CollectionDto>>;
 
       if (bannersResponse.isSuccessful && collectionsResponse.isSuccessful) {
-        final List<BannerDto> banners = bannersResponse.body.sublist(2, 5);
+        final List<BannerDto> banners = bannersResponse.body
+            .skip(2)
+            .take(3)
+            .toList();
         final List<CollectionDto> collections = collectionsResponse
             .body
             .reversed

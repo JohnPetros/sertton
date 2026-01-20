@@ -29,7 +29,15 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: Routes.catalog,
-                builder: (context, state) => const CatalogScreen(),
+                builder: (context, state) {
+                  final extra = state.extra as Map<String, dynamic>?;
+                  final focusSearch = extra?['focusSearch'] as bool? ?? false;
+                  final initialQuery = extra?['initialQuery'] as String?;
+                  return CatalogScreen(
+                    focusSearch: focusSearch,
+                    initialQuery: initialQuery,
+                  );
+                },
               ),
             ],
           ),
