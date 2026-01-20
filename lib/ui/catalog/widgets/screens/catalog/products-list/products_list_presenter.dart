@@ -32,7 +32,7 @@ class ProductsListPresenter {
       _currentPage = pagination.currentPage;
       hasMore.value = pagination.currentPage < pagination.totalPages;
     } else {
-      error.value = response.errorMessage ?? 'Erro ao carregar produtos';
+      error.value = response.errorMessage;
     }
 
     isLoading.value = false;
@@ -46,8 +46,8 @@ class ProductsListPresenter {
     final nextPage = _currentPage + 1;
     final response = await _catalogService.fetchProducts(page: nextPage);
 
-    if (!response.isFailure && response.body != null) {
-      final pagination = response.body!;
+    if (!response.isFailure) {
+      final pagination = response.body;
       products.value = [...products.value, ...pagination.items];
       _currentPage = pagination.currentPage;
       hasMore.value = pagination.currentPage < pagination.totalPages;
