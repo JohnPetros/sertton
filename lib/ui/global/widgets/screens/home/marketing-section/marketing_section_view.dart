@@ -1,6 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/ui/global/widgets/screens/home/marketing-section/marketing-banner-skeleton/index.dart';
-import 'package:sertton/ui/global/widgets/screens/home/marketing-section/marketing-collection-skeleton/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/marketing-section/marketing_section_presenter.dart';
 import 'package:sertton/ui/global/widgets/screens/home/marketing-section/marketing-banner/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/marketing-section/marketing-collection/index.dart';

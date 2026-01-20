@@ -5,9 +5,15 @@ import 'package:signals/signals.dart';
 class MarketingBannerPresenter {
   final BannerDto banner;
 
-  late final imageUrl = signal<String>('https:${banner.imageUrl}');
+  late final imageUrl = signal<String>(_sanitizeUrl(banner.imageUrl));
 
   MarketingBannerPresenter(this.banner);
+
+  String _sanitizeUrl(String url) {
+    if (url.startsWith('http')) return url;
+    if (url.startsWith('//')) return 'https:$url';
+    return url;
+  }
 }
 
 final marketingBannerPresenterProvider = Provider.autoDispose
