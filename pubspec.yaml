@@ -37,6 +37,7 @@ dependencies:
   go_router: ^17.0.1
   shadcn_flutter: 0.0.47
   signals: ^6.3.0
+  signals_flutter: ^6.3.0
   # cupertino_icons: 1.0.8
 
   # The following adds the Cupertino Icons font to your application.
