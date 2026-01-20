@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
+import '../../../../../../fakers/product_faker.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-skeleton/index.dart';
@@ -10,8 +11,6 @@ import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:signals/signals_flutter.dart';
-
-import '../../../../../../fakers/product_faker.dart';
 
 class MockProductsListPresenter extends Mock implements ProductsListPresenter {}
 
