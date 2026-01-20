@@ -115,7 +115,7 @@ lib/ui/
 - Usar ConsumerWidget para acessar providers
 - Criar arquivos index.dart para exportação
 - Componentizar widgets complexos
-- Ao criar um widget interno de um widget maior, crie uma pasta para ele dentor da pasta do widget maior.
+- Ao criar um widget interno de um widget maior, crie uma pasta para ele dentro da pasta do widget maior.
 
 ### ❌ Evitar
 
