@@ -5,7 +5,9 @@ import 'package:sertton/core/global/responses/pagination_response.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 
 abstract class CatalogService {
-  Future<RestResponse<PaginationResponse<ProductDto>>> fetchProducts();
+  Future<RestResponse<PaginationResponse<ProductDto>>> fetchProducts({
+    int page = 1,
+  });
   Future<RestResponse<ProductDto>> fetchProduct();
   Future<RestResponse<List<CollectionDto>>> fetchCollections();
   Future<RestResponse<List<CategoryDto>>> fetchCategories();
