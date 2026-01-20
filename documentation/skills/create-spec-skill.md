@@ -6,12 +6,14 @@ Ao receber a tarefa de escrever ou completar uma Spec, você deve seguir este pr
 
 ## Processo de Criação
 
-1.  **Analise o Input**: Geralmente você receberá um esboço da spec e/ou o PRD associado.
-2.  **Pesquise a Codebase**: 
+1.  **Analise o Input**: Geralmente você receberá um esboço da spec.
+2.  **Leia e entenda o PRD associado**.
+    - O arquivo fica em um nivél superior ao Spec.
+3.  **Pesquise a Codebase**: 
     - Identifique o que já existe.
     - Verifique onde os novos arquivos se encaixam na arquitetura.
     - Encontre exemplos similares para usar como referência.
-3.  **Complete a Spec**: Preencha as seções detalhando nomes de arquivos, classes, métodos e responsabilidades, garantindo conformidade com `documentation/architecture.md`.
+4.  **Complete a Spec**: Preencha as seções detalhando nomes de arquivos, classes, métodos e responsabilidades, garantindo conformidade com `documentation/architecture.md`.
 
 ## Contexto do projeto
 
