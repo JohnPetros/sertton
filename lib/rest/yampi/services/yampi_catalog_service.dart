@@ -12,9 +12,11 @@ class YampiCatalogService extends YampiService implements CatalogService {
   YampiCatalogService(super.restClient, super.envDriver);
 
   @override
-  Future<RestResponse<PaginationResponse<ProductDto>>> fetchProducts() async {
+  Future<RestResponse<PaginationResponse<ProductDto>>> fetchProducts({
+    int page = 1,
+  }) async {
     final response = await super.restClient.get(
-      '/catalog/products?include=skus,brand,images,texts',
+      '/catalog/products?include=skus,brand,images,texts&page=$page',
     );
     return response.mapBody((body) {
       if (response.isFailure) return PaginationResponse();

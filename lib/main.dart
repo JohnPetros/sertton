@@ -5,11 +5,11 @@ import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: SerttonApp()));
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+class SerttonApp extends ConsumerWidget {
+  const SerttonApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
