@@ -32,8 +32,9 @@ A tela deve ser renderizada em uma lista vertical única (`ScrollView`), compost
     *   Botão/Ícone de Menu (acesso ao Drawer).
     *   Ícone de Carrinho (com badge de quantidade).
 *   **Comportamento**:
-    *   Ao tocar no campo de pesquisa, o usuário não digita na Home. Ele é redirecionado imediatamente para a **Tela de Catálogo** com o foco no campo de busca de lá, ou abre uma modal de busca dedicada.
-    *   *Nota*: O requisito explicita "buscar produtos navegando o user para a tela de catalogo".
+    *   O usuário pode digitar diretamente no campo de busca na Home Screen.
+    *   A navegação para a **Tela de Catálogo** ocorre somente ao realizar o *submit* (pressionar Enter ou clicar no botão de lupa).
+    *   O termo digitado é levado para o catálogo, que já carrega filtrado.
 
 ### 4.2. Seção de Marketing (Estrutura de Loop)
 
@@ -70,7 +71,7 @@ Esta seção deve seguir uma ordem estrita e repetitiva para manter o usuário e
 
 | ID | Funcionalidade | Descrição | Critério de Aceite |
 | :--- | :--- | :--- | :--- |
-| **RF01** | Busca de Produtos | O usuário toca na busca e vai para o catálogo. | Redirecionamento para rota `/catalog` com estado de foco na busca. |
+| **RF01** | Busca de Produtos | O usuário digita e submete a busca. | Redirecionamento para rota `/catalog` com filtro aplicado. |
 | **RF02** | Visualizar Banners | O App deve carregar banners via API Yampi. | Banners renderizados corretamente. Se falhar, ocultar o banner. |
 | **RF03** | Navegação por Banner | Clicar em um banner leva a um destino. | Suporte a deeplinks internos (categoria, produto) ou externos. |
 | **RF04** | Visualizar Coleções | Exibir produtos de coleções específicas na Home. | Scroll horizontal fluido; produtos com preço e foto visíveis. |
