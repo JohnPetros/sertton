@@ -1,28 +1,45 @@
 # Create PR Skill
 
 **Objetivo:**
-Padronizar a criação de Pull Requests (PRs), garantindo descrições claras que facilitem a revisão de código e o rastreamento de tarefas.
+Padronizar a criação de Pull Requests (PRs), garantindo descrições claras que facilitem a revisão de código e o rastreamento de tarefas. O foco é utilizar exclusivamente as ferramentas do **GitHub MCP** para manter a integridade do fluxo de trabalho.
 
 **Entrada:**
-* Spec implementada e validada.
-* Branch com as alterações comitadas.
+*   Uma Spec (especificação) devidamente implementada e validada.
+*   Uma branch de funcionalidade (`feature/`), correção (`fix/`) ou refatoração (`refactor/`) com as alterações comitadas.
 
 **Diretrizes de Execução:**
 
-1. **Análise do Contexto:**
-  * Revise a Spec implementada e o changelog das alterações.
+1.  **Análise do Contexto:**
+    *   Revise a Spec implementada e o changelog das alterações realizadas.
+    *   Identifique os impactos técnicos e as decisões de design tomadas.
 
-2. **Titulo:**
-  * titulo deve ser curto e descrever o que foi feito
+2.  **Definição do Título:**
+    *   O título deve ser curto, direto e seguir a essência da alteração (ex: "Implementação da listagem de produtos" ou "Correção do erro de carregamento de imagem").
 
-3. **Estrutura da Descrição:**
-  Escreva o corpo do PR preenchendo as seguintes seções obrigatórias e opcionais:
+3.  **Estrutura da Descrição (Body):**
+    O corpo do PR deve seguir o template abaixo, preenchendo as seções relevantes:
 
-  * 🎯 **Objetivo:** Explique *por que* este PR existe. Qual o propósito principal?
-  * #️⃣ **Issues relacionadas (opcional):** Link issues (tarefas ou bugs) usando termos como `fixes #123`.
-  * 🐛 **Causa do bug (opcional):** Detalhe a razão técnica raiz do problema (apenas para fix).
-  * 📋 **Changelog:** Liste as principais modificações técnicas realizadas no código.
-  * 🧪 **Como testar (opcional):** Guia passo a passo para o revisor validar as alterações ou reproduzir o cenário.
-  * 👀 **Observações:** Informações adicionais, decisões de design, limitações conhecidas ou novo contexto relevante.
+    *   🎯 **Objetivo:** Explique *por que* este PR foi criado e qual o seu propósito central.
+    *   #️⃣ **Issues relacionadas (opcional):** Vincule tarefas ou bugs utilizando as palavras-chave do GitHub (ex: `fixes #123`).
+    *   🐛 **Causa do bug (opcional):** Caso seja um `fix`, detalhe a razão técnica raiz do problema.
+    *   📋 **Changelog:** Liste de forma técnica as principais modificações realizadas no código.
+    *   🧪 **Como testar (opcional):** Forneça um guia passo a passo para que o revisor possa validar as alterações.
+    *   👀 **Observações:** Adicione informações sobre decisões de arquitetura, limitações identificadas ou novos contextos.
 
-Depois envie o PR para github usando o MCP do Gituhub
+4.  **Criação via GitHub MCP:**
+    *   **Atenção:** Nunca utilize comandos `git` diretamente no terminal em qualquer etapa do processo. 
+    *   Utilize a ferramenta `create_pull_request`.
+    *   Siga o formato de dados abaixo para a execução da ferramenta:
+
+```json
+{
+  "owner": "JohnPetros",
+  "repo": "sertton",
+  "base": "main",
+  "head": "<Nome da branch>",
+  "title": "<Titulo do PR>",
+  "body": "<Descrição formatada conforme o item 3>"
+}
+```
+
+---
