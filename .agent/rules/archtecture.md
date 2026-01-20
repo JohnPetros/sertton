@@ -2,7 +2,6 @@
 trigger: always_on
 ---
 
-
 # Architecture & Patterns Context
 ALWAYS read the file `documentation/architecture.md` as the primary source of truth before:
 1. Answering questions about the project structure.
