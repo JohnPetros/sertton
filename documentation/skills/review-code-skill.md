@@ -4,30 +4,37 @@
 Realizar uma revisão técnica rigorosa da base de código para assegurar conformidade com os padrões do projeto, identificar bugs latentes e manter a integridade da análise estática (no-warnings policy).
 
 **Entrada:**
-*   (Opcional) Caminhos de arquivos ou diretórios específicos.
-*   (Padrão) Todo o projeto, caso nenhum caminho seja fornecido.
+*   **Contexto:** Spec que acabou de ser implementada (opcional).
+*   **Alvo:** Todo o projeto ou caminhos específicos fornecidos.
 
 **Diretrizes de Execução:**
 
-1.  **Análise de Qualidade Estática:**
-    *   Execute a ferramenta **Dart MCP** `analyze_files` para listar erros, alertas (warnings) e inconsistências de codificação.
-    *   Examine a severidade dos problemas reportados para planejar a ordem de correção, priorizando erros de compilação críticos.
+1.  **Verificação de Spec e Lógica:**
+    *   **Conformidade:** Verifique se a spec foi implementada corretamente, respeitando todos os requisitos definidos.
+    *   **Escaneamento Manual:** Procure por erros de digitação, erros de lógica, problemas de nomenclatura e erros de sintaxe óbvios.
 
-2.  **Correção Automatizada:**
-    *   Aplique a ferramenta **Dart MCP** `dart_fix` para resolver automaticamente violações de regras que possuam correções rápidas (quick fixes).
-    *   **Atenção:** Verifique as alterações realizadas para garantir que a semântica do código foi preservada.
+2.  **Análise de Qualidade Estática:**
+    *   **Diagnóstico:** Execute a ferramenta **Dart MCP** `analyze_files` para listar erros, alertas (warnings) e inconsistências de codificação.
+    *   **Priorização:** Examine a severidade dos problemas reportados para planejar a ordem de correção, priorizando erros de compilação críticos.
 
-3.  **Refatoração Manual e Padrões de Projeto:**
-    *   Corrija manualmente os problemas que as ferramentas automatizadas não puderam resolver.
-    *   Consulte e siga rigorosamente as diretrizes específicas da camada afetada:
+3.  **Correção Automatizada:**
+    *   **Quick Fixes:** Aplique a ferramenta **Dart MCP** `dart_fix` para resolver automaticamente violações de regras que possuam correções rápidas.
+    *   **Verificação:** Analise as alterações realizadas pelo `dart_fix` para garantir que a semântica do código foi preservada.
+
+4.  **Refatoração e Alinhamento com Protocolos:**
+    *   **Manual:** Corrija manualmente os problemas persistentes que as ferramentas automatizadas não puderam resolver.
+    *   **Diretrizes:** Siga rigorosamente os padrões de projeto conforme documentado em:
+    *   **Convenções de codificação:** [code-conventions-guidelines.md](../code-conventions-guidelines.md)
+        *   **Arquitetura:** [architecture.md](../architecture.md)
         *   **Core:** [core-layer-guidelines.md](../core-layer-guidelines.md)
+        *   **Rest:** [rest-layer-guidelines.md](../rest-layer-guidelines.md)
         *   **UI:** [ui-layer-guidelines.md](../ui-layer-guidelines.md)
-        *   **Geral:** [architecture.md](../architecture.md)
-    *   Garanta o uso correto de padrões como MVP, injeção de dependência com Riverpod e reatividade com Signals.
+        *   **Testes:** [unit-tests-guidelines.md](../unit-tests-guidelines.md)
+    *   **Padrões:** Garanta o uso correto de MVP, injeção de dependência com Riverpod e reatividade com Signals.
 
-4.  **Verificação e Validação:**
-    *   Execute o **Dart MCP** `run_tests` para validar que as alterações não impactaram o comportamento funcional do sistema.
-    *   Realize uma rodada final de `analyze_files` para confirmar o estado "limpo" do código.
+5.  **Validação Final:**
+    *   **Testes:** Execute o **Dart MCP** `run_tests` para validar que as alterações não impactaram o comportamento funcional do sistema.
+    *   **Certificação:** Realize uma rodada final de `analyze_files` para confirmar o estado "limpo" do código.
 
 **Critério de Sucesso:**
-A revisão é considerada concluída quando a análise estática retornar **"No issues found"** e todos os testes automatizados relevantes estiverem passando com sucesso.
+A revisão é considerada concluída quando a análise estática retornar **"No issues found"** e todos os testes automatizados relevantes passarem sem falhas.
