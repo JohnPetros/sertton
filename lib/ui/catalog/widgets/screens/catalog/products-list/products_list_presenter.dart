@@ -26,8 +26,8 @@ class ProductsListPresenter {
 
     final response = await _catalogService.fetchProducts(page: 1);
 
-    if (!response.isFailure && response.body != null) {
-      final pagination = response.body!;
+    if (!response.isFailure) {
+      final pagination = response.body;
       products.value = pagination.items;
       _currentPage = pagination.currentPage;
       hasMore.value = pagination.currentPage < pagination.totalPages;

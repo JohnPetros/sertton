@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart' hide ThemeData, Scaffold;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/discount-badge/discount_badge_view.dart';

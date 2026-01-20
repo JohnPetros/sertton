@@ -38,7 +38,12 @@ class ProductImageView extends ConsumerWidget {
             width: size,
             height: size,
             loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
+              if (loadingProgress == null) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  presenter.onLoadComplete();
+                });
+                return child;
+              }
               return const Center(
                 child: SizedBox(
                   width: 20,
@@ -48,6 +53,9 @@ class ProductImageView extends ConsumerWidget {
               );
             },
             errorBuilder: (context, error, stackTrace) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                presenter.onLoadError();
+              });
               return Center(
                 child: Icon(
                   Icons.image_not_supported,

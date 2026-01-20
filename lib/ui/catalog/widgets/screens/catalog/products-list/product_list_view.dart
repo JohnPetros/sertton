@@ -70,6 +70,33 @@ class _ProductListViewState extends ConsumerState<ProductListView> {
         );
       }
 
+      if (presenter.products.value.isEmpty && !presenter.isLoading.value) {
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.inventory_2_outlined,
+                size: 48,
+                color: Theme.of(context).colorScheme.mutedForeground,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Nenhum produto encontrado',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.mutedForeground,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Button.outline(
+                onPressed: presenter.refresh,
+                child: const Text('Atualizar'),
+              ),
+            ],
+          ),
+        );
+      }
+
       return RefreshIndicator(
         onRefresh: presenter.refresh,
         child: ListView.separated(

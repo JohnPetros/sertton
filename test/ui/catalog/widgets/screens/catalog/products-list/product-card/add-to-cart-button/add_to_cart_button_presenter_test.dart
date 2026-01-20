@@ -15,7 +15,7 @@ void main() {
 
     setUp(() {
       mockOnAddToCart = MockCallback();
-      presenter = AddToCartButtonPresenter(mockOnAddToCart);
+      presenter = AddToCartButtonPresenter(mockOnAddToCart.call);
     });
 
     test('should have initial state loading false', () {

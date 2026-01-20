@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/add-to-cart-button/add_to_cart_button_presenter.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart'
-    hide Theme, CircularProgressIndicator;
 import 'package:signals/signals_flutter.dart';
+
+import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/add-to-cart-button/add_to_cart_button_presenter.dart';
 
 class AddToCartButtonView extends ConsumerWidget {
   final VoidCallback onAddToCart;

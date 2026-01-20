@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product-info/product_info_presenter.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart' hide Theme;
 import 'package:signals/signals_flutter.dart';
 
 class ProductInfoView extends ConsumerWidget {

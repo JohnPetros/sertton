@@ -11,16 +11,10 @@ class ProductInfoPresenter {
 
   late final hasDiscount = computed(() => discountPrice < salePrice);
 
-  late final formattedSalePrice = computed(
-    () =>
-        NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(salePrice),
-  );
+  late final formattedSalePrice = computed(() => _formatCurrency(salePrice));
 
   late final formattedDiscountPrice = computed(
-    () => NumberFormat.currency(
-      locale: 'pt_BR',
-      symbol: 'R\$',
-    ).format(discountPrice),
+    () => _formatCurrency(discountPrice),
   );
 
   late final displayPrice = computed(
@@ -36,6 +30,10 @@ class ProductInfoPresenter {
     required this.salePrice,
     required this.discountPrice,
   });
+
+  String _formatCurrency(double value) {
+    return NumberFormat.currency(locale: 'pt_BR', symbol: 'R\$').format(value);
+  }
 }
 
 final productInfoPresenterProvider = Provider.autoDispose
