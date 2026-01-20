@@ -4,14 +4,16 @@ import 'package:sertton/core/catalog/dtos/variation_dto.dart';
 typedef Props = ({String? id, String? name, String? value});
 
 class VariationFaker {
-  final faker = Faker();
+  static final _faker = Faker();
 
-  VariationDto fakeDto({Props props = (id: null, name: null, value: null)}) {
+  static VariationDto fakeDto({
+    Props props = (id: null, name: null, value: null),
+  }) {
     return VariationDto(
-      id: props.id ?? faker.guid.guid(),
+      id: props.id ?? _faker.guid.guid(),
       name:
           props.name ??
-          faker.randomGenerator.element([
+          _faker.randomGenerator.element([
             'Cor',
             'Tamanho',
             'Material',
@@ -19,11 +21,11 @@ class VariationFaker {
           ]),
       value:
           props.value ??
-          faker.randomGenerator.element(['Azul', 'P', 'Algodão', '110V']),
+          _faker.randomGenerator.element(['Azul', 'P', 'Algodão', '110V']),
     );
   }
 
-  List<VariationDto> fakeManyDto({
+  static List<VariationDto> fakeManyDto({
     int count = 10,
     Props props = (id: null, name: null, value: null),
   }) {

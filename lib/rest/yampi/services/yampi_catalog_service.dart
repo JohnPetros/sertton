@@ -1,9 +1,11 @@
+import 'package:sertton/core/catalog/dtos/brand_dto.dart';
 import 'package:sertton/core/catalog/dtos/category_dto.dart';
 import 'package:sertton/core/catalog/dtos/collection_dto.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/global/responses/pagination_response.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/rest/yampi/mappers/yampi_brand_mapper.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_category_mapper.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_product_mapper.dart';
 import 'package:sertton/rest/yampi/services/yampi_service.dart';
@@ -14,9 +16,15 @@ class YampiCatalogService extends YampiService implements CatalogService {
   @override
   Future<RestResponse<PaginationResponse<ProductDto>>> fetchProducts({
     int page = 1,
+    String? categoryId,
+    List<String> brandsIds = const [],
   }) async {
+    final filterParams = _buildFilterParams(
+      categoryId: categoryId,
+      brandsIds: brandsIds,
+    );
     final response = await super.restClient.get(
-      '/catalog/products?include=skus,brand,images,texts&page=$page',
+      '/catalog/products?include=skus,brand,images,texts$filterParams&page=$page',
     );
     return response.mapBody((body) {
       if (response.isFailure) return PaginationResponse();
@@ -43,6 +51,15 @@ class YampiCatalogService extends YampiService implements CatalogService {
   }
 
   @override
+  Future<RestResponse<List<BrandDto>>> fetchBrands() async {
+    final response = await super.restClient.get('/catalog/brands');
+    return response.mapBody<List<BrandDto>>((body) {
+      if (response.isFailure) return [];
+      return YampiBrandMapper.toDtoList(body);
+    });
+  }
+
+  @override
   Future<RestResponse<List<CollectionDto>>> fetchCollections() {
     throw UnimplementedError();
   }
@@ -52,5 +69,22 @@ class YampiCatalogService extends YampiService implements CatalogService {
     String collectionId,
   ) {
     throw UnimplementedError();
+  }
+
+  String _buildFilterParams({
+    String? categoryId,
+    List<String> brandsIds = const [],
+  }) {
+    final buffer = StringBuffer();
+
+    if (categoryId != null) {
+      buffer.write('&category_id[]=$categoryId');
+    }
+
+    for (final brandId in brandsIds) {
+      buffer.write('&brand_id[]=$brandId');
+    }
+
+    return buffer.toString();
   }
 }

@@ -16,6 +16,7 @@ Orientar a criação de testes unitários e de widget padronizados e eficientes 
 2.  **Geração de Dados (Fakers):**
     *   Utilize classes `Faker` para instanciar DTOs e modelos com dados fictícios.
     *   **Ação Necessária:** Se um Faker necessário não existir para um DTO, sua primeira tarefa é criá-lo (ex: `BrandFaker` para `BrandDto`).
+    *   **Importante:** Os fakers ficam na pasta `test/fakers/<nome do módulo ao qual o DTO pertence>`.
 
 3.  **Qualidade de Código:**
     *   **Clean Code:** Não inclua comentários no código de teste gerado. O código deve ser legível e expressivo por si só.

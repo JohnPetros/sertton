@@ -26,5 +26,14 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
     *   **Análise Estática:** Execute `flutter analyze` (ou utilize ferramentas MCP).
     *   **Critério de Aceite:** Corrija imediatamente quaisquer erros ou recomendações do linter. Não avance com código "sujo".
 
-4. Cosistencia de padrões:
-    *   **Camada UI:** sempre que for criar um widget interno, crie uma pasta só para ele dentro do widget pai.
+4.  **Uso de Ferramentas Auxiliares (Context7):**
+    *   Caso tenha dúvidas sobre como usar uma biblioteca específica (ex: `shadcn_flutter`), utilize o MCP do Context7 para obter documentação e exemplos de uso.
+
+5.  **Planejamento e Tarefas:**
+    *   Caso tenha sido realizado o planejamento e a definição de tarefas prévias, leve-as em consideração durante a implementação.
+
+6.  **Consistência de Padrões:**
+    *   **Camada UI:** 
+        *   Sempre que criar um widget interno, crie uma pasta dedicada para ele dentro da estrutura do widget pai.
+        *   **Importante:** Utilize exclusivamente o `shadcn_flutter` para componentes de interface, evitando o uso de `Material UI`.
+

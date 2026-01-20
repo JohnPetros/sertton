@@ -21,3 +21,4 @@ Manter a documentação (Spec e PRD) sincronizada com a implementação real do 
 3.  **Atualização de Regra de Negócio (PRD):**
     *   Verifique se houve alguma alteração na lógica de negócios durante a implementação.
     *   **Ação:** Se a regra mudou, atualize o PRD associado imediatamente. A documentação do produto deve ser a fonte da verdade.
+    * Não execute nenhum git commit, apenas atualize a documentação.
