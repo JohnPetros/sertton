@@ -13,6 +13,14 @@ Ao receber a tarefa de escrever ou completar uma Spec, você deve seguir este pr
     - Encontre exemplos similares para usar como referência.
 3.  **Complete a Spec**: Preencha as seções detalhando nomes de arquivos, classes, métodos e responsabilidades, garantindo conformidade com `documentation/architecture.md`.
 
+## Contexto do projeto
+
+- Se perceber que deve ser usado de alguma forma a camada Core, siga as diretrizes de `documentation/core-layer-guidelines.md`.
+
+- Se perceber que deve ser usado de alguma forma a camada Rest, siga as diretrizes de `documentation/rest-layer-guidelines.md`.
+
+- Se perceber que deve ser usado de alguma forma a camada UI, siga as diretrizes de `documentation/ui-layer-guidelines.md`.
+
 ## Estrutura do Documento
 
 A Spec finalizada deve seguir estritamente o modelo abaixo:
