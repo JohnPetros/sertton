@@ -12,7 +12,8 @@ Detalhar a implementação técnica de uma feature, fix ou refatoração, servin
 
 1.  **Pesquisa e Contextualização:**
     *   Analise o PRD para compreender a fundo a regra de negócio.
-    *   Investigue a codebase para identificar recursos existentes (reutilização), pontos de integração na arquitetura e exemplos similares.
+    *   Investigue a codebase para identificar recursos existentes que deve ser usados na implementação, quais recursos precisam ser criados e quais já existem mas precisam ser modificados.
+    *   Procure pesquisar na codebase por exemplos similares que possam ser reutilizados.
     *   Consulte as guidelines específicas (`core-layer-guidelines.md`, `rest-layer-guidelines.md`, `ui-layer-guidelines.md`) conforme a camada afetada.
 
 2.  **Estruturação do Documento:**
@@ -23,7 +24,7 @@ Detalhar a implementação técnica de uma feature, fix ou refatoração, servin
     *   ### 2. Objetivo (Obrigatório)
         Descrição clara do que será implementado.
     *   ### 3. O que já existe? (Obrigatório)
-        Liste recursos da codebase (Services, Widgets, DTOs, Stores) que serão utilizados, estendidos ou impactados. Indique caminhos/nomes.
+        Liste recursos da codebase (Services, Widgets, DTOs, Stores, Drivers, etc.) que serão utilizados, estendidos ou impactados. Indique caminhos/nomes.
     *   ### 4. O que deve ser criado? (Depende da tarefa)
         Descreva novos componentes. Use subtítulos para separar camadas (ex: Core, UI). Use bullet points para responsabilidades. Detalhe sub-widgets.
     *   ### 5. O que deve ser modificado? (Depende da tarefa)
