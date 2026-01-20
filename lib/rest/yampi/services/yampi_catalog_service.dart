@@ -19,10 +19,12 @@ class YampiCatalogService extends YampiService implements CatalogService {
     int page = 1,
     String? categoryId,
     List<String> brandsIds = const [],
+    String? query,
   }) async {
     final filterParams = _buildFilterParams(
       categoryId: categoryId,
       brandsIds: brandsIds,
+      query: query,
     );
     final response = await super.restClient.get(
       '/catalog/products?include=skus,brand,images,texts$filterParams&page=$page',
@@ -87,6 +89,7 @@ class YampiCatalogService extends YampiService implements CatalogService {
   String _buildFilterParams({
     String? categoryId,
     List<String> brandsIds = const [],
+    String? query,
   }) {
     final buffer = StringBuffer();
 
@@ -96,6 +99,10 @@ class YampiCatalogService extends YampiService implements CatalogService {
 
     for (final brandId in brandsIds) {
       buffer.write('&brand_id[]=$brandId');
+    }
+
+    if (query != null && query.isNotEmpty) {
+      buffer.write('&q=$query');
     }
 
     return buffer.toString();
