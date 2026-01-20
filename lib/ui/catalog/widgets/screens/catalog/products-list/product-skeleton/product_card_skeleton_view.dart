@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product-skeleton/product_card_skeleton_presenter.dart';
+import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-skeleton/product_card_skeleton_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class ProductCardSkeletonView extends ConsumerWidget {

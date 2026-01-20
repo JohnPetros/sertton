@@ -1,3 +1,3 @@
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product_card_skeleton.dart';
+import 'product_card_skeleton_view.dart';
 
 typedef ProductCardSkeleton = ProductCardSkeletonView;

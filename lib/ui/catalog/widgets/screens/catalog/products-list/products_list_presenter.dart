@@ -26,7 +26,7 @@ class ProductsListPresenter {
 
     final response = await _catalogService.fetchProducts(page: 1);
 
-    if (response.isSuccessful && response.body != null) {
+    if (!response.isFailure && response.body != null) {
       final pagination = response.body!;
       products.value = pagination.items;
       _currentPage = pagination.currentPage;
@@ -46,7 +46,7 @@ class ProductsListPresenter {
     final nextPage = _currentPage + 1;
     final response = await _catalogService.fetchProducts(page: nextPage);
 
-    if (response.isSuccessful && response.body != null) {
+    if (!response.isFailure && response.body != null) {
       final pagination = response.body!;
       products.value = [...products.value, ...pagination.items];
       _currentPage = pagination.currentPage;

@@ -74,6 +74,7 @@ class _ProductListViewState extends ConsumerState<ProductListView> {
         onRefresh: presenter.refresh,
         child: ListView.separated(
           controller: _scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(16),
           itemCount:
               presenter.products.value.length +
