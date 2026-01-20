@@ -57,7 +57,6 @@ class DioRestClient implements RestClient {
       );
       return _handleResponse(response);
     } on DioException catch (e) {
-      print("DioRestClient");
       return _handleError(e);
     }
   }
@@ -88,7 +87,6 @@ class DioRestClient implements RestClient {
   }
 
   RestResponse<Json> _handleError(DioException exception) {
-    print("exception ${exception.response?.data}");
     return RestResponse(
       statusCode: exception.response?.statusCode ?? 500,
       errorMessage: exception.message ?? 'Unknown error occurred',
