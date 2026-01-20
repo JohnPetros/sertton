@@ -25,3 +25,6 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
     *   **Formatação:** Execute `dart format .`
     *   **Análise Estática:** Execute `flutter analyze` (ou utilize ferramentas MCP).
     *   **Critério de Aceite:** Corrija imediatamente quaisquer erros ou recomendações do linter. Não avance com código "sujo".
+
+4. Cosistencia de padrões:
+    *   **Camada UI:** sempre que for criar um widget interno, crie uma pasta só para ele dentro do widget pai.
