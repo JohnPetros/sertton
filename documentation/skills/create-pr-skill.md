@@ -17,7 +17,7 @@ Padronizar a criação de Pull Requests (PRs), garantindo descrições claras qu
     *   O título deve ser curto, direto e seguir a essência da alteração (ex: "Implementação da listagem de produtos" ou "Correção do erro de carregamento de imagem").
 
 3.  **Estrutura da Descrição (Body):**
-    O corpo do PR deve seguir o template abaixo, preenchendo as seções relevantes:
+    O corpo do PR deve seguir o template abaixo, preenchendo as seções relevantes. **Nota:** Utilize sempre formatação Markdown para garantir legibilidade e organização. Evite usar título principal `#`, use apenas subtítulos como `##` e demais com nível abaixo.
 
     *   🎯 **Objetivo:** Explique *por que* este PR foi criado e qual o seu propósito central.
     *   #️⃣ **Issues relacionadas (opcional):** Vincule tarefas ou bugs utilizando as palavras-chave do GitHub (ex: `fixes #123`).
