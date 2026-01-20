@@ -11,6 +11,8 @@ class ProductsListPresenter {
   final isLoading = signal(false);
   final hasMore = signal(true);
   final error = signal<String?>(null);
+  final categoryId = signal<String?>(null);
+  final brandsIds = signal<List<String>>([]);
 
   int _currentPage = 1;
 
@@ -24,7 +26,11 @@ class ProductsListPresenter {
     isLoading.value = true;
     error.value = null;
 
-    final response = await _catalogService.fetchProducts(page: 1);
+    final response = await _catalogService.fetchProducts(
+      page: 1,
+      categoryId: categoryId.value,
+      brandsIds: brandsIds.value,
+    );
 
     if (!response.isFailure) {
       final pagination = response.body;
@@ -44,7 +50,11 @@ class ProductsListPresenter {
     isLoading.value = true;
 
     final nextPage = _currentPage + 1;
-    final response = await _catalogService.fetchProducts(page: nextPage);
+    final response = await _catalogService.fetchProducts(
+      page: nextPage,
+      categoryId: categoryId.value,
+      brandsIds: brandsIds.value,
+    );
 
     if (!response.isFailure) {
       final pagination = response.body;
@@ -63,6 +73,12 @@ class ProductsListPresenter {
     hasMore.value = true;
     _currentPage = 1;
     await loadProducts();
+  }
+
+  void applyFilter({String? categoryId, List<String> brandsIds = const []}) {
+    this.categoryId.value = categoryId;
+    this.brandsIds.value = brandsIds;
+    refresh();
   }
 }
 
