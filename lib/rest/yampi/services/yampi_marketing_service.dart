@@ -1,5 +1,6 @@
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/core/marketing/dtos/banner_dto.dart';
+import 'package:sertton/core/marketing/dtos/lead_dto.dart';
 import 'package:sertton/core/marketing/interfaces/marketing_service.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_banner_mapper.dart';
 import 'package:sertton/rest/yampi/services/yampi_service.dart';
@@ -14,5 +15,10 @@ class YampiMarketingService extends YampiService implements MarketingService {
       if (response.isFailure) return [];
       return YampiBannerMapper.toDtoList(body);
     });
+  }
+
+  @override
+  Future<RestResponse<void>> saveLead(LeadDto leadDto) {
+    throw UnimplementedError();
   }
 }
