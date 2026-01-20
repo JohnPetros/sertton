@@ -1,7 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:sertton/core/catalog/dtos/collection_dto.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
-import 'package:sertton/core/catalog/dtos/fakers/product_faker.dart';
+import 'product_faker.dart';
 
 typedef Props = ({String? id, String? name, List<ProductDto>? products});
 
