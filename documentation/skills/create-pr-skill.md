@@ -1,23 +1,28 @@
-Analise a spec implementada e escreva o conteúdo do PR seguindo o modelo abaixo:
+# Create PR Skill
 
-A descrição de um pull request deve conter as seções:
+**Objetivo:**
+Padronizar a criação de Pull Requests (PRs), garantindo descrições claras que facilitem a revisão de código e o rastreamento de tarefas.
 
-- 🎯 Objetivo: explica claramente o propósito principal do PR. É a resposta à
-  pergunta "Por que este PR existe?".
-- #️⃣ Issues relacionadas (opcional): Aqui, o desenvolvedor conecta o PR a uma ou
-  mais issues (tarefas ou bugs). Use termos como resolve, closes, fixes
-  (seguidos do número da issue) ára fechar a issue automaticamente
-- 🐛 Causa do bug (opcional): detalha a razão fundamental pela qual o bug
-  existia. É uma explicação técnica da raiz do problema.
-- 📋 Changelog: lista as modificações específicas e pontuais realizadas no
-  código para atingir o objetivo do PR. É um resumo das ações tomadas. Não
-  precisa ser todas, mas as principais
-- 🧪 Como testar (opcional): fornece instruções claras e detalhadas sobre como
-  os revisores (ou qualquer pessoa que precise validar as mudanças) podem
-  reproduzir o cenário e verificar se as alterações funcionam como esperado e se
-  o bug foi realmente resolvido. É essencialmente um guia passo a passo para
-  testar o que foi implementado.
-- 👀 Observações: para informações adicionais, contextos ou avisos que o
-  desenvolvedor considera relevantes para o revisor. Pode incluir limitações
-  conhecidas, decisões de design, ou como no exemplo, a identificação de um novo
-  problema.
+**Entrada:**
+* Spec implementada e validada.
+* Branch com as alterações comitadas.
+
+**Diretrizes de Execução:**
+
+1. **Análise do Contexto:**
+  * Revise a Spec implementada e o changelog das alterações.
+
+2. **Titulo:**
+  * titulo deve ser curto e descrever o que foi feito
+
+3. **Estrutura da Descrição:**
+  Escreva o corpo do PR preenchendo as seguintes seções obrigatórias e opcionais:
+
+  * 🎯 **Objetivo:** Explique *por que* este PR existe. Qual o propósito principal?
+  * #️⃣ **Issues relacionadas (opcional):** Link issues (tarefas ou bugs) usando termos como `fixes #123`.
+  * 🐛 **Causa do bug (opcional):** Detalhe a razão técnica raiz do problema (apenas para fix).
+  * 📋 **Changelog:** Liste as principais modificações técnicas realizadas no código.
+  * 🧪 **Como testar (opcional):** Guia passo a passo para o revisor validar as alterações ou reproduzir o cenário.
+  * 👀 **Observações:** Informações adicionais, decisões de design, limitações conhecidas ou novo contexto relevante.
+
+Depois envie o PR para github usando o MCP do Gituhub

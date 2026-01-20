@@ -3,6 +3,9 @@
 **Objetivo Principal**
 Analisar e refinar trechos ou documentos completos fornecidos em Markdown. O resultado deve aplicar as melhores práticas de formatação para garantir máxima clareza e facilidade de interpretação por desenvolvedores e Modelos de Linguagem (LLMs).
 
+**Entrada:**
+* Documento em Markdown a ser refinado.
+
 **Diretrizes de Execução:**
 
 1. **Padronização e Clareza:**
