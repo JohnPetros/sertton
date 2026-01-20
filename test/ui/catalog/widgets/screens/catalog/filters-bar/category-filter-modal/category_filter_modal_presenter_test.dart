@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sertton/core/catalog/dtos/category_dto.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/category-filter-modal/category_filter_modal_presenter.dart';
-
 import '../../../../../../../fakers/category_faker.dart';
+import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/category-filter-modal/category_filter_modal_presenter.dart';
 
 void main() {
   group('CategoryFilterModalPresenter', () {
