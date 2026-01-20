@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
-import 'package:sertton/drivers/dot_env_driver.dart';
-import 'package:sertton/rest/dio/dio_rest_client.dart';
+import 'package:sertton/drivers/env-driver/index.dart';
+import 'package:sertton/rest/rest_client.dart';
 import 'package:sertton/rest/yampi/services/yampi_catalog_service.dart';
 
 final catalogServiceProvider = Provider<CatalogService>((ref) {

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/core/global/interfaces/rest_client.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/rest/types/json.dart';
 
 class DioRestClient implements RestClient {
   late final Dio _dio;
@@ -16,23 +16,20 @@ class DioRestClient implements RestClient {
   }
 
   @override
-  Future<RestResponse<Body>> get<Body>(
-    String path, {
-    Map<String, String>? queryParams,
-  }) async {
+  Future<RestResponse<Json>> get(String path, {Json? queryParams}) async {
     try {
       final response = await _dio.get(path, queryParameters: queryParams);
-      return _handleResponse<Body>(response);
+      return _handleResponse(response);
     } on DioException catch (exception) {
-      return _handleError<Body>(exception);
+      return _handleError(exception);
     }
   }
 
   @override
-  Future<RestResponse<Body>> post<Body>(
+  Future<RestResponse<Json>> post(
     String path, {
-    Body? body,
-    Map<String, String>? queryParams,
+    Json? body,
+    Json? queryParams,
   }) async {
     try {
       final response = await _dio.post(
@@ -40,17 +37,17 @@ class DioRestClient implements RestClient {
         data: body,
         queryParameters: queryParams,
       );
-      return _handleResponse<Body>(response);
+      return _handleResponse(response);
     } on DioException catch (e) {
-      return _handleError<Body>(e);
+      return _handleError(e);
     }
   }
 
   @override
-  Future<RestResponse<Body>> put<Body>(
+  Future<RestResponse<Json>> put(
     String path, {
-    Body? body,
-    Map<String, String>? queryParams,
+    Json? body,
+    Json? queryParams,
   }) async {
     try {
       final response = await _dio.put(
@@ -58,17 +55,18 @@ class DioRestClient implements RestClient {
         data: body,
         queryParameters: queryParams,
       );
-      return _handleResponse<Body>(response);
+      return _handleResponse(response);
     } on DioException catch (e) {
-      return _handleError<Body>(e);
+      print("DioRestClient");
+      return _handleError(e);
     }
   }
 
   @override
-  Future<RestResponse<Body>> delete<Body>(
+  Future<RestResponse<Json>> delete(
     String path, {
-    Body? body,
-    Map<String, String>? queryParams,
+    Json? body,
+    Json? queryParams,
   }) async {
     try {
       final response = await _dio.delete(
@@ -76,22 +74,22 @@ class DioRestClient implements RestClient {
         data: body,
         queryParameters: queryParams,
       );
-      return _handleResponse<Body>(response);
+      return _handleResponse(response);
     } on DioException catch (e) {
-      return _handleError<Body>(e);
+      return _handleError(e);
     }
   }
 
-  RestResponse<Body> _handleResponse<Body>(Response response) {
-    return RestResponse<Body>(
-      body: response.data as Body,
+  RestResponse<Json> _handleResponse(Response response) {
+    return RestResponse(
+      body: response.data as Json,
       statusCode: response.statusCode,
     );
   }
 
-  RestResponse<Body> _handleError<Body>(DioException exception) {
-    return RestResponse<Body>(
-      body: null as Body,
+  RestResponse<Json> _handleError(DioException exception) {
+    print("exception ${exception.response?.data}");
+    return RestResponse(
       statusCode: exception.response?.statusCode ?? 500,
       errorMessage: exception.message ?? 'Unknown error occurred',
     );
@@ -107,7 +105,3 @@ class DioRestClient implements RestClient {
     _dio.options.headers[key] = value;
   }
 }
-
-final restClientProvider = Provider<DioRestClient>((ref) {
-  return DioRestClient();
-});
