@@ -12,7 +12,7 @@ abstract class CatalogService {
     List<String> brandsIds = const [],
     String? query,
   });
-  Future<RestResponse<ProductDto>> fetchProduct();
+  Future<RestResponse<ProductDto>> fetchProduct(String productId);
   Future<RestResponse<List<CollectionDto>>> fetchCollections();
   Future<RestResponse<List<CategoryDto>>> fetchCategories();
   Future<RestResponse<List<BrandDto>>> fetchBrands();
