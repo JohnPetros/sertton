@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/index.dart';
+import 'package:sertton/ui/catalog/widgets/screens/product/index.dart';
 import 'package:sertton/ui/global/widgets/layout/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/index.dart';
@@ -38,6 +39,15 @@ final routerProvider = Provider<GoRouter>((ref) {
                     initialQuery: initialQuery,
                   );
                 },
+                routes: [
+                  GoRoute(
+                    path: ':productId',
+                    builder: (context, state) {
+                      final productId = state.pathParameters['productId']!;
+                      return ProductScreen(productId: productId);
+                    },
+                  ),
+                ],
               ),
             ],
           ),
