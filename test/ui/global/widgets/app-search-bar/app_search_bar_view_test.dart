@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart' show VoidCallback, Widget;
 import 'package:flutter/material.dart' show TextInputAction, Icons;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
