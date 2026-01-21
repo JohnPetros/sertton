@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/drivers/navigation-driver/index.dart';
+
 import 'package:sertton/ui/global/widgets/app-search-bar/index.dart';
+import 'package:sertton/ui/global/widgets/screens/home/leads-capturer-section/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/marketing-section/index.dart';
 
 class HomeScreenView extends ConsumerWidget {
@@ -26,7 +29,7 @@ class HomeScreenView extends ConsumerWidget {
               ),
             ),
             const MarketingSection(),
-            // Placeholder for Leads Capture
+            const LeadsCapturerSectionView(),
             // Placeholder for Footer
           ],
         ),
