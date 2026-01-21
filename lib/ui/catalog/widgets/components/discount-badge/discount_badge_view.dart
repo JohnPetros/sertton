@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/discount-badge/discount_badge_presenter.dart';
+import 'package:sertton/ui/catalog/widgets/components/discount-badge/discount_badge_presenter.dart';
 
 import 'package:signals/signals_flutter.dart';
 

@@ -42,4 +42,7 @@ Padronizar a criação de Pull Requests (PRs), garantindo descrições claras qu
 }
 ```
 
+5.  **Retorno:**
+    *   Junto com a sua resposta, envie o link do PR criado no GitHub.
+
 ---

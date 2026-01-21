@@ -6,6 +6,9 @@ import 'package:sertton/rest/types/json.dart';
 
 class YampiProductMapper {
   static ProductDto toDto(Json json) {
+    if (json.containsKey('data')) {
+      json = json['data'];
+    }
     String imageUrl = '';
     final images = json['images'];
     if (images != null && images['data'] != null) {

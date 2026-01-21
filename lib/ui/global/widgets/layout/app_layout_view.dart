@@ -8,10 +8,7 @@ class AppLayoutView extends StatelessWidget {
   const AppLayoutView({super.key, required this.navigationShell});
 
   void _onTap(int index) {
-    navigationShell.goBranch(
-      index,
-      initialLocation: index == navigationShell.currentIndex,
-    );
+    navigationShell.goBranch(index, initialLocation: true);
   }
 
   @override

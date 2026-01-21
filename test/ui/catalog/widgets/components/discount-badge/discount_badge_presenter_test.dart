@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/discount-badge/discount_badge_presenter.dart';
+import 'package:sertton/ui/catalog/widgets/components/discount-badge/discount_badge_presenter.dart';
 
 void main() {
   group('DiscountBadgePresenter', () {
