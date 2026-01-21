@@ -2,19 +2,24 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/core/checkout/stores/cart_store.dart';
 import '../../../../../fakers/product_faker.dart';
 import '../../../../../fakers/sku_faker.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_presenter.dart';
 
 class MockCatalogService extends Mock implements CatalogService {}
 
+class MockCartStore extends Mock implements CartStore {}
+
 void main() {
   late ProductScreenPresenter presenter;
   late MockCatalogService catalogService;
+  late MockCartStore cartStore;
   const productId = '123';
 
   setUp(() {
     catalogService = MockCatalogService();
+    cartStore = MockCartStore();
   });
 
   group('ProductScreenPresenter', () {
@@ -40,6 +45,7 @@ void main() {
       presenter = ProductScreenPresenter(
         productId: productId,
         catalogService: catalogService,
+        cartStore: cartStore,
       );
 
       expect(presenter.isLoading.value, isTrue);
@@ -60,6 +66,7 @@ void main() {
       presenter = ProductScreenPresenter(
         productId: productId,
         catalogService: catalogService,
+        cartStore: cartStore,
       );
 
       await Future.delayed(Duration.zero);
@@ -92,6 +99,7 @@ void main() {
       presenter = ProductScreenPresenter(
         productId: productId,
         catalogService: catalogService,
+        cartStore: cartStore,
       );
       await Future.delayed(Duration.zero);
 

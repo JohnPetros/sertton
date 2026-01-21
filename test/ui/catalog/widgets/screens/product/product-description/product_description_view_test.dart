@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../../../fakers/product_faker.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-description/index.dart';
-import 'package:sertton/ui/catalog/widgets/screens/product/product-description/product_description_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
