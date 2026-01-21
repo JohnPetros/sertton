@@ -14,7 +14,7 @@ Detalhar a implementação técnica de uma feature, fix ou refatoração, servin
     *   Analise o PRD para compreender a fundo a regra de negócio.
     *   Investigue a codebase para identificar recursos existentes que deve ser usados na implementação, quais recursos precisam ser criados e quais já existem mas precisam ser modificados.
     *   Procure pesquisar na codebase por exemplos similares que possam ser reutilizados.
-    *   Consulte as guidelines específicas (`core-layer-guidelines.md`, `rest-layer-guidelines.md`, `ui-layer-guidelines.md`) conforme a camada afetada.
+    *   Consulte as guidelines específicas (`core-layer-guidelines.md`, `rest-layer-guidelines.md`, `ui-layer-guidelines.md`, `drivers-layer-guidelines.md`) conforme a camada afetada.
 
 2.  **Estruturação do Documento:**
     Gere o arquivo Markdown da Spec seguindo estritamente o modelo de seções abaixo:
