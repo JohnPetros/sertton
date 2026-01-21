@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product_card_presenter.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/add-to-cart-button/index.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/discount-badge/index.dart';
+import 'package:sertton/ui/catalog/widgets/components/discount-badge/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product-image/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product-info/index.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
@@ -65,7 +65,7 @@ class ProductCardView extends ConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        // Navigate to product details
+        presenter.navigateToProductDetails();
       },
       child: Card(
         padding: const EdgeInsets.all(12),

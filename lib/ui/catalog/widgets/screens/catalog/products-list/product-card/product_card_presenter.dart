@@ -1,10 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sertton/constants/routes.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/dtos/sku_dto.dart';
+import 'package:sertton/core/global/interfaces/navigation_driver.dart';
+import 'package:sertton/drivers/navigation-driver/index.dart';
 import 'package:signals/signals.dart';
 
 class ProductCardPresenter {
   final ProductDto product;
+  final NavigationDriver navigationDriver;
 
   late final SkuDto firstSku = product.skus.first;
 
@@ -17,7 +21,11 @@ class ProductCardPresenter {
 
   final isAddingToCart = signal(false);
 
-  ProductCardPresenter(this.product);
+  ProductCardPresenter({required this.product, required this.navigationDriver});
+
+  void navigateToProductDetails() {
+    navigationDriver.go(Routes.product.replaceAll(':productId', product.id));
+  }
 
   Future<void> handleAddToCart() async {
     // Logic to add to cart
@@ -34,5 +42,9 @@ class ProductCardPresenter {
 
 final productCardPresenterProvider = Provider.autoDispose
     .family<ProductCardPresenter, ProductDto>((ref, product) {
-      return ProductCardPresenter(product);
+      final navigationDriver = ref.read(navigationDriverProvider);
+      return ProductCardPresenter(
+        product: product,
+        navigationDriver: navigationDriver,
+      );
     });
