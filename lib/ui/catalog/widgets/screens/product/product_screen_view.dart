@@ -80,10 +80,12 @@ class ProductScreenView extends ConsumerWidget {
               const SizedBox(height: 24),
 
               SkuSelector(
-                skus: product.skus,
                 variationLabel: presenter.variationLabel.value,
-                selectedSku: presenter.activeSku.value,
-                onSkuSelected: presenter.selectSku,
+                variationOptions: presenter.variationOptions.value,
+                selectedVariationValue: presenter.selectedVariationValue.value,
+                quantity: presenter.quantity.value,
+                maxQuantity: presenter.maxQuantity.value,
+                onVariationSelected: presenter.selectSkuByVariation,
                 onQuantityChanged: presenter.updateQuantity,
               ),
               const SizedBox(height: 24),

@@ -1,6 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product-image/product_image_presenter.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart'
+    hide Colors, CircularProgressIndicator;
+import 'package:flutter/material.dart'
+    show Colors, Icons, CircularProgressIndicator;
 import 'package:signals/signals_flutter.dart';
 
 class ProductImageView extends ConsumerWidget {
@@ -17,13 +20,13 @@ class ProductImageView extends ConsumerWidget {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryForeground,
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(8),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Watch((context) {
-          if (presenter.hasError.value) {
+          if (presenter.hasError.value || imageUrl.isEmpty) {
             return Center(
               child: Icon(
                 Icons.image_not_supported,
