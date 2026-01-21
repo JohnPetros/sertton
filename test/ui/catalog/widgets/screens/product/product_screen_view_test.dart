@@ -1,0 +1,97 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:network_image_mock/network_image_mock.dart';
+import '../../../../../fakers/product_faker.dart';
+import '../../../../../fakers/sku_faker.dart';
+import 'package:sertton/core/catalog/dtos/product_dto.dart';
+import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
+import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/rest/services.dart';
+import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_view.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
+
+class MockCatalogService extends Mock implements CatalogService {}
+
+void main() {
+  late MockCatalogService catalogService;
+  const productId = '123';
+
+  setUp(() {
+    catalogService = MockCatalogService();
+  });
+
+  Widget createWidget() {
+    return ShadcnApp(
+      home: ProviderScope(
+        overrides: [catalogServiceProvider.overrideWithValue(catalogService)],
+        child: const ProductScreenView(productId: productId),
+      ),
+    );
+  }
+
+  group('ProductScreenView', () {
+    testWidgets('should render full product details on success', (
+      tester,
+    ) async {
+      final product = ProductFaker.fakeDto(
+        props: (
+          id: productId,
+          slug: null,
+          skuCode: null,
+          name: 'Awesome Product',
+          description: 'Description content',
+          specifications: 'Specs content',
+          skus: [
+            SkuFaker.fakeDto(
+              props: (
+                id: null,
+                skuCode: 'SKU1',
+                costPrice: null,
+                salePrice: 100.0,
+                discountPrice: 80.0,
+                weight: null,
+                height: null,
+                width: null,
+                length: null,
+                imageUrl: '',
+                variations: [],
+                stock: 10,
+                yampiToken: null,
+              ),
+            ),
+          ],
+          imageUrl: '',
+          brand: null,
+        ),
+      );
+
+      when(
+        () => catalogService.fetchProduct(productId),
+      ).thenAnswer((_) async => RestResponse(body: product));
+
+      await mockNetworkImagesFor(() async {
+        await tester.pumpWidget(createWidget());
+        // Wait for service to return
+        await tester.pump(); // Start fetch
+        await tester.pump(); // Handle response
+        await tester.pumpAndSettle();
+
+        expect(find.text('Awesome Product'), findsOneWidget);
+        expect(find.text('ADICIONAR AO CARRINHO'), findsOneWidget);
+      });
+    });
+
+    testWidgets('should show error state on failure', (tester) async {
+      when(() => catalogService.fetchProduct(productId)).thenAnswer(
+        (_) async => RestResponse(statusCode: 500, errorMessage: 'Error'),
+      );
+
+      await tester.pumpWidget(createWidget());
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('Erro ao carregar produto'), findsOneWidget);
+    });
+  });
+}
