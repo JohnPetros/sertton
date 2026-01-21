@@ -1,10 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:signals/signals.dart';
+
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/dtos/sku_dto.dart';
 import 'package:sertton/core/global/interfaces/navigation_driver.dart';
+
 import 'package:sertton/drivers/navigation-driver/index.dart';
-import 'package:signals/signals.dart';
+import 'package:sertton/ui/checkout/widgets/components/cart-dialog/index.dart';
 
 class ProductCardPresenter {
   final ProductDto product;
@@ -12,7 +16,6 @@ class ProductCardPresenter {
 
   late final SkuDto firstSku = product.skus.first;
 
-  // Computed properties for sub-widgets
   late final salePrice = computed(() => firstSku.salePrice);
   late final discountPrice = computed(() => firstSku.discountPrice);
   late final imageUrl = computed(
@@ -27,16 +30,8 @@ class ProductCardPresenter {
     navigationDriver.go(Routes.product.replaceAll(':productId', product.id));
   }
 
-  Future<void> handleAddToCart() async {
-    // Logic to add to cart
-    isAddingToCart.value = true;
-
-    // Simulate API call
-    await Future.delayed(const Duration(milliseconds: 500));
-
-    // Here we would typically call a CartService
-
-    isAddingToCart.value = false;
+  void handleAddToCart(BuildContext context) {
+    showCartDialog(context, product, navigationDriver);
   }
 }
 
