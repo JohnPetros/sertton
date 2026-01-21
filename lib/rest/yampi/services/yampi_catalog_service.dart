@@ -36,8 +36,10 @@ class YampiCatalogService extends YampiService implements CatalogService {
   }
 
   @override
-  Future<RestResponse<ProductDto>> fetchProduct() async {
-    final response = await super.restClient.get('/catalog/products/1');
+  Future<RestResponse<ProductDto>> fetchProduct(String productId) async {
+    final response = await super.restClient.get(
+      '/catalog/products/$productId?include=skus,brand,images,texts',
+    );
     return response.mapBody<ProductDto>((body) {
       if (response.isFailure) return null;
       return YampiProductMapper.toDto(body);
