@@ -16,7 +16,6 @@ void main() {
   setUp(() {
     presenter = MockCartScreenPresenter();
 
-    // Default mock values
     when(() => presenter.isLoading).thenReturn(signal(false));
     when(() => presenter.hasError).thenReturn(signal(false));
     when(() => presenter.cartDisplayItems).thenReturn(signal([]));
@@ -45,11 +44,7 @@ void main() {
 
       await tester.pumpWidget(createWidget());
 
-      // Should find some loading indicator or skeleton
-      // The actual widget is CartLoadingState
       expect(find.byType(CartScreenView), findsOneWidget);
-      // Depending on how CartLoadingState is implemented,
-      // we might check for skeletons.
     });
 
     testWidgets('should render empty state when cart is empty', (tester) async {
