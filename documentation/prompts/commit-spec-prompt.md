@@ -1,4 +1,4 @@
-# Commit Spec Skill
+# Prompt: Commit Spec
 
 **Objetivo:**
 Manter a documentação (Spec e PRD) sincronizada com a implementação real do código, garantindo que divergências naturais do desenvolvimento sejam registradas e regras de negócios atualizadas.
@@ -22,3 +22,8 @@ Manter a documentação (Spec e PRD) sincronizada com a implementação real do 
     *   Verifique se houve alguma alteração na lógica de negócios durante a implementação.
     *   **Ação:** Se a regra mudou, atualize o PRD associado imediatamente. A documentação do produto deve ser a fonte da verdade.
     * Não execute nenhum git commit, apenas atualize a documentação.
+
+4.  **Diagramas de Visualização:**
+    *   Avalie se as mudanças implementadas alteraram fluxos complexos ou a navegação entre telas.
+    *   **Ação:** Se cabível, gere ou atualize um diagrama Mermaid (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
+    *   Utilize a notação mermaid para gerar o diagrama

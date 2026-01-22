@@ -1,4 +1,4 @@
-# Instruções de Refinamento de Documentação
+# Prompt: Refinar PRD
 
 **Objetivo Principal**
 Analisar e refinar trechos ou documentos completos fornecidos em Markdown. O resultado deve aplicar as melhores práticas de formatação para garantir máxima clareza e facilidade de interpretação por desenvolvedores e Modelos de Linguagem (LLMs).
