@@ -7,7 +7,7 @@ import 'package:sertton/ui/catalog/widgets/screens/product/index.dart';
 import 'package:sertton/ui/global/widgets/layout/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/index.dart';
-import 'package:sertton/ui/checkout/widgets/screens/orders/widgets/screens/orders/index.dart';
+import 'package:sertton/ui/checkout/widgets/screens/orders/index.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
