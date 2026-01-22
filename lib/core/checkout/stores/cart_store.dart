@@ -17,34 +17,19 @@ class CartStore {
 
   final items = signal<List<CartItemDto>>([]);
 
-  late final subtotal = computed(() {
-    return items.value.fold<double>(
-      0,
-      (total, item) => total + (item.salePrice * item.quantity),
-    );
-  });
-
-  late final totalDiscount = computed(() {
-    return items.value.fold<double>(0, (total, item) {
-      final discount = (item.salePrice - item.discountPrice) * item.quantity;
-      return total + discount;
-    });
-  });
-
-  late final total = computed(() {
-    return items.value.fold<double>(
-      0,
-      (total, item) => total + (item.discountPrice * item.quantity),
-    );
-  });
+  late final subtotal = computed(() => 0.0);
+  late final totalDiscount = computed(() => 0.0);
+  late final total = computed(() => 0.0);
 
   void addItem(CartItemDto item) {
     final existingIndex = items.value.indexWhere((i) => i.skuId == item.skuId);
 
     if (existingIndex != -1) {
-      final existingItem = items.value[existingIndex];
-      items.value[existingIndex] = existingItem.copyWith(
-        quantity: existingItem.quantity + item.quantity,
+      final existing = items.value[existingIndex];
+      items.value[existingIndex] = CartItemDto(
+        productId: existing.productId,
+        skuId: existing.skuId,
+        quantity: item.quantity,
       );
       items.value = [...items.value]; // Notify watchers
     } else {
@@ -66,7 +51,12 @@ class CartStore {
 
     final index = items.value.indexWhere((i) => i.skuId == skuId);
     if (index != -1) {
-      items.value[index] = items.value[index].copyWith(quantity: quantity);
+      final existing = items.value[index];
+      items.value[index] = CartItemDto(
+        productId: existing.productId,
+        skuId: existing.skuId,
+        quantity: quantity,
+      );
       items.value = [...items.value];
       _saveToCache();
     }
@@ -78,7 +68,15 @@ class CartStore {
   }
 
   void _saveToCache() {
-    final jsonList = items.value.map((i) => i.toMap()).toList();
+    final jsonList = items.value
+        .map(
+          (i) => {
+            'productId': i.productId,
+            'skuId': i.skuId,
+            'quantity': i.quantity,
+          },
+        )
+        .toList();
     _cacheDriver.set(_storageKey, jsonEncode(jsonList));
   }
 
@@ -87,7 +85,15 @@ class CartStore {
     if (cachedData != null) {
       try {
         final List<dynamic> jsonList = jsonDecode(cachedData);
-        items.value = jsonList.map((i) => CartItemDto.fromMap(i)).toList();
+        items.value = jsonList
+            .map(
+              (i) => CartItemDto(
+                productId: i['productId'] ?? '',
+                skuId: i['skuId'] ?? '',
+                quantity: i['quantity'] ?? 0,
+              ),
+            )
+            .toList();
       } catch (e) {
         _cacheDriver.delete(_storageKey);
       }
