@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/ui/catalog/widgets/components/sku-selector/quantity-input/quantity_input_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
-import 'package:signals/signals_flutter.dart';
 
 class QuantityInputView extends ConsumerWidget {
   final int initialQuantity;
@@ -18,43 +16,39 @@ class QuantityInputView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final presenter = ref.watch(
-      quantityInputPresenterProvider((
-        initialQuantity: initialQuantity,
-        maxQuantity: maxQuantity,
-        onQuantityChanged: onQuantityChanged,
-      )),
-    );
-
     final theme = Theme.of(context);
 
-    return Watch((context) {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          shadcn.IconButton.primary(
-            icon: const Icon(Icons.remove),
-            onPressed: presenter.canDecrement.value
-                ? presenter.decrement
-                : null,
+    // Using a local signal that initializes with initialQuantity but doesn't reset on every rebuild
+    // unless the initialQuantity actually changes from external sources (which it will if it's controlled).
+    // To fix the "not increasing" bug caused by family key resets, we use a simple stateful approach or a stable presenter.
+    // However, since this is a feature-component, we can just use the parent's callbacks directly.
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        shadcn.IconButton.secondary(
+          icon: const Icon(Icons.remove),
+          onPressed: initialQuantity > 1
+              ? () => onQuantityChanged(initialQuantity - 1)
+              : null,
+        ),
+        Container(
+          constraints: const BoxConstraints(minWidth: 48),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            initialQuantity.toString(),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleLarge,
           ),
-          Container(
-            constraints: const BoxConstraints(minWidth: 48),
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              presenter.displayQuantity.value,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.titleLarge,
-            ),
-          ),
-          shadcn.IconButton.primary(
-            icon: const Icon(Icons.add),
-            onPressed: presenter.canIncrement.value
-                ? presenter.increment
-                : null,
-          ),
-        ],
-      );
-    });
+        ),
+        shadcn.IconButton.secondary(
+          icon: const Icon(Icons.add),
+          onPressed: initialQuantity < maxQuantity
+              ? () => onQuantityChanged(initialQuantity + 1)
+              : null,
+        ),
+      ],
+    );
   }
 }

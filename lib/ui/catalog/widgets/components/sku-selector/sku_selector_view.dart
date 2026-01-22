@@ -1,58 +1,68 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/core/catalog/dtos/sku_dto.dart';
 import 'package:sertton/ui/catalog/widgets/components/sku-selector/quantity-input/index.dart';
-import 'package:sertton/ui/catalog/widgets/components/sku-selector/sku_selector_presenter.dart';
 import 'package:sertton/ui/catalog/widgets/components/sku-selector/variation-dropdown/index.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
-import 'package:signals/signals_flutter.dart';
 
-class SkuSelectorView extends ConsumerWidget {
-  final List<SkuDto> skus;
+class SkuSelectorView extends StatelessWidget {
   final String variationLabel;
-  final void Function(SkuDto) onSkuSelected;
+  final List<String> variationOptions;
+  final String? selectedVariationValue;
+  final int quantity;
+  final int maxQuantity;
+  final void Function(String) onVariationSelected;
   final void Function(int) onQuantityChanged;
-
-  final SkuDto? selectedSku;
 
   const SkuSelectorView({
     super.key,
-    required this.skus,
     required this.variationLabel,
-    required this.onSkuSelected,
+    required this.variationOptions,
+    required this.selectedVariationValue,
+    required this.quantity,
+    required this.maxQuantity,
+    required this.onVariationSelected,
     required this.onQuantityChanged,
-    this.selectedSku,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final presenter = ref.watch(
-      skuSelectorPresenterProvider((
-        skus: skus,
-        variationLabel: variationLabel,
-        onSkuSelected: onSkuSelected,
-        onQuantityChanged: onQuantityChanged,
-        initialSku: selectedSku,
-      )),
-    );
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
 
-    return Watch((context) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (variationOptions.length > 1) ...[
           VariationDropdown(
             label: variationLabel,
-            options: presenter.variationOptions.value,
-            selectedValue: presenter.selectedVariationValue,
-            onSelect: presenter.selectSkuByVariation,
+            options: variationOptions,
+            selectedValue: selectedVariationValue,
+            onSelect: onVariationSelected,
           ),
           const SizedBox(height: 16),
-          QuantityInput(
-            initialQuantity: presenter.quantity.value,
-            maxQuantity: presenter.maxQuantity.value,
-            onQuantityChanged: presenter.setQuantity,
-          ),
         ],
-      );
-    });
+        Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              QuantityInput(
+                initialQuantity: quantity,
+                maxQuantity: maxQuantity,
+                onQuantityChanged: onQuantityChanged,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                maxQuantity > 0
+                    ? 'Disponível: $maxQuantity unidades'
+                    : 'Indisponível no momento',
+                style: theme.typography.xSmall.copyWith(
+                  color: maxQuantity > 0
+                      ? theme.colorScheme.mutedForeground
+                      : theme.colorScheme.destructive,
+                  fontWeight: maxQuantity > 0 ? null : FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -11,17 +11,20 @@ import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product
 class MockAddToCartButtonPresenter extends Mock
     implements AddToCartButtonPresenter {}
 
+class FakeBuildContext extends Fake implements BuildContext {}
+
 void main() {
   group('AddToCartButtonView', () {
     late MockAddToCartButtonPresenter presenter;
-    late VoidCallback onAddToCart;
+    late void Function(BuildContext) onAddToCart;
 
     setUp(() {
+      registerFallbackValue(FakeBuildContext());
       presenter = MockAddToCartButtonPresenter();
-      onAddToCart = () {};
+      onAddToCart = (_) {};
 
       when(() => presenter.isLoading).thenReturn(signal(false));
-      when(() => presenter.handlePress()).thenAnswer((_) async {});
+      when(() => presenter.handlePress(any())).thenAnswer((_) async {});
     });
 
     Widget createWidget() {
@@ -62,7 +65,7 @@ void main() {
 
       await tester.tap(find.byType(AddToCartButtonView));
 
-      verify(() => presenter.handlePress()).called(1);
+      verify(() => presenter.handlePress(any())).called(1);
     });
   });
 }

@@ -5,7 +5,7 @@ import 'package:signals/signals_flutter.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/add-to-cart-button/add_to_cart_button_presenter.dart';
 
 class AddToCartButtonView extends ConsumerWidget {
-  final VoidCallback onAddToCart;
+  final void Function(BuildContext) onAddToCart;
 
   const AddToCartButtonView({super.key, required this.onAddToCart});
 
@@ -15,7 +15,7 @@ class AddToCartButtonView extends ConsumerWidget {
 
     return Watch((context) {
       return GestureDetector(
-        onTap: presenter.handlePress,
+        onTap: () => presenter.handlePress(context),
         child: Container(
           width: 36,
           height: 36,

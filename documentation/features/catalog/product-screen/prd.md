@@ -25,9 +25,9 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 
 **A. Imagem e Zoom**
 
-* [x] A imagem principal exibida deve corresponder ao SKU ativo (ou primeiro SKU no carregamento).
-* [x] Exibir indicativo visual no canto superior esquerdo da imagem com ícone de expansão e texto "Pressione para zoom".
-* [x] Ao clicar na imagem, abrir um modal em tela cheia com a foto ampliada.
+* [ ] A imagem principal exibida deve corresponder ao SKU ativo (ou primeiro SKU no carregamento).
+* [ ] Exibir indicativo visual no canto superior esquerdo da imagem com ícone de expansão e texto "Pressione para zoom".
+* [ ] Ao clicar na imagem, abrir um modal em tela cheia com a foto ampliada.
 
 **B. Identificação do Produto**
 
@@ -50,7 +50,7 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 **E. Quantidade e Ação (Rodapé)**
 
 * [x] Implementar **Seletor de Quantidade** numérico com botões de incremento (+) e decremento (-).
-* [x] Bloquear o incremento de quantidade caso o número atinja o limite de estoque do SKU.
+* [ ] Bloquear o incremento de quantidade caso o número atinja o limite de estoque do SKU.
 * [x] Exibir **Botão de Compra** ("Adicionar ao Carrinho") que envia o ID do SKU selecionado.
 * [x] Exibir **Contador (Timer)** com contagem regressiva para o fim do dia (23:59:59).
 
@@ -62,9 +62,9 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 
 ## 5. Requisitos Não Funcionais
 
-* [x] **Performance:** A atualização de preço, imagem e código ao trocar a variação deve ser instantânea (sem reload da página).
-* [x] **Responsividade:** O layout deve se adaptar a telas móveis, garantindo que botões de ação e seletores tenham área de toque adequada (min. 44px).
-* [x] **Tratamento de Erro:** Caso o SKU selecionado tenha estoque zero, o botão de compra deve ser desabilitado ou exibir mensagem de indisponibilidade.
+* [ ] **Performance:** A atualização de preço, imagem e código ao trocar a variação deve ser instantânea (sem reload da página).
+* [ ] **Responsividade:** O layout deve se adaptar a telas móveis, garantindo que botões de ação e seletores tenham área de toque adequada (min. 44px).
+* [ ] **Tratamento de Erro:** Caso o SKU selecionado tenha estoque zero, o botão de compra deve ser desabilitado ou exibir mensagem de indisponibilidade.
 
 ## 6. Observações de UI/Design
 

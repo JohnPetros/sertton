@@ -4,27 +4,37 @@ import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import '../../../../../fakers/product_faker.dart';
 import '../../../../../fakers/sku_faker.dart';
-import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/rest/services.dart';
+import 'package:sertton/core/global/interfaces/cache_driver.dart';
+import 'package:sertton/drivers/cache-driver/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_view.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class MockCatalogService extends Mock implements CatalogService {}
 
+class MockCacheDriver extends Mock implements CacheDriver {}
+
 void main() {
   late MockCatalogService catalogService;
+  late MockCacheDriver cacheDriver;
   const productId = '123';
 
   setUp(() {
     catalogService = MockCatalogService();
+    cacheDriver = MockCacheDriver();
+
+    when(() => cacheDriver.get(any())).thenReturn(null);
   });
 
   Widget createWidget() {
     return ShadcnApp(
       home: ProviderScope(
-        overrides: [catalogServiceProvider.overrideWithValue(catalogService)],
+        overrides: [
+          catalogServiceProvider.overrideWithValue(catalogService),
+          cacheDriverProvider.overrideWithValue(cacheDriver),
+        ],
         child: const ProductScreenView(productId: productId),
       ),
     );
