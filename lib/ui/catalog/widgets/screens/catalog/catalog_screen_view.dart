@@ -42,23 +42,24 @@ class _CatalogScreenViewState extends ConsumerState<CatalogScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      headers: [
+        AppBar(
+          title: AppSearchBar(
+            initialValue: widget.initialQuery,
+            autoFocus: widget.focusSearch,
+            onSubmitted: (term) {
+              ref.read(presenterProvider).search(term);
+            },
+            onChanged: (value) {
+              if (value.isEmpty) {
+                ref.read(presenterProvider).search('');
+              }
+            },
+          ),
+        ),
+      ],
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: AppSearchBar(
-              initialValue: widget.initialQuery,
-              autoFocus: widget.focusSearch,
-              onSubmitted: (term) {
-                ref.read(presenterProvider).search(term);
-              },
-              onChanged: (value) {
-                if (value.isEmpty) {
-                  ref.read(presenterProvider).search('');
-                }
-              },
-            ),
-          ),
           FiltersBar(
             onFilterChanged: ({categoryId, required brandsIds}) {
               ref

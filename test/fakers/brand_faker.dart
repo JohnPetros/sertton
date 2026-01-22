@@ -1,22 +1,21 @@
 import 'package:faker/faker.dart';
 import 'package:sertton/core/catalog/dtos/brand_dto.dart';
 
-typedef Props = ({String? id, String? name});
-
 class BrandFaker {
   static final faker = Faker();
 
-  static BrandDto fakeDto({Props props = (id: null, name: null)}) {
+  static BrandDto fakeDto({String? id, String? name}) {
     return BrandDto(
-      id: props.id ?? faker.guid.guid(),
-      name: props.name ?? faker.company.name(),
+      id: id ?? faker.guid.guid(),
+      name: name ?? faker.company.name(),
     );
   }
 
   static List<BrandDto> fakeManyDto({
     int count = 10,
-    Props props = (id: null, name: null),
+    String? id,
+    String? name,
   }) {
-    return List.generate(count, (index) => fakeDto(props: props));
+    return List.generate(count, (index) => fakeDto(id: id, name: name));
   }
 }

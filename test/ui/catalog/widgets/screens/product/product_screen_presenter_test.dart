@@ -3,39 +3,44 @@ import 'package:mocktail/mocktail.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';
+import 'package:sertton/core/global/interfaces/navigation_driver.dart';
 import '../../../../../fakers/product_faker.dart';
 import '../../../../../fakers/sku_faker.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_presenter.dart';
+import 'package:sertton/constants/routes.dart';
 
 class MockCatalogService extends Mock implements CatalogService {}
 
 class MockCartStore extends Mock implements CartStore {}
 
+class MockNavigationDriver extends Mock implements NavigationDriver {}
+
+class CartItemDtoFake extends Fake implements CartItemDto {}
+
 void main() {
+  setUpAll(() {
+    registerFallbackValue(CartItemDtoFake());
+  });
+
   late ProductScreenPresenter presenter;
   late MockCatalogService catalogService;
   late MockCartStore cartStore;
+  late MockNavigationDriver navigationDriver;
   const productId = '123';
 
   setUp(() {
     catalogService = MockCatalogService();
     cartStore = MockCartStore();
+    navigationDriver = MockNavigationDriver();
   });
 
   group('ProductScreenPresenter', () {
     test('should load product on initialization', () async {
       final product = ProductFaker.fakeDto(
-        props: (
-          id: productId,
-          slug: null,
-          skuCode: null,
-          name: 'Test Product',
-          description: null,
-          specifications: null,
-          skus: [SkuFaker.fakeDto()],
-          imageUrl: null,
-          brand: null,
-        ),
+        id: productId,
+        name: 'Test Product',
+        skus: [SkuFaker.fakeDto()],
       );
 
       when(
@@ -46,6 +51,7 @@ void main() {
         productId: productId,
         catalogService: catalogService,
         cartStore: cartStore,
+        navigationDriver: navigationDriver,
       );
 
       expect(presenter.isLoading.value, isTrue);
@@ -67,6 +73,7 @@ void main() {
         productId: productId,
         catalogService: catalogService,
         cartStore: cartStore,
+        navigationDriver: navigationDriver,
       );
 
       await Future.delayed(Duration.zero);
@@ -78,19 +85,7 @@ void main() {
 
     test('selectSku should update selectedSku and reset quantity', () async {
       final skus = SkuFaker.fakeManyDto(count: 2);
-      final product = ProductFaker.fakeDto(
-        props: (
-          id: productId,
-          slug: null,
-          skuCode: null,
-          name: null,
-          description: null,
-          specifications: null,
-          skus: skus,
-          imageUrl: null,
-          brand: null,
-        ),
-      );
+      final product = ProductFaker.fakeDto(id: productId, skus: skus);
 
       when(
         () => catalogService.fetchProduct(productId),
@@ -100,6 +95,7 @@ void main() {
         productId: productId,
         catalogService: catalogService,
         cartStore: cartStore,
+        navigationDriver: navigationDriver,
       );
       await Future.delayed(Duration.zero);
 
@@ -109,6 +105,32 @@ void main() {
       presenter.selectSku(skus[1]);
       expect(presenter.selectedSku.value, skus[1]);
       expect(presenter.quantity.value, 1);
+    });
+
+    test('handleAddToCart should add item and navigate to cart', () async {
+      final sku = SkuFaker.fakeDto();
+      final product = ProductFaker.fakeDto(id: productId, skus: [sku]);
+
+      when(
+        () => catalogService.fetchProduct(productId),
+      ).thenAnswer((_) async => RestResponse(body: product));
+
+      presenter = ProductScreenPresenter(
+        productId: productId,
+        catalogService: catalogService,
+        cartStore: cartStore,
+        navigationDriver: navigationDriver,
+      );
+      await Future.delayed(Duration.zero);
+
+      presenter.handleAddToCart();
+
+      verify(() => cartStore.addItem(any())).called(1);
+
+      await Future.delayed(const Duration(milliseconds: 600));
+
+      verify(() => navigationDriver.go(Routes.cart)).called(1);
+      expect(presenter.isAddingToCart.value, isFalse);
     });
   });
 }

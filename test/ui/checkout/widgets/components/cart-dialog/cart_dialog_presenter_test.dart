@@ -19,18 +19,7 @@ void main() {
   late MockNavigationDriver navigationDriver;
 
   setUpAll(() {
-    registerFallbackValue(
-      CartItemDto(
-        productSlug: '',
-        skuId: '',
-        name: '',
-        imageUrl: '',
-        variationValue: '',
-        salePrice: 0,
-        discountPrice: 0,
-        quantity: 0,
-      ),
-    );
+    registerFallbackValue(CartItemDto(productId: '', skuId: '', quantity: 0));
   });
 
   setUp(() {
@@ -41,19 +30,7 @@ void main() {
   group('CartDialogPresenter', () {
     test('should initialize with first SKU selected and quantity 1', () {
       final skus = SkuFaker.fakeManyDto(count: 2);
-      final product = ProductFaker.fakeDto(
-        props: (
-          id: null,
-          slug: null,
-          skuCode: null,
-          name: null,
-          description: null,
-          specifications: null,
-          skus: skus,
-          imageUrl: null,
-          brand: null,
-        ),
-      );
+      final product = ProductFaker.fakeDto(skus: skus);
 
       presenter = CartDialogPresenter(
         product: product,
@@ -67,62 +44,24 @@ void main() {
 
     test('selectSku should update selectedSku and reset quantity', () {
       final variations = [
-        VariationFaker.fakeDto(
-          props: (id: null, name: 'MATERIAL', value: 'Wood'),
-        ),
-        VariationFaker.fakeDto(
-          props: (id: null, name: 'MATERIAL', value: 'Iron'),
-        ),
+        VariationFaker.fakeDto(name: 'MATERIAL', value: 'Wood'),
+        VariationFaker.fakeDto(name: 'MATERIAL', value: 'Iron'),
       ];
       final skus = [
         SkuFaker.fakeDto(
-          props: (
-            id: '1',
-            skuCode: null,
-            costPrice: null,
-            salePrice: null,
-            discountPrice: null,
-            weight: null,
-            height: null,
-            width: null,
-            length: null,
-            imageUrl: '',
-            variations: [variations[0]],
-            stock: 10,
-            yampiToken: null,
-          ),
+          id: '1',
+          imageUrl: '',
+          variations: [variations[0]],
+          stock: 10,
         ),
         SkuFaker.fakeDto(
-          props: (
-            id: '2',
-            skuCode: null,
-            costPrice: null,
-            salePrice: null,
-            discountPrice: null,
-            weight: null,
-            height: null,
-            width: null,
-            length: null,
-            imageUrl: '',
-            variations: [variations[1]],
-            stock: 5,
-            yampiToken: null,
-          ),
+          id: '2',
+          imageUrl: '',
+          variations: [variations[1]],
+          stock: 5,
         ),
       ];
-      final product = ProductFaker.fakeDto(
-        props: (
-          id: null,
-          slug: null,
-          skuCode: null,
-          name: null,
-          description: null,
-          specifications: null,
-          skus: skus,
-          imageUrl: null,
-          brand: null,
-        ),
-      );
+      final product = ProductFaker.fakeDto(skus: skus);
 
       presenter = CartDialogPresenter(
         product: product,
@@ -140,62 +79,24 @@ void main() {
 
     test('variationOptions should contain unique variation values', () {
       final variations = [
-        VariationFaker.fakeDto(
-          props: (id: null, name: 'MATERIAL', value: 'Wood'),
-        ),
-        VariationFaker.fakeDto(
-          props: (id: null, name: 'MATERIAL', value: 'Iron'),
-        ),
+        VariationFaker.fakeDto(name: 'MATERIAL', value: 'Wood'),
+        VariationFaker.fakeDto(name: 'MATERIAL', value: 'Iron'),
       ];
       final skus = [
         SkuFaker.fakeDto(
-          props: (
-            id: '1',
-            skuCode: null,
-            costPrice: null,
-            salePrice: null,
-            discountPrice: null,
-            weight: null,
-            height: null,
-            width: null,
-            length: null,
-            imageUrl: '',
-            variations: [variations[0]],
-            stock: 10,
-            yampiToken: null,
-          ),
+          id: '1',
+          imageUrl: '',
+          variations: [variations[0]],
+          stock: 10,
         ),
         SkuFaker.fakeDto(
-          props: (
-            id: '2',
-            skuCode: null,
-            costPrice: null,
-            salePrice: null,
-            discountPrice: null,
-            weight: null,
-            height: null,
-            width: null,
-            length: null,
-            imageUrl: '',
-            variations: [variations[1]],
-            stock: 5,
-            yampiToken: null,
-          ),
+          id: '2',
+          imageUrl: '',
+          variations: [variations[1]],
+          stock: 5,
         ),
       ];
-      final product = ProductFaker.fakeDto(
-        props: (
-          id: null,
-          slug: null,
-          skuCode: null,
-          name: null,
-          description: null,
-          specifications: null,
-          skus: skus,
-          imageUrl: null,
-          brand: null,
-        ),
-      );
+      final product = ProductFaker.fakeDto(skus: skus);
 
       presenter = CartDialogPresenter(
         product: product,
@@ -203,40 +104,17 @@ void main() {
         navigationDriver: navigationDriver,
       );
 
-      expect(presenter.variationOptions.value, containsAll(['Wood', 'Iron']));
+      expect(presenter.variationOptions, containsAll(['Wood', 'Iron']));
     });
 
     test('isOutOfStock should be true when stock is 0', () {
       final sku = SkuFaker.fakeDto(
-        props: (
-          id: '1',
-          skuCode: null,
-          costPrice: null,
-          salePrice: null,
-          discountPrice: null,
-          weight: null,
-          height: null,
-          width: null,
-          length: null,
-          imageUrl: '',
-          variations: [],
-          stock: 0,
-          yampiToken: null,
-        ),
+        id: '1',
+        imageUrl: '',
+        variations: [],
+        stock: 0,
       );
-      final product = ProductFaker.fakeDto(
-        props: (
-          id: null,
-          slug: null,
-          skuCode: null,
-          name: null,
-          description: null,
-          specifications: null,
-          skus: [sku],
-          imageUrl: null,
-          brand: null,
-        ),
-      );
+      final product = ProductFaker.fakeDto(skus: [sku]);
 
       presenter = CartDialogPresenter(
         product: product,
@@ -251,17 +129,10 @@ void main() {
     test('addToCart should add item to cartStore and go back', () async {
       final skus = SkuFaker.fakeManyDto(count: 1);
       final product = ProductFaker.fakeDto(
-        props: (
-          id: null,
-          slug: 'test-product',
-          skuCode: null,
-          name: 'Test Product',
-          description: null,
-          specifications: null,
-          skus: skus,
-          imageUrl: 'prod-img',
-          brand: null,
-        ),
+        slug: 'test-product',
+        name: 'Test Product',
+        skus: skus,
+        imageUrl: 'prod-img',
       );
 
       presenter = CartDialogPresenter(
@@ -281,7 +152,7 @@ void main() {
         () => cartStore.addItem(
           any(
             that: isA<CartItemDto>()
-                .having((i) => i.productSlug, 'productSlug', product.slug)
+                .having((i) => i.productId, 'productId', product.id)
                 .having((i) => i.quantity, 'quantity', 2)
                 .having((i) => i.skuId, 'skuId', skus.first.id),
           ),

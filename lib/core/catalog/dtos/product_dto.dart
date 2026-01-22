@@ -23,4 +23,12 @@ class ProductDto {
     required this.imageUrl,
     required this.brand,
   });
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ProductDto && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

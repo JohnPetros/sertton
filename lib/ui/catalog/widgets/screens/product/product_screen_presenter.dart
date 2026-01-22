@@ -1,16 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sertton/constants/routes.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/dtos/sku_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';
 import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/core/global/interfaces/navigation_driver.dart';
+import 'package:sertton/drivers/navigation-driver/index.dart';
 import 'package:sertton/rest/services.dart';
 import 'package:signals/signals.dart';
 
 class ProductScreenPresenter {
-  final String productId;
-  final CatalogService catalogService;
+  final String _productId;
+  final CatalogService _catalogService;
   final CartStore _cartStore;
+  final NavigationDriver _navigationDriver;
 
   final isLoading = signal(true);
   final hasError = signal(false);
@@ -69,10 +73,14 @@ class ProductScreenPresenter {
   late final maxQuantity = computed(() => activeSku.value?.stock ?? 0);
 
   ProductScreenPresenter({
-    required this.productId,
-    required this.catalogService,
+    required String productId,
+    required CatalogService catalogService,
     required CartStore cartStore,
-  }) : _cartStore = cartStore {
+    required NavigationDriver navigationDriver,
+  }) : _productId = productId,
+       _catalogService = catalogService,
+       _cartStore = cartStore,
+       _navigationDriver = navigationDriver {
     _loadProduct();
   }
 
@@ -80,7 +88,7 @@ class ProductScreenPresenter {
     isLoading.value = true;
     hasError.value = false;
 
-    final response = await catalogService.fetchProduct(productId);
+    final response = await _catalogService.fetchProduct(_productId);
 
     if (response.isSuccessful) {
       product.value = response.body;
@@ -136,21 +144,13 @@ class ProductScreenPresenter {
     isAddingToCart.value = true;
 
     _cartStore.addItem(
-      CartItemDto(
-        productSlug: p.slug,
-        skuId: sku.id,
-        name: p.name,
-        imageUrl: sku.imageUrl.isNotEmpty ? sku.imageUrl : p.imageUrl,
-        variationValue: sku.variations.map((v) => v.value).join(', '),
-        salePrice: sku.salePrice,
-        discountPrice: sku.discountPrice,
-        quantity: quantity.value,
-      ),
+      CartItemDto(productId: p.id, skuId: sku.id, quantity: quantity.value),
     );
 
-    // Give a brief visual feedback
     await Future.delayed(const Duration(milliseconds: 500));
     isAddingToCart.value = false;
+
+    _navigationDriver.go(Routes.cart);
   }
 
   void retry() {
@@ -162,9 +162,11 @@ final productScreenPresenterProvider = Provider.autoDispose
     .family<ProductScreenPresenter, String>((ref, productId) {
       final catalogService = ref.read(catalogServiceProvider);
       final cartStore = ref.watch(cartStoreProvider);
+      final navigationDriver = ref.watch(navigationDriverProvider);
       return ProductScreenPresenter(
         productId: productId,
         catalogService: catalogService,
         cartStore: cartStore,
+        navigationDriver: navigationDriver,
       );
     });

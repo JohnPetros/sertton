@@ -20,13 +20,7 @@ class CartDialogPresenter {
   final quantity = signal<int>(1);
   final isSubmitting = signal<bool>(false);
 
-  late final variationOptions = computed(() {
-    return product.skus
-        .map((sku) => _getVariationValue(sku))
-        .where((value) => value.isNotEmpty)
-        .toSet()
-        .toList();
-  });
+  late final List<String> variationOptions;
 
   late final selectedVariationValue = computed(() {
     final sku = selectedSku.value;
@@ -36,6 +30,25 @@ class CartDialogPresenter {
 
   late final maxQuantity = computed(() => selectedSku.value?.stock ?? 0);
   late final isOutOfStock = computed(() => maxQuantity.value <= 0);
+
+  late final isInCart = computed(() {
+    final sku = selectedSku.value;
+    if (sku == null) return false;
+    return _cartStore.items.value.any((item) => item.skuId == sku.id);
+  });
+
+  late final cartQuantity = computed(() {
+    final sku = selectedSku.value;
+    if (sku == null) return 0;
+    try {
+      return _cartStore.items.value
+          .firstWhere((item) => item.skuId == sku.id)
+          .quantity;
+    } catch (_) {
+      return 0;
+    }
+  });
+
   late final canAdd = computed(
     () =>
         !isOutOfStock.value && !isSubmitting.value && selectedSku.value != null,
@@ -47,8 +60,16 @@ class CartDialogPresenter {
     required NavigationDriver navigationDriver,
   }) : _cartStore = cartStore,
        _navigationDriver = navigationDriver {
+    variationOptions = product.skus
+        .map((sku) => _getVariationValue(sku))
+        .where((value) => value.isNotEmpty)
+        .toSet()
+        .toList();
+
     if (product.skus.isNotEmpty) {
-      selectedSku.value = product.skus.first;
+      final firstSku = product.skus.first;
+      selectedSku.value = firstSku;
+      _updateQuantityFromCart(firstSku);
     }
   }
 
@@ -58,8 +79,24 @@ class CartDialogPresenter {
         (sku) => _getVariationValue(sku) == variationValue,
       );
       selectedSku.value = sku;
-      quantity.value = 1;
+      _updateQuantityFromCart(sku);
     } catch (_) {}
+  }
+
+  void _updateQuantityFromCart(SkuDto? sku) {
+    if (sku == null) {
+      quantity.value = 1;
+      return;
+    }
+
+    try {
+      final cartItem = _cartStore.items.value.firstWhere(
+        (item) => item.skuId == sku.id,
+      );
+      quantity.value = cartItem.quantity;
+    } catch (_) {
+      quantity.value = 1;
+    }
   }
 
   void setQuantity(int val) {
@@ -85,13 +122,8 @@ class CartDialogPresenter {
 
     _cartStore.addItem(
       CartItemDto(
-        productSlug: product.slug,
+        productId: product.id,
         skuId: sku.id,
-        name: product.name,
-        imageUrl: sku.imageUrl.isNotEmpty ? sku.imageUrl : product.imageUrl,
-        variationValue: sku.variations.map((v) => v.value).join(', '),
-        salePrice: sku.salePrice,
-        discountPrice: sku.discountPrice,
         quantity: quantity.value,
       ),
     );
@@ -99,6 +131,16 @@ class CartDialogPresenter {
     isSubmitting.value = false;
     _navigationDriver.back();
     _navigationDriver.go(Routes.cart);
+  }
+
+  Future<void> removeFromCart() async {
+    final sku = selectedSku.value;
+    if (sku == null) return;
+
+    isSubmitting.value = true;
+    _cartStore.removeItem(sku.id);
+    isSubmitting.value = false;
+    _navigationDriver.back();
   }
 }
 

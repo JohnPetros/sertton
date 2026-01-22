@@ -6,17 +6,8 @@ void main() {
   group('ProductDescriptionPresenter', () {
     test('should initialize with product description and specifications', () {
       final product = ProductFaker.fakeDto(
-        props: (
-          id: null,
-          slug: null,
-          skuCode: null,
-          name: null,
-          description: 'Test Description',
-          specifications: 'Test Specs',
-          skus: null,
-          imageUrl: null,
-          brand: null,
-        ),
+        description: 'Test Description',
+        specifications: 'Test Specs',
       );
 
       final presenter = ProductDescriptionPresenter(product: product);

@@ -45,35 +45,21 @@ void main() {
       tester,
     ) async {
       final product = ProductFaker.fakeDto(
-        props: (
-          id: productId,
-          slug: null,
-          skuCode: null,
-          name: 'Awesome Product',
-          description: 'Description content',
-          specifications: 'Specs content',
-          skus: [
-            SkuFaker.fakeDto(
-              props: (
-                id: null,
-                skuCode: 'SKU1',
-                costPrice: null,
-                salePrice: 100.0,
-                discountPrice: 80.0,
-                weight: null,
-                height: null,
-                width: null,
-                length: null,
-                imageUrl: '',
-                variations: [],
-                stock: 10,
-                yampiToken: null,
-              ),
-            ),
-          ],
-          imageUrl: '',
-          brand: null,
-        ),
+        id: productId,
+        name: 'Awesome Product',
+        description: 'Description content',
+        specifications: 'Specs content',
+        skus: [
+          SkuFaker.fakeDto(
+            skuCode: 'SKU1',
+            salePrice: 100.0,
+            discountPrice: 80.0,
+            imageUrl: '',
+            variations: [],
+            stock: 10,
+          ),
+        ],
+        imageUrl: '',
       );
 
       when(
