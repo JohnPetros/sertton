@@ -3,32 +3,43 @@
 ## Visão Geral
 Este documento estabelece as convenções de código adotadas no projeto Sertton para garantir consistência, legibilidade e manutenibilidade.
 
-## 1. Diretrizes de Linguagem
-*   **Código:** Todo o código (nomes de variáveis, classes, funções, arquivos) deve ser escrito em **Inglês**.
-*   **Documentação e UI:** Comentários, documentação (como este arquivo) e textos exibidos ao usuário final devem ser escritos em **Português**.
+---
+
+## 1. Diretrizes de Linguagem & Naming
+*   **Código:** Todo o código (variáveis, classes, funções, arquivos, pastas de código) deve ser escrito em **Inglês**.
+*   **Documentação e UI:** Comentários explicativos, documentação (como este arquivo) e textos exibidos ao usuário final (strings de UI) devem ser escritos em **Português**.
+*   **Case Style:**
+    *   **Classes/Interfaces:** `PascalCase`.
+    *   **Variáveis/Funções:** `camelCase`.
+    *   **Arquivos/Diretórios:** `snake_case`.
 
 ## 2. Qualidade de Código & Clean Code
-*   **Responsabilidade Única:** Se uma função ou classe tiver muitas responsabilidades, divida-a em unidades menores e mais coesas.
-*   **Legibilidade:** O código deve ser autoexplicativo. Evite abreviações obscuras.
-*   **Dart & Flutter:** Siga as boas práticas oficiais descritas em [Effective Dart](https://dart.dev/guides/language/effective-dart).
+*   **Responsabilidade Única (SRP):** Classes e funções devem ter apenas uma razão para mudar.
+*   **Auto-documentação:** O código deve ser claro o suficiente para que comentários sejam raramente necessários. Evite abreviações.
+*   **Dart & Flutter:** Siga rigorosamente o [Effective Dart](https://dart.dev/guides/language/effective-dart).
+*   **Funções Pequenas:** Idealmente, funções não devem ultrapassar 30-40 linhas.
 
-## 4. Widgets
+## 3. Arquitetura & UI (MVP Pattern)
+*   **Estrutura de Widgets:** Todo widget complexo deve residir em sua própria pasta dentro de `ui/<modulo>/widgets/`.
+*   **Componentização:** Se um widget for reutilizável globalmente, coloque-o em uma pasta comum de componentes (ex: `lib/ui/global/widgets/`).
+*   **Padronização Visual:** 
+    *   Use obrigatoriamente componentes do **shadcn_flutter** em vez de Material Design puro.
+    *   **Cores:** Utilize a paleta do shadcn (ex: `Colors.gray` em vez de `Colors.grey`).
+*   **Lógica de Estado:**
+    *   Sempre separe a lógica de visualização (View) da lógica de estado (Presenter).
+    *   Utilize `signals` para estados reativos dentro do Presenter.
+    *   Utilize `Riverpod` para injeção de dependências e gerenciamento de estado global.
 
-- Quando for criar um widget, sempre crie um arquivo para ele na pasta `ui/<nome-do-widget>/`.
-- Sempre siga o padrão de arquitetura MVU (Model, View, Update) para widgets.
+## 4. Organização de Importações
+As importações devem ser organizadas em blocos separados por uma linha em branco, seguindo a hierarquia de camadas:
 
-
-## 3. Organização de Importações
-As importações devem ser organizadas em blocos separados por uma linha em branco, seguindo rigorosamente a ordem das camadas da arquitetura:
-
-1.  **Bibliotecas Externas e SDK** (`dart:*`, `package:flutter/*`, bibliotecas de terceiros)
-2.  **Camada Core** (`package:sertton/core/*`)
-3.  **Camada Rest** (`package:sertton/rest/*`)
-4.  **Camada Drivers** (`package:sertton/drivers/*`)
-5.  **Camada UI** (`package:sertton/ui/*`)
+1.  **Bibliotecas Externas e SDK:** (`dart:*`, `package:flutter/*`, pacotes de terceiros).
+2.  **Camada Core:** (`package:sertton/core/*`).
+3.  **Camada Rest:** (`package:sertton/rest/*`).
+4.  **Camada Drivers:** (`package:sertton/drivers/*`).
+5.  **Camada UI:** (`package:sertton/ui/*`).
 
 ### Exemplo
-
 ```dart
 // 1. Bibliotecas Externas
 import 'package:flutter/material.dart';
@@ -46,3 +57,8 @@ import 'package:sertton/rest/dio/dio_rest_client.dart';
 // 5. Camada UI
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/product_card_presenter.dart';
 ```
+
+## 5. Manutenibilidade & Regras Gerais
+*   **Imutabilidade:** Prefira o uso de `final` em campos de classes e variáveis locais sempre que possível.
+*   **Tratamento de Erros:** Utilize o `RestResponse<T>` definido no Core para encapsular falhas de API.
+*   **Imports Relativos:** Evite imports relativos (`../../`) para arquivos fora do diretório local; utilize sempre o caminho absoluto do pacote (`package:sertton/...`).
