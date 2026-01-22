@@ -1,6 +1,8 @@
 import 'package:sertton/constants/env.dart';
+import 'package:sertton/core/checkout/dtos/order_dto.dart';
 import 'package:sertton/core/checkout/interfaces/checkout_service.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/rest/yampi/mappers/yampi_order_mapper.dart';
 import 'package:sertton/rest/yampi/services/yampi_service.dart';
 
 class YampiCheckoutService extends YampiService implements CheckoutService {
@@ -20,8 +22,8 @@ class YampiCheckoutService extends YampiService implements CheckoutService {
     }
 
     final items = <String>[];
-    for (var i = 0; i < skuTokens.length; i++) {
-      items.add('${skuTokens[i]}:${quantities[i]}');
+    for (var index = 0; index < skuTokens.length; index++) {
+      items.add('${skuTokens[index]}:${quantities[index]}');
     }
 
     final itemsParam = items.join(',');
@@ -31,5 +33,17 @@ class YampiCheckoutService extends YampiService implements CheckoutService {
     );
 
     return RestResponse(body: link.toString());
+  }
+
+  @override
+  Future<RestResponse<List<OrderDto>>> fetchOrdersByCustomer(
+    String customerDocument,
+  ) async {
+    final response = await super.restClient.get(
+      '/orders',
+      queryParams: {'q': customerDocument},
+    );
+
+    return response.mapBody((json) => YampiOrderMapper.toDtoList(json));
   }
 }
