@@ -6,7 +6,8 @@ void main() {
   group('MarketingBannerPresenter', () {
     test('should initialize imageUrl with https: prefix', () {
       final banner = BannerFaker.fakeDto(
-        props: (id: '1', imageUrl: '//example.com/image.jpg'),
+        id: '1',
+        imageUrl: '//example.com/image.jpg',
       );
       final presenter = MarketingBannerPresenter(banner);
 

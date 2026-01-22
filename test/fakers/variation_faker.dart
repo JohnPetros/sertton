@@ -1,18 +1,14 @@
 import 'package:faker/faker.dart';
 import 'package:sertton/core/catalog/dtos/variation_dto.dart';
 
-typedef Props = ({String? id, String? name, String? value});
-
 class VariationFaker {
   static final _faker = Faker();
 
-  static VariationDto fakeDto({
-    Props props = (id: null, name: null, value: null),
-  }) {
+  static VariationDto fakeDto({String? id, String? name, String? value}) {
     return VariationDto(
-      id: props.id ?? _faker.guid.guid(),
+      id: id ?? _faker.guid.guid(),
       name:
-          props.name ??
+          name ??
           _faker.randomGenerator.element([
             'Cor',
             'Tamanho',
@@ -20,15 +16,20 @@ class VariationFaker {
             'Voltagem',
           ]),
       value:
-          props.value ??
+          value ??
           _faker.randomGenerator.element(['Azul', 'P', 'Algodão', '110V']),
     );
   }
 
   static List<VariationDto> fakeManyDto({
     int count = 10,
-    Props props = (id: null, name: null, value: null),
+    String? id,
+    String? name,
+    String? value,
   }) {
-    return List.generate(count, (index) => fakeDto(props: props));
+    return List.generate(
+      count,
+      (index) => fakeDto(id: id, name: name, value: value),
+    );
   }
 }
