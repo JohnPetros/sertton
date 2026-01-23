@@ -20,7 +20,6 @@ class ProductsListPresenter {
   late final void Function() _disposeEffect;
 
   ProductsListPresenter(this._catalogService, this._catalogStore) {
-    // Refresh products whenever store values change
     _disposeEffect = effect(() {
       _catalogStore.query.value;
       _catalogStore.categoryId.value;

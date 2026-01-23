@@ -41,7 +41,7 @@ A barra de pesquisa não realiza busca ao pressionar enter/submit nas telas de C
 `AppSearchBarView` - **Refatorar**. Remover Logo, Menu e Label estáticos. Manter apenas o `TextField` e o botão de busca. Aceitar, opcionalmente, uma lógica padrão de navegação se `onSubmitted` não for passado (ou forçar quem usa a passar).
 `AppSearchBarPresenter` - Adicionar validação ou log se `onSubmitted` for nulo, ou permitir injetar um comportamento padrão de navegação via Provider se desejado (mas o mais limpo é o View passar).
 `HomeScreenView` - Remover a `AppSearchBar` do `AppBar` (ou corrigir). Na parte do corpo, substituir o uso direto da `AppSearchBar` pelo novo `HomeHeaderView` que conterá a `AppSearchBar` dentro dele.
-`CartScreenView`, `OrdersScreenView`, `ProductScreenView` - Atualizar a chamada do `AppSearchBar` no `AppBar` para passar uma função que usa o `NavigationDriver` para ir para a tela de Catálogo com o termo pesquisado.
+`CartScreenView`, `OrdersScreenView`, `ProductScreenView` - Atualizar a chamada do `AppSearchBar` no `AppBar` para passar uma função que usa le o `NavigationDriver` para ir para a tela de Catálogo com o termo pesquisado.
 
 ### 4. O que deve ser removido?
 - **Camada UI**: 
@@ -56,8 +56,8 @@ Código de layout (Logo/Menu) dentro de `AppSearchBarView`.
 6.  **Sincronização de Deep Linking**: A `CatalogScreenView` agora sincroniza corretamente parâmetros de rota (`initialQuery`, `focusSearch`) com o `CatalogStore` e o cabeçalho.
 
 ### Validação Técnica:
-- **Análise Estática**: Lint corrigido nas telas de Catálogo e Layout.
-- **Testes Unitários**: Testes de `ProductsListPresenter` e `AppSearchBarPresenter` atualizados e validados.
-- **Arquitetura**: SRP restaurado e acoplamento reduzido via Global Store.
+- **Análise Estática**: `analyze_files` concluído sem erros nas camadas afetadas.
+- **Testes Unitários**: Todos os testes passaram (+227 testes).
+- **Arquitetura**: A separação de responsabilidades (SRP) foi restaurada, desacoplando o widget de busca do layout do cabeçalho.
 
 
