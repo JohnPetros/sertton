@@ -109,4 +109,18 @@ class YampiCatalogService extends YampiService implements CatalogService {
 
     return buffer.toString();
   }
+
+  @override
+  Future<RestResponse<List<ProductDto>>> fetchSimiliarProducts(
+    String productId,
+  ) async {
+    final response = await super.restClient.get(
+      '/catalog/products/$productId/similars?include=images,skus,brand,texts',
+    );
+
+    return response.mapBody<List<ProductDto>>((body) {
+      if (response.isFailure) return [];
+      return YampiProductMapper.toDtoList(body);
+    });
+  }
 }
