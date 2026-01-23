@@ -101,14 +101,15 @@ class ProductScreenView extends ConsumerWidget {
                       : null,
                   child: presenter.isAddingToCart.value
                       ? const SizedBox(
-                          height: 32,
-                          width: 20,
+                          height: 22,
+                          width: 22,
                           child: CircularProgressIndicator(
-                            strokeWidth: 2,
+                            strokeWidth: 1,
                             color: Colors.white,
                           ),
                         )
                       : Text(
+                          style: const TextStyle(fontSize: 16),
                           presenter.isOutOfStock.value
                               ? 'INDISPONÍVEL'
                               : 'ADICIONAR AO CARRINHO',

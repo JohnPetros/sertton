@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart'
-    show
-        BuildContext,
-        Widget,
-        Text,
-        Column,
-        MainAxisSize,
-        CrossAxisAlignment,
-        SizedBox;
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
@@ -26,30 +18,20 @@ void main() {
 
   setUp(() {
     presenter = MockCartDialogPresenter();
-    product = ProductFaker.fakeDto(
-      props: (
-        id: null,
-        slug: null,
-        skuCode: null,
-        name: 'Test Product',
-        description: null,
-        specifications: null,
-        skus: [],
-        imageUrl: null,
-        brand: null,
-      ),
-    );
+    product = ProductFaker.fakeDto(name: 'Test Product', skus: []);
     onCloseCalled = false;
 
     // Default mock stubs for signals
     when(() => presenter.quantity).thenReturn(signal(1));
     when(() => presenter.isSubmitting).thenReturn(signal(false));
-    when(() => presenter.variationOptions).thenReturn(computed(() => []));
+    when(() => presenter.variationOptions).thenReturn([]);
     when(
       () => presenter.selectedVariationValue,
     ).thenReturn(computed(() => null));
     when(() => presenter.maxQuantity).thenReturn(computed(() => 10));
     when(() => presenter.isOutOfStock).thenReturn(computed(() => false));
+    when(() => presenter.isInCart).thenReturn(computed(() => false));
+    when(() => presenter.cartQuantity).thenReturn(computed(() => 0));
     when(() => presenter.canAdd).thenReturn(computed(() => true));
   });
 
@@ -73,7 +55,7 @@ void main() {
 
       expect(find.text('Test Product'), findsOneWidget);
       expect(find.text('Cancelar'), findsOneWidget);
-      expect(find.text('Adicionar ao Carrinho'), findsOneWidget);
+      expect(find.text('Adicionar'), findsOneWidget);
     });
 
     testWidgets('should call onClose when Cancelar is pressed', (tester) async {
@@ -83,14 +65,14 @@ void main() {
       expect(onCloseCalled, isTrue);
     });
 
-    testWidgets('should call addToCart when Adicionar ao Carrinho is pressed', (
+    testWidgets('should call addToCart when Adicionar is pressed', (
       tester,
     ) async {
       when(() => presenter.addToCart()).thenAnswer((_) async {});
 
       await tester.pumpWidget(createWidget());
 
-      await tester.tap(find.text('Adicionar ao Carrinho'));
+      await tester.tap(find.text('Adicionar'));
       verify(() => presenter.addToCart()).called(1);
     });
 

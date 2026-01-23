@@ -31,7 +31,7 @@ Implementar o fluxo de "Quick Buy" (Compra Rápida) que permite adicionar produt
   - `totalDiscount`: Valor total dos descontos (Computed).
   - `total`: Valor final do pedido (Computed).
 - **Ações**:
-  - `addItem(CartItemDto item)`: Adiciona item ou incrementa quantidade. Remove se qtd=0. Salva no Cache.
+  - `addItem(CartItemDto item)`: Adiciona item ou substitui a quantidade existente. Remove se qtd=0. Salva no Cache.
   - `removeItem(String skuId)`: Remove item. Salva no Cache.
   - `updateQuantity(String skuId, int quantity)`: Atualiza a quantidade. Salva no Cache.
   - `clear()`: Limpa o carrinho e limpa do Cache.
@@ -55,14 +55,28 @@ Implementar o fluxo de "Quick Buy" (Compra Rápida) que permite adicionar produt
 - **Estrutura**:
   - Título com o nome do produto.
   - `SkuSelectorView`: Reutilizado para escolha de variação e quantidade.
-  - `PrimaryButton`: "Adicionar ao Carrinho", desabilitado se sem estoque ou processando. Abaixo exibe feedback de estoque reativo.
+  - **Indicador de Status do Carrinho**: Exibe se o item já está no carrinho com a quantidade atual.
+    - Quando o item está no carrinho: Exibe texto "Item já está no carrinho (X unidades)" em cor de destaque.
+  - **Botões de Ação**:
+    - `PrimaryButton`: "Adicionar ao Carrinho", desabilitado se sem estoque ou processando. Exibido quando o item NÃO está no carrinho ou quando a quantidade selecionada é diferente da quantidade no carrinho.
+    - `DestructiveButton`: "Remover do Carrinho", exibido quando o item JÁ está no carrinho. Remove completamente o item do carrinho.
+  - Abaixo dos botões exibe feedback de estoque reativo.
 
 **`lib/ui/checkout/widgets/components/cart-dialog/cart_dialog_presenter.dart`**
 - Gerencia o estado reativo usando `signals`.
+- **Dependências**:
+  - `CartStore`: Para verificar se o item está no carrinho e gerenciar adição/remoção.
+- **Estado**:
+  - `isInCart`: Computed signal que verifica se o SKU selecionado está no carrinho.
+  - `cartQuantity`: Computed signal que retorna a quantidade do item no carrinho (0 se não estiver).
 - **Lógica**:
-  - Ao abrir, seleciona o primeiro SKU.
+  - Ao abrir, seleciona o primeiro SKU e define a quantidade inicial baseada no que já está no carrinho (ou 1 caso não esteja).
+  - Ao trocar de variação (SKU), sincroniza a quantidade com o que já está no carrinho ou reseta para 1.
   - Ao adicionar: invoca `cartStore.addItem`, fecha o dialog (`back()`) e navega para a tela de carrinho (`Routes.cart`).
-  - Expõe `isOutOfStock` e `canAdd` para controle da UI.
+  - Ao remover: invoca `cartStore.removeItem`, fecha o dialog (`back()`).
+  - Expõe `isOutOfStock`, `canAdd`, `isInCart`, e `cartQuantity` para controle da UI.
+  - O botão "Adicionar" é exibido quando `!isInCart` ou quando a quantidade selecionada é diferente de `cartQuantity`.
+  - O botão "Remover" é exibido quando `isInCart`.
 
 ### Componentes de Seleção (Refatoração)
 

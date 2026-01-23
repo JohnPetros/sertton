@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sertton/constants/routes.dart';
@@ -16,7 +16,8 @@ class HomeScreenView extends ConsumerWidget {
     final navigation = ref.read(navigationDriverProvider);
 
     return Scaffold(
-      body: SingleChildScrollView(
+      headers: [AppBar(title: const AppSearchBar())],
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Padding(

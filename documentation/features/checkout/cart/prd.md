@@ -7,7 +7,8 @@ Este documento detalha os requisitos da tela de **Meu Carrinho** e do componente
 ## 2. Regras de Negócio
 
 * **Gatilho de Seleção Rápida:** O Dialog de seleção de SKU é ativado ao clicar no botão azul de carrinho presente no card do produto.
-* **Estado Inicial do Seletor (Dialog):** Ao abrir o Dialog, o seletor de variação deve carregar automaticamente o **primeiro SKU** da lista como selecionado.
+* **Estado Inicial do Seletor (Dialog):** Ao abrir o Dialog, o seletor de variação deve carregar automaticamente o **primeiro SKU** da lista como selecionado. Se o item já estiver no carrinho, a quantidade inicial exibida deve ser a quantidade atual no carrinho.
+* **Lógica de Adição (Replace vs Add):** Ao confirmar a adição no Dialog para um item que já existe no carrinho, a quantidade selecionada deve **substituir** a quantidade anterior (lógica de "Set" e não de "Add").
 * **Persistência de Dados:** O SKU selecionado no Dialog deve ser transferido para o carrinho mantendo o ID, imagem, material e preço promocional.
 * **Cálculo Automático:** O carrinho deve atualizar o Subtotal, Desconto e Total em tempo real ao alterar quantidades ou remover itens.
 
@@ -19,27 +20,35 @@ Componente ativado a partir do card do produto:
 
 *   [x] **Rótulo (Label):** Exibir o nome da variação (ex: "MATERIAL") em letras maiúsculas acima do campo.
 *   [x] **Input de Seleção:** Utilizar um componente **dropdown** (implementado como Bottom Sheet para melhor UX em diálogos) para listar as variações disponíveis.
-*   [x] **Ação de Adicionar:** Botão para confirmar a escolha e enviar o SKU selecionado diretamente para o carrinho.
+*   [x] **Ação de Adicionar:** Botão para confirmar a escolha e enviar o SKU selecionado diretamente para o carrinho. **Se o item já estiver no carrinho, o botão deve atualizar a quantidade.**
+*   [x] **Ação de Remover:** Disponibilizar opção de remover o item diretamente do dialog caso ele já pertença ao carrinho.
+*   [x] **Indicador de Status:** Mostrar visualmente se o SKU selecionado já está no carrinho.
 
 ### B. Gestão de Itens no Carrinho
 
 A tela de "Meu Carrinho" deve listar os itens com as seguintes capacidades:
 
-*   [ ] **Identificação do SKU:** Exibir o código SKU em azul (ex: `SKU: 116000010P`) acima do nome do produto.
-*   [ ] **Detalhe da Variação:** Indicar o atributo selecionado (ex: "• Material: Inox") logo abaixo do nome.
-*   [ ] **Controle de Quantidade:** Botões de incremento (+) e decremento (-) com campo de valor centralizado.
-*   [ ] **Remoção:**
-    *   [ ] Ícone de lixeira individual por item.
-    *   [ ] Botão "Limpar carrinho" no topo para remover todos os itens de uma vez.
+*   [x] **Identificação do SKU:** Exibir o código SKU em azul (ex: `SKU: 116000010P`) acima do nome do produto.
+*   [x] **Detalhe da Variação:** Indicar o atributo selecionado (ex: "• Material: Inox") logo abaixo do nome.
+*   [x] **Controle de Quantidade:** Botões de incremento (+) e decremento (-) com campo de valor centralizado.
+*   [x] **Remoção:**
+    *   [x] Ícone de lixeira individual por item.
+    *   [x] Botão "Limpar carrinho" no topo para remover todos os itens de uma vez.
 
 ### C. Resumo Financeiro (Footer)
 
 Exibição clara dos valores na base da tela:
 
-*   [ ] **Produtos:** Soma dos preços originais (ex: R$ 244,00).
-*   [ ] **Desconto:** Valor total poupado, exibido em verde com sinal negativo (ex: - R$ 140,00).
-*   [ ] **Total:** Valor final em azul (ex: R$ 104,00).
-*   [ ] **Botão Finalizar:** Ação principal "Finalizar compra" em destaque azul.
+*   [x] **Produtos:** Soma dos preços originais (ex: R$ 244,00).
+*   [x] **Desconto:** Valor total poupado, exibido em verde com sinal negativo (ex: - R$ 140,00).
+*   [x] **Total:** Valor final em azul (ex: R$ 104,00).
+*   [x] **Botão Finalizar:** Ação principal "Finalizar compra" em destaque azul.
+
+### D. Checkout
+
+*   [x] **Botão Finalizar:** Ação principal "Finalizar compra" em destaque azul.
+*   [x] **Uso de link de compra:** Deve ser feito o redirecionamento para a página de checkout do usuário usando uma url de link de compra que contém todos os tokens de compra de cada sku do carrinho.
+
 
 ## 4. Requisitos de UI/Design
 

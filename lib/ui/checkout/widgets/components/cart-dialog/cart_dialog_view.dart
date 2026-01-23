@@ -31,13 +31,43 @@ class CartDialogView extends ConsumerWidget {
           children: [
             SkuSelectorView(
               variationLabel: CartDialogPresenter.variationLabel,
-              variationOptions: presenter.variationOptions.value,
+              variationOptions: presenter.variationOptions,
               selectedVariationValue: presenter.selectedVariationValue.value,
               quantity: presenter.quantity.value,
               maxQuantity: presenter.maxQuantity.value,
               onVariationSelected: presenter.selectSku,
               onQuantityChanged: presenter.setQuantity,
             ),
+            if (presenter.isInCart.value) ...[
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.shopping_cart,
+                      color: Colors.blue,
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Item já está no carrinho (${presenter.cartQuantity.value} unidades)',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ],
         );
       }),
@@ -46,19 +76,30 @@ class CartDialogView extends ConsumerWidget {
         Watch((context) {
           final isOutOfStock = presenter.isOutOfStock.value;
           final isSubmitting = presenter.isSubmitting.value;
+          final isInCart = presenter.isInCart.value;
 
-          return PrimaryButton(
-            onPressed: presenter.canAdd.value ? presenter.addToCart : null,
-            child: isSubmitting
-                ? const SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.white,
-                    ),
-                  )
-                : Text(isOutOfStock ? 'Indisponível' : 'Adicionar ao Carrinho'),
+          return Wrap(
+            spacing: 8,
+            children: [
+              if (isInCart)
+                DestructiveButton(
+                  onPressed: isSubmitting ? null : presenter.removeFromCart,
+                  child: const Text('Remover'),
+                ),
+              PrimaryButton(
+                onPressed: presenter.canAdd.value ? presenter.addToCart : null,
+                child: isSubmitting
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(isOutOfStock ? 'Indisponível' : 'Adicionar'),
+              ),
+            ],
           );
         }),
       ],
