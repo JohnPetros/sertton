@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';
-import 'package:sertton/ui/global/widgets/app-search-bar/index.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 
 class CatalogScreenView extends ConsumerStatefulWidget {
@@ -42,22 +41,6 @@ class _CatalogScreenViewState extends ConsumerState<CatalogScreenView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      headers: [
-        AppBar(
-          title: AppSearchBar(
-            initialValue: widget.initialQuery,
-            autoFocus: widget.focusSearch,
-            onSubmitted: (term) {
-              ref.read(presenterProvider).search(term);
-            },
-            onChanged: (value) {
-              if (value.isEmpty) {
-                ref.read(presenterProvider).search('');
-              }
-            },
-          ),
-        ),
-      ],
       child: Column(
         children: [
           FiltersBar(

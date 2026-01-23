@@ -64,8 +64,6 @@ class ProductsListPresenter {
       products.value = [...products.value, ...pagination.items];
       _currentPage = pagination.currentPage;
       hasMore.value = pagination.currentPage < pagination.totalPages;
-    } else {
-      // Optional: Handle error for pagination silently or show toast
     }
 
     isLoading.value = false;

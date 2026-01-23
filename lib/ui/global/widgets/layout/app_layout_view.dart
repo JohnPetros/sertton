@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/constants/routes.dart';
+import 'package:sertton/drivers/navigation-driver/index.dart';
+import 'package:sertton/ui/global/widgets/app-header/index.dart';
+import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
 import 'package:signals/signals_flutter.dart';
 
@@ -19,8 +23,73 @@ class AppLayoutView extends ConsumerWidget {
     final theme = shadcn.Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
 
-    return Scaffold(
-      body: AnimatedSwitcher(
+    final navigation = ref.read(navigationDriverProvider);
+
+    return shadcn.Scaffold(
+      headers: [
+        AppHeader(
+          onSubmitted: (term) => navigation.go(
+            Routes.catalog,
+            data: {'focusSearch': term.isEmpty, 'initialQuery': term},
+          ),
+          onChanged: (value) {
+            if (value.isEmpty && navigationShell.currentIndex == 1) {
+              ref.read(presenterProvider).search('');
+            }
+          },
+        ),
+      ],
+      footers: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, -2),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _TabBarItem(
+                icon: Icons.home_outlined,
+                isActive: navigationShell.currentIndex == 0,
+                onTap: () => _onTap(0),
+                primaryColor: primaryColor,
+              ),
+              _TabBarItem(
+                icon: Icons.search,
+                isActive: navigationShell.currentIndex == 1,
+                onTap: () => _onTap(1),
+                primaryColor: primaryColor,
+              ),
+              Watch((context) {
+                final cartStore = ref.watch(cartStoreProvider);
+                final itemCount = cartStore.itemCount.value;
+
+                return _TabBarItem(
+                  icon: Icons.shopping_cart_outlined,
+                  isActive: navigationShell.currentIndex == 2,
+                  onTap: () => _onTap(2),
+                  primaryColor: primaryColor,
+                  badgeCount: itemCount > 0 ? itemCount : null,
+                );
+              }),
+              _TabBarItem(
+                icon: Icons.shopping_bag_outlined,
+                isActive: navigationShell.currentIndex == 3,
+                onTap: () => _onTap(3),
+                primaryColor: primaryColor,
+              ),
+            ],
+          ),
+        ),
+      ],
+      child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 300),
         switchInCurve: Curves.easeInOut,
         switchOutCurve: Curves.easeInOut,
@@ -39,54 +108,6 @@ class AppLayoutView extends ConsumerWidget {
         child: KeyedSubtree(
           key: ValueKey(navigationShell.currentIndex),
           child: navigationShell,
-        ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, -2),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _TabBarItem(
-              icon: Icons.home_outlined,
-              isActive: navigationShell.currentIndex == 0,
-              onTap: () => _onTap(0),
-              primaryColor: primaryColor,
-            ),
-            _TabBarItem(
-              icon: Icons.search,
-              isActive: navigationShell.currentIndex == 1,
-              onTap: () => _onTap(1),
-              primaryColor: primaryColor,
-            ),
-            Watch((context) {
-              final cartStore = ref.watch(cartStoreProvider);
-              final itemCount = cartStore.itemCount.value;
-
-              return _TabBarItem(
-                icon: Icons.shopping_cart_outlined,
-                isActive: navigationShell.currentIndex == 2,
-                onTap: () => _onTap(2),
-                primaryColor: primaryColor,
-                badgeCount: itemCount > 0 ? itemCount : null,
-              );
-            }),
-            _TabBarItem(
-              icon: Icons.shopping_bag_outlined,
-              isActive: navigationShell.currentIndex == 3,
-              onTap: () => _onTap(3),
-              primaryColor: primaryColor,
-            ),
-          ],
         ),
       ),
     );

@@ -12,6 +12,11 @@ class AppSearchBarPresenter {
     if (readOnly) {
       onTap?.call();
     } else {
+      if (onSubmitted == null) {
+        debugPrint(
+          'AppSearchBar: onSubmitted is null. Search for "$search" ignored.',
+        );
+      }
       onSubmitted?.call(search);
     }
   }
