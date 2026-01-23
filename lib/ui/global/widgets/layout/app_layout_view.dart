@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sertton/core/catalog/stores/catalog_store.dart';
 import 'package:sertton/core/checkout/stores/cart_store.dart';
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/drivers/navigation-driver/index.dart';
 import 'package:sertton/ui/global/widgets/app-header/index.dart';
-import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
 import 'package:signals/signals_flutter.dart';
 
@@ -24,20 +24,31 @@ class AppLayoutView extends ConsumerWidget {
     final primaryColor = theme.colorScheme.primary;
 
     final navigation = ref.read(navigationDriverProvider);
+    final catalogStore = ref.read(catalogStoreProvider);
 
     return shadcn.Scaffold(
       headers: [
-        AppHeader(
-          onSubmitted: (term) => navigation.go(
-            Routes.catalog,
-            data: {'focusSearch': term.isEmpty, 'initialQuery': term},
-          ),
-          onChanged: (value) {
-            if (value.isEmpty && navigationShell.currentIndex == 1) {
-              ref.read(presenterProvider).search('');
-            }
-          },
-        ),
+        Watch((context) {
+          final query = catalogStore.query.value;
+          final autoFocus = catalogStore.autoFocus.value;
+
+          return AppHeader(
+            initialValue: query,
+            autoFocus: autoFocus,
+            onSubmitted: (term) {
+              catalogStore.setSearch(term);
+              navigation.go(
+                Routes.catalog,
+                data: {'focusSearch': term.isEmpty, 'initialQuery': term},
+              );
+            },
+            onChanged: (value) {
+              if (value.isEmpty && navigationShell.currentIndex == 1) {
+                catalogStore.clearSearch();
+              }
+            },
+          );
+        }),
       ],
       footers: [
         Container(
