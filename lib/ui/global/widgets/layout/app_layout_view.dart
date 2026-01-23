@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sertton/core/checkout/stores/cart_store.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
+import 'package:signals/signals_flutter.dart';
 
-class AppLayoutView extends StatelessWidget {
+class AppLayoutView extends ConsumerWidget {
   final StatefulNavigationShell navigationShell;
 
   const AppLayoutView({super.key, required this.navigationShell});
@@ -12,7 +15,7 @@ class AppLayoutView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = shadcn.Theme.of(context);
     final primaryColor = theme.colorScheme.primary;
 
@@ -65,12 +68,18 @@ class AppLayoutView extends StatelessWidget {
               onTap: () => _onTap(1),
               primaryColor: primaryColor,
             ),
-            _TabBarItem(
-              icon: Icons.shopping_cart_outlined,
-              isActive: navigationShell.currentIndex == 2,
-              onTap: () => _onTap(2),
-              primaryColor: primaryColor,
-            ),
+            Watch((context) {
+              final cartStore = ref.watch(cartStoreProvider);
+              final itemCount = cartStore.itemCount.value;
+
+              return _TabBarItem(
+                icon: Icons.shopping_cart_outlined,
+                isActive: navigationShell.currentIndex == 2,
+                onTap: () => _onTap(2),
+                primaryColor: primaryColor,
+                badgeCount: itemCount > 0 ? itemCount : null,
+              );
+            }),
             _TabBarItem(
               icon: Icons.shopping_bag_outlined,
               isActive: navigationShell.currentIndex == 3,
@@ -89,12 +98,14 @@ class _TabBarItem extends StatefulWidget {
   final bool isActive;
   final VoidCallback onTap;
   final Color primaryColor;
+  final int? badgeCount;
 
   const _TabBarItem({
     required this.icon,
     required this.isActive,
     required this.onTap,
     required this.primaryColor,
+    this.badgeCount,
   });
 
   @override
@@ -146,20 +157,70 @@ class _TabBarItemState extends State<_TabBarItem>
             border: Border.all(color: widget.primaryColor, width: 2),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            transitionBuilder: (child, animation) {
-              return ScaleTransition(
-                scale: animation,
-                child: FadeTransition(opacity: animation, child: child),
-              );
-            },
-            child: Icon(
-              widget.icon,
-              key: ValueKey(widget.isActive),
-              color: widget.isActive ? Colors.white : widget.primaryColor,
-              size: 28,
-            ),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Center(
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 200),
+                  transitionBuilder: (child, animation) {
+                    return ScaleTransition(
+                      scale: animation,
+                      child: FadeTransition(opacity: animation, child: child),
+                    );
+                  },
+                  child: Icon(
+                    widget.icon,
+                    key: ValueKey(widget.isActive),
+                    color: widget.isActive ? Colors.white : widget.primaryColor,
+                    size: 28,
+                  ),
+                ),
+              ),
+              if (widget.badgeCount != null)
+                Positioned(
+                  right: -4,
+                  top: -4,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: widget.isActive
+                          ? Colors.white
+                          : widget.primaryColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: widget.isActive
+                            ? widget.primaryColor
+                            : Colors.white,
+                        width: 2,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.1),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 28,
+                      minHeight: 28,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${widget.badgeCount}',
+                        style: TextStyle(
+                          color: widget.isActive
+                              ? widget.primaryColor
+                              : Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ),
       ),

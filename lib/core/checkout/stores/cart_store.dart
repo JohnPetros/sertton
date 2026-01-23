@@ -17,6 +17,7 @@ class CartStore {
 
   final items = signal<List<CartItemDto>>([]);
 
+  late final itemCount = computed(() => items.value.length);
   late final subtotal = computed(() => 0.0);
   late final totalDiscount = computed(() => 0.0);
   late final total = computed(() => 0.0);
