@@ -9,7 +9,7 @@ class HomeScreenView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
+    return Scaffold(
       child: SingleChildScrollView(
         child: Column(
           children: [

@@ -5,11 +5,20 @@ import 'package:sertton/ui/global/widgets/app-search-bar/index.dart';
 class AppHeaderView extends ConsumerWidget {
   final Function(String)? onSubmitted;
   final ValueChanged<String>? onChanged;
+  final String? initialValue;
+  final bool autoFocus;
 
-  const AppHeaderView({super.key, this.onSubmitted, this.onChanged});
+  const AppHeaderView({
+    super.key,
+    this.onSubmitted,
+    this.onChanged,
+    this.initialValue,
+    this.autoFocus = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -28,16 +37,21 @@ class AppHeaderView extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'PROCURAR PRODUTO',
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: Colors.gray,
+              color: theme.colorScheme.mutedForeground,
             ),
           ),
           const SizedBox(height: 8),
-          AppSearchBar(onSubmitted: onSubmitted, onChanged: onChanged),
+          AppSearchBar(
+            onSubmitted: onSubmitted,
+            onChanged: onChanged,
+            initialValue: initialValue,
+            autoFocus: autoFocus,
+          ),
         ],
       ),
     );

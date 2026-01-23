@@ -1,24 +1,31 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
+import 'package:sertton/core/catalog/stores/catalog_store.dart';
 import 'package:sertton/rest/services.dart';
 import 'package:signals/signals.dart';
 
 class ProductsListPresenter {
   final CatalogService _catalogService;
+  final CatalogStore _catalogStore;
 
   final products = signal<List<ProductDto>>([]);
   final isLoading = signal(false);
   final hasMore = signal(true);
   final error = signal<String?>(null);
-  final categoryId = signal<String?>(null);
-  final brandsIds = signal<List<String>>([]);
-  final query = signal<String?>(null);
 
   int _currentPage = 1;
 
-  ProductsListPresenter(this._catalogService) {
+  ProductsListPresenter(this._catalogService, this._catalogStore) {
     loadProducts();
+
+    // Refresh products whenever store values change
+    effect(() {
+      _catalogStore.query.value;
+      _catalogStore.categoryId.value;
+      _catalogStore.brandsIds.value;
+      refresh();
+    });
   }
 
   Future<void> loadProducts() async {
@@ -29,9 +36,9 @@ class ProductsListPresenter {
 
     final response = await _catalogService.fetchProducts(
       page: 1,
-      categoryId: categoryId.value,
-      brandsIds: brandsIds.value,
-      query: query.value,
+      categoryId: _catalogStore.categoryId.value,
+      brandsIds: _catalogStore.brandsIds.value,
+      query: _catalogStore.query.value,
     );
 
     if (!response.isFailure) {
@@ -54,9 +61,9 @@ class ProductsListPresenter {
     final nextPage = _currentPage + 1;
     final response = await _catalogService.fetchProducts(
       page: nextPage,
-      categoryId: categoryId.value,
-      brandsIds: brandsIds.value,
-      query: query.value,
+      categoryId: _catalogStore.categoryId.value,
+      brandsIds: _catalogStore.brandsIds.value,
+      query: _catalogStore.query.value,
     );
 
     if (!response.isFailure) {
@@ -81,19 +88,20 @@ class ProductsListPresenter {
     List<String> brandsIds = const [],
     String? query,
   }) {
-    this.categoryId.value = categoryId;
-    this.brandsIds.value = brandsIds;
-    this.query.value = query;
-    refresh();
+    batch(() {
+      _catalogStore.categoryId.value = categoryId;
+      _catalogStore.brandsIds.value = brandsIds;
+      _catalogStore.query.value = query;
+    });
   }
 
   void search(String? term) {
-    query.value = term;
-    refresh();
+    _catalogStore.query.value = term;
   }
 }
 
 final presenterProvider = Provider.autoDispose<ProductsListPresenter>((ref) {
   final catalogService = ref.read(catalogServiceProvider);
-  return ProductsListPresenter(catalogService);
+  final catalogStore = ref.read(catalogStoreProvider);
+  return ProductsListPresenter(catalogService, catalogStore);
 });

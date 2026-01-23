@@ -41,21 +41,21 @@ A barra de pesquisa não realiza busca ao pressionar enter/submit nas telas de C
 `AppSearchBarView` - **Refatorar**. Remover Logo, Menu e Label estáticos. Manter apenas o `TextField` e o botão de busca. Aceitar, opcionalmente, uma lógica padrão de navegação se `onSubmitted` não for passado (ou forçar quem usa a passar).
 `AppSearchBarPresenter` - Adicionar validação ou log se `onSubmitted` for nulo, ou permitir injetar um comportamento padrão de navegação via Provider se desejado (mas o mais limpo é o View passar).
 `HomeScreenView` - Remover a `AppSearchBar` do `AppBar` (ou corrigir). Na parte do corpo, substituir o uso direto da `AppSearchBar` pelo novo `HomeHeaderView` que conterá a `AppSearchBar` dentro dele.
-`CartScreenView`, `OrdersScreenView`, `ProductScreenView` - Atualizar a chamada do `AppSearchBar` no `AppBar` para passar uma função que usa o `NavigationDriver` para ir para a tela de Catálogo com o termo pesquisado.
+`CartScreenView`, `OrdersScreenView`, `ProductScreenView` - Atualizar a chamada do `AppSearchBar` no `AppBar` para passar uma função que usa le o `NavigationDriver` para ir para a tela de Catálogo com o termo pesquisado.
 
 ### 4. O que deve ser removido?
 - **Camada UI**: 
 Código de layout (Logo/Menu) dentro de `AppSearchBarView`.
 
 ### Mudanças Realizadas:
-1.  **Criação do `AppHeader`**: Extraído o layout de cabeçalho (Logo, Menu, Label) para um componente global em `lib/ui/global/widgets/app-header/`.
-2.  **Refatoração do `AppSearchBar`**: Agora o widget é puramente funcional, contendo apenas o campo de busca e o botão.
-3.  **Configuração no `AppLayoutView`**: O `AppHeader` foi injetado na propriedade `headers` do `Scaffold` global, garantindo presença constante e funcionalidade única.
-4.  **Limpeza de Telas**: Removidos os cabeçalhos manuais das telas `Home`, `Cart`, `Orders` e `Product`, eliminando a duplicação visual e lógica.
+1.  **Criação do `CatalogStore`**: Introduzido um store global (Signal-based) para gerenciar o termo de busca e filtros, permitindo a sincronização entre o cabeçalho global e a tela de catálogo sem acoplamento direto entre presenters.
+2.  **Criação do `AppHeader`**: Extraído o layout de cabeçalho (Logo, Menu, Label) para um componente global em `lib/ui/global/widgets/app-header/`.
+3.  **Refatoração do `AppSearchBar`**: Agora o widget é puramente funcional. O `AppSearchBarPresenter` agora possui um comportamento padrão de navegação para o Catálogo caso nenhum callback de submissão seja fornecido.
+4.  **Configuração no `AppLayoutView`**: O `AppHeader` foi injetado na propriedade `headers` do `Scaffold` global, sincronizado com o `CatalogStore`.
+5.  **Limpeza de Telas**: Removidos os cabeçalhos manuais e barras de busca duplicadas das telas `Home`, `Cart`, `Orders` e `Product`.
+6.  **Sincronização de Deep Linking**: A `CatalogScreenView` agora sincroniza corretamente parâmetros de rota (`initialQuery`, `focusSearch`) com o `CatalogStore` e o cabeçalho.
 
 ### Validação Técnica:
-- **Análise Estática**: `analyze_files` concluído sem erros nas camadas afetadas.
-- **Testes Unitários**: Todos os testes passaram (+227 testes).
-- **Arquitetura**: A separação de responsabilidades (SRP) foi restaurada, desacoplando o widget de busca do layout do cabeçalho.
-
-
+- **Análise Estática**: Lint corrigido nas telas de Catálogo e Layout.
+- **Testes Unitários**: Testes de `ProductsListPresenter` e `AppSearchBarPresenter` atualizados e validados.
+- **Arquitetura**: SRP restaurado e acoplamento reduzido via Global Store.
