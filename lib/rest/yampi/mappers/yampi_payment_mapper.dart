@@ -3,22 +3,33 @@ import 'package:sertton/rest/types/json.dart';
 
 class YampiPaymentMapper {
   static PaymentDto toDto(Json json) {
+    final methodFromTransaction = json['payment_method'] ?? json['status'];
+
+    return PaymentDto(
+      name:
+          json['name'] ??
+          json['payment_method_name'] ??
+          _getFriendlyMethodName(methodFromTransaction?.toString()) ??
+          'Pagamento',
+      icon: json['icon_url'] ?? json['payment_method_icon_url'] ?? '',
+      pdf: json['billet_url'] ?? json['pix_qr_code_url'],
+      method: _mapMethod(json),
+    );
+  }
+
+  static List<PaymentDto> toDtoList(Json json) {
+    if (json.containsKey('data')) {
+      final data = (json['data'] as List).cast<Json>();
+      return data.map(toDto).toList();
+    }
+    return [];
+  }
+
+  static PaymentDto toDtoFromTransactions(Json json) {
     if (json.containsKey('data')) {
       final List transactions = json['data'];
       if (transactions.isNotEmpty) {
-        final transaction = transactions.first;
-        final methodString =
-            transaction['payment_method'] ?? transaction['status'];
-
-        return PaymentDto(
-          name:
-              transaction['payment_method_name'] ??
-              _getFriendlyMethodName(methodString) ??
-              'Pagamento',
-          icon: transaction['payment_method_icon_url'] ?? '',
-          pdf: transaction['billet_url'] ?? transaction['pix_qr_code_url'],
-          method: _mapMethod(methodString),
-        );
+        return toDto(transactions.first);
       }
     }
 
@@ -37,26 +48,33 @@ class YampiPaymentMapper {
         return 'Cartão de Crédito';
       case 'billet':
       case 'waiting_payment':
+      case 'checkout_billet':
         return 'Boleto / Pix';
       case 'pix':
+      case 'checkout_pix':
         return 'Pix';
       default:
         return null;
     }
   }
 
-  static PaymentMethod _mapMethod(String? method) {
-    if (method == null) return PaymentMethod.boleto;
-    switch (method.toLowerCase()) {
-      case 'credit_card':
-        return PaymentMethod.creditCard;
-      case 'billet':
-      case 'waiting_payment':
-        return PaymentMethod.boleto;
-      case 'pix':
-        return PaymentMethod.pix;
-      default:
-        return PaymentMethod.boleto;
+  static PaymentMethod _mapMethod(Json json) {
+    if (json['is_credit_card'] == true) return PaymentMethod.creditCard;
+    if (json['is_billet'] == true) return PaymentMethod.boleto;
+    if (json['is_pix'] == true || json['is_pix_in_installments'] == true) {
+      return PaymentMethod.pix;
     }
+
+    final method = json['payment_method'] ?? json['status'];
+    if (method == null) return PaymentMethod.boleto;
+
+    final methodString = method.toString().toLowerCase();
+
+    if (methodString.contains('credit_card')) return PaymentMethod.creditCard;
+    if (methodString.contains('billet')) return PaymentMethod.boleto;
+    if (methodString.contains('pix')) return PaymentMethod.pix;
+    if (methodString == 'waiting_payment') return PaymentMethod.boleto;
+
+    return PaymentMethod.boleto;
   }
 }
