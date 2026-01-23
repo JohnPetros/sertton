@@ -26,8 +26,9 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
 
 3.  **Ordem de Execução (Bottom-Up):**
     Implemente as tarefas seguindo rigorosamente a hierarquia de dependências:
-    1.  **Modelos:** DTOs e entidades de domínio.
-    2.  **Backend/Core:** Services, Repositories, UseCases.
+    1.  **Core:** DTOs e interfaces.
+    2.  **Rest:** Implementações de interfaces de serviços Rest.
+    2.  **Drivers:** Implementações de interfaces de drivers.
     3.  **State Management:** Stores (Signals), Presenters, Controllers.
     4.  **Interface de Usuário:** Views e Widgets.
     *   **Regra:** Nunca implemente um componente consumidor (ex: Widget) antes de implementar a lógica/dados que ele consome.

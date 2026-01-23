@@ -33,3 +33,8 @@ Detalhar a implementação técnica de uma feature, fix ou refatoração, servin
         Limpeza de código legado ou refatoração (se houver).
     *   ### 7. Usar como referência (Opcional)
         Arquivos que servem de "copy-paste inteligente" ou inspiração estrutural.
+
+3.  **Diagramas de Visualização:**
+    *   Avalie se as mudanças implementadas alteraram fluxos complexos ou a navegação entre telas.
+    *   **Ação:** Se cabível, gere ou atualize um diagrama Mermaid (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
+    *   Utilize a notação mermaid para gerar o diagrama
