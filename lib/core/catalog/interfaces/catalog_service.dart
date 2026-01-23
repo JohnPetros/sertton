@@ -19,4 +19,7 @@ abstract class CatalogService {
   Future<RestResponse<List<ProductDto>>> fetchProductsByCollection(
     String collectionId,
   );
+  Future<RestResponse<List<ProductDto>>> fetchSimiliarProducts(
+    String productId,
+  );
 }

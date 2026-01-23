@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../../../fakers/product_faker.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
+import 'package:sertton/core/catalog/stores/catalog_store.dart';
 import 'package:sertton/core/global/responses/pagination_response.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';
@@ -10,9 +11,11 @@ class MockCatalogService extends Mock implements CatalogService {}
 
 void main() {
   late MockCatalogService catalogService;
+  late CatalogStore catalogStore;
 
   setUp(() {
     catalogService = MockCatalogService();
+    catalogStore = CatalogStore();
   });
 
   group('ProductsListPresenter', () {
@@ -29,7 +32,7 @@ void main() {
         () => catalogService.fetchProducts(page: any(named: 'page')),
       ).thenAnswer((_) async => RestResponse(body: pagination));
 
-      final presenter = ProductsListPresenter(catalogService);
+      final presenter = ProductsListPresenter(catalogService, catalogStore);
 
       expect(presenter.isLoading.value, isTrue);
       expect(presenter.products.value, isEmpty);
@@ -52,7 +55,7 @@ void main() {
         ),
       );
 
-      final presenter = ProductsListPresenter(catalogService);
+      final presenter = ProductsListPresenter(catalogService, catalogStore);
 
       await Future.delayed(Duration.zero);
 
@@ -74,7 +77,7 @@ void main() {
         () => catalogService.fetchProducts(page: 1),
       ).thenAnswer((_) async => RestResponse(body: initialPagination));
 
-      final presenter = ProductsListPresenter(catalogService);
+      final presenter = ProductsListPresenter(catalogService, catalogStore);
       await Future.delayed(Duration.zero);
 
       final moreProducts = ProductFaker.fakeManyDto(count: 10);
@@ -109,7 +112,7 @@ void main() {
         () => catalogService.fetchProducts(page: 1),
       ).thenAnswer((_) async => RestResponse(body: pagination));
 
-      final presenter = ProductsListPresenter(catalogService);
+      final presenter = ProductsListPresenter(catalogService, catalogStore);
       presenter.isLoading.value = true;
 
       await presenter.loadMoreProducts();
@@ -131,7 +134,7 @@ void main() {
         () => catalogService.fetchProducts(page: 1),
       ).thenAnswer((_) async => RestResponse(body: pagination));
 
-      final presenter = ProductsListPresenter(catalogService);
+      final presenter = ProductsListPresenter(catalogService, catalogStore);
       await Future.delayed(Duration.zero);
 
       await presenter.loadMoreProducts();
@@ -154,7 +157,7 @@ void main() {
         () => catalogService.fetchProducts(page: 1),
       ).thenAnswer((_) async => RestResponse(body: initialPagination));
 
-      final presenter = ProductsListPresenter(catalogService);
+      final presenter = ProductsListPresenter(catalogService, catalogStore);
       await Future.delayed(Duration.zero);
 
       final refreshedProducts = ProductFaker.fakeManyDto(count: 5);

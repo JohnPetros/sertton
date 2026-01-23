@@ -8,7 +8,6 @@ import 'package:sertton/ui/checkout/widgets/screens/cart/loading-state/index.dar
 import 'package:sertton/ui/checkout/widgets/screens/cart/error-state/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/empty-state/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/cart-content/index.dart';
-import 'package:sertton/ui/global/widgets/app-search-bar/index.dart';
 
 class CartScreenView extends ConsumerWidget {
   const CartScreenView({super.key});
@@ -16,9 +15,7 @@ class CartScreenView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final presenter = ref.watch(cartScreenPresenterProvider);
-
     return Scaffold(
-      headers: [AppBar(title: const AppSearchBar())],
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(

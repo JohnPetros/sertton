@@ -60,56 +60,29 @@ class _AppSearchBarViewState extends ConsumerState<AppSearchBarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton.ghost(icon: const Icon(Icons.menu), onPressed: () {}),
-            Image.asset(
-              'assets/images/sertton-logo.png',
-              height: 40,
-              fit: BoxFit.contain,
+    return SizedBox(
+      height: 48,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              placeholder: const Text('Exemplo: Arremate'),
+              readOnly: widget.readOnly,
+              onTap: widget.onTap,
+              onSubmitted: (_) => _handleSubmit(),
+              onChanged: widget.onChanged,
+              autofocus: widget.autoFocus,
             ),
-          ],
-        ),
-        const SizedBox(height: 16),
-        Text(
-          'PROCURAR PRODUTO',
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: Colors.gray,
           ),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 48,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: TextField(
-                  controller: _controller,
-                  placeholder: const Text('Exemplo: Arremate'),
-                  readOnly: widget.readOnly,
-                  onTap: widget.onTap,
-                  onSubmitted: (_) => _handleSubmit(),
-                  onChanged: widget.onChanged,
-                  autofocus: widget.autoFocus,
-                ),
-              ),
-              const SizedBox(width: 4),
-              Button.primary(
-                onPressed: _handleSubmit,
-                child: const Icon(Icons.search, size: 24, color: Colors.white),
-              ),
-            ],
+          const SizedBox(width: 4),
+          Button.primary(
+            onPressed: _handleSubmit,
+            child: const Icon(Icons.search, size: 24, color: Colors.white),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

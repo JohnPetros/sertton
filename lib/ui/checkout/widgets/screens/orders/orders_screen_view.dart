@@ -10,7 +10,6 @@ import 'package:sertton/ui/checkout/widgets/screens/orders/identification-form/i
 import 'package:sertton/ui/checkout/widgets/screens/orders/loading-state/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/orders/orders-header/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/orders/orders-list/index.dart';
-import 'package:sertton/ui/global/widgets/app-search-bar/index.dart';
 
 class OrdersScreenView extends ConsumerStatefulWidget {
   const OrdersScreenView({super.key});
@@ -31,9 +30,7 @@ class _OrdersScreenViewState extends ConsumerState<OrdersScreenView> {
   @override
   Widget build(BuildContext context) {
     final presenter = ref.watch(ordersScreenPresenterProvider);
-
     return Scaffold(
-      headers: [const AppBar(title: AppSearchBar())],
       child: Watch((context) {
         if (!presenter.isIdentified.value) {
           return IdentificationForm(

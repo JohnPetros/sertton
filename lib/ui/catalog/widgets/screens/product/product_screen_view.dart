@@ -5,8 +5,8 @@ import 'package:sertton/ui/catalog/widgets/screens/product/product-image-viewer/
 import 'package:sertton/ui/catalog/widgets/screens/product/product-header/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-pricing/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-description/index.dart';
+import 'package:sertton/ui/catalog/widgets/screens/product/similar-products/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_presenter.dart';
-import 'package:sertton/ui/global/widgets/app-search-bar/index.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 import 'package:signals/signals_flutter.dart';
 
@@ -22,9 +22,7 @@ class ProductScreenView extends ConsumerWidget {
 
     return Watch((context) {
       if (presenter.isLoading.value) {
-        return Scaffold(
-          child: Center(child: const CircularProgressIndicator()),
-        );
+        return Scaffold(child: Center(child: CircularProgressIndicator()));
       }
 
       if (presenter.hasError.value || presenter.product.value == null) {
@@ -55,7 +53,6 @@ class ProductScreenView extends ConsumerWidget {
       final sku = presenter.activeSku.value!;
 
       return Scaffold(
-        headers: [AppBar(title: const AppSearchBar())],
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -120,6 +117,10 @@ class ProductScreenView extends ConsumerWidget {
               const SizedBox(height: 48),
 
               ProductDescriptionView(product: product),
+
+              const SizedBox(height: 48),
+
+              SimilarProductsSection(productId: productId),
 
               const SizedBox(height: 48),
             ],

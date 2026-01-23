@@ -5,6 +5,7 @@ Padronizar a criação de Pull Requests (PRs), garantindo descrições claras qu
 
 **Entrada:**
 *   Uma Spec (especificação) devidamente implementada e validada.
+*   Uma Bug Report (relatório de bug) devidamente implementada e validada.
 *   Uma branch de funcionalidade (`feature/`), correção (`fix/`) ou refatoração (`refactor/`) com as alterações comitadas.
 
 **Diretrizes de Execução:**
@@ -14,7 +15,8 @@ Padronizar a criação de Pull Requests (PRs), garantindo descrições claras qu
     *   Identifique os impactos técnicos e as decisões de design tomadas.
 
 2.  **Definição do Título:**
-    *   O título deve ser curto, direto e seguir a essência da alteração (ex: "Implementação da listagem de produtos" ou "Correção do erro de carregamento de imagem").
+    *   O título deve ser curto, direto, em PT-BR e seguir a essência da alteração (ex: "Implementação da listagem de produtos" ou "Correção do erro de carregamento de imagem" ou ainda "Correção de navegação para tela de catálogo").
+    *   Não inclua prefixos no título, como `feat/`, `fix/` ou `refactor/`.
 
 3.  **Estrutura da Descrição (Body):**
     O corpo do PR deve seguir o template abaixo, preenchendo as seções relevantes. **Nota:** Utilize sempre formatação Markdown para garantir legibilidade e organização. Evite usar título principal `#`, use apenas subtítulos como `##` e demais com nível abaixo.

@@ -25,9 +25,9 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 
 **A. Imagem e Zoom**
 
-* [ ] A imagem principal exibida deve corresponder ao SKU ativo (ou primeiro SKU no carregamento).
-* [ ] Exibir indicativo visual no canto superior esquerdo da imagem com ícone de expansão e texto "Pressione para zoom".
-* [ ] Ao clicar na imagem, abrir um modal em tela cheia com a foto ampliada.
+* [x] A imagem principal exibida deve corresponder ao SKU ativo (ou primeiro SKU no carregamento).
+* [x] Exibir indicativo visual no canto superior esquerdo da imagem com ícone de expansão e texto "Pressione para zoom".
+* [x] Ao clicar na imagem, abrir um modal em tela cheia com a foto ampliada.
 
 **B. Identificação do Produto**
 
@@ -50,7 +50,7 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 **E. Quantidade e Ação (Rodapé)**
 
 * [x] Implementar **Seletor de Quantidade** numérico com botões de incremento (+) e decremento (-).
-* [ ] Bloquear o incremento de quantidade caso o número atinja o limite de estoque do SKU.
+* [x] Bloquear o incremento de quantidade caso o número atinja o limite de estoque do SKU.
 * [x] Exibir **Botão de Compra** ("Adicionar ao Carrinho") que envia o ID do SKU selecionado.
 * [x] Exibir **Contador (Timer)** com contagem regressiva para o fim do dia (23:59:59).
 
@@ -60,13 +60,13 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 * [x] Exibir seção **"Especificações técnicas"** com as especificações técnicas do produto.
 * [x] Garantir que o texto seja legível, com suporte básico para formatação (quebras de linha e listas).
 
-## 5. Requisitos Não Funcionais
+**G. Seção de produtos relacionados**
 
-* [ ] **Performance:** A atualização de preço, imagem e código ao trocar a variação deve ser instantânea (sem reload da página).
-* [ ] **Responsividade:** O layout deve se adaptar a telas móveis, garantindo que botões de ação e seletores tenham área de toque adequada (min. 44px).
-* [ ] **Tratamento de Erro:** Caso o SKU selecionado tenha estoque zero, o botão de compra deve ser desabilitado ou exibir mensagem de indisponibilidade.
+* [ ] Exibir seção **"Produtos relacionados"** com os produtos relacionados ao produto pai.
+* [ ] Exibir os produtos relacionados em uma linha com scroll horizontal.
+* [ ] O visual e layout deve ser exatamente igual ao da seção de coleções de produtos na tela Home.
 
-## 6. Observações de UI/Design
+## 5. Observações de UI/Design
 
 * **Paleta de Cores:** Baseada na referência visual, utilizar a cor primária para elementos de destaque (Preço final, SKU, Badge de desconto) e Cinza para elementos secundários.
 * **Hierarquia:** A ordem visual vertical deve ser: Imagem -> SKU -> Título -> Preços -> Seletor de Variação -> Inputs de Quantidade/Botões -> Timer de Oferta -> Descrição/Especificações.
