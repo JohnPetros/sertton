@@ -36,5 +36,5 @@ Detalhar a implementação técnica de uma feature, fix ou refatoração, servin
 
 3.  **Diagramas de Visualização:**
     *   Avalie se as mudanças implementadas alteraram fluxos complexos ou a navegação entre telas.
-    *   **Ação:** Se cabível, gere ou atualize um diagrama Mermaid (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
-    *   Utilize a notação mermaid para gerar o diagrama
+    *   **Ação:** Se cabível, gere ou atualize um diagrama (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
+    *   Utilize a notação ASCII art ou Text-based diagram para gerar o diagrama
