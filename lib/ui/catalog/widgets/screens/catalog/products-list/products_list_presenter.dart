@@ -1,72 +1,107 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
+import 'package:sertton/core/catalog/stores/catalog_store.dart';
 import 'package:sertton/rest/services.dart';
 import 'package:signals/signals.dart';
 
 class ProductsListPresenter {
   final CatalogService _catalogService;
+  final CatalogStore _catalogStore;
 
   final products = signal<List<ProductDto>>([]);
   final isLoading = signal(false);
   final hasMore = signal(true);
   final error = signal<String?>(null);
-  final categoryId = signal<String?>(null);
-  final brandsIds = signal<List<String>>([]);
-  final query = signal<String?>(null);
 
   int _currentPage = 1;
+  CancelToken? _cancelToken;
+  late final void Function() _disposeEffect;
 
-  ProductsListPresenter(this._catalogService) {
-    loadProducts();
+  ProductsListPresenter(this._catalogService, this._catalogStore) {
+    // Refresh products whenever store values change
+    _disposeEffect = effect(() {
+      _catalogStore.query.value;
+      _catalogStore.categoryId.value;
+      _catalogStore.brandsIds.value;
+      untracked(() => refresh());
+    });
+  }
+
+  void dispose() {
+    _disposeEffect();
+    _cancelToken?.cancel();
   }
 
   Future<void> loadProducts() async {
-    if (isLoading.value) return;
+    _cancelToken?.cancel('New request started');
+    _cancelToken = CancelToken();
 
     isLoading.value = true;
     error.value = null;
 
-    final response = await _catalogService.fetchProducts(
-      page: 1,
-      categoryId: categoryId.value,
-      brandsIds: brandsIds.value,
-      query: query.value,
-    );
+    try {
+      final response = await _catalogService.fetchProducts(
+        page: 1,
+        categoryId: _catalogStore.categoryId.value,
+        brandsIds: _catalogStore.brandsIds.value,
+        query: _catalogStore.query.value,
+      );
 
-    if (!response.isFailure) {
-      final pagination = response.body;
-      products.value = pagination.items;
-      _currentPage = pagination.currentPage;
-      hasMore.value = pagination.currentPage < pagination.totalPages;
-    } else {
-      error.value = response.errorMessage;
+      if (!response.isFailure) {
+        final pagination = response.body;
+        products.value = pagination.items;
+        _currentPage = pagination.currentPage;
+        hasMore.value = pagination.currentPage < pagination.totalPages;
+      } else {
+        error.value = response.errorMessage;
+      }
+    } on DioException catch (e) {
+      if (e.type != DioExceptionType.cancel) {
+        error.value = e.toString();
+      }
+    } catch (e) {
+      error.value = e.toString();
+    } finally {
+      if (!(_cancelToken?.isCancelled ?? false)) {
+        isLoading.value = false;
+      }
     }
-
-    isLoading.value = false;
   }
 
   Future<void> loadMoreProducts() async {
     if (isLoading.value || !hasMore.value) return;
 
     isLoading.value = true;
+    _cancelToken = CancelToken();
 
-    final nextPage = _currentPage + 1;
-    final response = await _catalogService.fetchProducts(
-      page: nextPage,
-      categoryId: categoryId.value,
-      brandsIds: brandsIds.value,
-      query: query.value,
-    );
+    try {
+      final nextPage = _currentPage + 1;
+      final response = await _catalogService.fetchProducts(
+        page: nextPage,
+        categoryId: _catalogStore.categoryId.value,
+        brandsIds: _catalogStore.brandsIds.value,
+        query: _catalogStore.query.value,
+      );
 
-    if (!response.isFailure) {
-      final pagination = response.body;
-      products.value = [...products.value, ...pagination.items];
-      _currentPage = pagination.currentPage;
-      hasMore.value = pagination.currentPage < pagination.totalPages;
+      if (!response.isFailure) {
+        final pagination = response.body;
+        products.value = [...products.value, ...pagination.items];
+        _currentPage = pagination.currentPage;
+        hasMore.value = pagination.currentPage < pagination.totalPages;
+      }
+    } on DioException catch (e) {
+      if (e.type != DioExceptionType.cancel) {
+        error.value = e.toString();
+      }
+    } catch (e) {
+      error.value = e.toString();
+    } finally {
+      if (!(_cancelToken?.isCancelled ?? false)) {
+        isLoading.value = false;
+      }
     }
-
-    isLoading.value = false;
   }
 
   Future<void> refresh() async {
@@ -81,19 +116,22 @@ class ProductsListPresenter {
     List<String> brandsIds = const [],
     String? query,
   }) {
-    this.categoryId.value = categoryId;
-    this.brandsIds.value = brandsIds;
-    this.query.value = query;
-    refresh();
+    batch(() {
+      _catalogStore.categoryId.value = categoryId;
+      _catalogStore.brandsIds.value = brandsIds;
+      _catalogStore.query.value = query;
+    });
   }
 
   void search(String? term) {
-    query.value = term;
-    refresh();
+    _catalogStore.query.value = term;
   }
 }
 
 final presenterProvider = Provider.autoDispose<ProductsListPresenter>((ref) {
   final catalogService = ref.read(catalogServiceProvider);
-  return ProductsListPresenter(catalogService);
+  final catalogStore = ref.read(catalogStoreProvider);
+  final presenter = ProductsListPresenter(catalogService, catalogStore);
+  ref.onDispose(() => presenter.dispose());
+  return presenter;
 });
