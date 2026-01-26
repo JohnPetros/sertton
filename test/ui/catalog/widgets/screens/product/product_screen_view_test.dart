@@ -66,6 +66,10 @@ void main() {
         () => catalogService.fetchProduct(productId),
       ).thenAnswer((_) async => RestResponse(body: product));
 
+      when(
+        () => catalogService.fetchSimiliarProducts(any()),
+      ).thenAnswer((_) async => RestResponse(body: []));
+
       await mockNetworkImagesFor(() async {
         await tester.pumpWidget(createWidget());
         // Wait for service to return

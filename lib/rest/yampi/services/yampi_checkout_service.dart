@@ -1,8 +1,10 @@
 import 'package:sertton/constants/env.dart';
 import 'package:sertton/core/checkout/dtos/order_dto.dart';
+import 'package:sertton/core/checkout/dtos/payment_dto.dart';
 import 'package:sertton/core/checkout/interfaces/checkout_service.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/rest/yampi/mappers/yampi_order_mapper.dart';
+import 'package:sertton/rest/yampi/mappers/yampi_payment_mapper.dart';
 import 'package:sertton/rest/yampi/services/yampi_service.dart';
 
 class YampiCheckoutService extends YampiService implements CheckoutService {
@@ -45,5 +47,12 @@ class YampiCheckoutService extends YampiService implements CheckoutService {
     );
 
     return response.mapBody((json) => YampiOrderMapper.toDtoList(json));
+  }
+
+  @override
+  Future<RestResponse<List<PaymentDto>>> fetchPayments() async {
+    final response = await super.restClient.get('/checkout/payments');
+
+    return response.mapBody((json) => YampiPaymentMapper.toDtoList(json));
   }
 }

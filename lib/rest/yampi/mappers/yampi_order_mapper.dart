@@ -24,7 +24,9 @@ class YampiOrderMapper {
           0.0,
       shippingAddress: YampiAddressMapper.toDto(json['shipping_address'] ?? {}),
       items: YampiOrderItemMapper.toDtoList(json['items'] ?? {}),
-      payment: YampiPaymentMapper.toDto(json['transactions'] ?? {}),
+      payment: YampiPaymentMapper.toDtoFromTransactions(
+        json['transactions'] ?? {},
+      ),
       createdAt:
           DateTime.tryParse(json['created_at']?['date'] ?? '') ??
           DateTime.now(),

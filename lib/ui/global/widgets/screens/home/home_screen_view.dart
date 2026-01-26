@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:sertton/ui/global/widgets/screens/home/leads-capturer-section/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/marketing-section/index.dart';
+import 'package:sertton/ui/global/widgets/screens/home/footer-section/index.dart';
 
 class HomeScreenView extends ConsumerWidget {
   const HomeScreenView({super.key});
@@ -15,7 +16,7 @@ class HomeScreenView extends ConsumerWidget {
           children: [
             MarketingSection(),
             LeadsCapturerSectionView(),
-            // Placeholder for Footer
+            const HomeFooterSection(),
           ],
         ),
       ),
