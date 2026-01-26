@@ -1,3 +1,3 @@
-# 🚚 Sertton
+# Sertton
 
 🚧 Working in progress 🚧 
