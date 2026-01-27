@@ -279,7 +279,7 @@ void main() {
       ).thenAnswer((_) async => RestResponse(body: checkoutUrl));
 
       when(() => urlDriver.canLaunch(any())).thenAnswer((_) async => true);
-      when(() => urlDriver.launch(any())).thenAnswer((_) async => null);
+      when(() => urlDriver.launch(any())).thenAnswer((_) async {});
 
       await presenter.checkout();
 

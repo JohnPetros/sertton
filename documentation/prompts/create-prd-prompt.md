@@ -70,27 +70,7 @@ Descreva de forma clara e concisa:
 
 ---
 
-### 2. Regras de Negócio
-
-Liste todas as regras lógicas e comportamentais do sistema. Cada regra deve:
-- Ter um título descritivo em negrito
-- Explicar claramente o comportamento esperado
-- Incluir exemplos quando necessário
-
-**Formato:**
-- **[Nome da Regra]:** Descrição detalhada do comportamento, incluindo condições, gatilhos e resultados esperados.
-
-**Categorias comuns:**
-- Regras de validação
-- Condições de exibição
-- Lógica de cálculos
-- Comportamentos condicionais
-- Persistência de dados
-- Integrações com outros sistemas
-
----
-
-### 3. Requisitos Funcionais
+### 2. Requisitos Funcionais
 
 Organize por componentes ou áreas funcionais. Para cada componente:
 
@@ -118,7 +98,7 @@ Breve descrição do componente.
 
 ---
 
-### 4. Requisitos de UI/Design
+### 3. Requisitos de UI/Design
 
 Especifique aspectos visuais e de experiência:
 
@@ -135,7 +115,7 @@ Especifique aspectos visuais e de experiência:
 
 ---
 
-### 5. Requisitos Não Funcionais
+### 4. Requisitos Não Funcionais
 
 Aspectos técnicos e de qualidade:
 
@@ -179,6 +159,24 @@ Aspectos técnicos e de qualidade:
   - Cache
 
 ---
+
+### 5. Regras de Negócio
+
+Liste todas as regras lógicas e comportamentais do sistema. Cada regra deve:
+- Ter um título descritivo em negrito
+- Explicar claramente o comportamento esperado
+- Incluir exemplos quando necessário
+
+**Formato:**
+- **[Nome da Regra]:** Descrição detalhada do comportamento, incluindo condições, gatilhos e resultados esperados.
+
+**Categorias comuns:**
+- Regras de validação
+- Condições de exibição
+- Lógica de cálculos
+- Comportamentos condicionais
+- Persistência de dados
+- Integrações com outros sistemas
 
 ## DICAS DE BOAS PRÁTICAS
 
