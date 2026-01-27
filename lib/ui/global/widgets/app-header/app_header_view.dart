@@ -8,12 +8,15 @@ class AppHeaderView extends ConsumerWidget {
   final String? initialValue;
   final bool autoFocus;
 
+  final VoidCallback? onMenuPressed;
+
   const AppHeaderView({
     super.key,
     this.onSubmitted,
     this.onChanged,
     this.initialValue,
     this.autoFocus = false,
+    this.onMenuPressed,
   });
 
   @override
@@ -28,7 +31,10 @@ class AppHeaderView extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton.ghost(icon: const Icon(Icons.menu), onPressed: () {}),
+              IconButton.ghost(
+                icon: const Icon(Icons.menu),
+                onPressed: onMenuPressed,
+              ),
               Image.asset(
                 'assets/images/sertton-logo.png',
                 height: 40,
