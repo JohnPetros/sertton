@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/ui/checkout/stores/cart_store.dart';
 import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';
 import 'package:sertton/core/global/interfaces/cache_driver.dart';
 
