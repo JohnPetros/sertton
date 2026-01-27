@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:sertton/constants/routes.dart';
-import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/ui/checkout/stores/cart_store.dart';
 import 'package:sertton/core/global/interfaces/navigation_driver.dart';
 import 'package:sertton/ui/checkout/widgets/components/cart-dialog/cart_dialog_presenter.dart';
 import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';

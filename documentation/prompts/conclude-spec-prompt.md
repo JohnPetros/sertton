@@ -20,9 +20,9 @@ Finalizar e consolidar a implementação de uma Spec técnica, garantindo que o 
 
 3. **Atualização da Documentação e Visualização:**
     *   Refine o documento da Spec original para refletir decisões de design de última hora ou mudanças de caminho.
-    *   **Diagramas Mermaid:** Avalie se as mudanças implementadas alteraram fluxos complexos ou a navegação.
-        *   **Ação:** Gere ou atualize um diagrama Mermaid (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
-        *   Utilize a notação `mermaid` dentro de blocos de código específicos.
+    *   **Diagramas ASCII:** Avalie se as mudanças implementadas alteraram fluxos complexos ou a navegação.
+        *   **Ação:** Gere ou atualize um diagrama ASCII (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
+        *   Utilize a notação `ASCII` dentro de blocos de código específicos.
 
 4.  **Preparação para o Commit:**
     *   Agrupe as mudanças logicamente de acordo com as camadas afetadas.

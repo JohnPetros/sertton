@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import '../../../../../../fakers/product_faker.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
-import 'package:sertton/core/catalog/stores/catalog_store.dart';
+import 'package:sertton/ui/catalog/stores/catalog_store.dart';
 import 'package:sertton/core/global/responses/pagination_response.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';

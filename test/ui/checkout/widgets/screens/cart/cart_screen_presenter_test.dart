@@ -4,17 +4,15 @@ import 'package:signals/signals.dart';
 
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/checkout/interfaces/checkout_service.dart';
-import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/ui/checkout/stores/cart_store.dart';
 import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
+import 'package:sertton/core/global/interfaces/url_driver.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/cart_screen_presenter.dart';
 
 import '../../../../../fakers/product_faker.dart';
 import '../../../../../fakers/sku_faker.dart';
 import '../../../../../fakers/checkout/cart_item_faker.dart';
-
-import 'package:url_launcher_platform_interface/url_launcher_platform_interface.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockCatalogService extends Mock implements CatalogService {}
 
@@ -22,31 +20,26 @@ class MockCheckoutService extends Mock implements CheckoutService {}
 
 class MockCartStore extends Mock implements CartStore {}
 
-class MockUrlLauncherPlatform extends Mock
-    with MockPlatformInterfaceMixin
-    implements UrlLauncherPlatform {}
-
-class LaunchOptionsFake extends Fake implements LaunchOptions {}
+class MockUrlDriver extends Mock implements UrlDriver {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() {
-    registerFallbackValue(LaunchOptionsFake());
+    registerFallbackValue(Uri());
   });
 
   late CartScreenPresenter presenter;
   late MockCatalogService catalogService;
   late MockCheckoutService checkoutService;
   late MockCartStore cartStore;
-  late MockUrlLauncherPlatform mockUrlLauncher;
+  late MockUrlDriver urlDriver;
 
   setUp(() {
     catalogService = MockCatalogService();
     checkoutService = MockCheckoutService();
     cartStore = MockCartStore();
-    mockUrlLauncher = MockUrlLauncherPlatform();
-    UrlLauncherPlatform.instance = mockUrlLauncher;
+    urlDriver = MockUrlDriver();
 
     final itemsSignal = signal<List<CartItemDto>>([]);
     when(() => cartStore.items).thenReturn(itemsSignal);
@@ -83,6 +76,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       await Future.delayed(Duration.zero); // Wait for effect
@@ -104,6 +98,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       await Future.delayed(Duration.zero);
@@ -128,6 +123,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       await Future.delayed(Duration.zero);
@@ -148,6 +144,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       await Future.delayed(Duration.zero);
@@ -163,6 +160,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       presenter.updateItemQuantity('sku1', 5);
@@ -177,6 +175,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       presenter.removeItem('sku1');
@@ -191,6 +190,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       presenter.cartDisplayItems.value = [
@@ -220,6 +220,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       presenter.cartDisplayItems.value = [
@@ -253,6 +254,7 @@ void main() {
         catalogService: catalogService,
         checkoutService: checkoutService,
         cartStore: cartStore,
+        urlDriver: urlDriver,
       );
 
       presenter.isLoading.value = false;
@@ -276,19 +278,15 @@ void main() {
         () => checkoutService.fetchCheckoutLink(['token1'], [1]),
       ).thenAnswer((_) async => RestResponse(body: checkoutUrl));
 
-      when(
-        () => mockUrlLauncher.canLaunch(any()),
-      ).thenAnswer((_) async => true);
-      when(
-        () => mockUrlLauncher.launchUrl(any(), any()),
-      ).thenAnswer((_) async => true);
+      when(() => urlDriver.canLaunch(any())).thenAnswer((_) async => true);
+      when(() => urlDriver.launch(any())).thenAnswer((_) async {});
 
       await presenter.checkout();
 
       verify(
         () => checkoutService.fetchCheckoutLink(['token1'], [1]),
       ).called(1);
-      verify(() => mockUrlLauncher.launchUrl(checkoutUrl, any())).called(1);
+      verify(() => urlDriver.launch(Uri.parse(checkoutUrl))).called(1);
     });
   });
 }

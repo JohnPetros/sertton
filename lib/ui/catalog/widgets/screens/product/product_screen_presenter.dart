@@ -4,7 +4,7 @@ import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/dtos/sku_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';
-import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/ui/checkout/stores/cart_store.dart';
 import 'package:sertton/core/global/interfaces/navigation_driver.dart';
 import 'package:sertton/drivers/navigation-driver/index.dart';
 import 'package:sertton/rest/services.dart';

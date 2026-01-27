@@ -1,13 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sertton/core/global/interfaces/url_driver.dart';
+import 'package:sertton/drivers/url-driver/index.dart';
 import 'package:signals/signals.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/dtos/sku_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
 import 'package:sertton/core/checkout/dtos/cart_item_dto.dart';
 import 'package:sertton/core/checkout/interfaces/checkout_service.dart';
-import 'package:sertton/core/checkout/stores/cart_store.dart';
+import 'package:sertton/ui/checkout/stores/cart_store.dart';
 
 import 'package:sertton/rest/services.dart';
 
@@ -43,6 +44,7 @@ class CartScreenPresenter {
   final CatalogService _catalogService;
   final CheckoutService _checkoutService;
   final CartStore _cartStore;
+  final UrlDriver _urlDriver;
 
   final isLoading = signal(true);
   final hasError = signal(false);
@@ -86,9 +88,11 @@ class CartScreenPresenter {
     required CatalogService catalogService,
     required CheckoutService checkoutService,
     required CartStore cartStore,
+    required UrlDriver urlDriver,
   }) : _catalogService = catalogService,
        _checkoutService = checkoutService,
-       _cartStore = cartStore {
+       _cartStore = cartStore,
+       _urlDriver = urlDriver {
     effect(() async {
       _cartStore.items.value;
       loadCartProducts();
@@ -192,8 +196,8 @@ class CartScreenPresenter {
     if (response.isFailure) return;
 
     final uri = Uri.parse(response.body);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    if (await _urlDriver.canLaunch(uri)) {
+      await _urlDriver.launch(uri);
       clearCart();
     }
   }
@@ -205,10 +209,12 @@ final cartScreenPresenterProvider = Provider.autoDispose<CartScreenPresenter>((
   final catalogService = ref.read(catalogServiceProvider);
   final checkoutService = ref.read(checkoutServiceProvider);
   final cartStore = ref.watch(cartStoreProvider);
+  final urlDriver = ref.read(urlDriverProvider);
 
   return CartScreenPresenter(
     catalogService: catalogService,
     checkoutService: checkoutService,
     cartStore: cartStore,
+    urlDriver: urlDriver,
   );
 });
