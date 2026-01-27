@@ -1,3 +1,4 @@
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/core/global/interfaces/navigation_driver.dart';
 import 'package:sertton/core/global/interfaces/url_driver.dart';
@@ -38,4 +39,9 @@ final drawerMenuPresenterProvider = Provider.autoDispose((ref) {
     navigation: ref.watch(navigationDriverProvider),
     urlDriver: ref.watch(urlDriverProvider),
   );
+});
+
+final appVersionProvider = FutureProvider<String>((ref) async {
+  final packageInfo = await PackageInfo.fromPlatform();
+  return 'Versão ${packageInfo.version}';
 });

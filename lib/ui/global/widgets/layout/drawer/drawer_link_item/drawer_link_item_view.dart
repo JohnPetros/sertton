@@ -6,12 +6,14 @@ class DrawerLinkItemView extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback onTap;
+  final Color? color;
 
   const DrawerLinkItemView({
     super.key,
     required this.icon,
     required this.title,
     required this.onTap,
+    this.color,
   });
 
   @override
@@ -21,8 +23,11 @@ class DrawerLinkItemView extends StatelessWidget {
       child: shadcn.GhostButton(
         onPressed: onTap,
         alignment: Alignment.centerLeft,
-        leading: FaIcon(icon, size: 18),
-        child: Text(title).medium(),
+        leading: FaIcon(icon, size: 18, color: color),
+        child: Text(
+          title,
+          style: color != null ? TextStyle(color: color) : null,
+        ).medium(),
       ),
     );
   }

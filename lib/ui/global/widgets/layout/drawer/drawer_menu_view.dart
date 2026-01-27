@@ -35,6 +35,7 @@ class DrawerMenuView extends ConsumerWidget {
                   DrawerLinkItem(
                     icon: FontAwesomeIcons.whatsapp,
                     title: SerttonContacts.whatsappLabel,
+                    color: const Color.fromARGB(255, 15, 134, 59),
                     onTap: () {
                       Navigator.pop(context);
                       presenter.openUrl(
@@ -93,14 +94,20 @@ class DrawerMenuView extends ConsumerWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(24.0),
-            child: Text(
-              'Versão 1.0.0',
-              style: TextStyle(
-                fontSize: 12,
-                color: theme.colorScheme.mutedForeground,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            child: ref
+                .watch(appVersionProvider)
+                .when(
+                  data: (version) => Text(
+                    version,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: theme.colorScheme.mutedForeground,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  loading: () => const SizedBox.shrink(),
+                  error: (_, __) => const SizedBox.shrink(),
+                ),
           ),
         ],
       ),
