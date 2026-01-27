@@ -13,6 +13,10 @@ void main() {
   late MockUrlDriver urlDriver;
   late DrawerMenuPresenter presenter;
 
+  setUpAll(() {
+    registerFallbackValue(Uri.parse('http://example.com'));
+  });
+
   setUp(() {
     navigationDriver = MockNavigationDriver();
     urlDriver = MockUrlDriver();
