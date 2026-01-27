@@ -24,7 +24,10 @@ void main() {
   Widget createWidget() {
     return shadcn.ShadcnApp(
       home: ProviderScope(
-        overrides: [drawerMenuPresenterProvider.overrideWithValue(presenter)],
+        overrides: [
+          drawerMenuPresenterProvider.overrideWithValue(presenter),
+          appVersionProvider.overrideWith((ref) => 'Versão Teste'),
+        ],
         child: Scaffold(
           drawer: const DrawerMenuView(),
           body: Builder(
@@ -55,7 +58,7 @@ void main() {
       // Verify Headers
       expect(find.text('FALE CONOSCO'), findsOneWidget);
       expect(find.text('INSTITUCIONAL'), findsOneWidget);
-      expect(find.text('Versão 1.0.0'), findsOneWidget);
+      expect(find.text('Versão Teste'), findsOneWidget);
 
       // Verify Contact Links
       expect(find.text(SerttonContacts.whatsappLabel), findsOneWidget);
