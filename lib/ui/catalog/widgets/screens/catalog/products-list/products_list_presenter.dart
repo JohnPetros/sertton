@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
-import 'package:sertton/core/catalog/stores/catalog_store.dart';
+import 'package:sertton/ui/catalog/stores/catalog_store.dart';
 import 'package:sertton/rest/services.dart';
 import 'package:signals/signals.dart';
 

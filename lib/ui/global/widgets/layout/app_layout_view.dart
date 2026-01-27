@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sertton/core/catalog/stores/catalog_store.dart';
+import 'package:sertton/ui/catalog/stores/catalog_store.dart';
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/drivers/navigation-driver/index.dart';
 import 'package:sertton/ui/global/widgets/app-header/index.dart';

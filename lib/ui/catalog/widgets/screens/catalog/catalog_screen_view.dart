@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide Scaffold;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sertton/core/catalog/stores/catalog_store.dart';
+import 'package:sertton/ui/catalog/stores/catalog_store.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/filters-bar/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/products_list_presenter.dart';

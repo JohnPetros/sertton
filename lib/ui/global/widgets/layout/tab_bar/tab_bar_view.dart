@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sertton/core/checkout/stores/cart_store.dart';
-import 'package:sertton/ui/global/widgets/layout/tab_bar/components/tab_bar_item/index.dart';
+import 'package:sertton/ui/checkout/stores/cart_store.dart';
+import 'package:sertton/ui/global/widgets/layout/tab_bar/tab_bar_item/index.dart';
 import 'package:sertton/ui/global/widgets/layout/tab_bar/tab_bar_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart' as shadcn;
 import 'package:signals/signals_flutter.dart';
