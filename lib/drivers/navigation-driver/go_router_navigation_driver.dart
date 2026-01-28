@@ -18,4 +18,9 @@ class GoRouterNavigationDriver implements NavigationDriver {
       _router.pop();
     }
   }
+
+  @override
+  bool canGoBack() {
+    return _router.canPop();
+  }
 }
