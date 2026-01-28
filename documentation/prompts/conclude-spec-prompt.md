@@ -24,9 +24,9 @@ Finalizar e consolidar a implementação de uma Spec técnica, garantindo que o 
         *   **Ação:** Gere ou atualize um diagrama ASCII (fluxo de dados ou sequência) para facilitar a visualização da implementação final.
         *   Utilize a notação `ASCII` dentro de blocos de código específicos.
 
-4.  **Preparação para o Commit:**
-    *   Agrupe as mudanças logicamente de acordo com as camadas afetadas.
-    *   Prepare mensagens de commit seguindo as [diretrizes de desenvolvimento](documentation/developement-guidelines.md) (e.g., `✨ ui: implementar listagem de pedidos`).
-
-5.  **Geração de Resumo Final:**
+4.  **Geração de Resumo Final:**
     *   Forneça um resumo técnico do que foi concluído para facilitar a criação do PR subsequente.
+
+5. **Atualização de PRD:*
+    *   Leia novamente o PRD associado à Spec e atualize-o para refletir as alterações implementadas
+

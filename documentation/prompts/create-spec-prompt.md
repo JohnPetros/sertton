@@ -1,10 +1,4 @@
-Com certeza. Mantendo a estrutura exata que você pediu, mas injetando as instruções de qualidade (detalhamento de signals, paths, layout ASCII, etc.) dentro das **Diretrizes de Execução**.
-
-Aqui está o prompt otimizado:
-
----
-
-# Create Spec Skill
+# Prompt: Criar documento de Spec
 
 **Objetivo:**
 Detalhar a implementação técnica de uma feature, fix ou refatoração, atuando como um Tech Lead Sênior. O documento deve servir como uma ponte estritamente definida entre o PRD (Product Requirements Document) e o código, com nível de detalhe suficiente para que a implementação seja direta e sem ambiguidades.
@@ -45,22 +39,35 @@ Liste recursos da codebase que serão utilizados ou impactados.
 
 
 Descreva novos componentes dividindo por camadas. Para cada arquivo novo, detalhe:
-* **Camada Lógica (Presenters, Stores, Services):**
+* **Camada UI (Presenters, Stores):**
 * **Localização:** `caminho/do/arquivo.dart`
 * **Dependências:** O que deve ser injetado.
 * **Signals/Estado:** Liste as variáveis reativas (ex: `isLoading`, `items`).
 * **Computeds:** Variáveis derivadas (ex: `isEmpty`, `totalPrice`).
 * **Métodos:** Assinatura e responsabilidade.
 
-
-* **Camada UI (Widgets, Screens):**
-* **Localização:** `caminho/do/arquivo.dart`
+* **Camada UI (Views):**
+* **Localização:** `caminho/da/pasta`
+* **Bibliotecas de UI:** O que deve ser injetado.
 * **Props:** Parâmetros recebidos no construtor.
-* **Estados:** Como se comporta em Loading, Error, Empty, Content.
-* **Layout Visual (ASCII Art):** **OBRIGATÓRIO**. Desenhe a estrutura visual aproximada dos widgets para facilitar a montagem.
 
+* **Camada UI (Widgets):**
+* **Localização:** `caminho/da/pasta`
+* **Props:** Parâmetros recebidos no construtor.
+> Um widget sempre deve seguir o padrão MVP, ou seja, possui uma View e, caso apresente estados ou providers, um Presenter.
+> Caso o widget tenha widgets internos, deve-se seguir o mesmo padrão descrito acima para Camada UI (Widgets, Views e Presenters).
 
+* **Camada REST (Services):**
+* **Localização:** `caminho/do/arquivo.dart`
+* **Dependências:** O que deve ser injetado.
+* **Métodos:** Assinatura e responsabilidade.
 
+* **Camada Drivers (Drivers):**
+* **Localização:** `caminho/do/arquivo.dart`
+* **Dependências:** O que deve ser injetado.
+* **Métodos:** Assinatura e responsabilidade.
+
+> Nem todas as camdas são obrigatórias para a implementação de uma feature, cabe a você decidir quais camadas deverão ser utilizadas.
 
 * ### 5. O que deve ser modificado? (Depende da tarefa)
 

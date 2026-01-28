@@ -77,7 +77,15 @@ class DrawerMenuView extends ConsumerWidget {
                     title: 'Termos e condições',
                     onTap: () {
                       Navigator.pop(context);
-                      presenter.navigateTo(Routes.termsOfUse);
+                      presenter.navigateTo(Routes.terms);
+                    },
+                  ),
+                  DrawerLinkItem(
+                    icon: FontAwesomeIcons.rotateLeft,
+                    title: 'Política de devolução',
+                    onTap: () {
+                      Navigator.pop(context);
+                      presenter.navigateTo(Routes.returnPolicy);
                     },
                   ),
                   DrawerLinkItem(
@@ -106,7 +114,7 @@ class DrawerMenuView extends ConsumerWidget {
                     textAlign: TextAlign.center,
                   ),
                   loading: () => const SizedBox.shrink(),
-                  error: (_, __) => const SizedBox.shrink(),
+                  error: (error, stack) => const SizedBox.shrink(),
                 ),
           ),
         ],

@@ -4,7 +4,8 @@ class Routes {
   static const String product = '/catalog/:productId';
   static const String cart = '/cart';
   static const String orders = '/orders';
-  static const String privacyPolicy = '/privacy-policy';
-  static const String termsOfUse = '/terms-conditions';
-  static const String about = '/about';
+  static const String privacyPolicy = '/institutional/privacy';
+  static const String returnPolicy = '/institutional/return';
+  static const String terms = '/institutional/terms';
+  static const String about = '/institutional/about';
 }

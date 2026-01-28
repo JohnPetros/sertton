@@ -71,7 +71,7 @@ void main() {
       expect(find.text('Sobre a Sertton Industrial'), findsOneWidget);
     });
 
-    testWidgets('should call navigateTo when clicking institutional links', (
+    testWidgets('should call navigateTo when clicking privacy policy', (
       tester,
     ) async {
       await tester.pumpWidget(createWidget());
@@ -82,26 +82,54 @@ void main() {
 
       // Tap Privacy Policy
       await tester.tap(find.text('Políticas de privacidade'));
-      await tester.pumpAndSettle(); // Allow pop animation
+      await tester.pumpAndSettle();
 
       verify(() => presenter.navigateTo(Routes.privacyPolicy)).called(1);
+    });
 
-      // Re-open (since it popped)
+    testWidgets('should call navigateTo when clicking terms', (tester) async {
+      await tester.pumpWidget(createWidget());
+
+      // Open the drawer
       await tester.tap(find.text('Open Drawer'));
       await tester.pumpAndSettle();
+
+      final itemFinder = find.text('Termos e condições');
+      await tester.scrollUntilVisible(
+        itemFinder,
+        500.0,
+        scrollable: find.descendant(
+          of: find.byType(Drawer),
+          matching: find.byType(Scrollable),
+        ),
+      );
 
       // Tap Terms of Use
-      await tester.tap(find.text('Termos e condições'));
+      await tester.tap(itemFinder);
       await tester.pumpAndSettle();
 
-      verify(() => presenter.navigateTo(Routes.termsOfUse)).called(1);
+      verify(() => presenter.navigateTo(Routes.terms)).called(1);
+    });
 
-      // Re-open
+    testWidgets('should call navigateTo when clicking about', (tester) async {
+      await tester.pumpWidget(createWidget());
+
+      // Open the drawer
       await tester.tap(find.text('Open Drawer'));
       await tester.pumpAndSettle();
 
+      final itemFinder = find.text('Sobre a Sertton Industrial');
+      await tester.scrollUntilVisible(
+        itemFinder,
+        500.0,
+        scrollable: find.descendant(
+          of: find.byType(Drawer),
+          matching: find.byType(Scrollable),
+        ),
+      );
+
       // Tap About
-      await tester.tap(find.text('Sobre a Sertton Industrial'));
+      await tester.tap(itemFinder);
       await tester.pumpAndSettle();
 
       verify(() => presenter.navigateTo(Routes.about)).called(1);

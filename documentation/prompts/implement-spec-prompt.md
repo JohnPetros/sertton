@@ -1,4 +1,4 @@
-# Prompt: Implement Spec
+# Prompt: Implementar Spec
 
 **Objetivo:**
 Executar o plano de implementação técnica de forma iterativa, organizada e validada, garantindo qualidade e integração contínua.
