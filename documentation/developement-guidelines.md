@@ -40,11 +40,10 @@ Os commits seguem o padrão [Conventional Commits](https://www.conventionalcommi
 
 | Tipo | Emoji | Descrição |
 | --- | --- | --- |
-| `domain` | 🌐 | Mudanças na camada de domínio |
+| `domain` | 🌐 | Mudanças na camada core |
 | `rest` | 📶 | Mudanças na API REST |
 | `ui` | 🖥️ | Componentes de UI (Interface do Usuário) |
 | `db` | 💾 | Mudanças no banco de dados |
-| `use case` | ✨ | Implementação de caso de uso |
 | `interface` | 📑 | Definições de interface |
 | `type` | 🏷️ | Definições de tipos |
 | `docs` | 📚 | Documentação |
@@ -65,7 +64,7 @@ Os commits seguem o padrão [Conventional Commits](https://www.conventionalcommi
 📑 interface: adicionar AchievementsRepository
 
 # Casos de uso (nenhum verbo necessário)
-✨ use case: listar todos os desafios
+♻️ refactor: listar todos os desafios
 🧪 test: caso de uso de listar todos os desafios
 
 ```
