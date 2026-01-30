@@ -47,7 +47,7 @@ app.*.map.json
 .env
 
 # Agents
-.agent
+# .agent
 .agents
 .windsurf
 .codex

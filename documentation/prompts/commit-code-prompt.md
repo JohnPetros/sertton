@@ -8,7 +8,7 @@ Gerar mensagens de commit altamente descritivas e padronizadas para as alteraç�
 1.  **Análise do Contexto:**
     *   Analise somente o nome dos arquivos alterados para entender exatamente o que mudou
     *   Agrupe as alterações por responsabilidade. Se houver mudanças em camadas diferentes (ex: UI e REST), sugira commits separados.
-    *   Analise o conteúdo dos arquivos agrupados alterados para entender exatamente o que mudou
+    *   Não precise analisar o conteúdo dos arquivos agrupados alterados para entender exatamente o que mudou
 
 2.  **Padrão de Mensagem (Strict):**
     Cada commit deve seguir o formato: `emoji prefix: concise description in English`.
