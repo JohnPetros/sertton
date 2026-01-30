@@ -31,8 +31,8 @@ Cada tela terá seu MVP. Os Presenters buscarão os dados diretamente de `Instit
 **1. Política de Privacidade**
 * **Presenter:**
     * **Localização:** `lib/ui/institutional/widgets/screens/privacy_policy/privacy_policy_presenter.dart`
-    * **Signals:** `isLoading` (opcional, pode ser removido se for instantâneo), `policy (String)`.
-    * **Métodos:** `loadPolicy()` (carrega de `InstitutionalContent`).
+    * **Signals:** `isLoading` (opcional), `sections (List<({String title, String content})>)`.
+    * **Inicialização:** O conteúdo é carregado diretamente no signal através de `InstitutionalContent.privacyPolicy`.
 * **View:**
     * **Localização:** `lib/ui/institutional/widgets/screens/privacy_policy/privacy_policy_screen.dart`
     * **Comportamento:** Exibe o texto formatado.
@@ -40,7 +40,8 @@ Cada tela terá seu MVP. Os Presenters buscarão os dados diretamente de `Instit
 **2. Política de Devolução**
 * **Presenter:**
     * **Localização:** `lib/ui/institutional/widgets/screens/return_policy/return_policy_presenter.dart`
-    * **Signals:** `policy (String)`.
+    * **Signals:** `sections (List<({String title, String content})>)`.
+    * **Inicialização:** O conteúdo é carregado diretamente no signal através de `InstitutionalContent.returnPolicy`.
 * **View:**
     * **Localização:** `lib/ui/institutional/widgets/screens/return_policy/return_policy_screen.dart`
     * **Comportamento:** Exibe regras e botão/link para contato de suporte.
@@ -49,6 +50,7 @@ Cada tela terá seu MVP. Os Presenters buscarão os dados diretamente de `Instit
 * **Presenter:**
     * **Localização:** `lib/ui/institutional/widgets/screens/terms_conditions/terms_conditions_presenter.dart`
     * **Signals:** `sections (List<({String title, String content})>)`.
+    * **Inicialização:** O conteúdo é carregado diretamente no signal através de `InstitutionalContent.terms`.
 * **View:**
     * **Localização:** `lib/ui/institutional/widgets/screens/terms_conditions/terms_conditions_screen.dart`
     * **Comportamento:** Lista de `Accordion` (shadcn) para cada tópico.

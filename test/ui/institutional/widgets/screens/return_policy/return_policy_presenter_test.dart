@@ -10,11 +10,7 @@ void main() {
   });
 
   group('ReturnPolicyPresenter', () {
-    test('should load policy sections initially', () {
-      expect(presenter.sections.value, isEmpty);
-
-      presenter.loadPolicy();
-
+    test('should have policy sections initially', () {
       expect(presenter.sections.value, isNotEmpty);
       expect(presenter.sections.value, InstitutionalContent.returnPolicy);
     });

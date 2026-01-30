@@ -42,6 +42,11 @@ import 'catalog_screen_view.dart';
 typedef CatalogScreen = CatalogScreenView;
 ```
 
+### Widgets internos
+
+- Se sentir necessário criar um widget interno, crie uma pasta para ele dentro da pasta do widget maior. Não crie um pasta `widgets` ou `components` dentro do widget pai.
+- Widgets internos também devem seguir o padrão MVP (Model-View-Presenter).
+
 ### Signals (Estado Reativo)
 
 | Tipo | Uso |

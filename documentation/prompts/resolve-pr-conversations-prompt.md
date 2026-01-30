@@ -54,5 +54,10 @@ Relate o progresso, indicando:
 * [x] Arquivo X: Comentário sobre Y resolvido (descrição da mudança).
 * [x] Arquivo Z: Ajuste de padrão realizado.
 
-### Passo 5: Atualização da documentação relacionada
+### Passo 5: Validação
+Execute o analyzer e teste os testes:
+* `flutter analyze`.
+* `flutter test`.
+
+### Passo 6: Atualização da documentação relacionada
 Anaalise o documento de Spec, ou Bug Report, ou PRD da funcionalidade relacionada e atualize-a caso seja necessário com as novas alterações

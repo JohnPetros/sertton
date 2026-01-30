@@ -11,10 +11,6 @@ void main() {
 
   group('TermsConditionsPresenter', () {
     test('should load terms sections initially', () {
-      expect(presenter.sections.value, isEmpty);
-
-      presenter.loadSections();
-
       expect(presenter.sections.value, isNotEmpty);
       expect(presenter.sections.value, InstitutionalContent.terms);
     });
