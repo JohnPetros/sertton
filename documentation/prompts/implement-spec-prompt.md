@@ -10,15 +10,14 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
 
 1.  **Validação de Diretrizes e Arquitetura:**
     Antes de iniciar a implementação, certifique-se de que compreende as diretrizes e a estrutura do projeto:
-    *   **Arquitetura & Clean Architecture:** `documentation\architecture.md` (Fonte primária de verdade)
+    *   **Visão macro do projeto:** `documentation\overview.md`
+    *   **Arquitetura:** `documentation\architecture.md`
     *   **Padronização de Código:** `documentation\code-conventions-guidelines.md`
     *   **Diretrizes de Camadas:**
         *   **Core:** `documentation\core-layer-guidelines.md`
         *   **UI:** `documentation\ui-layer-guidelines.md`
         *   **REST:** `documentation\rest-layer-guidelines.md`
         *   **Drivers:** `documentation\drivers-layer-guidelines.md`
-    *   **Padrões de Testes:** `documentation\unit-tests-guidelines.md`
-    *   **Estratégia de Branch & Commits:** `documentation\developement-guidelines.md`
 
 2.  **Decomposição Atômica:**
     *   Divida o plano macro em micro-tarefas atômicas.
@@ -34,10 +33,11 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
     *   **Regra:** Nunca implemente um componente consumidor (ex: Widget) antes de implementar a lógica/dados que ele consome.
 
 4.  **Ciclo de Qualidade e Verificação (Por Tarefa):**
-    Ao finalizar a codificação de *cada micro-tarefa*, execute os passos de validação ANTES de passar para a próxima:
+    Ao finalizar a codificação de *cada micro-tarefa*, execute os passos de validação ANTES de passar para a próxima usando o MCP de dart:
     *   **Formatação:** Execute `dart format .`
-    *   **Análise Estática:** Execute `flutter analyze` (ou utilize ferramentas MCP do dart).
-    *   **Critério de Aceite:** Corrija imediatamente quaisquer erros ou recomendações do linter. Não avance com código "sujo".
+    *   **Análise Estática:** Execute `flutter analyze`.
+    *   **Análise de Testes:** Execute `flutter test`.
+    *   **Critério de Aceite:** Corrija imediatamente quaisquer erros ou recomendações do linter, também corrija erros de testes. Não avance com código "sujo".
 
 5.  **Uso de Ferramentas Auxiliares (Context7):**
     *   Caso tenha dúvidas sobre como usar uma biblioteca específica (ex: `shadcn_flutter`), utilize o MCP do Context7 para obter documentação e exemplos de uso.
