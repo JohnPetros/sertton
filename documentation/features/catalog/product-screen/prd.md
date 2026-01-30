@@ -62,9 +62,22 @@ A estrutura de dados baseia-se no conceito de que um Produto Pai possui múltipl
 
 **G. Seção de produtos relacionados**
 
-* [ ] Exibir seção **"Produtos relacionados"** com os produtos relacionados ao produto pai.
-* [ ] Exibir os produtos relacionados em uma linha com scroll horizontal.
-* [ ] O visual e layout deve ser exatamente igual ao da seção de coleções de produtos na tela Home.
+* [x] Exibir seção **"Produtos relacionados"** com os produtos relacionados ao produto pai.
+* [x] Exibir os produtos relacionados em uma linha com scroll horizontal.
+* [x] O visual e layout deve ser exatamente igual ao da seção de coleções de produtos na tela Home.
+
+**H. Tabela de opções de parcelamentos**
+
+* [x] **Acesso:** Deve haver um gatilho (link ou botão, ex: "Ver parcelas") próximo ao preço na tela principal para abrir este modal.
+* [x] **Modal:** O conteúdo deve ser exibido em um modal sobreposto (overlay) com título "Parcelamento" e botão de fechar (X) no topo.
+* [x] **Seletor de Forma de Pagamento:** Campo do tipo dropdown com o label "BANDEIRA". Deve permitir selecionar a forma de pagamento (ex: Hiper, Visa) e exibir o ícone correspondente.
+* [x] **Resumo:** Exibir texto informativo "Valores para 1 unidade do produto" acima da tabela.
+* [x] **Tabela de Dados:**
+    * [x] Colunas obrigatórias: **"Nº parcela"**, **"Valor da parcela"** e **"Total do produto"**.
+    * [x] Linhas: Listar as opções de 1x até o máximo permitido (ex: 8x, 10x).
+    * [x] Detalhes: Exibir o valor formatado (ex: "3x de R$ 154,12 sem juros") e o total acumulado.
+* [x] **Scroll:** A área da tabela deve possuir rolagem vertical caso a lista de parcelas exceda a altura do modal.
+
 
 ## 5. Observações de UI/Design
 

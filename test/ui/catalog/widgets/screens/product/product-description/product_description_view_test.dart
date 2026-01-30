@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:sertton/ui/catalog/widgets/screens/product/product-description/product_description_presenter.dart';
 import '../../../../../../fakers/product_faker.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-description/index.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
@@ -25,7 +26,7 @@ void main() {
             (ref, p) => presenter,
           ),
         ],
-        child: ProductDescriptionView(product: product),
+        child: ProductDescription(product: product),
       ),
     );
   }

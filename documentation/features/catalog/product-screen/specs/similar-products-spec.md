@@ -22,29 +22,29 @@ Implementar a seção de produtos relacionados na tela de detalhes do produto (P
 
 ### Camada UI
 
-*   **SimilarProductsSection** (`lib/ui/catalog/widgets/screens/product/related-products/related_products_section_view.dart`):
-    *   Widget responsável por exibir o título "Produtos relacionados" e o carrossel horizontal.
-    *   Deve tratar estados de carregamento (utilizando skeleton) e lista vazia (ocultar seção).
-    *   Deve utilizar `ProductCard` com largura fixa (igual ao da Home, ex: 200px) e `isColumn: true`.
-    *   Título deve usar tipografia `h4` com `FontWeight.bold`, consistente com a Home.
+-  **SimilarProductsSection** (`lib/ui/catalog/widgets/screens/product/related-products/related_products_section_view.dart`):
+    -   Widget responsável por exibir o título "Produtos relacionados" e o carrossel horizontal.
+    -   Deve tratar estados de carregamento (utilizando skeleton) e lista vazia (ocultar seção).
+    -   Deve utilizar `ProductCard` com largura fixa (igual ao da Home, ex: 200px) e `isColumn: true`.
+    -   Título deve usar tipografia `h4` com `FontWeight.bold`, consistente com a Home.
 
-*   **SimilarProductsPresenter** (`lib/ui/catalog/widgets/screens/product/related-products/related_products_presenter.dart`):
-    *   Gerenciador de estado (via `signals`) para a lista de produtos relacionados.
-    *   Deve chamar `catalogService.fetchSimiliarProducts(productId)` na inicialização.
-    *   Deve expor o estado de carregamento e a lista de produtos.
+-   **SimilarProductsPresenter** (`lib/ui/catalog/widgets/screens/product/related-products/related_products_presenter.dart`):
+    -   Gerenciador de estado (via `signals`) para a lista de produtos relacionados.
+    -   Deve chamar `catalogService.fetchSimiliarProducts(productId)` na inicialização.
+    -   Deve expor o estado de carregamento e a lista de produtos.
 
 ## O que deve ser modificado?
 
 ### Camada UI
 
-*   **ProductScreenView** (`lib/ui/catalog/widgets/screens/product/product_screen_view.dart`):
-    *   Inserir o widget `RelatedProductsSection` no final do `SingleChildScrollView` (ou estrutura equivalente), após as especificações técnicas.
+-   **ProductScreenView** (`lib/ui/catalog/widgets/screens/product/product_screen_view.dart`):
+    -   Inserir o widget `RelatedProductsSection` no final do `SingleChildScrollView` (ou estrutura equivalente), após as especificações técnicas.
 
 ## O que deve ser removido?
 Não se aplica.
 
 ## Usar como referência
-*   `lib/ui/global/widgets/screens/home/marketing-section/marketing-collection/marketing_collection_view.dart`: Copiar a estrutura do `ListView.separated` horizontal e uso de skeletons.
+-   `lib/ui/global/widgets/screens/home/marketing-section/marketing-collection/marketing_collection_view.dart`: Copiar a estrutura do `ListView.separated` horizontal e uso de skeletons.
 
 ## Diagramas de Visualização
 

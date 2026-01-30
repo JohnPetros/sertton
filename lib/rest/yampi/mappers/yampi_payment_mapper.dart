@@ -6,6 +6,7 @@ class YampiPaymentMapper {
     final methodFromTransaction = json['payment_method'] ?? json['status'];
 
     return PaymentDto(
+      id: json['id'].toString(),
       name:
           json['name'] ??
           json['payment_method_name'] ??
@@ -34,6 +35,7 @@ class YampiPaymentMapper {
     }
 
     return PaymentDto(
+      id: '',
       name: 'N/A',
       icon: '',
       pdf: null,

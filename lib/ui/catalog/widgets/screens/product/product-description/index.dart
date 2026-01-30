@@ -1,2 +1,3 @@
-export 'product_description_presenter.dart';
-export 'product_description_view.dart';
+import 'package:sertton/ui/catalog/widgets/screens/product/product-description/product_description_view.dart';
+
+typedef ProductDescription = ProductDescriptionView;

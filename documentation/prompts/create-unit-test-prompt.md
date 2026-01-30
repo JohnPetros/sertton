@@ -38,10 +38,9 @@ Orientar a criação de testes unitários e de widget padronizados e eficientes,
 *   **Código Autoexplicativo:** O código de teste deve ser legível por si só. **Não inclua comentários** desnecessários; utilize nomes de testes descritivos.
 *   **Mocks:** Utilize `mocktail` para a criação de dublês de teste, seguindo o padrão do projeto.
 
-### 7. Dart MCP
+### 7. Execução de testes
 
-* **Obrigatório:** Utilize apenas o MCP do Dart para executar os testes.
-
+* **Obrigatório:** com `flutter test` execute os testes que foram acabados de criar, verifique se todos passaram. No final de tudo execute todos os testes do projeto para garantir que não houve regressão em nenhum teste.
 
 ---
 
@@ -53,4 +52,4 @@ Orientar a criação de testes unitários e de widget padronizados e eficientes,
     *   Fluxos de sucesso (Happy Path).
     *   Tratamento de erros e exceções.
     *   Estados de carregamento (Loading) e vazio (Empty), se aplicável.
-4.  **✅ Validação:** Utilize o MCP do Dart (`run_tests`) para validar a implementação e garantir que não houve regressões.
+4.  **✅ Validação:** Execute os testes com `flutter test` para validar a implementação e garantir que não houve regressões.

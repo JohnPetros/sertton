@@ -8,6 +8,7 @@ import 'package:sertton/ui/catalog/widgets/screens/product/product-description/i
 import 'package:sertton/ui/catalog/widgets/screens/product/similar-products/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_presenter.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
+import 'package:sertton/ui/catalog/widgets/components/installments-dialog/index.dart';
 import 'package:signals/signals_flutter.dart';
 
 class ProductScreenView extends ConsumerWidget {
@@ -73,6 +74,25 @@ class ProductScreenView extends ConsumerWidget {
                 originalPrice: sku.salePrice,
                 currentPrice: sku.discountPrice,
               ),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierColor: Colors.black.withValues(alpha: 0.6),
+                    builder: (context) => InstallmentsDialog(
+                      productId: productId,
+                      productPrice: sku.discountPrice,
+                    ),
+                  );
+                },
+                child: Text(
+                  'Ver opções de parcelamento',
+                  style: theme.typography.small.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 24),
 
@@ -116,7 +136,7 @@ class ProductScreenView extends ConsumerWidget {
 
               const SizedBox(height: 48),
 
-              ProductDescriptionView(product: product),
+              ProductDescription(product: product),
 
               const SizedBox(height: 48),
 
