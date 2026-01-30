@@ -8,11 +8,31 @@ import 'package:sertton/ui/global/widgets/layout/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/orders/index.dart';
+import 'package:sertton/ui/institutional/widgets/screens/privacy_policy/index.dart';
+import 'package:sertton/ui/institutional/widgets/screens/return_policy/index.dart';
+import 'package:sertton/ui/institutional/widgets/screens/terms_conditions/index.dart';
+import 'package:sertton/ui/institutional/widgets/screens/about_company/index.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: Routes.home,
     routes: [
+      GoRoute(
+        path: Routes.privacyPolicy,
+        builder: (context, state) => const PrivacyPolicyScreen(),
+      ),
+      GoRoute(
+        path: Routes.returnPolicy,
+        builder: (context, state) => const ReturnPolicyScreen(),
+      ),
+      GoRoute(
+        path: Routes.terms,
+        builder: (context, state) => const TermsConditionsScreen(),
+      ),
+      GoRoute(
+        path: Routes.about,
+        builder: (context, state) => const AboutCompanyScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return AppLayout(navigationShell: navigationShell);

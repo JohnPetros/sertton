@@ -5,7 +5,7 @@ Padronizar a criação de Product Requirements Documents (PRDs), garantindo clar
 
 **Entradas:**  
 1.  Esboço, rascunho ou descrição detalhada da funcionalidade.
-2.  Código relevante da camada **Core** (DTOs, Entidades) ou **UI** para contexto técnico.
+2.  Informações gerais e adicionais, código relevante ou screenshots da **UI** para mais contexto.
 
 **Diretrizes de Execução:**  
 1.  Adote a persona de **Product Manager** descrita no prompt abaixo.
@@ -46,6 +46,8 @@ Antes de escrever o PRD, você DEVE fazer perguntas de negócio e UX para entend
 - Há limitações técnicas conhecidas?
 - Qual a volumetria esperada de dados/usuários?
 - Existem requisitos de performance específicos?
+
+**Se precisar de mais informações com base nas respostas, faça perguntas adicionais e repita a etapa 1 até que todas as informações necessárias  para o PRD sejam obtidas.**
 
 **Aguarde as respostas antes de prosseguir para a Etapa 2.**
 
@@ -95,23 +97,6 @@ Breve descrição do componente.
 #### B. [Componente Secundário]
 - [ ] Funcionalidade 1
 - [ ] Funcionalidade 2
-
----
-
-### 3. Requisitos de UI/Design
-
-Especifique aspectos visuais e de experiência:
-
-- [ ] **Paleta de Cores:** Definir cores para estados (hover, active, disabled, etc.)
-- [ ] **Tipografia:** Hierarquia de textos, tamanhos, pesos
-- [ ] **Espaçamento:** Margens, paddings, grid system
-- [ ] **Responsividade:** Breakpoints e adaptações
-- [ ] **Estados Visuais:** Loading, vazio, erro, sucesso
-- [ ] **Acessibilidade:** Contraste, navegação por teclado, leitores de tela
-- [ ] **Animações:** Transições e micro-interações
-
-**Formato de exemplo:**
-- [ ] **[Elemento Visual]:** Especificação (ex: `#2D9CDB` para botões primários)
 
 ---
 
@@ -178,6 +163,25 @@ Liste todas as regras lógicas e comportamentais do sistema. Cada regra deve:
 - Persistência de dados
 - Integrações com outros sistemas
 
+---
+
+### 3. Requisitos de UI/UX
+
+Especifique aspectos visuais e de experiência:
+
+- [ ] **Paleta de Cores:** Definir cores para estados (hover, active, disabled, etc.)
+- [ ] **Tipografia:** Hierarquia de textos, tamanhos, pesos
+- [ ] **Espaçamento:** Margens, paddings, grid system
+- [ ] **Responsividade:** Breakpoints e adaptações
+- [ ] **Estados Visuais:** Loading, vazio, erro, sucesso
+- [ ] **Acessibilidade:** Contraste, navegação por teclado, leitores de tela
+- [ ] **Animações:** Transições e micro-interações
+
+**Formato de exemplo:**
+- [ ] **[Elemento Visual]:** Especificação (ex: `#2D9CDB` para botões primários)
+
+---
+
 ## DICAS DE BOAS PRÁTICAS
 
 1. **Seja específico:** Evite ambiguidades. Use exemplos concretos.
@@ -192,7 +196,10 @@ Liste todas as regras lógicas e comportamentais do sistema. Cada regra deve:
 ## EXEMPLO DE USO
 
 **Input:**
-"Preciso de um PRD para uma funcionalidade de carrinho de compras com seleção rápida de variações de produto (tamanho, cor, material). O usuário deve poder adicionar itens rapidamente sem sair da página de listagem e gerenciar quantidades no carrinho."
+PRD: Carrinho de compras
+
+Visão Geral:
+funcionalidade de carrinho de compras com seleção rápida de variações de produto (tamanho, cor, material). O usuário deve poder adicionar itens rapidamente sem sair da página de listagem e gerenciar quantidades no carrinho.
 
 **Output esperado:**
 Um PRD completo seguindo todas as seções acima, com regras de negócio detalhadas, requisitos funcionais organizados por componente (Dialog de Seleção, Carrinho, Resumo Financeiro), especificações de UI e requisitos não funcionais.
