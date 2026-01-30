@@ -1,4 +1,4 @@
-# 🚚 Sertton
+<h1 align="center">🚚 Sertton</h1>
 
 Aplicativo de e-commerce nativo desenvolvido em **Flutter** para a marca **Sertton**. O projeto foca em alta performance, fluidez de navegação e uma integração robusta com a plataforma **Yampi** para gestão de produtos e pedidos.
 
