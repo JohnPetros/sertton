@@ -5,6 +5,10 @@ import 'package:sertton/ui/institutional/constants/institutional_content.dart';
 class ReturnPolicyPresenter {
   final sections = signal<List<({String title, String content})>>([]);
 
+  ReturnPolicyPresenter() {
+    loadPolicy();
+  }
+
   void loadPolicy() {
     sections.value = InstitutionalContent.returnPolicy;
   }
@@ -12,7 +16,5 @@ class ReturnPolicyPresenter {
 
 final returnPolicyPresenterProvider =
     Provider.autoDispose<ReturnPolicyPresenter>((ref) {
-      final presenter = ReturnPolicyPresenter();
-      presenter.loadPolicy();
-      return presenter;
+      return ReturnPolicyPresenter();
     });

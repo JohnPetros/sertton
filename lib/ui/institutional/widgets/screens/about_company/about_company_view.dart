@@ -53,6 +53,21 @@ class AboutCompanyScreenView extends ConsumerWidget {
             label: info.phone,
             onTap: () => presenter.openContact('tel:${info.phone}'),
           ),
+          const SizedBox(height: 24),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text('Redes Sociais', style: theme.typography.h4),
+          ),
+          const SizedBox(height: 16),
+          ...info.socialMedia.map(
+            (item) => _ContactItem(
+              icon: item.label.toLowerCase() == 'instagram'
+                  ? shadcn.LucideIcons.instagram
+                  : shadcn.LucideIcons.facebook,
+              label: item.label,
+              onTap: () => presenter.openContact(item.url),
+            ),
+          ),
         ],
       ),
     );
