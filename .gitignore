@@ -47,4 +47,10 @@ app.*.map.json
 .env
 
 # Agents
-# .agent
+.agent
+.agents
+.windsurf
+.codex
+.cursor
+.gemini
+.replit
