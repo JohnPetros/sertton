@@ -11,29 +11,29 @@ A **Splash Screen** é a primeira tela apresentada ao usuário ao iniciar o apli
 #### Tela de Splash
 **Descrição:** Tela inicial contendo a composição animada de ícones, animação Lottie e título da marca.
 
-* [ ] **Animação Principal (Lottie):** Exibir animação de um caminhão em movimento (loop) no centro da tela.
-* [ ] **Animação de Ícones:** Exibir ícones de "Bolsa" e "Dólar" entrando em cena e rotacionando para se posicionarem ao lado do caminhão.
-* [ ] **Animação de Texto:** Exibir o nome "Sertton" surgindo abaixo da composição principal.
-* [ ] **Redirecionamento Automático:** Navegar automaticamente para a rota `Home` após o término da sequência de animação.
+* [x] **Animação Principal (Lottie):** Exibir animação de um caminhão em movimento (loop) no centro da tela.
+* [x] **Animação de Ícones:** Exibir ícones de "Bolsa" e "Dólar" entrando em cena e rotacionando para se posicionarem ao lado do caminhão.
+* [x] **Animação de Texto:** Exibir o nome "Sertton" surgindo abaixo da composição principal.
+* [x] **Redirecionamento Automático:** Navegar automaticamente para a rota `Home` após o término da sequência de animação.
 
 #### Regras de Negócio
 
-* [ ] **Duração Fixa:** A tela deve permanecer visível por exatos 2 segundos para garantir a visualização da marca.
-* [ ] **Independência de Dados:** O redirecionamento deve ocorrer sem depender de chamadas de API ou persistência.
-* [ ] **Sem Autenticação:** A tela não deve barrar usuários não autenticados, seguindo sempre para a Home pública.
+* [x] **Duração Fixa:** A tela deve permanecer visível por exatos 2 segundos para garantir a visualização da marca.
+* [x] **Independência de Dados:** O redirecionamento deve ocorrer sem depender de chamadas de API ou persistência.
+* [x] **Sem Autenticação:** A tela não deve barrar usuários não autenticados, seguindo sempre para a Home pública.
 
 #### Regras de UI/UX
 
-* [ ] **Cores:** Utilizar a cor **Primária** do projeto para todos os elementos vetoriais e textos.
-* [ ] **Tipografia:** Texto "Sertton" com `fontSize: 24` e `fontWeight: '600'`.
-* [ ] **Ícones:** Utilizar ícones da biblioteca **FontAwesome** (Shopping Bag e Dollar Sign).
-* [ ] **Asset Lottie:** Utilizar o arquivo `truck.json` com largura/altura de 250.
-* [ ] **Comportamento da Animação:**
+* [x] **Cores:** Utilizar a cor **Primária** do projeto para todos os elementos vetoriais e textos.
+* [x] **Tipografia:** Texto "Sertton" com `fontSize: 24` e `fontWeight: '600'`.
+* [x] **Ícones:** Utilizar ícones da biblioteca **FontAwesome** (Shopping Bag e Dollar Sign).
+* [x] **Asset Lottie:** Utilizar o arquivo `truck.json` com largura/altura de 250.
+* [x] **Comportamento da Animação:**
     *   **Caminhão:** Centralizado, `autoplay` e `loop`.
     *   **Bolsa:** Surge à esquerda com rotação de -50°.
     *   **Dólar:** Surge à direita com rotação de 50°.
     *   **Transição:** Entrada via `RollIn` e texto via `FadeInDown`.
-* [ ] **Responsividade:** Garantir que a composição (Ícones + Caminhão + Texto) esteja centralizada em qualquer densidade de tela.
+* [x] **Responsividade:** Garantir que a composição (Ícones + Caminhão + Texto) esteja centralizada em qualquer densidade de tela.
 
 ### 3. Fluxo de Usuário (User Flow)
 
