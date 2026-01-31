@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shadcn_flutter/shadcn_flutter.dart' hide Theme, Scaffold;
 
 import 'package:sertton/ui/global/widgets/screens/splash/splash_screen_presenter.dart';
 
