@@ -6,6 +6,7 @@ import 'package:sertton/ui/catalog/widgets/screens/catalog/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/index.dart';
 import 'package:sertton/ui/global/widgets/layout/index.dart';
 import 'package:sertton/ui/global/widgets/screens/home/index.dart';
+import 'package:sertton/ui/global/widgets/screens/splash/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/cart/index.dart';
 import 'package:sertton/ui/checkout/widgets/screens/orders/index.dart';
 import 'package:sertton/ui/institutional/widgets/screens/privacy_policy/index.dart';
@@ -15,8 +16,12 @@ import 'package:sertton/ui/institutional/widgets/screens/about_company/index.dar
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: Routes.home,
+    initialLocation: Routes.splash,
     routes: [
+      GoRoute(
+        path: Routes.splash,
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: Routes.privacyPolicy,
         builder: (context, state) => const PrivacyPolicyScreen(),

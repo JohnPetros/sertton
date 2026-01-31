@@ -14,7 +14,7 @@ Detalhar a implementação técnica de uma feature, fix ou refatoração, atuand
 1. **Pesquisa e Contextualização (Chain of Thought):**
     - **Mapeie o Fluxo:** Antes de escrever, entenda a origem e o destino dos dados (UI -> Store -> Service -> API).
     - **Verifique a Existência:** Investigue a codebase para identificar recursos existentes (Widgets, DTOs, Services) que devem ser reutilizados ou estendidos. Evite duplicidade.
-    - **Consulte Guidelines:** Aplique os padrões das camadas (`core`, `rest`, `ui`, `drivers`) e da stack (Riverpod, Signals).
+    - **Consulte Guidelines:** Leia os padrões das camadas (`core`, `rest`, `ui`, `drivers`) e da stack (Riverpod, Signals) de acordo com o escopo da tarefa.
     - **Identifique Referências:** Procure na codebase por exemplos similares ("copy-paste inteligente") para sugerir como referência.
 
 

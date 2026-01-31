@@ -8,4 +8,5 @@ class Routes {
   static const String returnPolicy = '/institutional/return';
   static const String terms = '/institutional/terms';
   static const String about = '/institutional/about';
+  static const String splash = '/splash';
 }

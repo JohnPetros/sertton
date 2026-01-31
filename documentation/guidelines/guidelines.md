@@ -5,6 +5,7 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes de Interface de Usuário (ui)
 **Arquivo:** `/documentation/guidelines/ui-layer-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado a UI.
 - Ao criar ou modificar Widgets Flutter (MVP Pattern).
 - Para entender a estrutura View/Presenter.
 - Para uso de gerenciamento de estado com `signals` e injeção com `riverpod`.
@@ -13,6 +14,7 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Convenções de Código
 **Arquivo:** `/documentation/guidelines/code-conventions-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado à código.
 - Para convenções gerais de nomenclatura (variáveis, funções, classes, arquivos).
 - Para regras sobre Barrel files (index.dart).
 - Para entender a estrutura de diretórios e organização geral.
@@ -20,6 +22,7 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes da Camada de Drivers
 **Arquivo:** `/documentation/guidelines/drivers-layer-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado a drivers.
 - Ao implementar adaptadores para bibliotecas externas (Env, Navegação, Armazenamento Loal, etc.).
 - Para entender como isolar infraestrutura da camada de domínio (Core).
 - Ao configurar inicializações de ferramentas de terceiros.
@@ -27,6 +30,7 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes do Pacote Core (core)
 **Arquivo:** `/documentation/guidelines/core-layer-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado à camada core.
 - Para entender a arquitetura de Domínio (Clean Architecture).
 - Ao definir Entidades, Casos de Uso (Use Cases) e Interfaces.
 - Para contratos de abstração que serão implementados por Drivers ou Repositórios.
@@ -34,12 +38,14 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes da Camada REST
 **Arquivo:** `/documentation/guidelines/rest-layer-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado à camada rest.
 - Ao realizar requisições HTTP para APIs externas.
 - Para implementar clientes REST e tratamento de respostas/erros de API.
 
 ## Diretrizes de Testes Unitários
 **Arquivo:** `/documentation/guidelines/unit-tests-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado à testes unitários.
 - Ao escrever testes para Casos de Uso, Presenters e outras classes de lógica.
 - Para entender padrões de Mocks e Fakers.
 - Para boas práticas de estrutura e nomenclatura de testes.
@@ -47,5 +53,6 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes de Desenvolvimento
 **Arquivo:** `/documentation/guidelines/developement-guidelines.md`
 **Quando consultar:**
+- Ao criar um documento relacionado à desenvolvimento.
 - Para fluxo de trabalho Git (Commits, PRs, Branches).
 - Para padrões de mensagens de commit e versionamento.
