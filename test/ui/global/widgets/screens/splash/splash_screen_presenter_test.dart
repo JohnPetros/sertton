@@ -14,14 +14,14 @@ void main() {
   });
 
   group('SplashScreenPresenter', () {
-    testWidgets('should navigate to home after 4 seconds', (tester) async {
+    testWidgets('should navigate to home after 2 seconds', (tester) async {
       final presenter = SplashScreenPresenter(navigationDriver);
 
       presenter.init();
 
       verifyNever(() => navigationDriver.go(Routes.home));
 
-      await tester.pump(const Duration(seconds: 4));
+      await tester.pump(const Duration(seconds: 2));
 
       verify(() => navigationDriver.go(Routes.home)).called(1);
     });

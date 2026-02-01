@@ -1,4 +1,4 @@
-# Prompt: Criar de PRD
+# Prompt: Criar PRD
 
 **Objetivo:**
 Padronizar a criação de Product Requirements Documents (PRDs), garantindo clareza técnica e alinhamento entre as equipes de produto, design e desenvolvimento.

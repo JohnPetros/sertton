@@ -8,20 +8,29 @@ import 'package:sertton/drivers/navigation-driver/index.dart';
 
 class SplashScreenPresenter {
   final NavigationDriver _navigationDriver;
+  Timer? _timer;
 
   SplashScreenPresenter(this._navigationDriver);
 
   void init() {
-    Timer(const Duration(seconds: 4), _navigateToHome);
+    _timer = Timer(const Duration(seconds: 2), _navigateToHome);
   }
 
   Future<void> _navigateToHome() async {
     _navigationDriver.go(Routes.home);
+  }
+
+  void dispose() {
+    _timer?.cancel();
   }
 }
 
 final splashScreenPresenterProvider =
     Provider.autoDispose<SplashScreenPresenter>((ref) {
       final navigationDriver = ref.read(navigationDriverProvider);
-      return SplashScreenPresenter(navigationDriver);
+      final presenter = SplashScreenPresenter(navigationDriver);
+
+      ref.onDispose(() => presenter.dispose());
+
+      return presenter;
     });

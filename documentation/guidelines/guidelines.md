@@ -14,7 +14,7 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Convenções de Código
 **Arquivo:** `/documentation/guidelines/code-conventions-guidelines.md`
 **Quando consultar:**
-- Ao criar um documento relacionado à código.
+- Ao criar um documento relacionado ao código.
 - Para convenções gerais de nomenclatura (variáveis, funções, classes, arquivos).
 - Para regras sobre Barrel files (index.dart).
 - Para entender a estrutura de diretórios e organização geral.
@@ -45,7 +45,7 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes de Testes Unitários
 **Arquivo:** `/documentation/guidelines/unit-tests-guidelines.md`
 **Quando consultar:**
-- Ao criar um documento relacionado à testes unitários.
+- Ao criar um documento relacionado a testes unitários.
 - Ao escrever testes para Casos de Uso, Presenters e outras classes de lógica.
 - Para entender padrões de Mocks e Fakers.
 - Para boas práticas de estrutura e nomenclatura de testes.
@@ -53,6 +53,6 @@ Este arquivo serve como índice para as diretrizes de documentação do projeto.
 ## Diretrizes de Desenvolvimento
 **Arquivo:** `/documentation/guidelines/developement-guidelines.md`
 **Quando consultar:**
-- Ao criar um documento relacionado à desenvolvimento.
+- Ao criar um documento relacionado ao desenvolvimento.
 - Para fluxo de trabalho Git (Commits, PRs, Branches).
 - Para padrões de mensagens de commit e versionamento.

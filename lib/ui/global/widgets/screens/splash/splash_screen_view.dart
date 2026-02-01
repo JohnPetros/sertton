@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,7 +40,7 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
                   child: Spin(
                     duration: const Duration(milliseconds: 800),
                     child: Transform.rotate(
-                      angle: -0.2,
+                      angle: -50 * pi / 180,
                       child: FaIcon(
                         FontAwesomeIcons.bagShopping,
                         color: const Color(0xFF6DD0E4),
@@ -62,7 +63,7 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
                   child: Spin(
                     duration: const Duration(milliseconds: 800),
                     child: Transform.rotate(
-                      angle: 0.2,
+                      angle: 50 * pi / 180,
                       child: FaIcon(
                         FontAwesomeIcons.dollarSign,
                         color: const Color(0xFF6DD0E4),
@@ -79,8 +80,8 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
               child: Text(
                 'Sertton',
                 style: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
                   color: const Color(0xFF6DD0E4),
                 ),
               ),
