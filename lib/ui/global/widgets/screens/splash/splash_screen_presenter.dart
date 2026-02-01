@@ -12,7 +12,7 @@ class SplashScreenPresenter {
   SplashScreenPresenter(this._navigationDriver);
 
   void init() {
-    // Timer(const Duration(seconds: 4), _navigateToHome);
+    Timer(const Duration(seconds: 4), _navigateToHome);
   }
 
   Future<void> _navigateToHome() async {
