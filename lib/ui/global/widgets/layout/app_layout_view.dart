@@ -36,7 +36,7 @@ class AppLayoutView extends ConsumerWidget {
               },
               onSubmitted: (term) {
                 catalogStore.setSearch(term);
-                navigation.go(
+                navigation.goTo(
                   Routes.catalog,
                   data: {'focusSearch': term.isEmpty, 'initialQuery': term},
                 );
@@ -67,7 +67,9 @@ class AppLayoutView extends ConsumerWidget {
             );
           },
           child: KeyedSubtree(
-            key: ValueKey(navigationShell.currentIndex),
+            key: ValueKey(
+              '${navigationShell.currentIndex}_${GoRouterState.of(context).uri.path}',
+            ),
             child: navigationShell,
           ),
         ),

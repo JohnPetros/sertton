@@ -31,7 +31,8 @@ class YampiCatalogService extends YampiService implements CatalogService {
     );
     return response.mapBody((body) {
       if (response.isFailure) return PaginationResponse();
-      return YampiProductMapper.toDtoPagination(body);
+      final pagination = YampiProductMapper.toDtoPagination(body);
+      return pagination;
     });
   }
 

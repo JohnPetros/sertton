@@ -13,15 +13,17 @@ class SplashScreenPresenter {
   SplashScreenPresenter(this._navigationDriver);
 
   void init() {
-    _timer = Timer(const Duration(seconds: 2), _navigateToHome);
-  }
-
-  Future<void> _navigateToHome() async {
-    _navigationDriver.go(Routes.home);
+    _timer?.cancel();
+    _timer = Timer(const Duration(seconds: 4), _navigateToHome);
   }
 
   void dispose() {
     _timer?.cancel();
+    _timer = null;
+  }
+
+  Future<void> _navigateToHome() async {
+    _navigationDriver.goTo(Routes.home);
   }
 }
 
@@ -29,8 +31,5 @@ final splashScreenPresenterProvider =
     Provider.autoDispose<SplashScreenPresenter>((ref) {
       final navigationDriver = ref.read(navigationDriverProvider);
       final presenter = SplashScreenPresenter(navigationDriver);
-
-      ref.onDispose(() => presenter.dispose());
-
       return presenter;
     });

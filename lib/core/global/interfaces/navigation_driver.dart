@@ -1,5 +1,5 @@
 abstract class NavigationDriver {
-  void go(String route, {Object? data});
-  void back();
+  void goTo(String route, {Object? data});
+  void goBack();
   bool canGoBack();
 }

@@ -19,11 +19,11 @@ void main() {
 
       presenter.init();
 
-      verifyNever(() => navigationDriver.go(Routes.home));
+      verifyNever(() => navigationDriver.goTo(Routes.home));
 
       await tester.pump(const Duration(seconds: 2));
 
-      verify(() => navigationDriver.go(Routes.home)).called(1);
+      verify(() => navigationDriver.goTo(Routes.home)).called(1);
     });
   });
 }

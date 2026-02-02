@@ -150,7 +150,7 @@ class ProductScreenPresenter {
     await Future.delayed(const Duration(milliseconds: 500));
     isAddingToCart.value = false;
 
-    _navigationDriver.go(Routes.cart);
+    _navigationDriver.goTo(Routes.cart);
   }
 
   void retry() {

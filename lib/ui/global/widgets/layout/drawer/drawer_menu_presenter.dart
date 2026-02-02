@@ -16,7 +16,7 @@ class DrawerMenuPresenter {
        _urlDriver = urlDriver;
 
   void navigateTo(String route) {
-    _navigation.go(route);
+    _navigation.goTo(route);
   }
 
   Future<void> openUrl(String url, {String? fallbackUrl}) async {
