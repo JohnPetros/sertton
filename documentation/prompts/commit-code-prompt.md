@@ -1,7 +1,8 @@
-# Prompt: Commit Code
+# Prompt: Fazer Commits no Código
 
 **Objetivo Principal**
-Gerar mensagens de commit altamente descritivas e padronizadas para as alterações realizadas no código, seguindo rigorosamente as diretrizes de contribuição do projeto.
+
+Criar commits com mensagens altamente descritivas e padronizadas para as alterações realizadas no código, seguindo rigorosamente as diretrizes de contribuição do projeto.
 
 **Diretrizes de Execução:**
 
@@ -16,23 +17,23 @@ Gerar mensagens de commit altamente descritivas e padronizadas para as alteraç�
     *   **Idioma:** A mensagem de commit **deve ser em Inglês**.
     *   **Prefixo:** Escolha o prefixo e emoji correto com base na tabela abaixo:
 
-    | Tipo                           | Prefixo    | Emoji |
-    | :----------------------------- | :--------- | :---- |
-    | Camada de domínio              | domain     | 🌐    |
-    | Camada de API REST             | rest       | 📶    |
-    | Camada de UI                   | ui         | 🖥️    |
-    | Camada de banco de dados       | db         | 💾    |
-    | Use cases                      | use case   | ✨    |
-    | Interfaces                     | interface  | 📑    |
-    | Tipagem                        | type       | 🏷️    |
-    | Documentação                   | docs       | 📚    |
-    | Correção de bug                | fix        | 🐛    |
-    | Refatoração                    | refactor   | ♻️    |
-    | Teste                          | test       | 🧪    |
-    | Configuração/Infra             | config     | ⚙️    |
-    | Dependências                   | deps       | 📦    |
-    | Estrutura de pastas            | ftree      | 🗃️    |
-    | Trabalho em progresso          | wip        | 🚧    |
+    | Tipo                     | Prefixo   | Emoji |
+    | :----------------------- | :-------- | :---- |
+    | Camada de domínio        | domain    | 🌐     |
+    | Camada de API REST       | rest      | 📶     |
+    | Camada de UI             | ui        | 🖥️     |
+    | Camada de banco de dados | db        | 💾     |
+    | Use cases                | use case  | ✨     |
+    | Interfaces               | interface | 📑     |
+    | Tipagem                  | type      | 🏷️     |
+    | Documentação             | docs      | 📚     |
+    | Correção de bug          | fix       | 🐛     |
+    | Refatoração              | refactor  | ♻️     |
+    | Teste                    | test      | 🧪     |
+    | Configuração/Infra       | config    | ⚙️     |
+    | Dependências             | deps      | 📦     |
+    | Estrutura de pastas      | ftree     | 🗃️     |
+    | Trabalho em progresso    | wip       | 🚧     |
 
 3.  **Exemplos de Referência:**
     *   `🐛 fix(server): ensure only one achievement is unlocked at once`
@@ -45,3 +46,7 @@ Gerar mensagens de commit altamente descritivas e padronizadas para as alteraç�
     *   O emoji corresponde ao prefixo?
     *   O prefixo está na lista permitida?
     *   A descrição está em Inglês?
+
+5.  **Use os comandos abaixo para gerar um commit:**
+    *   `git add <grupo de arquivos>`
+    *   `git commit -m "emoji prefix: concise description in English"`
