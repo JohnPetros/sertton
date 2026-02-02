@@ -56,3 +56,5 @@ app.*.map.json
 .cursor
 .gemini
 .replit
+.serena
+opencode.jsonc
