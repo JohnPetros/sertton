@@ -8,3 +8,6 @@ build:
 
 test:
 	flutter test
+
+clean:
+	flutter clean
