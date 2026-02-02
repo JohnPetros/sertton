@@ -2,7 +2,7 @@
 
 ### 2. Objetivo
 
-Implementar a tela de abertura (Splash Screen) animada que serve como ponto de entrada do aplicativo. A tela deve exibir animações de entrada (Lottie e componentes visuais) e redirecionar automaticamente o usuário para a rota `Home` após 2 segundos de exibição, sem depender de chamadas ou validações de autenticação neste momento.
+Implementar a tela de abertura (Splash Screen) animada que serve como ponto de entrada do aplicativo. A tela deve exibir animações de entrada (Lottie e componentes visuais) e redirecionar automaticamente o usuário para a rota `Home` após 4 segundos de exibição, sem depender de chamadas ou validações de autenticação neste momento.
 
 ### 3. O que já existe?
 
@@ -19,8 +19,8 @@ Implementar a tela de abertura (Splash Screen) animada que serve como ponto de e
     *   **Signals/Estado:**
         *   N/A.
     *   **Métodos:**
-        *   `void init()`: Inicia o temporizador de 2 segundos.
-        *   `Future<void> _navigateToHome()`: método privado chamado após 2 segundos utilizando `navigationDriver.go(Routes.home)`.
+        *   `void init()`: Inicia o temporizador de 4 segundos.
+        *   `Future<void> _navigateToHome()`: método privado chamado após 4 segundos utilizando `navigationDriver.goTo(Routes.home)`.
 
 #### Camada UI (Views)
 
@@ -68,7 +68,7 @@ Implementar a tela de abertura (Splash Screen) animada que serve como ponto de e
          |                              |
          | <------(wait 2s)-------------|
          |                              |
-         |                      [NavigationDriver.go(home)]
+         |                      [navigationDriver.goTo(home)]
          |                              |
     [GoRouter] <------------------------|
          |
@@ -86,7 +86,7 @@ A funcionalidade de Splash Screen foi implementada com sucesso, atendendo a todo
     *   Layout responsivo centralizado.
 
 *   **Lógica:**
-    *   Criado `SplashScreenPresenter` gerenciando o timer de 2 segundos.
+    *   Criado `SplashScreenPresenter` gerenciando o timer de 4 segundos.
     *   Navegação automática para `Routes.home` após o timer.
     *   Configuração de rotas no `GoRouter`.
 

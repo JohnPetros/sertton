@@ -101,7 +101,7 @@ Os novos componentes devem ser criados no diretório `lib/ui/catalog/widgets/scr
 **Arquivo:** `lib/ui/catalog/widgets/screens/catalog/products-list/product-card/product_card_presenter.dart`
 
 1.  **Dependência:** Injetar `NavigationDriver` no Presenter (interface `lib/core/global/interfaces/navigation_driver.dart`). Lembre-se que o `GoRouterNavigationDriver` é a implementação, mas o presenter deve depender da abstração.
-2.  **Método:** Criar método `void navigateToProductDetails()` que chama `navigationDriver.go('/catalog/${product.id}')`.
+2.  **Método:** Criar método `void navigateToProductDetails()` que chama `navigationDriver.goTo('/catalog/${product.id}')`.
 3.  **View:** No `ProductCardView` (`lib/ui/catalog/widgets/screens/catalog/products-list/product-card/product_card_view.dart`), implementar o `onTap` do `GestureDetector` para chamar `presenter.navigateToProductDetails()`.
 
 ### Camada REST

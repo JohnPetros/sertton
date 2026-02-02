@@ -18,7 +18,7 @@ A **Splash Screen** é a primeira tela apresentada ao usuário ao iniciar o apli
 
 #### Regras de Negócio
 
-* [x] **Duração Fixa:** A tela deve permanecer visível por exatos 2 segundos para garantir a visualização da marca.
+* [x] **Duração Fixa:** A tela deve permanecer visível por exatos 4 segundos para garantir a visualização da marca.
 * [x] **Independência de Dados:** O redirecionamento deve ocorrer sem depender de chamadas de API ou persistência.
 * [x] **Sem Autenticação:** A tela não deve barrar usuários não autenticados, seguindo sempre para a Home pública.
 
@@ -42,7 +42,7 @@ A **Splash Screen** é a primeira tela apresentada ao usuário ao iniciar o apli
 1.  O usuário acessa o **Aplicativo**.
 2.  O sistema exibe a **Splash Screen** e executa a sequência de animações.
 3.  O sistema valida o **Tempo de Exibição (Timer)**:
-    *   **Sucesso:** Após 2 segundos, o usuário é redirecionado para a **Home**.
+    *   **Sucesso:** Após 4 segundos, o usuário é redirecionado para a **Home**.
     *   **Falha:** Não se aplica.
 
 ### 4. Fora do Escopo (Out of Scope)
