@@ -31,5 +31,6 @@ final splashScreenPresenterProvider =
     Provider.autoDispose<SplashScreenPresenter>((ref) {
       final navigationDriver = ref.read(navigationDriverProvider);
       final presenter = SplashScreenPresenter(navigationDriver);
+      ref.onDispose(() => presenter.dispose());
       return presenter;
     });

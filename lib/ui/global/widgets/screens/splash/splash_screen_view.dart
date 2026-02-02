@@ -18,7 +18,6 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
   @override
   void initState() {
     super.initState();
-    print('navigateToHome called 1');
     ref.read(splashScreenPresenterProvider).init();
   }
 
