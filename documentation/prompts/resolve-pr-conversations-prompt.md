@@ -1,4 +1,4 @@
-# Prompt: Resolver Conversas de PR
+# Prompt: Resolve PR Conversations (usando gh CLI)
 
 **Objetivo Principal**
 Analisar, implementar e resolver todas as conversas e feedbacks pendentes em um Pull Request (PR) específico do GitHub. O foco é garantir que todos os pontos de melhoria, correções de bugs e sugestões de design levantadas pelos revisores sejam devidamente endereçados no código.
@@ -7,7 +7,9 @@ Analisar, implementar e resolver todas as conversas e feedbacks pendentes em um 
 
 * **Link do PR:** URL completa do Pull Request no GitHub (ex: `https://github.com/owner/repo/pull/123`).
 
-**Diretrizes de Execução:**
+---
+
+## Diretrizes de Execução
 
 ### 1️⃣ Extração de Contexto
 
@@ -164,7 +166,3 @@ Atualizar, se necessário:
 * Spec
 * Bug Report
 * PRD relacionado
-
----
-
-Se você quiser, eu também posso transformar isso numa **versão pronta para colar como slash command no Codex CLI / Claude / Cursor** — só me falar qual ferramenta você vai usar.
