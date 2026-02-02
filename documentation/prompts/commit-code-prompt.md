@@ -1,8 +1,3 @@
-Perfeito — vou manter **a tabela exatamente como você definiu** e apenas reforçar o prompt para garantir que o agent **execute commits de verdade**, não só gere mensagens.
-Segue o prompt revisado, com comportamento imperativo e execução obrigatória:
-
----
-
 # Prompt: Fazer Commits no Código (Executando Commits Reais)
 
 **Objetivo Principal**
@@ -42,7 +37,8 @@ git status --porcelain
 
 ### 2️⃣ Análise do Contexto
 
-* Analise **os arquivos alterados**
+* Analise **somente o nome e caminho dos arquivos alterados**
+* Não analise o conteúdo
 * Agrupe por responsabilidade
 * Se houver mudanças em camadas diferentes (ex: UI e REST), crie commits separados
 
@@ -129,3 +125,4 @@ Sem parar antes de commitar.
 
 ---
 
+Se você quiser, eu também consigo adaptar esse prompt especificamente para **gh agent**, **codex**, ou **serena**, porque cada um obedece gatilhos diferentes de execução.

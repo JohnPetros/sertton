@@ -5,6 +5,7 @@ version: 1.0.0
 
 environment:
   sdk: ^3.10.7
+  flutter-version: "3.27.0"
 
 dependencies:
   animate_do: ^4.2.0
