@@ -144,7 +144,7 @@ void main() {
       presenter.setQuantity(2);
 
       when(() => cartStore.addItem(any())).thenReturn(null);
-      when(() => navigationDriver.back()).thenReturn(null);
+      when(() => navigationDriver.goBack()).thenReturn(null);
 
       await presenter.addToCart();
 
@@ -159,8 +159,8 @@ void main() {
         ),
       ).called(1);
 
-      verify(() => navigationDriver.back()).called(1);
-      verify(() => navigationDriver.go(Routes.cart)).called(1);
+      verify(() => navigationDriver.goBack()).called(1);
+      verify(() => navigationDriver.goTo(Routes.cart)).called(1);
       expect(presenter.isSubmitting.value, isFalse);
     });
   });

@@ -1,7 +1,7 @@
 name: sertton
 description: "A e-commerce app for selling truck products."
-publish_to: 'none'
-version: 1.0.0+1
+publish_to: "none"
+version: 1.0.0
 
 environment:
   sdk: ^3.10.7
@@ -44,9 +44,9 @@ flutter:
   uses-material-design: true
 
   assets:
-  - .env
-  - assets/images/sertton-logo.png
-  - assets/lotties/truck.json
+    - .env
+    - assets/images/sertton-logo.png
+    - assets/lotties/truck.json
 
 flutter_launcher_icons:
   android: true
@@ -57,11 +57,11 @@ flutter_launcher_icons:
   adaptive_icon_background: "#ffffff"
 
 flutter_native_splash:
-  color: "#ffffff" 
+  color: "#ffffff"
   image: assets/images/splash.png
 
   android_12:
     image: assets/images/splash.png
     icon_background_color: "#ffffff"
-    
+
   fullscreen: true

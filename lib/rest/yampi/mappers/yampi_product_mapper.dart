@@ -47,7 +47,11 @@ class YampiProductMapper {
 
   static List<ProductDto> toDtoList(Json json) {
     final data = (json['data'] as List).cast<Json>();
-    return data.map(toDto).toList();
+    return data.map(toDto).where(_isProductValid).toList();
+  }
+
+  static bool _isProductValid(ProductDto product) {
+    return product.skus.any((sku) => sku.salePrice > 0);
   }
 
   static PaginationResponse<ProductDto> toDtoPagination(Json json) {

@@ -8,12 +8,12 @@ class GoRouterNavigationDriver implements NavigationDriver {
   GoRouterNavigationDriver(this._router);
 
   @override
-  void go(String route, {Object? data}) {
+  void goTo(String route, {Object? data}) {
     _router.go(route, extra: data);
   }
 
   @override
-  void back() {
+  void goBack() {
     if (_router.canPop()) {
       _router.pop();
     }

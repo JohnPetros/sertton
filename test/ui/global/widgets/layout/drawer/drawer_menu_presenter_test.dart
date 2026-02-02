@@ -29,11 +29,11 @@ void main() {
   group('DrawerMenuPresenter', () {
     test('navigateTo should call navigation.go with correct route', () {
       const route = '/test-route';
-      when(() => navigationDriver.go(route)).thenAnswer((_) async {});
+      when(() => navigationDriver.goTo(route)).thenAnswer((_) async {});
 
       presenter.navigateTo(route);
 
-      verify(() => navigationDriver.go(route)).called(1);
+      verify(() => navigationDriver.goTo(route)).called(1);
     });
 
     group('openUrl', () {

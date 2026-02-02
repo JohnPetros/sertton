@@ -25,7 +25,7 @@ class AppSearchBarPresenter {
         onSubmitted!.call(search);
       } else {
         // Default behavior: navigate to catalog with the search term
-        _navigationDriver.go(
+        _navigationDriver.goTo(
           Routes.catalog,
           data: {'focusSearch': search.isEmpty, 'initialQuery': search},
         );

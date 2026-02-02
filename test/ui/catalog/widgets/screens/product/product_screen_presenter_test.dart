@@ -129,7 +129,7 @@ void main() {
 
       await Future.delayed(const Duration(milliseconds: 600));
 
-      verify(() => navigationDriver.go(Routes.cart)).called(1);
+      verify(() => navigationDriver.goTo(Routes.cart)).called(1);
       expect(presenter.isAddingToCart.value, isFalse);
     });
   });

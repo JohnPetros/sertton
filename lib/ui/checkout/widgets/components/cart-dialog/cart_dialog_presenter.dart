@@ -129,8 +129,8 @@ class CartDialogPresenter {
     );
 
     isSubmitting.value = false;
-    _navigationDriver.back();
-    _navigationDriver.go(Routes.cart);
+    _navigationDriver.goBack();
+    _navigationDriver.goTo(Routes.cart);
   }
 
   Future<void> removeFromCart() async {
@@ -140,7 +140,7 @@ class CartDialogPresenter {
     isSubmitting.value = true;
     _cartStore.removeItem(sku.id);
     isSubmitting.value = false;
-    _navigationDriver.back();
+    _navigationDriver.goBack();
   }
 }
 

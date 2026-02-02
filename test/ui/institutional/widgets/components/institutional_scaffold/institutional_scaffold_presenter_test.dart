@@ -21,8 +21,8 @@ void main() {
       presenter.onBack();
 
       verify(() => navigationDriver.canGoBack()).called(1);
-      verify(() => navigationDriver.back()).called(1);
-      verifyNever(() => navigationDriver.go(any()));
+      verify(() => navigationDriver.goBack()).called(1);
+      verifyNever(() => navigationDriver.goTo(any()));
     });
 
     test('should go to root when canGoBack is false', () {
@@ -31,8 +31,8 @@ void main() {
       presenter.onBack();
 
       verify(() => navigationDriver.canGoBack()).called(1);
-      verify(() => navigationDriver.go('/')).called(1);
-      verifyNever(() => navigationDriver.back());
+      verify(() => navigationDriver.goTo('/')).called(1);
+      verifyNever(() => navigationDriver.goBack());
     });
   });
 }

@@ -117,7 +117,7 @@ Future<void> showCartDialog(
     builder: (context) {
       return CartDialogView(
         product: product,
-        onClose: () => navigationDriver.back(),
+        onClose: () => navigationDriver.goBack(),
       );
     },
   );

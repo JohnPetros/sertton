@@ -43,6 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android\key.properties
 
 .env
 
@@ -51,9 +52,9 @@ app.*.map.json
 .agents
 .windsurf
 .codex
+.opencode
 .cursor
 .gemini
 .replit
-.opencode
 .serena
 opencode.jsonc

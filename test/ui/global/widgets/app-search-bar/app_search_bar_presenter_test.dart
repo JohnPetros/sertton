@@ -40,7 +40,9 @@ void main() {
 
         verify(() => onSubmitted('search term')).called(1);
         verifyNever(() => onTap());
-        verifyNever(() => navigationDriver.go(any(), data: any(named: 'data')));
+        verifyNever(
+          () => navigationDriver.goTo(any(), data: any(named: 'data')),
+        );
       },
     );
 
@@ -56,7 +58,7 @@ void main() {
 
       verify(() => onTap()).called(1);
       verifyNever(() => onSubmitted(any()));
-      verifyNever(() => navigationDriver.go(any(), data: any(named: 'data')));
+      verifyNever(() => navigationDriver.goTo(any(), data: any(named: 'data')));
     });
 
     test('should use default navigation behavior when onSubmitted is null', () {
@@ -69,7 +71,7 @@ void main() {
       presenter.submit('search term');
 
       verify(
-        () => navigationDriver.go(
+        () => navigationDriver.goTo(
           Routes.catalog,
           data: {'focusSearch': false, 'initialQuery': 'search term'},
         ),
@@ -88,7 +90,7 @@ void main() {
           presenter.submit('');
 
           verify(
-            () => navigationDriver.go(
+            () => navigationDriver.goTo(
               Routes.catalog,
               data: {'focusSearch': true, 'initialQuery': ''},
             ),

@@ -10,9 +10,9 @@ class InstitutionalScaffoldPresenter {
 
   void onBack() {
     if (_navigationDriver.canGoBack()) {
-      _navigationDriver.back();
+      _navigationDriver.goBack();
     } else {
-      _navigationDriver.go('/');
+      _navigationDriver.goTo('/');
     }
   }
 }

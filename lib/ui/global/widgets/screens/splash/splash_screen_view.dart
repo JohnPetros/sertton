@@ -44,7 +44,7 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
                       child: FaIcon(
                         FontAwesomeIcons.bagShopping,
                         color: const Color(0xFF6DD0E4),
-                        size: 32,
+                        size: 48,
                       ),
                     ),
                   ),
@@ -67,7 +67,7 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
                       child: FaIcon(
                         FontAwesomeIcons.dollarSign,
                         color: const Color(0xFF6DD0E4),
-                        size: 32,
+                        size: 48,
                       ),
                     ),
                   ),
@@ -80,7 +80,7 @@ class _SplashScreenViewState extends ConsumerState<SplashScreenView> {
               child: Text(
                 'Sertton',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 48,
                   fontWeight: FontWeight.w600,
                   color: const Color(0xFF6DD0E4),
                 ),
