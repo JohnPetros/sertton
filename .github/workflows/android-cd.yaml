@@ -1,19 +1,24 @@
-name: Continuous Deployment - Android
+name: Android Continuous Deployment
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
-
-concurrency:
-  group: cd-android-deployment-${{ github.ref }}
-  cancel-in-progress: true
-
-permissions:
-  contents: write
+  workflow_call:
+    secrets:
+      ANDROID_KEYSTORE_BASE64:
+        required: true
+      ANDROID_KEYSTORE_PASSWORD:
+        required: true
+      ANDROID_KEY_PASSWORD:
+        required: true
+      ANDROID_KEY_ALIAS:
+        required: true
+      GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:
+        required: true
+      ENV:
+        required: true
 
 jobs:
-  build-and-upload:
+  build-and-upload-to-google-play:
+    name: Build + Upload to Google Play (Internal)
     runs-on: ubuntu-latest
 
     steps:
@@ -73,7 +78,6 @@ jobs:
           ${{ secrets.ENV }}
           EOF
 
-      # ✅ Sempre é tag → pode simplificar
       - name: Build AAB and APK
         run: |
           TAG="${GITHUB_REF_NAME#v}"
@@ -93,16 +97,9 @@ jobs:
         run: |
           bundle exec fastlane internal
 
-      - name: Create GitHub Release with APK
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
-
-          ls -la "$(dirname "$APK_PATH")"
-          test -f "$APK_PATH"
-
-          gh release create "$TAG" \
-            "$APK_PATH" \
-            --generate-notes
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-app
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
