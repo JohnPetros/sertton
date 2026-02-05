@@ -28,24 +28,27 @@ class AppLayoutView extends ConsumerWidget {
             final query = catalogStore.query.value;
             final autoFocus = catalogStore.autoFocus.value;
 
-            return AppHeader(
-              initialValue: query,
-              autoFocus: autoFocus,
-              onMenuPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              onSubmitted: (term) {
-                catalogStore.setSearch(term);
-                navigation.goTo(
-                  Routes.catalog,
-                  data: {'focusSearch': term.isEmpty, 'initialQuery': term},
-                );
-              },
-              onChanged: (value) {
-                if (value.isEmpty && navigationShell.currentIndex == 1) {
-                  catalogStore.clearSearch();
-                }
-              },
+            return Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: AppHeader(
+                initialValue: query,
+                autoFocus: autoFocus,
+                onMenuPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                onSubmitted: (term) {
+                  catalogStore.setSearch(term);
+                  navigation.goTo(
+                    Routes.catalog,
+                    data: {'focusSearch': term.isEmpty, 'initialQuery': term},
+                  );
+                },
+                onChanged: (value) {
+                  if (value.isEmpty && navigationShell.currentIndex == 1) {
+                    catalogStore.clearSearch();
+                  }
+                },
+              ),
             );
           }),
         ],
