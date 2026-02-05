@@ -24,7 +24,7 @@ release:
 	fi
 
 	@if git rev-parse "v$(VERSION)" >/dev/null 2>&1; then \
-		echo "Tag v$(VERSION) já existe"; \
+		echo "Tag v$(VERSION) ja existe"; \
 		exit 1; \
 	fi
 
