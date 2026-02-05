@@ -41,15 +41,6 @@ jobs:
       - run: flutter pub get
       - run: flutter test --coverage
 
-      - name: Upload coverage reports
-        if: (github.event_name == 'pull_request' || github.ref == 'refs/heads/main') && (secrets.CODECOV_TOKEN != '')
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
-          fail_ci_if_error: false
-          verbose: true
-
   build-android:
     name: Build Android
     runs-on: ubuntu-latest
