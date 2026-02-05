@@ -39,6 +39,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+
           mv app-release.apk dist/android-app.apk
           TAG="${GITHUB_REF_NAME}"
           APK_PATH="dist/android-app.apk"
