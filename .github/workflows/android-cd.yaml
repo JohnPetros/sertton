@@ -63,8 +63,8 @@ jobs:
       - name: Write Play service account json
         working-directory: android
         run: |
-          cat > play-service-account.json <<'JSON'
-          ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          cat > google-play-service-account.json <<'JSON'
+          ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
           JSON
 
       - name: Create .env file
@@ -81,6 +81,6 @@ jobs:
       - name: Upload to Play Internal testing
         working-directory: android
         env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/android/play-service-account.json
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/android/google-play-service-account.json
         run: |
           bundle exec fastlane internal
