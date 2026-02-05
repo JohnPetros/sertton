@@ -18,7 +18,7 @@ on:
 
 jobs:
   build-and-upload-to-google-play:
-    name: Build + Upload to Google Play (Internal)
+    name: Build and Upload to Google Play
     runs-on: ubuntu-latest
 
     steps:
@@ -81,14 +81,15 @@ jobs:
       - name: Build AAB and APK
         run: |
           TAG="${GITHUB_REF_NAME#v}"
+          BUILD_NUMBER="$(date +%Y%m%d%H%M)"
 
           flutter build appbundle --release \
             --build-name="$TAG" \
-            --build-number="${{ github.run_number }}"
+            --build-number="$BUILD_NUMBER"
 
           flutter build apk --release \
             --build-name="$TAG" \
-            --build-number="${{ github.run_number }}"
+            --build-number="$BUILD_NUMBER"
 
       - name: Upload to Play Internal testing
         working-directory: android
