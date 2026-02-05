@@ -99,12 +99,12 @@ jobs:
             --build-name="${{ steps.version.outputs.tag }}" \
             --build-number="${{ steps.version.outputs.build_number }}"
 
-      - name: Upload to Play Internal testing
-        working-directory: android
-        env:
-          SUPPLY_JSON_KEY: ${{ github.workspace }}/android/google-play-service-account.json
-        run: |
-          bundle exec fastlane internal
+      # - name: Upload to Play Internal testing
+      #   working-directory: android
+      #   env:
+      #     SUPPLY_JSON_KEY: ${{ github.workspace }}/android/google-play-service-account.json
+      #   run: |
+      #     bundle exec fastlane internal
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
