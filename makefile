@@ -4,7 +4,7 @@ run:
 	flutter run
 
 build:
-	flutter build appbundle
+	flutter build appbundle --dart-define=ENV_FILE=.env
 
 test:
 	flutter test
