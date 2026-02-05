@@ -47,6 +47,12 @@ jobs:
           storeFile=upload-keystore.jks
           EOF
 
+      - name: Create .env file
+        run: |
+          cat > .env <<'EOF'
+          ${{ secrets.ENV }}
+          EOF
+
       # --- Build AAB ---
       - name: Build app bundle (AAB)
         run: |
