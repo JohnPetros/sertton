@@ -37,7 +37,7 @@ jobs:
         run: |
           TAG="${GITHUB_REF_NAME#v}"
           CODE=$(echo "$TAG" | awk -F. '{print $1*10000 + $2*100 + $3}')
-          sed -i "s/^version:.*/version: $TAG+$CODE/" pubspec.yaml
+          sed -i "s|^version:.*|version: ${TAG}+${CODE}|" pubspec.yaml
           grep '^version:' pubspec.yaml
 
       - name: Decode keystore
