@@ -78,18 +78,26 @@ jobs:
           ${{ secrets.ENV }}
           EOF
 
+      - name: Compute version from tag
+        id: version
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"   # remove "v"
+          IFS='.' read -r MA MI PA <<< "$TAG"
+
+          BUILD_NUMBER=$((MA*10000 + MI*100 + PA))
+
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+
       - name: Build AAB and APK
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
-          BUILD_NUMBER="$(date +%Y%m%d%H%M)"
-
           flutter build appbundle --release \
-            --build-name="$TAG" \
-            --build-number="$BUILD_NUMBER"
+            --build-name="${{ steps.version.outputs.tag }}" \
+            --build-number="${{ steps.version.outputs.build_number }}"
 
           flutter build apk --release \
-            --build-name="$TAG" \
-            --build-number="$BUILD_NUMBER"
+            --build-name="${{ steps.version.outputs.tag }}" \
+            --build-number="${{ steps.version.outputs.build_number }}"
 
       - name: Upload to Play Internal testing
         working-directory: android
