@@ -44,6 +44,4 @@ jobs:
           echo "${GITHUB_REF_NAME}"
           APK_PATH="dist/app-release.apk"
 
-          gh release create "$TAG" \
-            "$APK_PATH" \ 
-            --generate-notes
+          gh release create "${GITHUB_REF_NAME}" "dist/app-release.apk" --generate-notes
