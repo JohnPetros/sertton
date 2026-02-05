@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   deploy-android:
-    uses: ./android-cd.yaml
+    uses: ./.github/workflows/android.yaml
     secrets:
       ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
       ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
