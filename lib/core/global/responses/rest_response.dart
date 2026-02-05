@@ -22,8 +22,14 @@ class RestResponse<Body> {
   }
 
   RestResponse<NewBody> mapBody<NewBody>(NewBody? Function(Body) mapper) {
+    if (_errorMessage != null) {
+      throw Exception('Rest Response failed. Error message: $_errorMessage');
+    }
+    if (_body == null) {
+      throw Exception('Rest Response failed. Body is null');
+    }
     if (_errorMessage != null || _body == null) {
-      throw Exception('Rest Response failed');
+      throw Exception('Rest Response failed: $statusCode');
     }
     return RestResponse(body: mapper(_body), statusCode: _statusCode);
   }
@@ -40,7 +46,7 @@ class RestResponse<Body> {
     if (_errorMessage != null) {
       return _errorMessage;
     }
-    throw Exception('Rest Response failed');
+    throw Exception('Rest Response failed: $statusCode');
   }
 
   int get statusCode => _statusCode;
