@@ -44,9 +44,18 @@ jobs:
           sed -i "s|^version:.*|version: ${TAG}+${CODE}|" pubspec.yaml
           grep '^version:' pubspec.yaml
 
+      - name: Create key.properties
+        run: |
+          cat > android/key.properties <<EOF
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=upload-keystore.jks
+          EOF
+
       - name: Decode keystore
         run: |
-          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/upload-keystore.jks
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/app/upload-keystore.jks
 
       - name: Create key.properties
         run: |
@@ -63,15 +72,6 @@ jobs:
           ruby-version: "3.2"
           bundler-cache: true
           working-directory: android
-
-      - name: Create key.properties
-        run: |
-          cat > android/key.properties <<EOF
-          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
-          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
-          storeFile=upload-keystore.jks
-          EOF
 
       - name: Write Play service account json
         working-directory: android
