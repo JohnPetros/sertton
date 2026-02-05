@@ -1,0 +1,105 @@
+name: Android Continuous Deployment
+
+on:
+  workflow_call:
+    secrets:
+      ANDROID_KEYSTORE_BASE64:
+        required: true
+      ANDROID_KEYSTORE_PASSWORD:
+        required: true
+      ANDROID_KEY_PASSWORD:
+        required: true
+      ANDROID_KEY_ALIAS:
+        required: true
+      GOOGLE_PLAY_SERVICE_ACCOUNT_JSON:
+        required: true
+      ENV:
+        required: true
+
+jobs:
+  build-and-upload-to-google-play:
+    name: Build + Upload to Google Play (Internal)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version-file: pubspec.yaml
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/app/upload-keystore.jks
+
+      - name: Create key.properties
+        env:
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          printf '%s\n' \
+            "storePassword=$STORE_PASSWORD" \
+            "keyPassword=$KEY_PASSWORD" \
+            "keyAlias=$KEY_ALIAS" \
+            "storeFile=upload-keystore.jks" \
+            > android/key.properties
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+          bundler-cache: true
+          working-directory: android
+
+      - name: Write Play service account json
+        working-directory: android
+        run: |
+          cat > google-play-service-account.json <<'JSON'
+          ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+          JSON
+
+      - name: Create .env file
+        run: |
+          cat > .env <<'EOF'
+          ${{ secrets.ENV }}
+          EOF
+
+      - name: Build AAB and APK
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+
+          flutter build appbundle --release \
+            --build-name="$TAG" \
+            --build-number="${{ github.run_number }}"
+
+          flutter build apk --release \
+            --build-name="$TAG" \
+            --build-number="${{ github.run_number }}"
+
+      - name: Upload to Play Internal testing
+        working-directory: android
+        env:
+          SUPPLY_JSON_KEY: ${{ github.workspace }}/android/google-play-service-account.json
+        run: |
+          bundle exec fastlane internal
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-app
+          path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error

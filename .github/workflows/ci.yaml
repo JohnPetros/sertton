@@ -1,8 +1,6 @@
-name: CI
+name: Continuous Integration
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -23,6 +21,9 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Ensure .env exists (required by pubspec assets)
+        run: |
+          test -f .env || touch .env
       - run: flutter pub get
       - run: flutter analyze --fatal-infos --fatal-warnings
       - run: dart format --set-exit-if-changed lib test
@@ -40,17 +41,11 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Ensure .env exists (required by pubspec assets)
+        run: |
+          test -f .env || touch .env
       - run: flutter pub get
       - run: flutter test --coverage
-
-      - name: Upload coverage reports
-        if: (github.event_name == 'pull_request' || github.ref == 'refs/heads/main') && (secrets.CODECOV_TOKEN != '')
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info
-          fail_ci_if_error: false
-          verbose: true
 
   build-android:
     name: Build Android
@@ -71,6 +66,9 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - name: Ensure .env exists (required by pubspec assets)
+        run: |
+          test -f .env || touch .env
       - run: flutter pub get
       - run: flutter build appbundle --release
 
@@ -88,6 +86,9 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Ensure .env exists (required by pubspec assets)
+        run: |
+          test -f .env || touch .env
       - run: flutter pub get
       - run: flutter build ios --release --no-codesign
 
