@@ -1,0 +1,2 @@
+package_name("br.com.sertton.sertton")
+json_key_file("google-play-service-account.json")
