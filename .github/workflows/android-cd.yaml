@@ -91,10 +91,6 @@ jobs:
 
       - name: Build AAB and APK
         run: |
-          # flutter build appbundle --release \
-          #   --build-name="${{ steps.version.outputs.tag }}" \
-          #   --build-number="${{ steps.version.outputs.build_number }}"
-
           flutter build apk --release \
             --build-name="${{ steps.version.outputs.tag }}" \
             --build-number="${{ steps.version.outputs.build_number }}"
