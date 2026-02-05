@@ -39,6 +39,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          mv dist/app-release.apk dist/android-app.apk
           TAG="${GITHUB_REF_NAME}"
           APK_PATH="dist/android-app.apk"
 
@@ -46,5 +47,5 @@ jobs:
           test -f "$APK_PATH"
 
           gh release create "$TAG" \
-            "$APK_PATH" \
+            "$APK_PATH" \ 
             --generate-notes
