@@ -29,6 +29,9 @@ jobs:
     needs: [deploy-android]
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
       - name: Download APK artifact
         uses: actions/download-artifact@v4
         with:
@@ -40,8 +43,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ls -la dist
+          mv dist/app-release.apk dist/android-app.apk
           TAG="${GITHUB_REF_NAME}"
           echo "${GITHUB_REF_NAME}"
-          APK_PATH="dist/app-release.apk"
+          APK_PATH="dist/android-app.apk"
 
-          gh release create "${GITHUB_REF_NAME}" "dist/app-release.apk" --generate-notes
+          gh release create "${GITHUB_REF_NAME}" "dist/android-app.apk" --generate-notes
