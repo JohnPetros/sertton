@@ -99,6 +99,11 @@ class DioRestClient implements RestClient {
   }
 
   @override
+  String getBaseUrl() {
+    return _dio.options.baseUrl;
+  }
+
+  @override
   void setHeader(String key, String value) {
     _dio.options.headers[key] = value;
   }

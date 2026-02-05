@@ -21,7 +21,7 @@ class HomeScreenView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final envDriver = ref.read(envDriverProvider);
     final testGet = ref.watch(testGetProvider);
-
+    final restClient = ref.read(restClientProvider);
     return Scaffold(
       child: SingleChildScrollView(
         child: Column(
@@ -30,6 +30,7 @@ class HomeScreenView extends ConsumerWidget {
             Text("YAMPI_PURCHASE_URL: ${envDriver.get('YAMPI_PURCHASE_URL')}"),
             Text("YAMPI_USER_TOKEN: ${envDriver.get('YAMPI_USER_TOKEN')}"),
             Text("YAMPI_SECRET_KEY: ${envDriver.get('YAMPI_SECRET_KEY')}"),
+            Text("Base URL: ${restClient.getBaseUrl()}"),
 
             // ✅ Renderiza o estado do GET
             testGet.when(

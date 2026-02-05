@@ -10,6 +10,7 @@ abstract class RestClient {
     Json? body,
     Json? queryParams,
   });
+  void getBaseUrl();
   void setBaseUrl(String baseUrl);
   void setHeader(String key, String value);
 }
