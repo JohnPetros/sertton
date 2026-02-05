@@ -30,10 +30,16 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Install deps
+      - name: Install dependencies
         run: flutter pub get
 
-      # --- Signing setup ---
+      - name: Set version from tag (auto versionCode)
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          CODE=$(echo "$TAG" | awk -F. '{print $1*10000 + $2*100 + $3}')
+          sed -i "s/^version:.*/version: $TAG+$CODE/" pubspec.yaml
+          grep '^version:' pubspec.yaml
+
       - name: Decode keystore
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/upload-keystore.jks
@@ -47,20 +53,6 @@ jobs:
           storeFile=upload-keystore.jks
           EOF
 
-      - name: Create .env file
-        run: |
-          cat > .env <<'EOF'
-          ${{ secrets.ENV }}
-          EOF
-
-      # --- Build AAB ---
-      - name: Build app bundle (AAB)
-        run: |
-          flutter build appbundle --release
-        # Se você usa envs no build, pode trocar por:
-        # flutter build appbundle --release --dart-define=API_URL=${{ vars.API_URL }}
-
-      # --- Fastlane upload ---
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -74,6 +66,17 @@ jobs:
           cat > play-service-account.json <<'JSON'
           ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           JSON
+
+      - name: Create .env file
+        run: |
+          cat > .env <<'EOF'
+          ${{ secrets.ENV }}
+          EOF
+
+      - name: Build App Bundle (AAB)
+        run: |
+          flutter pub get
+          flutter build appbundle --release
 
       - name: Upload to Play Internal testing
         working-directory: android
