@@ -87,7 +87,6 @@ jobs:
 
       - name: Build App Bundle (AAB)
         run: |
-          flutter pub get
           flutter build appbundle --release
 
       - name: Upload to Play Internal testing
