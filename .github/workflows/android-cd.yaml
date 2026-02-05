@@ -1,9 +1,6 @@
 name: Continuous Deployment - Android
 
 on:
-  pull_request:
-    branches: ["main"]
-  workflow_dispatch:
   push:
     tags:
       - "v*.*.*"
@@ -11,6 +8,9 @@ on:
 concurrency:
   group: cd-android-deployment-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: write
 
 jobs:
   build-and-upload:
@@ -53,12 +53,6 @@ jobs:
             "storeFile=upload-keystore.jks" \
             > android/key.properties
 
-      # Debug opcional (pode remover depois que estabilizar)
-      - name: Debug keystore location
-        run: |
-          ls -la android
-          ls -la android/app
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -79,20 +73,18 @@ jobs:
           ${{ secrets.ENV }}
           EOF
 
-      # ✅ Aqui está a correção do versionCode:
-      # - versionCode = github.run_number (sempre crescente)
-      # - se for tag vX.Y.Z, versionName = X.Y.Z
-      - name: Build App Bundle (AAB)
+      # ✅ Sempre é tag → pode simplificar
+      - name: Build AAB and APK
         run: |
-          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
-            TAG="${GITHUB_REF_NAME#v}"
-            flutter build appbundle --release \
-              --build-name="$TAG" \
-              --build-number="${{ github.run_number }}"
-          else
-            flutter build appbundle --release \
-              --build-number="${{ github.run_number }}"
-          fi
+          TAG="${GITHUB_REF_NAME#v}"
+
+          flutter build appbundle --release \
+            --build-name="$TAG" \
+            --build-number="${{ github.run_number }}"
+
+          flutter build apk --release \
+            --build-name="$TAG" \
+            --build-number="${{ github.run_number }}"
 
       - name: Upload to Play Internal testing
         working-directory: android
@@ -100,3 +92,17 @@ jobs:
           SUPPLY_JSON_KEY: ${{ github.workspace }}/android/google-play-service-account.json
         run: |
           bundle exec fastlane internal
+
+      - name: Create GitHub Release with APK
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          APK_PATH="build/app/outputs/flutter-apk/app-release.apk"
+
+          ls -la "$(dirname "$APK_PATH")"
+          test -f "$APK_PATH"
+
+          gh release create "$TAG" \
+            "$APK_PATH" \
+            --generate-notes
