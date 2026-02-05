@@ -11,14 +11,14 @@ class RestResponse<Body> {
       _errorMessage = errorMessage;
 
   Body get body {
-    if (_errorMessage != null) {
-      throw Exception('Rest Response failed');
+    if (isFailure || _errorMessage != null) {
+      throw Exception('Rest Response failed: $statusCode');
     }
     return _body!;
   }
 
   Never throwError() {
-    throw Exception('Rest Response failed');
+    throw Exception('Rest Response failed: $statusCode');
   }
 
   RestResponse<NewBody> mapBody<NewBody>(NewBody? Function(Body) mapper) {
