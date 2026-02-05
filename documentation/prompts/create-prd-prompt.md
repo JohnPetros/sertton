@@ -40,13 +40,13 @@ Após receber as respostas, gere o documento completo seguindo estritamente o te
 ### 2. Requisitos Funcionais
 *Liste as funcionalidades. Não use IDs numéricos. Use checkboxes para rastreamento.*
 
-#### [Nome do Componente/Área]
-**Descrição:** Breve contexto do componente.
+#### [Nome do Requisito]
+**Descrição:** Breve contexto do requisito.
 
 * [ ] **[Nome da Funcionalidade]:** Descrição da ação ou comportamento esperado.
 * [ ] **[Nome da Funcionalidade]:** Descrição da ação ou comportamento esperado.
 
-*(Repita para todos os componentes)*
+*(Repita para todos os requisitos)*
 
 ##### Regras de Negócio
 *Liste as regras lógicas e comportamentais (Backend/Lógica).*
