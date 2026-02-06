@@ -9,7 +9,7 @@ Identificar e corrigir regressões ou erros de compilação (efeitos colaterais)
 **Diretrizes de Execução:**
 
 1.  **Diagnóstico Estático:**
-    *   Utilize as ferramentas do **Dart MCP** (ex: `analyze_files`) para varrer o projeto em busca de erros de linting ou compilação gerados pela alteração.
+    *   Utilize as ferramentas do Flutter Analyzer para varrer o projeto em busca de erros de linting ou compilação gerados pela alteração.
     *   Priorize a correção de erros de sintaxe e contratos de interface quebrados.
 
 2.  **Correção de Dependências:**

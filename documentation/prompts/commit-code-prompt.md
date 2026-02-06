@@ -71,6 +71,7 @@ emoji prefix: concise description in English
 | Correção de bug          | fix       | 🐛     |
 | Refatoração              | refactor  | ♻️     |
 | Teste                    | test      | 🧪     |
+| Release                  | release   | 🔖     |
 | Configuração/Infra       | config    | ⚙️     |
 | Dependências             | deps      | 📦     |
 | Estrutura de pastas      | ftree     | 🗃️     |
