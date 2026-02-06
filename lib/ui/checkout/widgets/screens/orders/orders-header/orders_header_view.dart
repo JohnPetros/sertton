@@ -30,7 +30,7 @@ class OrdersHeaderView extends StatelessWidget {
                   style: theme.typography.h2.copyWith(
                     color: brandBlue,
                     fontWeight: FontWeight.w500,
-                    fontSize: 24,
+                    fontSize: 16,
                   ),
                 ),
               ),
