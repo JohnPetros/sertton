@@ -13,7 +13,7 @@ class MarketingSectionView extends ConsumerWidget {
     final presenter = ref.watch(marketingSectionPresenterProvider);
 
     return Watch((context) {
-      if (presenter.isLoading.value && presenter.items.value.isEmpty) {
+      if (presenter.isLoading.value) {
         return const Column(
           children: [
             MarketingCollectionSkeleton(),
@@ -21,6 +21,10 @@ class MarketingSectionView extends ConsumerWidget {
             MarketingCollectionSkeleton(),
           ],
         );
+      }
+
+      if (presenter.items.value.isEmpty) {
+        return const Text("Nenhum conteúdo encontrado");
       }
 
       if (presenter.error.value != null && presenter.items.value.isEmpty) {

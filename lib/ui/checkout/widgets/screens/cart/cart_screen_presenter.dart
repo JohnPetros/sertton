@@ -45,6 +45,7 @@ class CartScreenPresenter {
   final CheckoutService _checkoutService;
   final CartStore _cartStore;
   final UrlDriver _urlDriver;
+  final errorMessage = signal<String>('');
 
   final isLoading = signal(true);
   final hasError = signal(false);
@@ -129,6 +130,7 @@ class CartScreenPresenter {
       cartDisplayItems.value = displayItems;
     } catch (e) {
       hasError.value = true;
+      errorMessage.value = e.toString();
     } finally {
       isLoading.value = false;
     }

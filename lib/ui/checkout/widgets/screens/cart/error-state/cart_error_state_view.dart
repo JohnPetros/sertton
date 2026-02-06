@@ -27,7 +27,7 @@ class CartErrorStateView extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Não foi possível carregar os itens do carrinho.',
+            presenter.errorMessage.value,
             textAlign: TextAlign.center,
             style: theme.typography.small.copyWith(
               color: theme.colorScheme.mutedForeground,
