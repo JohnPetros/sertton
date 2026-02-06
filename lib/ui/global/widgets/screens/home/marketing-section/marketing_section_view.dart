@@ -23,12 +23,12 @@ class MarketingSectionView extends ConsumerWidget {
         );
       }
 
-      if (presenter.items.value.isEmpty) {
-        return const Text("Nenhum conteúdo encontrado");
-      }
-
       if (presenter.error.value != null && presenter.items.value.isEmpty) {
         return const Text("Erro ao carregar conteúdo");
+      }
+
+      if (presenter.items.value.isEmpty) {
+        return const Text("Nenhum conteúdo encontrado");
       }
 
       final items = presenter.items.value;
