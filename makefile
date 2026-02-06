@@ -37,7 +37,7 @@ release:
 
 	@echo "Fazendo commit da versao..."
 	git add pubspec.yaml
-	git commit -m "🔖 release: version $(VERSION)"
+	git commit -m ":bookmark: release: version $(VERSION)"
 
 	@echo "Enviando codigo para Github..."
 	git push origin
