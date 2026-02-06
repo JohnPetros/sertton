@@ -59,6 +59,20 @@ class ProductScreenView extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Button.ghost(
+                onPressed: presenter.goBackToCatalog,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(LucideIcons.arrowLeft, size: 16),
+                    const SizedBox(width: 8),
+                    const Text('Voltar ao catálogo'),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
               ProductImageViewer(
                 imageUrl: presenter.imageUrl.value,
                 productName: product.name,
@@ -109,6 +123,56 @@ class ProductScreenView extends ConsumerWidget {
 
               ShortageTimeCounter(stock: sku.stock),
               const SizedBox(height: 24),
+
+              if (presenter.isInCart.value) ...[
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primary.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        color: theme.colorScheme.primary,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Item já está no carrinho...',
+                          style: theme.typography.small.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        '${presenter.cartQuantity.value}x',
+                        style: theme.typography.small.copyWith(
+                          color: theme.colorScheme.primary,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Button.outline(
+                  onPressed: presenter.removeFromCart,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(LucideIcons.trash2, size: 16),
+                      const SizedBox(width: 8),
+                      const Text('Remover do carrinho'),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
 
               SizedBox(
                 width: double.infinity,

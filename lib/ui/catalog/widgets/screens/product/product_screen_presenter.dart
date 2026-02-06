@@ -71,6 +71,17 @@ class ProductScreenPresenter {
   });
 
   late final maxQuantity = computed(() => activeSku.value?.stock ?? 0);
+  late final cartQuantity = computed(() {
+    final sku = activeSku.value;
+    if (sku == null) return 0;
+    final index = _cartStore.items.value.indexWhere(
+      (item) => item.skuId == sku.id,
+    );
+    if (index == -1) return 0;
+    return _cartStore.items.value[index].quantity;
+  });
+
+  late final isInCart = computed(() => cartQuantity.value > 0);
 
   ProductScreenPresenter({
     required String productId,
@@ -155,6 +166,16 @@ class ProductScreenPresenter {
 
   void retry() {
     _loadProduct();
+  }
+
+  void goBackToCatalog() {
+    _navigationDriver.goTo(Routes.catalog);
+  }
+
+  void removeFromCart() {
+    final sku = activeSku.value;
+    if (sku == null) return;
+    _cartStore.removeItem(sku.id);
   }
 }
 
