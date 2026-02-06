@@ -1,7 +1,10 @@
-.PHONY: run build clean test release
+.PHONY: dev build clean test release
 
-run:
+dev:
 	flutter run
+
+prod:
+	flutter run --release
 
 build:
 	flutter build appbundle --dart-define=ENV_FILE=.env
