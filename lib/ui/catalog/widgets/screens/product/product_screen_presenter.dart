@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sertton/constants/routes.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
@@ -12,6 +14,7 @@ import 'package:signals/signals.dart';
 
 class ProductScreenPresenter {
   final String _productId;
+  final ProductDto? _initialProduct;
   final CatalogService _catalogService;
   final CartStore _cartStore;
   final NavigationDriver _navigationDriver;
@@ -23,9 +26,15 @@ class ProductScreenPresenter {
   final quantity = signal(1);
   final isAddingToCart = signal(false);
 
-  late final activeSku = computed(
-    () => selectedSku.value ?? product.value?.skus.first,
-  );
+  late final activeSku = computed(() {
+    final selected = selectedSku.value;
+    if (selected != null) return selected;
+
+    final skus = product.value?.skus;
+    if (skus == null || skus.isEmpty) return null;
+
+    return skus.first;
+  });
 
   late final isOutOfStock = computed(() {
     final sku = activeSku.value;
@@ -85,32 +94,65 @@ class ProductScreenPresenter {
 
   ProductScreenPresenter({
     required String productId,
+    ProductDto? initialProduct,
     required CatalogService catalogService,
     required CartStore cartStore,
     required NavigationDriver navigationDriver,
   }) : _productId = productId,
+       _initialProduct = initialProduct,
        _catalogService = catalogService,
        _cartStore = cartStore,
        _navigationDriver = navigationDriver {
-    _loadProduct();
+    if (_initialProduct != null) {
+      product.value = _initialProduct;
+      if (_initialProduct.skus.isNotEmpty) {
+        selectedSku.value = _initialProduct.skus.first;
+      }
+      isLoading.value = false;
+      _loadProduct(showLoading: false);
+    } else {
+      _loadProduct();
+    }
   }
 
-  Future<void> _loadProduct() async {
-    isLoading.value = true;
-    hasError.value = false;
-
-    final response = await _catalogService.fetchProduct(_productId);
-
-    if (response.isSuccessful) {
-      product.value = response.body;
-      if (response.body.skus.isNotEmpty) {
-        selectedSku.value = response.body.skus.first;
-      }
-    } else {
-      hasError.value = true;
+  Future<void> _loadProduct({bool showLoading = true}) async {
+    if (showLoading) {
+      isLoading.value = true;
+      hasError.value = false;
     }
 
-    isLoading.value = false;
+    if (_productId.trim().isEmpty) {
+      if (showLoading) {
+        hasError.value = true;
+        isLoading.value = false;
+      }
+      return;
+    }
+
+    try {
+      final response = await _catalogService
+          .fetchProduct(_productId)
+          .timeout(const Duration(seconds: 15));
+
+      if (response.isSuccessful) {
+        product.value = response.body;
+        if (response.body.skus.isNotEmpty) {
+          selectedSku.value = response.body.skus.first;
+        }
+      } else {
+        if (showLoading) {
+          hasError.value = true;
+        }
+      }
+    } catch (_) {
+      if (showLoading) {
+        hasError.value = true;
+      }
+    } finally {
+      if (showLoading) {
+        isLoading.value = false;
+      }
+    }
   }
 
   void selectSku(SkuDto sku) {
@@ -179,13 +221,19 @@ class ProductScreenPresenter {
   }
 }
 
+typedef ProductScreenPresenterArgs = ({
+  String productId,
+  ProductDto? initialProduct,
+});
+
 final productScreenPresenterProvider = Provider.autoDispose
-    .family<ProductScreenPresenter, String>((ref, productId) {
+    .family<ProductScreenPresenter, ProductScreenPresenterArgs>((ref, args) {
       final catalogService = ref.read(catalogServiceProvider);
       final cartStore = ref.watch(cartStoreProvider);
       final navigationDriver = ref.watch(navigationDriverProvider);
       return ProductScreenPresenter(
-        productId: productId,
+        productId: args.productId,
+        initialProduct: args.initialProduct,
         catalogService: catalogService,
         cartStore: cartStore,
         navigationDriver: navigationDriver,

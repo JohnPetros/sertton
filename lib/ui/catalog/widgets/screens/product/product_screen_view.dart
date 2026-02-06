@@ -1,6 +1,7 @@
 import 'package:sertton/ui/catalog/widgets/components/shortage-time-counter/index.dart';
 import 'package:sertton/ui/catalog/widgets/components/sku-selector/index.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-image-viewer/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-header/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product-pricing/index.dart';
@@ -13,12 +14,22 @@ import 'package:signals/signals_flutter.dart';
 
 class ProductScreenView extends ConsumerWidget {
   final String productId;
+  final ProductDto? initialProduct;
 
-  const ProductScreenView({super.key, required this.productId});
+  const ProductScreenView({
+    super.key,
+    required this.productId,
+    this.initialProduct,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final presenter = ref.watch(productScreenPresenterProvider(productId));
+    final presenter = ref.watch(
+      productScreenPresenterProvider((
+        productId: productId,
+        initialProduct: initialProduct,
+      )),
+    );
     final theme = Theme.of(context);
 
     return Watch((context) {
@@ -121,8 +132,10 @@ class ProductScreenView extends ConsumerWidget {
               ),
               const SizedBox(height: 24),
 
-              ShortageTimeCounter(stock: sku.stock),
-              const SizedBox(height: 24),
+              if (!presenter.isOutOfStock.value) ...[
+                ShortageTimeCounter(stock: sku.stock),
+                const SizedBox(height: 24),
+              ],
 
               if (presenter.isInCart.value) ...[
                 Container(

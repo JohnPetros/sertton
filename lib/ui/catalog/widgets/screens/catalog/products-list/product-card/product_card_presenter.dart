@@ -27,7 +27,10 @@ class ProductCardPresenter {
   ProductCardPresenter({required this.product, required this.navigationDriver});
 
   void navigateToProductDetails() {
-    navigationDriver.goTo(Routes.product.replaceAll(':productId', product.id));
+    navigationDriver.goTo(
+      Routes.product.replaceAll(':productId', product.id),
+      data: product,
+    );
   }
 
   void handleAddToCart(BuildContext context) {
