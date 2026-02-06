@@ -18,6 +18,7 @@ void main() {
 
     when(() => presenter.isLoading).thenReturn(signal(false));
     when(() => presenter.hasError).thenReturn(signal(false));
+    when(() => presenter.errorMessage).thenReturn(signal(''));
     when(() => presenter.cartDisplayItems).thenReturn(signal([]));
     when(() => presenter.itemCount).thenReturn(computed(() => 0));
     when(() => presenter.subtotal).thenReturn(computed(() => 0.0));
