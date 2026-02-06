@@ -53,8 +53,8 @@ flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/sertton-icon.jpg"
-  adaptive_icon_foreground: "assets/images/sertton-icon.jpg"
+  image_path: "assets/images/sertton-icon.png"
+  adaptive_icon_foreground: "assets/images/sertton-icon.png"
   adaptive_icon_background: "#ffffff"
 
 flutter_native_splash:
