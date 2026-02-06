@@ -48,10 +48,18 @@ class SkuSelectorView extends StatelessWidget {
                 onQuantityChanged: onQuantityChanged,
               ),
               const SizedBox(height: 8),
+              if (maxQuantity == 0)
+                Text(
+                  'Produto sem estoque.',
+                  style: theme.typography.xSmall.copyWith(
+                    color: theme.colorScheme.destructive,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               Text(
                 maxQuantity > 0
                     ? 'Disponível: $maxQuantity unidades'
-                    : 'Indisponível no momento',
+                    : 'Indisponível no momento.',
                 style: theme.typography.xSmall.copyWith(
                   color: maxQuantity > 0
                       ? theme.colorScheme.mutedForeground
