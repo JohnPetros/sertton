@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:sertton/constants/routes.dart';
+import 'package:sertton/core/catalog/dtos/product_dto.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/index.dart';
 import 'package:sertton/ui/global/widgets/layout/index.dart';
@@ -69,7 +70,13 @@ final routerProvider = Provider<GoRouter>((ref) {
                     path: ':productId',
                     builder: (context, state) {
                       final productId = state.pathParameters['productId']!;
-                      return ProductScreen(productId: productId);
+                      final extra = state.extra;
+                      final initialProduct =
+                          extra is ProductDto ? extra : null;
+                      return ProductScreen(
+                        productId: productId,
+                        initialProduct: initialProduct,
+                      );
                     },
                   ),
                 ],
