@@ -1,11 +1,28 @@
+.PHONY: dev build clean test release
+
+dev:
+	flutter run
+
+prod:
+	flutter run --release
+
+build:
+	flutter build appbundle --dart-define=ENV_FILE=.env
+
+test:
+	flutter test
+
+clean:
+	flutter clean
+
+VERSION := $(word 2,$(MAKECMDGOALS))
+
+%:
+	@:
+
 release:
 	@if [ -z "$(VERSION)" ]; then \
 		echo "Uso: make release 1.2.3"; \
-		exit 1; \
-	fi
-
-	@if ! echo "$(VERSION)" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$$'; then \
-		echo "Versao invalida: $(VERSION). Use X.Y.Z (ex: 1.2.3)"; \
 		exit 1; \
 	fi
 
@@ -18,21 +35,17 @@ release:
 	@sed -i.bak "s/^version: .*/version: $(VERSION)/" pubspec.yaml
 	@rm -f pubspec.yaml.bak
 
-	@echo "Commitando alteracoes..."
-	@git add -A
-	@if git diff --cached --quiet; then \
-		echo "Nada para commitar"; \
-		exit 1; \
-	fi
-	@git commit -m "🔖 release: version $(VERSION)"
+	@echo "Fazendo commit da versao..."
+	git add pubspec.yaml
+	git commit -m "🔖 release: version $(VERSION)"
 
-	@echo "Enviando codigo para origin..."
-	@git push origin HEAD
+	@echo "Enviando codigo para Github..."
+	git push origin
 
 	@echo "Criando tag v$(VERSION)..."
-	@git tag v$(VERSION)
+	git tag v$(VERSION)
 
 	@echo "Enviando tag para origin..."
-	@git push origin v$(VERSION)
+	git push origin v$(VERSION)
 
 	@echo "Release v$(VERSION) publicada com sucesso!"
