@@ -6,7 +6,8 @@ import 'package:sertton/rest/types/json.dart';
 
 class YampiProductMapper {
   static ProductDto toDto(Json json) {
-    if (json.containsKey('product') && json['product'] is Map<String, dynamic>) {
+    if (json.containsKey('product') &&
+        json['product'] is Map<String, dynamic>) {
       json = (json['product'] as Map).cast<String, dynamic>();
     }
 
