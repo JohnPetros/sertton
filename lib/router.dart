@@ -22,9 +22,9 @@ import 'package:sertton/ui/institutional/widgets/screens/about_company/index.dar
 
 class _ConnectivityState extends ChangeNotifier {
   bool _isOnline = true;
-  
+
   bool get isOnline => _isOnline;
-  
+
   void setOnline(bool value) {
     if (_isOnline != value) {
       _isOnline = value;
@@ -38,7 +38,7 @@ final _connectivityStateProvider = Provider((_) => _ConnectivityState());
 final routerProvider = Provider<GoRouter>((ref) {
   final connectionDriver = ref.read(internetConnectionDriverProvider);
   final connectivityState = ref.read(_connectivityStateProvider);
-  
+
   final connectivityNotifier = GoRouterRefreshStream(
     connectionDriver.onStatusChange(),
   );
