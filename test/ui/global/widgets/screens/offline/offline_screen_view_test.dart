@@ -41,7 +41,7 @@ void main() {
         expect(find.byIcon(LucideIcons.wifiOff), findsOneWidget);
         expect(find.text('Sem conexão com a internet!'), findsOneWidget);
         expect(
-          find.text('Verifique sua conexão para seguir...'),
+          find.text('Verifique sua conexão para seguir navegando.'),
           findsOneWidget,
         );
       });
