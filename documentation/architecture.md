@@ -49,6 +49,30 @@ UI (View) -> Presenter -> Provider -> Interface de Servico -> Implementacao Yamp
 4. Presenter fazendo requisicoes diretas.
 5. DTOs mutaveis (prefira `final`).
 
+## Stack Tecnologica
+
+| Tecnologia | Pacote | Finalidade |
+|------------|--------|------------|
+| **Linguagem** | Dart | Linguagem principal |
+| **Framework** | Flutter | Framework multiplataforma |
+| **API** | Yampi Dev | Plataforma de e-commerce (RESTful) |
+| **HTTP Client** | Dio | Requisicoes HTTP e interceptors |
+| **Estado & DI** | flutter_riverpod | Injecao de dependencias e estado global |
+| **Reatividade** | signals / signals_flutter | Estado reativo granular |
+| **Rotas** | go_router | Navegacao declarativa |
+| **UI Kit** | shadcn_flutter | Componentes de interface |
+| **Animacoes** | flutter_animate, animate_do, lottie | Micro-interacoes e animacoes |
+| **Icones** | font_awesome_flutter | Icones vetoriais |
+| **SVG** | flutter_svg | Renderizacao de SVGs |
+| **Env** | flutter_dotenv | Variaveis de ambiente (.env) |
+| **Storage** | shared_preferences | Persistencia local (key-value) |
+| **Formatacao** | intl | Internacionalizacao e formatacao de datas/moeda |
+| **Mascaras** | mask_text_input_formatter | Mascaras de input (CPF, CEP, etc.) |
+| **Conectividade** | internet_connection_checker_plus | Verificacao de conexao de rede |
+| **URL** | url_launcher | Abertura de links externos (WhatsApp, email) |
+| **Info do App** | package_info_plus | Versao e metadados do app |
+| **Testes** | mocktail, faker, network_image_mock | Mocks e dados falsos para testes |
+
 ## Estrutura de Diretorios (essencial)
 
 ```

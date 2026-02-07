@@ -1,90 +1,104 @@
-# Prompt: Criar documento de Spec
+# Prompt: Criar Documento de Spec
 
-**Objetivo:**
-Detalhar a implementação técnica de uma feature, fix ou refatoração, atuando como um Tech Lead Sênior. O documento deve servir como uma ponte estritamente definida entre o PRD (Product Requirements Document) e o código, com nível de detalhe suficiente para que a implementação seja direta e sem ambiguidades.
+## Objetivo
+Detalhar a implementacao tecnica de uma feature, fix ou refatoracao atuando como Tech Lead Senior.
+O documento deve ser a ponte entre o PRD (Product Requirements Document) e o codigo, com nivel de detalhe suficiente para implementacao direta, sem ambiguidades.
 
-**Entrada:**
+## Entradas
+- Esboco da spec ou solicitacao de mudanca.
+- PRD associado (nivel superior).
+- Acesso a codebase atual.
 
-- Esboço da tarefa ou solicitação de mudança.
-- PRD associado (nível superior).
-- Acesso à codebase atual.
+## Diretrizes de Execucao
 
-**Diretrizes de Execução:**
+### 1) Pesquisa e contextualizacao
+- **Entender o PRD**: Acesse o link do PRD associado (nivel superior) e entenda o objetivo da tarefa usando Github ClI.
+- **Mapear fluxo:** entender origem e destino dos dados (`UI -> Store -> Service -> API`) antes de escrever.
+- **Verificar existencia:** identificar recursos existentes (widgets, DTOs, services) que devem ser reutilizados ou estendidos; evitar duplicidade.
+- **Consultar guidelines:** revisar padroes das camadas (`core`, `rest`, `ui`, `drivers`) e da stack (Riverpod, Signals) conforme escopo.
+- **Identificar referencias:** localizar exemplos similares na codebase para reaproveitamento inteligente.
+- **Questionar:** Caso necessario, me faça perguntas para entender melhor o contexto da tarefa ou decidir questões técnicas usando sua tool `question`.
 
-1. **Pesquisa e Contextualização (Chain of Thought):**
-    - **Mapeie o Fluxo:** Antes de escrever, entenda a origem e o destino dos dados (UI -> Store -> Service -> API).
-    - **Verifique a Existência:** Investigue a codebase para identificar recursos existentes (Widgets, DTOs, Services) que devem ser reutilizados ou estendidos. Evite duplicidade.
-    - **Consulte Guidelines:** Leia os padrões das camadas (`core`, `rest`, `ui`, `drivers`) e da stack (Riverpod, Signals) de acordo com o escopo da tarefa.
-    - **Identifique Referências:** Procure na codebase por exemplos similares ("copy-paste inteligente") para sugerir como referência.
+### 2) Estruturacao da spec
+Gerar um arquivo Markdown seguindo exatamente a estrutura abaixo.
 
+## Modelo Obrigatorio
 
-2. **Estruturação do Documento:**
-Gere o arquivo Markdown da Spec seguindo estritamente o modelo de seções e nível de detalhe abaixo:
-- ### 1. Título (Obrigatório)
+### 1. Cabecalho (Frontmatter)
+```yaml
+title: [Titulo da Spec]
+status: [concluido|concluida|em progresso]
+lastUpdatedAt: [AAAA-MM-DD]
+```
 
-Nome técnico da tarefa ou funcionalidade.
-- ### 2. Objetivo (Obrigatório)
+### 2. Objetivo (Obrigatorio)
+Resumo em um paragrafo do que sera entregue, funcional e tecnicamente.
 
+### 3. O que ja existe? (Obrigatorio)
+Para cada camada impactada, listar recursos existentes da codebase.
 
-Resumo claro em um parágrafo do que será entregue funcionalmente e tecnicamente.
-- ### 3. O que já existe? (Obrigatório)
+Formato:
+- **`NomeDaClasse`** (`caminho/relativo/do/arquivo.dart`) - *Breve descricao do uso (ex.: metodo a chamar, store a consumir).*
 
+### 4. O que deve ser criado? (Quando aplicavel)
+Descrever novos componentes por camada. Para cada arquivo novo, detalhar:
 
-Liste recursos da codebase que serão utilizados ou impactados.
-- Formato: **`NomeDaClasse`** (`caminho/relativo/do/arquivo.dart`) - *Breve descrição do uso (ex: método a chamar, store a consumir).*
+#### UI (Presenters, Stores)
+- **Localizacao:** `caminho/do/arquivo.dart`
+- **Dependencias:** o que deve ser injetado.
+- **Signals/Estado:** variaveis reativas (ex.: `isLoading`, `items`).
+- **Computeds:** variaveis derivadas (ex.: `isEmpty`, `totalPrice`).
+- **Metodos:** assinatura e responsabilidade.
 
+#### UI (Views)
+- **Localizacao:** `caminho/do/arquivo.dart`
+- **Bibliotecas de UI:** o que deve ser usado/injetado.
+- **Props:** parametros recebidos no construtor.
 
-- ### 4. O que deve ser criado? (Depende da tarefa)
+#### UI (Widgets)
+- **Localizacao:** `caminho/da/pasta`
+- **Props:** parametros recebidos no construtor.
+- **Widgets internos:** listar seguindo a mesma estrutura.
+- **Estrutura de pastas:** representar em ASCII quando houver widgets internos.
 
-Descreva novos componentes dividindo por camadas. Para cada arquivo novo, detalhe:
-- **Camada UI (Presenters, Stores):**
-- **Localização:** `caminho/do/arquivo.dart`
-- **Dependências:** O que deve ser injetado.
-- **Signals/Estado:** Liste as variáveis reativas (ex: `isLoading`, `items`).
-- **Computeds:** Variáveis derivadas (ex: `isEmpty`, `totalPrice`).
-- **Métodos:** Assinatura e responsabilidade.
+> Todo widget deve seguir MVP: View e, quando houver estado/providers, Presenter.
+> Se o widget tiver widgets internos, aplicar o mesmo padrao (Widgets, Views e Presenters).
 
-- **Camada UI (Views):**
-- **Localização:** `caminho/do/arquivo.dart`
-- **Bibliotecas de UI:** O que deve ser injetado.
-- **Props:** Parâmetros recebidos no construtor.
+#### REST (Services)
+- **Localizacao:** `caminho/do/arquivo.dart`
+- **Dependencias:** o que deve ser injetado.
+- **Metodos:** assinatura e responsabilidade.
 
-- **Camada UI (Widgets):**
-- **Localização:** `caminho/da/pasta`
-- **Props:** Parâmetros recebidos no construtor.
-- **Widgets internos:** Liste os widgets internos seguindo a mesma estrutura acima.
-- **Estrutura de pastas:** Escreva a estrutura de pastas usando ASCII do widget caso ele tenha widgets internos.
-> Um widget sempre deve seguir o padrão MVP, ou seja, possui uma View e, caso apresente estados ou providers, um Presenter.
-> Caso o widget tenha widgets internos, deve-se seguir o mesmo padrão descrito acima para Camada UI (Widgets, Views e Presenters).
+#### Drivers
+- **Localizacao:** `caminho/do/arquivo.dart`
+- **Dependencias:** o que deve ser injetado.
+- **Metodos:** assinatura e responsabilidade.
 
-- **Camada REST (Services):**
-- **Localização:** `caminho/do/arquivo.dart`
-- **Dependências:** O que deve ser injetado.
-- **Métodos:** Assinatura e responsabilidade.
+> Nem todas as camadas sao obrigatorias. Escolha somente as necessarias para a tarefa.
 
-- **Camada Drivers (Drivers):**
-- **Localização:** `caminho/do/arquivo.dart`
-- **Dependências:** O que deve ser injetado.
-- **Métodos:** Assinatura e responsabilidade.
+### 5. O que deve ser modificado? (Quando aplicavel)
+Para alteracoes em codigo existente:
 
-> Nem todas as camdas são obrigatórias para a implementação de uma feature, cabe a você decidir quais camadas deverão ser utilizadas.
+#### [Nome da Camada]
+- **Arquivo:** `caminho/do/arquivo.dart`
+- **Mudanca:** descrever alteracao especifica (ex.: adicionar prop `onTap`, injetar novo service).
 
-- ### 5. O que deve ser modificado? (Depende da tarefa)
+### 6. O que deve ser removido? (Quando aplicavel)
 
+#### [Nome da Camada]
+- **Arquivo:** `caminho/do/arquivo.dart`
+- **Motivo:** explicar remocao e impacto.
 
-Alterações em código existente.
-- Indique o arquivo e descreva a mudança específica (ex: "Adicionar prop `onTap`", "Injetar novo service").
+### 7. Usar como referencia (Opcional)
+- Links/caminhos para arquivos similares na codebase.
 
+### 8. Diagramas e referencias
+- **Fluxo de dados:** diagrama ASCII/texto com interacao entre camadas.
+- **Layout:** ASCII da hierarquia visual para telas/widgets complexos.
+- **Referencias:** caminhos de arquivos similares usados como base.
 
-- ### 6. O que deve ser removido? (Depende da tarefa)
-
-
-Limpeza de código legado ou refatoração.
-- ### 7. Usar como referência (Opcional)
-
-
-Arquivos que servem de inspiração estrutural ou lógica para a implementação.
-
-3. **Diagramas de Visualização:**
-- **Fluxo de Dados:** Gere um diagrama em notação ASCII ou Text-based mostrando a interação entre as camadas (ex: `View` -> `Presenter` -> `Store` -> `Service`).
-- **Layout:** Como mencionado acima, use ASCII para representar a hierarquia visual de telas e widgets complexos.
+## Checklist de Validacao
+- Estrutura obrigatoria seguida integralmente.
+- Caminhos de arquivos conferidos na codebase.
+- Sem duplicacao de componentes ja existentes.
+- Decisoes alinhadas com guidelines da camada.

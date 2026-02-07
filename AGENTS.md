@@ -3,3 +3,9 @@ Leia os arquivos:
 - documentation/overview.md
 - documentation/architecture.md
 - documentation/guidelines/guidelines.md
+
+MCPs:
+
+- Use o MCP do Context7 para obter documentação e exemplos de uso de bibliotecas/frameworks específicos caso seja necessário.
+- Use o MCP do Serena para buscar arquivos do projeto de forma mais eficiente.
+- Use o MCP do Sequential Thinking para pensar em uma solução de forma mais eficiente.

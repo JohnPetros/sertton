@@ -5,10 +5,12 @@ import 'package:network_image_mock/network_image_mock.dart';
 import '../../../../../fakers/product_faker.dart';
 import '../../../../../fakers/sku_faker.dart';
 import 'package:sertton/core/catalog/interfaces/catalog_service.dart';
+import 'package:sertton/core/global/interfaces/internet_connection_driver.dart';
 import 'package:sertton/core/global/responses/rest_response.dart';
 import 'package:sertton/rest/services.dart';
 import 'package:sertton/core/global/interfaces/cache_driver.dart';
 import 'package:sertton/drivers/cache-driver/index.dart';
+import 'package:sertton/drivers/internet-connection-driver/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/product/product_screen_view.dart';
 import 'package:shadcn_flutter/shadcn_flutter.dart';
 
@@ -16,16 +18,27 @@ class MockCatalogService extends Mock implements CatalogService {}
 
 class MockCacheDriver extends Mock implements CacheDriver {}
 
+class MockInternetConnectionDriver extends Mock
+    implements InternetConnectionDriver {}
+
 void main() {
   late MockCatalogService catalogService;
   late MockCacheDriver cacheDriver;
+  late MockInternetConnectionDriver mockConnectionDriver;
   const productId = '123';
 
   setUp(() {
     catalogService = MockCatalogService();
     cacheDriver = MockCacheDriver();
+    mockConnectionDriver = MockInternetConnectionDriver();
 
     when(() => cacheDriver.get(any())).thenReturn(null);
+    when(
+      () => mockConnectionDriver.hasInternetAccess(),
+    ).thenAnswer((_) async => true);
+    when(
+      () => mockConnectionDriver.onStatusChange(),
+    ).thenAnswer((_) => const Stream.empty());
   });
 
   Widget createWidget() {
@@ -34,6 +47,9 @@ void main() {
         overrides: [
           catalogServiceProvider.overrideWithValue(catalogService),
           cacheDriverProvider.overrideWithValue(cacheDriver),
+          internetConnectionDriverProvider.overrideWithValue(
+            mockConnectionDriver,
+          ),
         ],
         child: const ProductScreenView(productId: productId),
       ),
