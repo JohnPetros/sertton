@@ -34,7 +34,7 @@ class OfflineScreenView extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Verifique sua conexão para seguir...',
+                'Verifique sua conexão para seguir navegando.',
                 textAlign: TextAlign.center,
                 style: theme.typography.base.copyWith(
                   color: theme.colorScheme.mutedForeground,

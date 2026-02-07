@@ -27,6 +27,10 @@ class OfflineScreenPresenter {
       if (hasInternet) {
         _navigationDriver.goTo(Routes.home);
       }
+    } catch (error) {
+      // Log error silently without disrupting user experience
+      // In production, this would be sent to telemetry/logging service
+      // For now, we just ensure the UI state is consistent
     } finally {
       isChecking.value = false;
     }
