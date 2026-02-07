@@ -19,9 +19,12 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
         *   **REST:** `documentation\rest-layer-guidelines.md`
         *   **Drivers:** `documentation\drivers-layer-guidelines.md`
 
-2.  **Decomposição Atômica:**
-    *   Divida o plano macro em micro-tarefas atômicas.
-    *   Cada tarefa deve resultar em um código compilável e funcional isoladamente.
+2.  **Planejamento e Tarefas:**
+    *   Caso já tenha sido realizado o planejamento e a definição de tarefas prévias, leve-as em consideração durante a implementação e ignore os passos 3 e 4.
+
+3.  **Decomposição Atômica:**
+    * Divida o plano de implementação em fases e tarefas atômicas.
+    * Cada fase deve resultar em um código compilável e funcional isoladamente.
 
 3.  **Ordem de Execução (Bottom-Up):**
     Implemente as tarefas seguindo rigorosamente a hierarquia de dependências:
@@ -39,13 +42,7 @@ Executar o plano de implementação técnica de forma iterativa, organizada e va
     *   **Análise de Testes:** Execute `flutter test`.
     *   **Critério de Aceite:** Corrija imediatamente quaisquer erros ou recomendações do linter, também corrija erros de testes. Não avance com código "sujo".
 
-5.  **Uso de Ferramentas Auxiliares (Context7):**
-    *   Caso tenha dúvidas sobre como usar uma biblioteca específica (ex: `shadcn_flutter`), utilize o MCP do Context7 para obter documentação e exemplos de uso.
-
-6.  **Planejamento e Tarefas:**
-    *   Caso tenha sido realizado o planejamento e a definição de tarefas prévias, leve-as em consideração durante a implementação.
-
-7.  **Consistência de Padrões:**
+6.  **Consistência de Padrões:**
     *   **Camada UI:** 
         *   Sempre que criar um widget interno, crie uma pasta dedicada para ele dentro da estrutura do widget pai.
         *   Sempre use o padrão MVP (Model-View-Presenter) para a criação de widgets.
