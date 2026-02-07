@@ -27,7 +27,7 @@ Gerar um arquivo Markdown seguindo exatamente a estrutura abaixo.
 ### 1. Cabecalho (Frontmatter)
 ```yaml
 title: [Titulo da Spec]
-status: [concluido|em progresso]
+status: [concluido|concluida|em progresso]
 lastUpdatedAt: [AAAA-MM-DD]
 ```
 

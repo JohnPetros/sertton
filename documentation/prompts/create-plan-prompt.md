@@ -19,7 +19,7 @@ Transformar uma especificação técnica em um plano de implementação detalhad
 - Divida o plano fases em tarefas atômicas.
 - Cada fase deve resultar em um código compilável e funcional isoladamente.
 
-## 2. Ordem de Execução (Bottom-Up)
+## 3. Ordem de Execução (Bottom-Up)
 
 Implemente as tarefas seguindo rigorosamente a hierarquia de dependências:
 
