@@ -5,6 +5,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import '../../../../../../fakers/product_faker.dart';
 import 'package:sertton/core/catalog/dtos/product_dto.dart';
+import 'package:sertton/core/global/interfaces/internet_connection_driver.dart';
+import 'package:sertton/drivers/internet-connection-driver/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-card/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product-skeleton/index.dart';
 import 'package:sertton/ui/catalog/widgets/screens/catalog/products-list/product_list_view.dart';
@@ -14,11 +16,23 @@ import 'package:signals/signals_flutter.dart';
 
 class MockProductsListPresenter extends Mock implements ProductsListPresenter {}
 
+class MockInternetConnectionDriver extends Mock
+    implements InternetConnectionDriver {}
+
 void main() {
   late MockProductsListPresenter presenter;
+  late MockInternetConnectionDriver mockConnectionDriver;
 
   setUp(() {
     presenter = MockProductsListPresenter();
+    mockConnectionDriver = MockInternetConnectionDriver();
+
+    when(
+      () => mockConnectionDriver.hasInternetAccess(),
+    ).thenAnswer((_) async => true);
+    when(
+      () => mockConnectionDriver.onStatusChange(),
+    ).thenAnswer((_) => const Stream.empty());
 
     when(() => presenter.products).thenReturn(signal<List<ProductDto>>([]));
     when(() => presenter.isLoading).thenReturn(signal(false));
@@ -31,7 +45,12 @@ void main() {
   Widget createWidget() {
     return ShadcnApp(
       home: ProviderScope(
-        overrides: [presenterProvider.overrideWithValue(presenter)],
+        overrides: [
+          presenterProvider.overrideWithValue(presenter),
+          internetConnectionDriverProvider.overrideWithValue(
+            mockConnectionDriver,
+          ),
+        ],
         child: const ProductListView(),
       ),
     );
