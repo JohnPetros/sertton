@@ -8,7 +8,7 @@ final internetConnectionDriverProvider = Provider<InternetConnectionDriver>((
   ref,
 ) {
   final connection = InternetConnection.createInstance(
-    checkInterval: const Duration(seconds: 3),
+    checkInterval: const Duration(seconds: 10),
   );
   return InternetConnectionCheckerPlusDriver(connection);
 });

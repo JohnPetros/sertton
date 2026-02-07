@@ -20,29 +20,51 @@ import 'package:sertton/ui/institutional/widgets/screens/return_policy/index.dar
 import 'package:sertton/ui/institutional/widgets/screens/terms_conditions/index.dart';
 import 'package:sertton/ui/institutional/widgets/screens/about_company/index.dart';
 
+class _ConnectivityState extends ChangeNotifier {
+  bool _isOnline = true;
+  
+  bool get isOnline => _isOnline;
+  
+  void setOnline(bool value) {
+    if (_isOnline != value) {
+      _isOnline = value;
+      notifyListeners();
+    }
+  }
+}
+
+final _connectivityStateProvider = Provider((_) => _ConnectivityState());
+
 final routerProvider = Provider<GoRouter>((ref) {
   final connectionDriver = ref.read(internetConnectionDriverProvider);
+  final connectivityState = ref.read(_connectivityStateProvider);
+  
   final connectivityNotifier = GoRouterRefreshStream(
     connectionDriver.onStatusChange(),
   );
+
+  // Update cached state when connectivity changes
+  connectionDriver.onStatusChange().listen((status) {
+    connectivityState.setOnline(status);
+  });
 
   ref.onDispose(() => connectivityNotifier.dispose());
 
   return GoRouter(
     initialLocation: Routes.splash,
     refreshListenable: connectivityNotifier,
-    redirect: (context, state) async {
+    redirect: (context, state) {
       final currentPath = state.uri.path;
 
       if (currentPath == Routes.splash) return null;
 
-      final hasInternet = await connectionDriver.hasInternetAccess();
+      final isOnline = connectivityState.isOnline;
 
-      if (!hasInternet && currentPath != Routes.offline) {
+      if (!isOnline && currentPath != Routes.offline) {
         return Routes.offline;
       }
 
-      if (hasInternet && currentPath == Routes.offline) {
+      if (isOnline && currentPath == Routes.offline) {
         return Routes.home;
       }
 
