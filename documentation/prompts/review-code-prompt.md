@@ -33,7 +33,7 @@ Realizar uma revisão técnica rigorosa da base de código para assegurar confor
     *   **Padrões:** Garanta o uso correto de MVP, injeção de dependência com Riverpod e reatividade com Signals.
 
 5.  **Validação Final:**
-    *   **Testes:** Execute o **Dart MCP** `run_tests` para validar que as alterações não impactaram o comportamento funcional do sistema.
+    *   **Testes:** Execute o `flutter test` para validar que as alterações não impactaram o comportamento funcional do sistema.
     *   **Certificação:** Realize uma rodada final de `analyze_files` para confirmar o estado "limpo" do código.
 
 **Critério de Sucesso:**

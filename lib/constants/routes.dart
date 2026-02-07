@@ -9,4 +9,5 @@ class Routes {
   static const String terms = '/institutional/terms';
   static const String about = '/institutional/about';
   static const String splash = '/splash';
+  static const String offline = '/offline';
 }

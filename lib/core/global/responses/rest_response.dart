@@ -28,9 +28,6 @@ class RestResponse<Body> {
     if (_body == null) {
       throw Exception('Rest Response failed. Body is null');
     }
-    if (_errorMessage != null || _body == null) {
-      throw Exception('Rest Response failed: $statusCode');
-    }
     return RestResponse(body: mapper(_body), statusCode: _statusCode);
   }
 
