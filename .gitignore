@@ -45,12 +45,16 @@ app.*.map.json
 /android/app/release
 /android\key.properties
 
+# VS Code
+.vscode/
+
 # Certificates
 certificates/
 
+# Environment variables
 .env
 
-# Agents
+# AI Agents
 .agent
 .agents
 .windsurf
@@ -61,3 +65,4 @@ certificates/
 .replit
 .serena
 opencode.jsonc
+prompt.md
