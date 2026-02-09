@@ -6,6 +6,9 @@ dev:
 prod:
 	flutter run --release
 
+format:
+	dart format .
+
 build:
 	flutter build appbundle --dart-define=ENV_FILE=.env
 

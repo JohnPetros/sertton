@@ -35,9 +35,14 @@ O aplicativo adota um modelo de navegação híbrido para maximizar a usabilidad
 * **Detalhes do Produto:** Exibição rica com zoom, descrição e ficha técnica.
 * **Seleção de Variações:** Obrigatoriedade de seleção de atributos (Material, Tamanho) para definir o SKU antes da compra.
 
+**Referências de implementação:**
+* `lib/core/catalog/`
+* `lib/rest/yampi/services/yampi_catalog_service.dart`
+* `lib/ui/catalog/`
+
 ### 🛒 Módulo Checkout (Checkout & Cart)
 
-*Responsável pela gestão do Carrinho, Pedidos, Clientes e Logística.*
+*Responsável pela gestão do Carrinho, Pedidos, Clientes e Pagamentos.*
 
 * **Gestão do Carrinho:**
 * Adicionar/Remover itens e ajustar quantidades (Min: 1).
@@ -45,15 +50,13 @@ O aplicativo adota um modelo de navegação híbrido para maximizar a usabilidad
 * Bloqueio de duplicidade de SKU (incrementa quantidade, não cria nova linha).
 * **Persistência:** Recuperação do estado do carrinho após reiniciar o app.
 * Limpeza automática ao iniciar checkout externo.
-
-
-* **Logística:**
-* Cálculo de frete via CEP.
-* Exibição comparativa de transportadoras (Preço x Prazo).
-
-
 * **Histórico de Pedidos:** Listagem vinculada ao CPF/CNPJ com status (Pago, Aguardando, Cancelado).
 * **Pagamentos:** Visualização de PDF para Boletos e "Copia e Cola"/QR Code para Pix.
+
+**Referências de implementação:**
+* `lib/core/checkout/`
+* `lib/rest/yampi/services/yampi_checkout_service.dart`
+* `lib/ui/checkout/`
 
 ### 📢 Módulo Marketing (Marketing)
 
@@ -63,11 +66,52 @@ O aplicativo adota um modelo de navegação híbrido para maximizar a usabilidad
 * **Leads:** Formulário de captura de e-mail na Home com validação de duplicidade.
 * **Suporte:** *Deep links* para WhatsApp e cliente de E-mail.
 
+**Referências de implementação:**
+* `lib/core/marketing/`
+* `lib/rest/yampi/services/yampi_marketing_service.dart`
+* `lib/ui/global/widgets/screens/home/marketing-section/`
+* `lib/ui/global/widgets/screens/home/leads-capturer-section/`
+
 ### ⭐ Módulo Reviewing (Reviewing)
 
 *Responsável pela prova social.*
 
 * **Comentários:** Exibição e gestão de avaliações vinculadas aos produtos (conforme suporte da API Yampi).
+
+**Referências de implementação:**
+* `lib/core/reviewing/`
+
+### 🚚 Módulo Shipping (Shipping)
+
+*Responsável pela logística de entrega e simulação de frete.*
+
+* **Cálculo de frete:** Simulação por CEP.
+* **Comparativo de opções:** Exibição de transportadoras por preço e prazo.
+* **Integração com checkout:** Seleção de frete aplicada ao fluxo de compra.
+
+### 🌐 Módulo Global (Global)
+
+*Responsável por navegação principal, layout global e estados do app.*
+
+* **Layout global:** Drawer + Tabbar + shell de navegação.
+* **Telas base:** Splash, Offline, Home e componentes compartilhados.
+
+**Referências de implementação:**
+* `lib/ui/global/`
+* `lib/router.dart`
+* `lib/constants/routes.dart`
+
+### 🏛️ Módulo Institutional (Institutional)
+
+*Responsável pelo conteúdo institucional e legal do aplicativo.*
+
+* **Telas institucionais:** Sobre, Privacidade, Trocas/Devoluções e Termos.
+* **Acesso global:** navegação pelo Drawer e rotas dedicadas.
+
+**Referências de implementação:**
+* `lib/ui/institutional/`
+* `documentation/features/legal/institutional-screens/`
+* `lib/constants/routes.dart`
 
 ---
 
@@ -83,38 +127,13 @@ O aplicativo adota um modelo de navegação híbrido para maximizar a usabilidad
 
 ---
 
-## 5. Arquitetura Técnica
-
-O projeto segue uma arquitetura em camadas visando desacoplamento e testabilidade.
-
-### 🏗 Camadas (Layers)
-
-1. **UI:** Widgets, Páginas e Lógica de Apresentação (utilizando **Flutter ShadCn**).
-2. **Validation:** Schemas de validação de inputs (**LucidValidation**).
-3. **Core:** DTOs, Interfaces, Formatos de Resposta (PaginationResponse, RestResponse) e Configurações.
-4. **Rest:** Implementação dos Services e comunicação HTTP (**Dio**).
-
-### 🧱 Estrutura de Módulos (Domain)
+## 5. Estrutura de Módulos (Domain)
 
 A regra de negócio é segregada nos seguintes domínios, cada um contendo seus DTOs e Interfaces de Serviço:
 
-* **Catalog:** `Product`, `SKU`, `Category`, `Variation`, `Brand`, `Cart`.
+* **Catalog:** `Product`, `SKU`, `Category`, `Variation`, `Brand`, `Collection`.
+* **Checkout:** `CartItem`, `Customer`, `Discount`, `Installment`, `Order`, `OrderItem`, `Payment`, `Address`.
 * **Marketing:** `Lead`, `Contact`, `Banner`.
-* **Reviewing:** `Comment`.
-* **Checkout:** `Order`, `Customer`.
-
-### 🛠 Stack Tecnológica
-
-| Tecnologia | Finalidade |
-| --- | --- |
-| **Linguagem** | Dart |
-| **Framework** | Flutter |
-| **API** | Yampi Dev (RESTful) |
-| **Rotas** | GoRouter |
-| **Estado & DI** | Riverpod |
-| **Eventos** | Flutter Signals |
-| **UI Kit** | Flutter ShadCn |
-| **HTTP Client** | Dio |
-| **Testes** | Mocktail, Faker |
-
----
+* **Reviewing:** `Comment`, `Author` (atualmente sem interface de serviço implementada).
+* **Shipping:** `ShippingOption`, `FreightQuote`, `DeliveryAddress` (planejado).
+* **Institutional:** conteúdo estático institucional/legal (camada UI).

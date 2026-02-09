@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 import 'package:sertton/core/catalog/dtos/collection_dto.dart';
+import 'package:sertton/core/global/interfaces/internet_connection_driver.dart';
+import 'package:sertton/drivers/internet-connection-driver/index.dart';
 import '../../../../../../../fakers/collection_faker.dart';
 import '../../../../../../../fakers/product_faker.dart';
 import 'package:sertton/ui/global/widgets/screens/home/marketing-section/marketing-collection/marketing_collection_presenter.dart';
@@ -13,13 +15,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MockMarketingCollectionPresenter extends Mock
     implements MarketingCollectionPresenter {}
 
+class MockInternetConnectionDriver extends Mock
+    implements InternetConnectionDriver {}
+
 void main() {
   late MockMarketingCollectionPresenter presenter;
   late CollectionDto collection;
+  late MockInternetConnectionDriver mockConnectionDriver;
 
   setUp(() {
     presenter = MockMarketingCollectionPresenter();
     collection = CollectionFaker.fakeDto();
+    mockConnectionDriver = MockInternetConnectionDriver();
+
+    when(
+      () => mockConnectionDriver.hasInternetAccess(),
+    ).thenAnswer((_) async => true);
+    when(
+      () => mockConnectionDriver.onStatusChange(),
+    ).thenAnswer((_) => const Stream.empty());
 
     when(() => presenter.products).thenReturn(signal([]));
     when(() => presenter.isLoading).thenReturn(signal(false));
@@ -33,6 +47,9 @@ void main() {
           marketingCollectionPresenterProvider(
             collection.id,
           ).overrideWithValue(presenter),
+          internetConnectionDriverProvider.overrideWithValue(
+            mockConnectionDriver,
+          ),
         ],
         child: SingleChildScrollView(
           child: MarketingCollectionView(collection: collection),
