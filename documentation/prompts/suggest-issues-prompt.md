@@ -1,32 +1,36 @@
-# Prompt: Sugerir Issues
+---
+description: Suggest implementation issues from a GitHub milestone-based PRD.
+---
 
-**Objetivo:**
+# Prompt: Suggest Issues
 
-Sugerir issues para o projeto baseado em um PRD
+**Objective:**
 
-**Entrada:**
-- Link do PRD do projeto
+Suggest issues for the project based on a PRD.
 
-**Diretrizes de Execução:**
+**Input:**
+- Project PRD link
 
-1. Use o GitHub CLI para obter o PRD fornecido que está como milestone no Github.
-2. Leia o PRD fornecido e compreenda os requisitos e funcionalidades descritos.
-3. Sugerir issues para o projeto baseado no PRD e no contexto e arquitetura do projeto.
+**Execution Guidelines:**
 
-A funcionalidade geralmente pode cabe em uma só issue, porém se a funcionalidade for muito grande, divida em issues diferentes
+1. Use GitHub CLI to retrieve the provided PRD, which is stored as a milestone on GitHub.
+2. Read the provided PRD and understand the described requirements and features.
+3. Suggest issues for the project based on the PRD and the project context and architecture.
 
-## 🎯 Objetivo
-<!-- O que esta issue quer alcançar? Qual o resultado esperado? -->
+The feature can usually fit into a single issue, but if it is too large, split it into different issues.
 
-## ✅ Requisitos
-- Requisito 1
-- Requisito 2
-- Requisito 3
+## Objective
+<!-- What does this issue aim to achieve? What is the expected result? -->
 
-## 🧠 Regras de Negócio
-<!-- Condições, exceções, cenários, validações importantes -->
+## Requirements
+- Requirement 1
+- Requirement 2
+- Requirement 3
 
-## 🖥️ UX/UI (se aplicável)
-<!-- Links do Figma, prints, comportamento esperado -->
+## Business Rules
+<!-- Conditions, exceptions, scenarios, important validations -->
 
-> link a issue a uma milestone fornecida
+## UX/UI (if applicable)
+<!-- Figma links, screenshots, expected behavior -->
+
+> Link the issue to a provided milestone

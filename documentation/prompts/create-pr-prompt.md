@@ -1,49 +1,53 @@
-# Prompt: Criar PRD
+---
+description: Create a GitHub pull request with a standardized title and body using gh CLI.
+---
 
-**Objetivo:**
-Padronizar a criação de Pull Requests (PRs), garantindo descrições claras que facilitem a revisão de código e o rastreamento de tarefas. O foco é utilizar exclusivamente a **GitHub CLI (gh)** para manter a integridade do fluxo de trabalho.
+# Prompt: Create PR
+
+**Objective:**
+Standardize Pull Request (PR) creation, ensuring clear descriptions that make code review and task tracking easier. The focus is to use only the **GitHub CLI (gh)** to preserve workflow integrity.
 
 ---
 
-## Entrada
+## Input
 
-* Uma Spec (especificação) devidamente implementada e validada.
-* Uma Bug Report (relatório de bug) devidamente implementada e validada.
-* Uma branch de funcionalidade (`feature/`), correção (`fix/`) ou refatoração (`refactor/`) com as alterações comitadas.
-
----
-
-## Diretrizes de Execução
-
-### 1️⃣ Análise do Contexto
-
-* Revise a Spec implementada e o changelog das alterações realizadas.
-* Identifique:
-
-  * impactos técnicos
-  * decisões de design tomadas
-  * riscos e efeitos colaterais
+* A properly implemented and validated Spec.
+* A properly implemented and validated Bug Report.
+* A feature (`feature/`), fix (`fix/`), or refactor (`refactor/`) branch with committed changes.
 
 ---
 
-### 2️⃣ Definição do Título
+## Execution Guidelines
 
-* Deve ser:
+### 1. Context Analysis
 
-  * curto
-  * direto
-  * em PT-BR
-  * refletir a essência da alteração
+* Review the implemented Spec and the changelog of completed changes.
+* Identify:
 
-Exemplos:
+  * technical impacts
+  * design decisions made
+  * risks and side effects
 
-* Implementação da listagem de produtos
-* Correção do erro de carregamento de imagem
-* Correção de navegação para tela de catálogo
+---
 
-⚠️ Não incluir prefixos no título:
+### 2. Title Definition
 
-```
+* It must be:
+
+  * short
+  * direct
+  * in PT-BR
+  * reflective of the essence of the change
+
+Examples:
+
+* Product listing implementation
+* Fix image loading error
+* Fix navigation to the catalog screen
+
+Do not include prefixes in the title:
+
+```text
 feat/
 fix/
 refactor/
@@ -51,125 +55,125 @@ refactor/
 
 ---
 
-### 3️⃣ Estrutura da Descrição (Body)
+### 3. Description Structure (Body)
 
-O corpo do PR deve seguir o template abaixo.
+The PR body must follow the template below.
 
-**Regras de formatação:**
+**Formatting rules:**
 
-* usar Markdown
-* não usar título principal `#`
-* usar `##` e níveis abaixo
+* use Markdown
+* do not use a main `#` title
+* use `##` and lower levels
 
 ---
 
-## 🎯 Objetivo (obrigatório)
+## Objective (required)
 
-Explique por que este PR foi criado e qual seu propósito central.
+Explain why this PR was created and its central purpose.
 
-## #️⃣ Issues relacionadas (opcional)
+## Related Issues (optional)
 
-Vincule tarefas/buffs:
+Link tasks/bugs:
 
-```
+```text
 fixes #123
 closes #456
 ```
 
 ---
 
-## 🐛 Causa do bug (opcional — apenas fix)
+## Bug Cause (optional - fix only)
 
-Descreva a causa técnica raiz.
-
----
-
-## 📋 Changelog (obrigatório)
-
-Lista técnica das mudanças:
-
-* arquivos alterados
-* comportamento modificado
-* regras adicionadas
-* refatorações feitas
+Describe the root technical cause.
 
 ---
 
-## 🧪 Como testar (obrigatório)
+## Changelog (required)
 
-Passo a passo claro para o revisor validar:
+Technical list of changes:
 
-1. …
-2. …
-3. …
+* changed files
+* modified behavior
+* added rules
+* completed refactors
 
 ---
 
-## 👀 Observações (opcional)
+## How to Test (required)
 
-* decisões de arquitetura
-* limitações conhecidas
+Clear step-by-step for the reviewer:
+
+1. ...
+2. ...
+3. ...
+
+---
+
+## Notes (optional)
+
+* architectural decisions
+* known limitations
 * tradeoffs
-* próximos passos
+* next steps
 
 ---
 
-## 4️⃣ Criação via gh CLI
+## 4. Creation via gh CLI
 
-⚠️ Não usar GitHub MCP.
-⚠️ Não usar APIs MCP.
-Usar exclusivamente **gh**.
+Do not use GitHub MCP.
+Do not use MCP APIs.
+Use only **gh**.
 
-Comando padrão:
+Standard command:
 
-```
+```bash
 gh pr create \
   --repo owner/repo \
   --base main \
-  --head <nome-da-branch> \
-  --title "<Titulo do PR>" \
+  --head <branch-name> \
+  --title "<PR Title>" \
   --body-file pr_body.md
 ```
 
-Ou inline:
+Or inline:
 
-```
+```bash
 gh pr create \
   --base main \
   --head <branch> \
-  --title "<Titulo>" \
-  --body "<Descrição formatada>"
+  --title "<Title>" \
+  --body "<Formatted description>"
 ```
 
 ---
 
-## 5️⃣ Retorno
+## 5. Return
 
-Após criação:
+After creation:
 
-```
+```bash
 gh pr view --web
 ```
 
-ou
+or
 
-```
+```bash
 gh pr view --json url
 ```
 
-Retornar:
+Return:
 
-* link do PR criado
-* título final
-* resumo do body gerado
+* created PR link
+* final title
+* summary of the generated body
 
 ---
 
-Se você quiser, eu também posso converter esse prompt em:
+If you want, I can also convert this prompt into:
 
-✅ slash command
-✅ template de PR automático
-✅ script gh + template markdown
-✅ workflow de CI para validar PR body
+* slash command
+* automatic PR template
+* `gh` script + markdown template
+* CI workflow to validate the PR body
 
-Só falar qual ambiente você vai usar.
+Just tell me which environment you will use.

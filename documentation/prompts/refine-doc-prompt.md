@@ -1,18 +1,21 @@
-# Prompt: Refinar PRD
+---
+description: Refine a markdown document for clarity, structure, and valid references.
+---
 
-**Objetivo Principal**
-Analisar e refinar trechos ou documentos completos fornecidos em Markdown. O resultado deve aplicar as melhores práticas de formatação para garantir máxima clareza e facilidade de interpretação por desenvolvedores e Modelos de Linguagem (LLMs).
+# Prompt: Refine PRD
 
-**Entrada:**
-* Documento em Markdown a ser refinado.
+**Main Objective**
+Analyze and refine provided excerpts or complete Markdown documents. The result should apply Markdown formatting best practices to ensure maximum clarity and ease of interpretation by developers and Language Models (LLMs).
 
-**Diretrizes de Execução:**
+**Input:**
+* Markdown document to be refined.
 
-1. **Padronização e Clareza:**
-* Reestruture o conteúdo para que a hierarquia de informações seja lógica.
-* Utilize recursos visuais do Markdown (cabeçalhos, negrito, listas, blocos de código) para melhorar a legibilidade, caso seja necessário.
+**Execution Guidelines:**
 
+1. **Standardization and Clarity:**
+* Restructure the content so the information hierarchy is logical.
+* Use Markdown visual resources (headings, bold text, lists, code blocks) to improve readability when necessary.
 
-2. **Validação de Referências:**
-* Identifique todas as referências a arquivos ou links externos.
-* **Verificação Crítica:** Garanta que a sintaxe dos links esteja correta e verifique a existência/validade dos arquivos apontados.
+2. **Reference Validation:**
+* Identify all references to files or external links.
+* **Critical Verification:** Ensure link syntax is correct and verify the existence/validity of the referenced files.

@@ -1,40 +1,44 @@
+---
+description: Review code for bugs, standard violations, and static analysis issues.
+---
+
 # Review Code Skill
 
-**Objetivo:**
-Realizar uma revisão técnica rigorosa da base de código para assegurar conformidade com os padrões do projeto, identificar bugs latentes e manter a integridade da análise estática (no-warnings policy).
+**Objective:**
+Perform a rigorous technical review of the codebase to ensure compliance with project standards, identify latent bugs, and maintain static analysis integrity (no-warnings policy).
 
-**Entrada:**
-*   **Contexto:** Spec que acabou de ser implementada (opcional).
-*   **Alvo:** Todo o projeto ou caminhos específicos fornecidos.
+**Input:**
+* **Context:** Spec that was just implemented (optional).
+* **Target:** The entire project or specific provided paths.
 
-**Diretrizes de Execução:**
+**Execution Guidelines:**
 
-1.  **Verificação de Spec e Lógica:**
-    *   **Conformidade:** Verifique se a spec foi implementada corretamente, respeitando todos os requisitos definidos.
-    *   **Escaneamento Manual:** Procure por erros de digitação, erros de lógica, problemas de nomenclatura e erros de sintaxe óbvios.
+1. **Spec and Logic Verification:**
+    * **Compliance:** Verify that the spec was correctly implemented, respecting all defined requirements.
+    * **Manual Scan:** Look for typos, logic errors, naming issues, and obvious syntax mistakes.
 
-2.  **Análise de Qualidade Estática:**
-    *   **Diagnóstico:** Execute a ferramenta **Dart MCP** `analyze_files` para listar erros, alertas (warnings) e inconsistências de codificação.
-    *   **Priorização:** Examine a severidade dos problemas reportados para planejar a ordem de correção, priorizando erros de compilação críticos.
+2. **Static Quality Analysis:**
+    * **Diagnosis:** Run the **Dart MCP** `analyze_files` tool to list errors, warnings, and coding inconsistencies.
+    * **Prioritization:** Examine the severity of reported problems to plan the correction order, prioritizing critical compilation errors.
 
-3.  **Correção Automatizada:**
-    *   **Quick Fixes:** Aplique a ferramenta **Dart MCP** `dart_fix` para resolver automaticamente violações de regras que possuam correções rápidas.
-    *   **Verificação:** Analise as alterações realizadas pelo `dart_fix` para garantir que a semântica do código foi preservada.
+3. **Automated Fixing:**
+    * **Quick Fixes:** Apply the **Dart MCP** `dart_fix` tool to automatically resolve rule violations that have quick fixes.
+    * **Verification:** Review the changes made by `dart_fix` to ensure code semantics were preserved.
 
-4.  **Refatoração e Alinhamento com Protocolos:**
-    *   **Manual:** Corrija manualmente os problemas persistentes que as ferramentas automatizadas não puderam resolver.
-    *   **Diretrizes:** Siga rigorosamente os padrões de projeto conforme documentado em:
-    *   **Convenções de codificação:** [code-conventions-guidelines.md](../code-conventions-guidelines.md)
-        *   **Arquitetura:** [architecture.md](../architecture.md)
-        *   **Core:** [core-layer-guidelines.md](../core-layer-guidelines.md)
-        *   **Rest:** [rest-layer-guidelines.md](../rest-layer-guidelines.md)
-        *   **UI:** [ui-layer-guidelines.md](../ui-layer-guidelines.md)
-        *   **Testes:** [unit-tests-guidelines.md](../unit-tests-guidelines.md)
-    *   **Padrões:** Garanta o uso correto de MVP, injeção de dependência com Riverpod e reatividade com Signals.
+4. **Refactoring and Alignment with Protocols:**
+    * **Manual:** Manually fix the remaining issues that automated tools could not solve.
+    * **Guidelines:** Strictly follow the documented project standards:
+        * **Coding conventions:** [code-conventions-rules.md](../rules/code-conventions-rules.md)
+        * **Architecture:** [architecture.md](../architecture.md)
+        * **Core:** [core-layer-rules.md](../rules/core-layer-rules.md)
+        * **Rest:** [rest-layer-rules.md](../rules/rest-layer-rules.md)
+        * **UI:** [ui-layer-rules.md](../rules/ui-layer-rules.md)
+        * **Tests:** [unit-tests-rules.md](../rules/unit-tests-rules.md)
+    * **Patterns:** Ensure correct use of MVP, dependency injection with Riverpod, and reactivity with Signals.
 
-5.  **Validação Final:**
-    *   **Testes:** Execute o `flutter test` para validar que as alterações não impactaram o comportamento funcional do sistema.
-    *   **Certificação:** Realize uma rodada final de `analyze_files` para confirmar o estado "limpo" do código.
+5. **Final Validation:**
+    * **Tests:** Run `flutter test` to validate that the changes did not affect the system’s functional behavior.
+    * **Certification:** Run a final round of `analyze_files` to confirm the code is in a clean state.
 
-**Critério de Sucesso:**
-A revisão é considerada concluída quando a análise estática retornar **"No issues found"** e todos os testes automatizados relevantes passarem sem falhas.
+**Success Criteria:**
+The review is considered complete when static analysis returns **"No issues found"** and all relevant automated tests pass successfully.

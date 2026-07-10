@@ -82,11 +82,11 @@ Documentações detalhadas estão disponíveis no diretório `documentation/`:
 
 -   [Visão Geral do Produto](documentation/overview.md)
 -   [Arquitetura e Decisões Técnicas](documentation/architecture.md)
--   [Diretrizes e Convenções](documentation/guidelines/guidelines.md)
-    -   [Diretrizes de UI](documentation/guidelines/ui-layer-guidelines.md)
-    -   [Convenções de Código](documentation/guidelines/code-conventions-guidelines.md)
-    -   [Core e Domínio](documentation/guidelines/core-layer-guidelines.md)
-    -   [Camada REST](documentation/guidelines/rest-layer-guidelines.md)
+-   [Rules e Convenções](documentation/rules/rules.md)
+    -   [Rules de UI](documentation/rules/ui-layer-rules.md)
+    -   [Convenções de Código](documentation/rules/code-conventions-rules.md)
+    -   [Core e Domínio](documentation/rules/core-layer-rules.md)
+    -   [Camada REST](documentation/rules/rest-layer-rules.md)
 
 ## 🧪 Testes
 
@@ -99,3 +99,4 @@ flutter test
 ## 📝 Licença
 
 Todos os direitos reservados à **Sertton**.
+

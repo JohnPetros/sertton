@@ -1,11 +1,15 @@
-# Prompt: Criar Issues
+---
+description: Create GitHub issues from a provided list of issue definitions.
+---
 
-**Objetivo:**
-Criar issues para o Github
+# Prompt: Create Issues
 
-**Entrada:**
-- Issues a serem criadas
+**Objective:**
+Create issues on GitHub.
 
-**Diretrizes de Execução:**
+**Input:**
+- Issues to be created
 
-1. Use o GitHub CLI para criar as issues no Github.
+**Execution Guidelines:**
+
+1. Use GitHub CLI to create the issues on GitHub.

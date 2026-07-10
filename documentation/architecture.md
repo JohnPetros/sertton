@@ -1,81 +1,81 @@
-# Arquitetura do Projeto Sertton
+# Sertton Project Architecture
 
-## Visao Geral
+## Overview
 
-O Sertton usa arquitetura em camadas inspirada em Clean Architecture para reduzir acoplamento e facilitar testes. E um app de e-commerce em Flutter/Dart integrado a plataforma Yampi.
+Sertton uses a layered architecture inspired by Clean Architecture to reduce coupling and make testing easier. It is a Flutter/Dart e-commerce app integrated with the Yampi platform.
 
-## Camadas
+## Layers
 
-- **UI (`lib/ui/`)**: Widgets, telas e presenters (MVP). Estado com Riverpod + Signals.
-- **Core (`lib/core/`)**: DTOs, interfaces e tipos de resposta (ex.: `RestResponse`).
-- **Rest (`lib/rest/`)**: Implementacoes HTTP e servicos externos (Dio + Yampi).
-- **Drivers (`lib/drivers/`)**: Infraestrutura externa (ex.: `.env`).
+- **UI (`lib/ui/`)**: Widgets, screens, and presenters (MVP). State managed with Riverpod + Signals.
+- **Core (`lib/core/`)**: DTOs, interfaces, and response types (for example `RestResponse`).
+- **Rest (`lib/rest/`)**: HTTP implementations and external services (Dio + Yampi).
+- **Drivers (`lib/drivers/`)**: External infrastructure (for example `.env`).
 
-## Modulos de Dominio
+## Domain Modules
 
-| Modulo | Foco | DTOs principais |
-|--------|------|-----------------|
-| **Catalog** | Produtos, SKUs, categorias, marcas | `ProductDto`, `SkuDto`, `VariationDto`, `CategoryDto`, `BrandDto`, `CollectionDto` |
-| **Checkout** | Carrinho, cliente, descontos | `CartItemDto`, `CustomerDto`, `DiscountDto` |
-| **Marketing** | Banners e leads | `BannerDto`, `LeadDto`, `ContactDto` |
-| **Reviewing** | Avaliacoes | `CommentDto`, `AuthorDto` |
+| Module | Focus | Main DTOs |
+|--------|------|-----------|
+| **Catalog** | Products, SKUs, categories, brands | `ProductDto`, `SkuDto`, `VariationDto`, `CategoryDto`, `BrandDto`, `CollectionDto` |
+| **Checkout** | Cart, customer, discounts | `CartItemDto`, `CustomerDto`, `DiscountDto` |
+| **Marketing** | Banners and leads | `BannerDto`, `LeadDto`, `ContactDto` |
+| **Reviewing** | Reviews | `CommentDto`, `AuthorDto` |
 
-## Injecao de Dependencias
+## Dependency Injection
 
-Riverpod centraliza a composicao de dependencias: providers para drivers, rest client, servicos e rotas.
+Riverpod centralizes dependency composition: providers for drivers, rest client, services, and routes.
 
-## Fluxo de Dados (resumo)
+## Data Flow (Summary)
 
-UI (View) -> Presenter -> Provider -> Interface de Servico -> Implementacao Yampi -> RestClient (Dio) -> API externa.
+UI (View) -> Presenter -> Provider -> Service Interface -> Yampi Implementation -> RestClient (Dio) -> External API.
 
-## Padroes Principais
+## Main Patterns
 
-- **MVP** na UI para separar View e Presenter.
-- **DTO** para contratos de dados entre camadas.
-- **Adapter** para adaptar Dio ao `RestClient`.
-- **Service/Mapper** para integrar Yampi e converter dados externos.
+- **MVP** in the UI to separate View and Presenter.
+- **DTO** for data contracts between layers.
+- **Adapter** to adapt Dio to `RestClient`.
+- **Service/Mapper** to integrate with Yampi and convert external data.
 
-## Decisoes Arquiteturais
+## Architectural Decisions
 
-- Camadas garantem testabilidade e substituicao de implementacoes.
-- Riverpod + Signals oferecem DI robusta e estado reativo granular.
-- Yampi simplifica operacao de e-commerce via API REST.
+- Layers guarantee testability and replaceable implementations.
+- Riverpod + Signals provide robust DI and fine-grained reactive state.
+- Yampi simplifies e-commerce operations through a REST API.
 
-## Armadilhas a Evitar
+## Pitfalls to Avoid
 
-1. Logica de dominio fora do `core/`.
-2. Chamar API diretamente na UI.
-3. Dependencias circulares entre camadas.
-4. Presenter fazendo requisicoes diretas.
-5. DTOs mutaveis (prefira `final`).
+1. Domain logic outside `core/`.
+2. Calling APIs directly from the UI.
+3. Circular dependencies between layers.
+4. Presenters making direct requests.
+5. Mutable DTOs (prefer `final`).
 
-## Stack Tecnologica
+## Tech Stack
 
-| Tecnologia | Pacote | Finalidade |
-|------------|--------|------------|
-| **Linguagem** | Dart | Linguagem principal |
-| **Framework** | Flutter | Framework multiplataforma |
-| **API** | Yampi Dev | Plataforma de e-commerce (RESTful) |
-| **HTTP Client** | Dio | Requisicoes HTTP e interceptors |
-| **Estado & DI** | flutter_riverpod | Injecao de dependencias e estado global |
-| **Reatividade** | signals / signals_flutter | Estado reativo granular |
-| **Rotas** | go_router | Navegacao declarativa |
-| **UI Kit** | shadcn_flutter | Componentes de interface |
-| **Animacoes** | flutter_animate, animate_do, lottie | Micro-interacoes e animacoes |
-| **Icones** | font_awesome_flutter | Icones vetoriais |
-| **SVG** | flutter_svg | Renderizacao de SVGs |
-| **Env** | flutter_dotenv | Variaveis de ambiente (.env) |
-| **Storage** | shared_preferences | Persistencia local (key-value) |
-| **Formatacao** | intl | Internacionalizacao e formatacao de datas/moeda |
-| **Mascaras** | mask_text_input_formatter | Mascaras de input (CPF, CEP, etc.) |
-| **Conectividade** | internet_connection_checker_plus | Verificacao de conexao de rede |
-| **URL** | url_launcher | Abertura de links externos (WhatsApp, email) |
-| **Info do App** | package_info_plus | Versao e metadados do app |
-| **Testes** | mocktail, faker, network_image_mock | Mocks e dados falsos para testes |
+| Technology | Package | Purpose |
+|------------|--------|---------|
+| **Language** | Dart | Main language |
+| **Framework** | Flutter | Cross-platform framework |
+| **API** | Yampi Dev | E-commerce platform (RESTful) |
+| **HTTP Client** | Dio | HTTP requests and interceptors |
+| **State & DI** | flutter_riverpod | Dependency injection and global state |
+| **Reactivity** | signals / signals_flutter | Fine-grained reactive state |
+| **Routing** | go_router | Declarative navigation |
+| **UI Kit** | shadcn_flutter | UI components |
+| **Animations** | flutter_animate, animate_do, lottie | Micro-interactions and animations |
+| **Icons** | font_awesome_flutter | Vector icons |
+| **SVG** | flutter_svg | SVG rendering |
+| **Env** | flutter_dotenv | Environment variables (`.env`) |
+| **Storage** | shared_preferences | Local persistence (key-value) |
+| **Formatting** | intl | Internationalization and date/currency formatting |
+| **Masks** | mask_text_input_formatter | Input masks (CPF, ZIP code, etc.) |
+| **Connectivity** | internet_connection_checker_plus | Network connection checking |
+| **URL** | url_launcher | Open external links (WhatsApp, email) |
+| **App Info** | package_info_plus | Version and app metadata |
+| **Tests** | mocktail, faker, network_image_mock | Mocks and fake data for tests |
 
-## Estrutura de Diretorios (essencial)
+## Directory Structure (Essential)
 
-```
+```text
 lib/
 ├── core/
 ├── rest/

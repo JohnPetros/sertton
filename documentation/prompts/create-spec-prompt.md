@@ -1,104 +1,108 @@
-# Prompt: Criar Documento de Spec
+---
+description: Write a technical spec that bridges a PRD and the implementation details.
+---
 
-## Objetivo
-Detalhar a implementacao tecnica de uma feature, fix ou refatoracao atuando como Tech Lead Senior.
-O documento deve ser a ponte entre o PRD (Product Requirements Document) e o codigo, com nivel de detalhe suficiente para implementacao direta, sem ambiguidades.
+# Prompt: Create Spec Document
 
-## Entradas
-- Esboco da spec ou solicitacao de mudanca.
-- PRD associado (nivel superior).
-- Acesso a codebase atual.
+## Objective
+Detail the technical implementation of a feature, fix, or refactor while acting as a Senior Tech Lead.
+The document must be the bridge between the PRD (Product Requirements Document) and the code, with enough detail for direct implementation and no ambiguity.
 
-## Diretrizes de Execucao
+## Inputs
+- Spec draft or change request.
+- Associated PRD (higher level).
+- Access to the current codebase.
 
-### 1) Pesquisa e contextualizacao
-- **Entender o PRD**: Acesse o link do PRD associado (nivel superior) e entenda o objetivo da tarefa usando Github ClI.
-- **Mapear fluxo:** entender origem e destino dos dados (`UI -> Store -> Service -> API`) antes de escrever.
-- **Verificar existencia:** identificar recursos existentes (widgets, DTOs, services) que devem ser reutilizados ou estendidos; evitar duplicidade.
-- **Consultar guidelines:** revisar padroes das camadas (`core`, `rest`, `ui`, `drivers`) e da stack (Riverpod, Signals) conforme escopo.
-- **Identificar referencias:** localizar exemplos similares na codebase para reaproveitamento inteligente.
-- **Questionar:** Caso necessario, me faça perguntas para entender melhor o contexto da tarefa ou decidir questões técnicas usando sua tool `question`.
+## Execution Guidelines
 
-### 2) Estruturacao da spec
-Gerar um arquivo Markdown seguindo exatamente a estrutura abaixo.
+### 1) Research and Contextualization
+- **Understand the PRD**: Access the associated PRD link (higher level) and understand the goal of the task using GitHub CLI.
+- **Map the flow:** understand the origin and destination of the data (`UI -> Store -> Service -> API`) before writing.
+- **Check what already exists:** identify existing resources (widgets, DTOs, services) that should be reused or extended; avoid duplication.
+- **Consult rules:** review layer standards (`core`, `rest`, `ui`, `drivers`) and stack standards (Riverpod, Signals) according to the scope.
+- **Identify references:** locate similar examples in the codebase for smart reuse.
+- **Ask questions:** If necessary, ask me questions to better understand the task context or decide technical issues using your `question` tool.
 
-## Modelo Obrigatorio
+### 2) Structuring the Spec
+Generate a Markdown file following exactly the structure below.
 
-### 1. Cabecalho (Frontmatter)
+## Required Template
+
+### 1. Header (Frontmatter)
 ```yaml
-title: [Titulo da Spec]
-status: [concluido|concluida|em progresso]
-lastUpdatedAt: [AAAA-MM-DD]
+title: [Spec Title]
+status: [done|done|in progress]
+lastUpdatedAt: [YYYY-MM-DD]
 ```
 
-### 2. Objetivo (Obrigatorio)
-Resumo em um paragrafo do que sera entregue, funcional e tecnicamente.
+### 2. Objective (Required)
+One-paragraph summary of what will be delivered, functionally and technically.
 
-### 3. O que ja existe? (Obrigatorio)
-Para cada camada impactada, listar recursos existentes da codebase.
+### 3. What already exists? (Required)
+For each impacted layer, list existing codebase resources.
 
-Formato:
-- **`NomeDaClasse`** (`caminho/relativo/do/arquivo.dart`) - *Breve descricao do uso (ex.: metodo a chamar, store a consumir).*
+Format:
+- **`ClassName`** (`relative/file/path.dart`) - *Brief description of its usage (for example method to call, store to consume).*
 
-### 4. O que deve ser criado? (Quando aplicavel)
-Descrever novos componentes por camada. Para cada arquivo novo, detalhar:
+### 4. What must be created? (When applicable)
+Describe new components by layer. For each new file, detail:
 
 #### UI (Presenters, Stores)
-- **Localizacao:** `caminho/do/arquivo.dart`
-- **Dependencias:** o que deve ser injetado.
-- **Signals/Estado:** variaveis reativas (ex.: `isLoading`, `items`).
-- **Computeds:** variaveis derivadas (ex.: `isEmpty`, `totalPrice`).
-- **Metodos:** assinatura e responsabilidade.
+- **Location:** `file/path.dart`
+- **Dependencies:** what must be injected.
+- **Signals/State:** reactive variables (for example `isLoading`, `items`).
+- **Computeds:** derived variables (for example `isEmpty`, `totalPrice`).
+- **Methods:** signature and responsibility.
 
 #### UI (Views)
-- **Localizacao:** `caminho/do/arquivo.dart`
-- **Bibliotecas de UI:** o que deve ser usado/injetado.
-- **Props:** parametros recebidos no construtor.
+- **Location:** `file/path.dart`
+- **UI Libraries:** what should be used/injected.
+- **Props:** parameters received in the constructor.
 
 #### UI (Widgets)
-- **Localizacao:** `caminho/da/pasta`
-- **Props:** parametros recebidos no construtor.
-- **Widgets internos:** listar seguindo a mesma estrutura.
-- **Estrutura de pastas:** representar em ASCII quando houver widgets internos.
+- **Location:** `folder/path`
+- **Props:** parameters received in the constructor.
+- **Internal widgets:** list them following the same structure.
+- **Folder structure:** represent in ASCII when there are internal widgets.
 
-> Todo widget deve seguir MVP: View e, quando houver estado/providers, Presenter.
-> Se o widget tiver widgets internos, aplicar o mesmo padrao (Widgets, Views e Presenters).
+> Every widget must follow MVP: View and, when there is state/providers, Presenter.
+> If the widget has internal widgets, apply the same pattern (Widgets, Views, and Presenters).
 
 #### REST (Services)
-- **Localizacao:** `caminho/do/arquivo.dart`
-- **Dependencias:** o que deve ser injetado.
-- **Metodos:** assinatura e responsabilidade.
+- **Location:** `file/path.dart`
+- **Dependencies:** what must be injected.
+- **Methods:** signature and responsibility.
 
 #### Drivers
-- **Localizacao:** `caminho/do/arquivo.dart`
-- **Dependencias:** o que deve ser injetado.
-- **Metodos:** assinatura e responsabilidade.
+- **Location:** `file/path.dart`
+- **Dependencies:** what must be injected.
+- **Methods:** signature and responsibility.
 
-> Nem todas as camadas sao obrigatorias. Escolha somente as necessarias para a tarefa.
+> Not all layers are mandatory. Choose only the ones required for the task.
 
-### 5. O que deve ser modificado? (Quando aplicavel)
-Para alteracoes em codigo existente:
+### 5. What must be modified? (When applicable)
+For changes in existing code:
 
-#### [Nome da Camada]
-- **Arquivo:** `caminho/do/arquivo.dart`
-- **Mudanca:** descrever alteracao especifica (ex.: adicionar prop `onTap`, injetar novo service).
+#### [Layer Name]
+- **File:** `file/path.dart`
+- **Change:** describe the specific change (for example add `onTap` prop, inject new service).
 
-### 6. O que deve ser removido? (Quando aplicavel)
+### 6. What must be removed? (When applicable)
 
-#### [Nome da Camada]
-- **Arquivo:** `caminho/do/arquivo.dart`
-- **Motivo:** explicar remocao e impacto.
+#### [Layer Name]
+- **File:** `file/path.dart`
+- **Reason:** explain the removal and impact.
 
-### 7. Usar como referencia (Opcional)
-- Links/caminhos para arquivos similares na codebase.
+### 7. Use as reference (Optional)
+- Links/paths to similar files in the codebase.
 
-### 8. Diagramas e referencias
-- **Fluxo de dados:** diagrama ASCII/texto com interacao entre camadas.
-- **Layout:** ASCII da hierarquia visual para telas/widgets complexos.
-- **Referencias:** caminhos de arquivos similares usados como base.
+### 8. Diagrams and References
+- **Data flow:** ASCII/text diagram with interaction between layers.
+- **Layout:** ASCII of the visual hierarchy for complex screens/widgets.
+- **References:** paths to similar files used as a base.
 
-## Checklist de Validacao
-- Estrutura obrigatoria seguida integralmente.
-- Caminhos de arquivos conferidos na codebase.
-- Sem duplicacao de componentes ja existentes.
-- Decisoes alinhadas com guidelines da camada.
+## Validation Checklist
+- Required structure followed in full.
+- File paths verified in the codebase.
+- No duplication of existing components.
+- Decisions aligned with layer rules.

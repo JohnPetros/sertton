@@ -1,31 +1,34 @@
-# Prompt: Atualização de Arquitetura
+---
+description: Update the architecture document to reflect current code and decisions.
+---
 
-**Objetivo:**
-Manter atualizado o documento de arquitetura do projeto (`documentation/architecture.md`), garantindo que ele reflita fielmente as decisões estruturais, padrões de design, tecnologias adotadas e a organização do código.
+# Prompt: Architecture Update
 
-**Entradas:**
-1.  Documentos de Requisitos de Produto (PRDs) e Especificações Técnicas (Specs).
-    *   *Nota:* todos os arquivos de Spec possuem a extensão `-spec.md`.
-2.  Documentos de Diretrizes (Guidelines).
-    *   Exemplo: `documentation/*-guidelines.md` (como `ui-layer-guidelines.md`, `core-layer-guidelines.md`, etc.).
-3.  Alterações significativas no código fonte (novas camadas, refatorações, introdução de pacotes).
-4.  O arquivo atual `documentation/architecture.md`.
+**Objective:**
+Keep the project architecture document (`documentation/architecture.md`) up to date, ensuring that it accurately reflects structural decisions, design patterns, adopted technologies, and code organization.
 
-**Diretrizes de Execução:**
+**Inputs:**
+1. Product Requirements Documents (PRDs) and Technical Specifications (Specs).
+    * *Note:* all Spec files use the `-spec.md` extension.
+2. Guideline documents.
+    * Example: `documentation/rules/*-rules.md` (such as `ui-layer-rules.md`, `core-layer-rules.md`, etc.).
+3. Significant source code changes (new layers, refactors, introduced packages).
+4. The current `documentation/architecture.md` file.
 
-1.  **Análise de Impacto:**
-    *   **PRDs/Specs:** Avalie se introduzem novos domínios, componentes ou necessidades tecnológicas.
-    *   **Guidelines:** Verifique se novas diretrizes alteram padrões arquiteturais existentes (ex: nova forma de tratar erros, nova estrutura de pastas obrigatória).
-    *   **Código:** Verifique se as mudanças no código respeitam os limites definidos na arquitetura atual ou se exigem uma atualização da documentação (evolução da arquitetura).
+**Execution Guidelines:**
 
-2.  **Atualização de Seções Críticas:**
-    *   **Visão Geral e Diagramas:** Atualize os diagramas ASCII se houver mudanças no fluxo de dados ou relação entre camadas.
-    *   **Módulos de Domínio:** Adicione novos módulos ou atualize os DTOs listados na tabela de contextos delimitados.
-    *   **Stack Tecnológica:** Mantenha as versões das dependências atualizadas conforme o `pubspec.yaml` e documente novas bibliotecas chave.
-    *   **Camadas (UI, Core, Rest, Drivers):** Reflita mudanças na estrutura de pastas ou responsabilidades de cada camada. Se novos padrões forem adotados (ex: mudou de MVP para MVVM), atualize as explicações e exemplos de código.
-    *   **Estrutura de Diretórios:** Mantenha a árvore de diretórios no final do documento sincronizada com a realidade do projeto.
+1. **Impact Analysis:**
+    * **PRDs/Specs:** Evaluate whether they introduce new domains, components, or technology needs.
+    * **Guidelines:** Check whether new guidelines change existing architectural patterns (for example a new way to handle errors, a new mandatory folder structure).
+    * **Code:** Verify whether code changes respect the boundaries defined in the current architecture or require a documentation update (architecture evolution).
 
-3.  **Validação de Consistência:**
-    *   Garanta que os exemplos de código no documento de arquitetura compilem ou sejam sintaticamente corretos e representativos do código real.
-    *   Verifique se as "Armadilhas a Evitar" ainda são relevantes ou se novas lições aprendidas devem ser adicionadas.
+2. **Critical Section Updates:**
+    * **Overview and Diagrams:** Update ASCII diagrams if there are changes in data flow or layer relationships.
+    * **Domain Modules:** Add new modules or update the DTOs listed in the bounded-context table.
+    * **Tech Stack:** Keep dependency versions updated according to `pubspec.yaml` and document new key libraries.
+    * **Layers (UI, Core, Rest, Drivers):** Reflect changes in folder structure or responsibilities of each layer. If new patterns are adopted (for example switching from MVP to MVVM), update explanations and code examples.
+    * **Directory Structure:** Keep the directory tree at the end of the document synchronized with the real project structure.
 
+3. **Consistency Validation:**
+    * Ensure that code examples in the architecture document compile or are syntactically correct and representative of the real code.
+    * Check whether the "Pitfalls to Avoid" section is still relevant or whether new lessons learned should be added.

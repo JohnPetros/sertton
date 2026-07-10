@@ -1,21 +1,25 @@
-# Prompt: Commit Bug Report
+---
+description: Finalize a bug report after the fix is implemented and validated.
+---
 
-**Objetivo:**
-Finalizar e consolidar a correção de um erro reportado, garantindo que o bug foi devidamente mitigado, que novos testes foram adicionados (se aplicável) e que a solução respeita a arquitetura do projeto.
+# Prompt: Conclude Bug Report
 
-**Entrada:**
-*   **Bug Report:** O documento de report original
-*   **Código Corrigido:** As alterações realizadas para sanar o problema.
+**Objective:**
+Finalize and consolidate a reported bug fix, ensuring that the bug has been properly mitigated, that new tests have been added (when applicable), and that the solution respects the project architecture.
 
-**Diretrizes de Execução:**
+**Input:**
+* **Bug Report:** The original report document
+* **Fixed Code:** The changes made to solve the problem.
 
-1.  **Validação Final da Correção:**
-    *   **Testes de Regressão:** Execute `run_tests` para validar que o bug foi sanado e que o sistema permanece estável.
-    *   **Cenários de Erro:** Certifique-se de que foram adicionados testes unitários para o caso específico do bug, garantindo que ele não retorne (test-first approach para bugs).
+**Execution Guidelines:**
 
-2.  **Verificação de Padrões e Arquitetura:**
-    *   **Respeito às Camadas:** Valide se a correção respeita as guidelines (`core-layer-guidelines.md`, `ui-layer-guidelines.md`, etc.) e se está na camada correta identificada no diagnóstico.
+1. **Final Fix Validation:**
+    * **Regression Tests:** Run `run_tests` to validate that the bug was fixed and the system remains stable.
+    * **Error Scenarios:** Ensure unit tests were added for the specific bug case so it does not return (test-first approach for bugs).
 
-3.  **Atualização do Bug Report:**
-    *   Atualize o estado do Bug Report ou adicione notas sobre a resolução final.
-    *   Se a causa raiz identificada durante a implementação for diferente da inicial, documente essa descoberta.
+2. **Standards and Architecture Verification:**
+    * **Respect the Layers:** Validate whether the fix respects the rules (`core-layer-rules.md`, `ui-layer-rules.md`, etc.) and whether it is in the correct layer identified during diagnosis.
+
+3. **Bug Report Update:**
+    * Update the Bug Report status or add notes about the final resolution.
+    * If the root cause identified during implementation differs from the original one, document that discovery.

@@ -1,168 +1,172 @@
-# Prompt: Resolve PR Conversations (usando gh CLI)
+---
+description: Resolve GitHub pull request review conversations and validate the resulting changes.
+---
 
-**Objetivo Principal**
-Analisar, implementar e resolver todas as conversas e feedbacks pendentes em um Pull Request (PR) específico do GitHub. O foco é garantir que todos os pontos de melhoria, correções de bugs e sugestões de design levantadas pelos revisores sejam devidamente endereçados no código.
+# Prompt: Resolve PR Conversations (using gh CLI)
 
-**Entrada:**
+**Main Objective**
+Analyze, implement, and resolve all pending conversations and feedback in a specific GitHub Pull Request (PR). The focus is to ensure that all improvement points, bug fixes, and design suggestions raised by reviewers are properly addressed in the code.
 
-* **Link do PR:** URL completa do Pull Request no GitHub (ex: `https://github.com/owner/repo/pull/123`).
+**Input:**
+
+* **PR Link:** Full GitHub Pull Request URL (for example `https://github.com/owner/repo/pull/123`).
 
 ---
 
-## Diretrizes de Execução
+## Execution Guidelines
 
-### 1️⃣ Extração de Contexto
+### 1. Context Extraction
 
-* Identifique o `owner`, `repo` e `pullNumber` a partir da URL fornecida.
-* Utilize o **gh CLI** para obter os detalhes do PR.
+* Identify `owner`, `repo`, and `pullNumber` from the provided URL.
+* Use **gh CLI** to retrieve PR details.
 
-Exemplo:
+Example:
 
-```
+```bash
 gh pr view <pullNumber> --repo owner/repo --comments
 ```
 
 ---
 
-### 2️⃣ Mapeamento de Conversas
+### 2. Conversation Mapping
 
-* Liste todos os comentários de revisão do PR.
+* List all PR review comments.
 
-Comandos possíveis:
+Possible commands:
 
-```
+```bash
 gh pr view <pullNumber> --repo owner/repo --json reviewThreads
 ```
 
-ou via API:
+or through the API:
 
-```
+```bash
 gh api repos/owner/repo/pulls/<pullNumber>/comments
 ```
 
-* Filtre as conversas:
+* Filter conversations that are:
 
-  * não resolvidas
-  * com change request
-  * com sugestões de alteração de código
+  * unresolved
+  * change requests
+  * code change suggestions
 
 ---
 
-### 3️⃣ Análise e Implementação
+### 3. Analysis and Implementation
 
-Para cada comentário:
+For each comment:
 
-* Identifique:
+* Identify:
 
-  * arquivo afetado
-  * trecho de código
-  * sugestão do revisor
+  * affected file
+  * code excerpt
+  * reviewer suggestion
 
-* Aplique as alterações no código local usando ferramentas de edição de arquivo:
+* Apply changes to the local code using file editing tools:
 
-  * replace_file_content
-  * multi_replace_file_content
+  * `replace_file_content`
+  * `multi_replace_file_content`
 
-* Garanta conformidade com:
+* Ensure compliance with:
 
-```
-documentation/code-conventions-guidelines.md
+```text
+documentation/rules/code-conventions-rules.md
 documentation/architecture.md
 ```
 
 ---
 
-### 4️⃣ Validação das Alterações
+### 4. Validate Changes
 
-Após implementar:
+After implementation:
 
-Rodar analyzer:
+Run analyzer:
 
-```
+```bash
 flutter analyze
 ```
 
-Rodar testes:
+Run tests:
 
-```
+```bash
 flutter test
 ```
 
 ---
 
-### 5️⃣ Finalização
+### 5. Finalization
 
-Fornecer resumo detalhado:
+Provide a detailed summary:
 
-* quais conversas foram resolvidas
-* quais arquivos foram alterados
-* quais padrões foram ajustados
-* quais bugs foram corrigidos
+* which conversations were resolved
+* which files were changed
+* which standards were adjusted
+* which bugs were fixed
 
 ---
 
-## FLUXO DE TRABALHO (Workflow)
+## WORKFLOW
 
-### ✅ Passo 1 — Coleta de Dados
+### Step 1 - Data Collection
 
-Listar comentários do PR:
+List PR comments:
 
-```
+```bash
 gh api repos/owner/repo/pulls/<pullNumber>/comments
 ```
 
-ou
+or
 
-```
+```bash
 gh pr view <pullNumber> --comments
 ```
 
 ---
 
-### ✅ Passo 2 — Diagnóstico
+### Step 2 - Diagnosis
 
-Para cada thread:
+For each thread:
 
-* arquivo afetado
-* problema descrito
-* solução proposta
-
----
-
-### ✅ Passo 3 — Execução
-
-Modificar arquivos locais conforme necessário.
-
-Se o comentário for ambíguo → pedir esclarecimento antes de alterar.
+* affected file
+* described problem
+* proposed solution
 
 ---
 
-### ✅ Passo 4 — Conclusão
+### Step 3 - Execution
 
-Relatório de progresso:
+Modify local files as necessary.
 
-```
-[x] Arquivo X — comentário Y resolvido (descrição)
-[x] Arquivo Z — ajuste de padrão aplicado
+If the comment is ambiguous, ask for clarification before changing anything.
+
+---
+
+### Step 4 - Conclusion
+
+Progress report:
+
+```text
+[x] File X - comment Y resolved (description)
+[x] File Z - standard adjustment applied
 ```
 
 ---
 
-### ✅ Passo 5 — Validação
+### Step 5 - Validation
 
-Executar:
+Run:
 
-```
+```bash
 flutter analyze
 flutter test
 ```
 
 ---
 
-### ✅ Passo 6 — Atualização da Documentação
+### Step 6 - Documentation Update
 
-Atualizar, se necessário:
+Update, if necessary:
 
 * Spec
 * Bug Report
-* PRD relacionado
+* related PRD

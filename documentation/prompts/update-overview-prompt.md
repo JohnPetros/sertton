@@ -1,26 +1,30 @@
-# Prompt: Atualização de Overview
+---
+description: Update the project overview to match current features and statuses.
+---
 
-**Objetivo:**
-Manter atualizado o documento de visão geral do projeto (`documentation/overview.md`), garantindo que ele reflita com precisão o estado atual do software, incluindo funcionalidades planejadas, em desenvolvimento e concluídas.
+# Prompt: Overview Update
 
-**Entradas:**
-1.  Documentos de Requisitos de Produto (PRDs) existentes ou recém-criados.
-2.  O arquivo atual `documentation/overview.md`.
-3.  Estado atual da implementação (código fonte), se necessário para verificação de status.
+**Objective:**
+Keep the project overview document (`documentation/overview.md`) up to date, ensuring that it accurately reflects the current state of the software, including planned, in-progress, and completed features.
 
-**Diretrizes de Execução:**
+**Inputs:**
+1. Existing or newly created Product Requirements Documents (PRDs).
+2. The current `documentation/overview.md` file.
+3. The current implementation state (source code), if needed for status verification.
 
-1.  **Análise de PRDs e Funcionalidades:**
-    *   Examine todos os PRDs e Specs disponíveis para identificar novas funcionalidades, módulos ou alterações de escopo. os arquivos de PRD possuem o nome `prd.md` e os de spec terminam com a extensão `-spec.md`.
-    *   Identifique funcionalidades que já foram implementadas mas não constam no overview.
+**Execution Guidelines:**
 
-2.  **Atualização do Documento:**
-    *   **Funcionalidades:** Adicione ou atualize a lista de funcionalidades/módulos, descrevendo brevemente cada uma.
-    *   **Status:** Atualize o status das funcionalidades (ex: Planejado, Em Progresso, Concluído) conforme a realidade do projeto.
-    *   **Arquitetura:** Se houver mudanças arquiteturais significativas mencionadas nos PRDs ou implementadas, reflita-as na seção apropriada do overview.
+1. **PRD and Feature Analysis:**
+    * Review all available PRDs and Specs to identify new features, modules, or scope changes. PRD files are named `prd.md` and Spec files end with the `-spec.md` extension.
+    * Identify features that have already been implemented but are not yet included in the overview.
 
-3.  **Manutenção de Links:**
-    *   Certifique-se de que o overview contenha links válidos para os PRDs correspondentes, facilitando a navegação.
+2. **Document Update:**
+    * **Features:** Add or update the feature/module list, briefly describing each one.
+    * **Status:** Update feature statuses (for example Planned, In Progress, Completed) according to the real state of the project.
+    * **Architecture:** If there are significant architectural changes mentioned in PRDs or already implemented, reflect them in the appropriate overview section.
 
-4.  **Formatação:**
-    *   Mantenha a consistência visual e estrutural com o restante do documento (cabeçalhos, listas, tabelas).
+3. **Link Maintenance:**
+    * Make sure the overview contains valid links to the corresponding PRDs, making navigation easier.
+
+4. **Formatting:**
+    * Maintain visual and structural consistency with the rest of the document (headings, lists, tables).

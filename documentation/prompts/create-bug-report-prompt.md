@@ -1,67 +1,71 @@
-# Prompt: Criar Bug Report
+---
+description: Turn an informal bug description into a structured bug report with a fix plan.
+---
 
-**Objetivo:**
-Transformar um esboço ou relato informal de um erro em um **Bug Report Profissional**, padronizado e pronto para ser entregue à equipe de desenvolvimento.
+# Prompt: Create Bug Report
 
-**Entrada:**
-* **Esboço do Problema:** documento de report com apenas o problema descrito de maneira geral
-* **Contexto Técnico (Opcional):** [Inserir info do dispositivo, OS, versão do app, se houver]
+**Objective:**
+Transform a sketch or informal error report into a **Professional Bug Report**, standardized and ready to be handed to the development team.
 
-**Diretrizes de Execução:**
+**Input:**
+* **Problem Sketch:** report document with only the problem generally described
+* **Technical Context (Optional):** [Insert device, OS, app version info, if available]
 
-1.  **Análise do Relato:** Interprete o esboço do problema e o contexto técnico fornecido.
-2. Entenda a arquitetura do projeto, usando as guidelines de cada camada.
-3.  **Diagnóstico:** Identifique as prováveis causas com base na arquitetura do sistema descrito em documentation\architecture.md. Para maior compreendimento do contexto da funcionalidade, se existir, veja o PRD da funcionalidade afetada, localizada no root do diretorio de bug-reports, no nível acima
-4.  **Mapeamento de Camadas:** Determine quais camadas (UI, Core, REST, Drivers) e arquivos específicos estão envolvidos.
-5.  **Plano de Correção:** Elabore uma solução passo a passo, separada por camadas, para orientar o desenvolvimento.
+**Execution Guidelines:**
 
-**Formato de Saída Obrigatório:**
+1. **Report Analysis:** Interpret the problem sketch and the provided technical context.
+2. Understand the project architecture using the rules for each layer.
+3. **Diagnosis:** Identify probable causes based on the system architecture described in `documentation\architecture.md`. To better understand the feature context, if it exists, review the affected feature’s PRD, located at the root of the bug-reports directory, one level above.
+4. **Layer Mapping:** Determine which layers (UI, Core, REST, Drivers) and specific files are involved.
+5. **Fix Plan:** Build a step-by-step solution, separated by layers, to guide development.
 
-Por favor, gere a resposta dentro de um bloco de código Markdown seguindo estritamente este template:
+**Required Output Format:**
+
+Please generate the response inside a Markdown code block, strictly following this template:
 
 ```markdown
-## 🐛 Bug Report: [Título Curto e Descritivo]
+## 🐛 Bug Report: [Short Descriptive Title]
 
-**Problema Identificado:**
-[Uma frase clara descrevendo o comportamento inesperado]
+**Identified Problem:**
+[A clear sentence describing the unexpected behavior]
 
-**Causas:**
-[Explicação sucinta das possíveis razões técnicas para o erro]
+**Causes:**
+[Brief explanation of the likely technical reasons for the error]
 
-**Contexto e Análise:**
-### [Nome da Camada (ex: Camada UI, Camada Core, Camada REST, Camada Drivers)]
+**Context and Analysis:**
+### [Layer Name (for example UI Layer, Core Layer, REST Layer, Drivers Layer)]
 
-<!-- Repita o bloco abaixo para cada camada afetada -->
-- Arquivo: `[Caminho/Nome do Arquivo]`
-- Diagnóstico: [O que está errado especificamente neste local]
+<!-- Repeat the block below for each affected layer -->
+- File: `[Path/FileName]`
+- Diagnosis: [What is specifically wrong in this location]
 
-**Plano de Correção (Spec):**
+**Fix Plan (Spec):**
 
-### 1. O que já existe? (Contexto/Impacto)
-Liste recursos da codebase (Services, Widgets, DTOs, Stores, Drivers, etc.) que serão utilizados ou impactados. Indique caminhos absolutos ou relativos claros.
+### 1. What already exists? (Context/Impact)
+List codebase resources (Services, Widgets, DTOs, Stores, Drivers, etc.) that will be used or impacted. Indicate absolute paths or clear relative paths.
 
-- **[Camada]**: 
-[Nome do Componente] - [Responsabilidade]
-[Nome do Componente] - [Responsabilidade]
+- **[Layer]**:
+[Component Name] - [Responsibility]
+[Component Name] - [Responsibility]
 
-### 2. O que deve ser criado?
-Descreva novos componentes necessários para a correção.
+### 2. What must be created?
+Describe new components required for the fix.
 
-- **[Camada]**: 
-[Nome do Componente] - [Responsabilidade]
-[Nome do Componente] - [Responsabilidade]
+- **[Layer]**:
+[Component Name] - [Responsibility]
+[Component Name] - [Responsibility]
 
-### 3. O que deve ser modificado?
-Liste as alterações em código existente.
+### 3. What must be modified?
+List changes to existing code.
 
-- **[Camada]**: 
-[Nome do Componente] - [Responsabilidade]
-[Nome do Componente] - [Responsabilidade]
+- **[Layer]**:
+[Component Name] - [Responsibility]
+[Component Name] - [Responsibility]
 
-### 4. O que deve ser removido?
-Liste código legado ou refatorações de limpeza necessárias (se houver).
+### 4. What must be removed?
+List legacy code or cleanup refactors required (if any).
 
-- **[Camada]**: 
-[Nome do Componente] - [Responsabilidade]
-[Nome do Componente] - [Responsabilidade]
-
+- **[Layer]**:
+[Component Name] - [Responsibility]
+[Component Name] - [Responsibility]
+```

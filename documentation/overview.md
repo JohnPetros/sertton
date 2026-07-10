@@ -1,139 +1,139 @@
-## 1. Visão Geral do Produto
+## 1. Product Overview
 
-Desenvolvimento de um aplicativo de e-commerce nativo para a marca Sertton, focado em alta performance, fluidez de navegação e integração robusta com a plataforma Yampi. O objetivo é oferecer uma experiência de compra completa, desde a descoberta do produto até o acompanhamento do pedido, utilizando uma arquitetura moderna e escalável.
-
----
-
-## 2. Estrutura de Navegação e UX
-
-O aplicativo adota um modelo de navegação híbrido para maximizar a usabilidade:
-
-* **Menu Lateral (Drawer):** Acesso global a conteúdos institucionais (Sobre, Políticas), configurações e categorias secundárias.
-* **Barra Inferior (Tabbar):** Navegação primária persistente (Início, Produtos, Carrinho, Pedidos).
-* **Navegação em Pilha (Stack):** Fluxo linear para aprofundamento (Detalhes do Produto, Checkout) com histórico de "voltar".
-
-### Telas Principais
-
-1. **Home:** Vitrine com banners, coleções em destaque e captura de leads.
-2. **Catálogo:** Listagem com *scroll* infinito, filtros e ordenação.
-3. **Detalhes do Produto:** Zoom em imagens, seleção de variações (SKU) e simulador de frete.
-4. **Carrinho:** Gestão de itens, persistência local e resumo financeiro.
-5. **Meus Pedidos:** Histórico de compras e acesso a 2ª via de pagamentos (Pix/Boleto).
+Development of a native e-commerce application for the Sertton brand, focused on high performance, smooth navigation, and robust integration with the Yampi platform. The goal is to provide a complete shopping experience, from product discovery to order tracking, using a modern and scalable architecture.
 
 ---
 
-## 3. Especificações Funcionais (Por Módulo)
+## 2. Navigation and UX Structure
 
-### 📦 Módulo Catálogo (Catalog)
+The app adopts a hybrid navigation model to maximize usability:
 
-*Responsável pela gestão de Produtos, SKUs, Categorias, Marcas e Variações.*
+* **Side Menu (Drawer):** Global access to institutional content (About, Policies), settings, and secondary categories.
+* **Bottom Bar (Tabbar):** Persistent primary navigation (Home, Products, Cart, Orders).
+* **Stack Navigation:** Linear flow for deeper journeys (Product Details, Checkout) with back-navigation history.
 
-* **Listagem de Estoque:** Exibir somente produtos com estoque positivo (`> 0`).
-* **Busca Global e Local:** Pesquisa por nome acessível de diversas telas.
-* **Filtros Avançados:** Filtragem cruzada por Nome, Categoria (seleção única) e Marca (seleção múltipla).
-* **Ordenação:** Alfabética (A-Z, Z-A).
-* **Detalhes do Produto:** Exibição rica com zoom, descrição e ficha técnica.
-* **Seleção de Variações:** Obrigatoriedade de seleção de atributos (Material, Tamanho) para definir o SKU antes da compra.
+### Main Screens
 
-**Referências de implementação:**
+1. **Home:** Storefront with banners, featured collections, and lead capture.
+2. **Catalog:** Listing with infinite scroll, filters, and sorting.
+3. **Product Details:** Image zoom, variation (SKU) selection, and shipping simulator.
+4. **Cart:** Item management, local persistence, and financial summary.
+5. **My Orders:** Purchase history and access to duplicate payment documents (Pix/Boleto).
+
+---
+
+## 3. Functional Specifications (By Module)
+
+### Catalog Module
+
+*Responsible for managing Products, SKUs, Categories, Brands, and Variations.*
+
+* **Stock Listing:** Display only products with positive stock (`> 0`).
+* **Global and Local Search:** Search by name accessible from multiple screens.
+* **Advanced Filters:** Combined filtering by Name, Category (single selection), and Brand (multiple selection).
+* **Sorting:** Alphabetical (A-Z, Z-A).
+* **Product Details:** Rich display with zoom, description, and technical specifications.
+* **Variation Selection:** Mandatory selection of attributes (Material, Size) to define the SKU before purchase.
+
+**Implementation references:**
 * `lib/core/catalog/`
 * `lib/rest/yampi/services/yampi_catalog_service.dart`
 * `lib/ui/catalog/`
 
-### 🛒 Módulo Checkout (Checkout & Cart)
+### Checkout Module
 
-*Responsável pela gestão do Carrinho, Pedidos, Clientes e Pagamentos.*
+*Responsible for managing the Cart, Orders, Customers, and Payments.*
 
-* **Gestão do Carrinho:**
-* Adicionar/Remover itens e ajustar quantidades (Min: 1).
-* Validação de estoque em tempo real.
-* Bloqueio de duplicidade de SKU (incrementa quantidade, não cria nova linha).
-* **Persistência:** Recuperação do estado do carrinho após reiniciar o app.
-* Limpeza automática ao iniciar checkout externo.
-* **Histórico de Pedidos:** Listagem vinculada ao CPF/CNPJ com status (Pago, Aguardando, Cancelado).
-* **Pagamentos:** Visualização de PDF para Boletos e "Copia e Cola"/QR Code para Pix.
+* **Cart Management:**
+* Add/remove items and adjust quantities (Min: 1).
+* Real-time stock validation.
+* Prevent duplicate SKUs (increase quantity instead of creating a new line).
+* **Persistence:** Restore cart state after restarting the app.
+* Automatic cleanup when starting external checkout.
+* **Order History:** Listing linked to CPF/CNPJ with statuses (Paid, Pending, Canceled).
+* **Payments:** PDF viewing for Boleto and copy/paste or QR Code for Pix.
 
-**Referências de implementação:**
+**Implementation references:**
 * `lib/core/checkout/`
 * `lib/rest/yampi/services/yampi_checkout_service.dart`
 * `lib/ui/checkout/`
 
-### 📢 Módulo Marketing (Marketing)
+### Marketing Module
 
-*Responsável pelo engajamento e comunicação visual.*
+*Responsible for engagement and visual communication.*
 
-* **Banners:** Gerenciamento de áreas de destaque na Home.
-* **Leads:** Formulário de captura de e-mail na Home com validação de duplicidade.
-* **Suporte:** *Deep links* para WhatsApp e cliente de E-mail.
+* **Banners:** Management of highlighted areas on Home.
+* **Leads:** Email capture form on Home with duplicate validation.
+* **Support:** Deep links to WhatsApp and email client.
 
-**Referências de implementação:**
+**Implementation references:**
 * `lib/core/marketing/`
 * `lib/rest/yampi/services/yampi_marketing_service.dart`
 * `lib/ui/global/widgets/screens/home/marketing-section/`
 * `lib/ui/global/widgets/screens/home/leads-capturer-section/`
 
-### ⭐ Módulo Reviewing (Reviewing)
+### Reviewing Module
 
-*Responsável pela prova social.*
+*Responsible for social proof.*
 
-* **Comentários:** Exibição e gestão de avaliações vinculadas aos produtos (conforme suporte da API Yampi).
+* **Comments:** Display and manage reviews linked to products (according to Yampi API support).
 
-**Referências de implementação:**
+**Implementation references:**
 * `lib/core/reviewing/`
 
-### 🚚 Módulo Shipping (Shipping)
+### Shipping Module
 
-*Responsável pela logística de entrega e simulação de frete.*
+*Responsible for delivery logistics and shipping simulation.*
 
-* **Cálculo de frete:** Simulação por CEP.
-* **Comparativo de opções:** Exibição de transportadoras por preço e prazo.
-* **Integração com checkout:** Seleção de frete aplicada ao fluxo de compra.
+* **Shipping calculation:** Simulation by ZIP code.
+* **Option comparison:** Display carriers by price and delivery time.
+* **Checkout integration:** Apply shipping selection to the purchase flow.
 
-### 🌐 Módulo Global (Global)
+### Global Module
 
-*Responsável por navegação principal, layout global e estados do app.*
+*Responsible for main navigation, global layout, and app state.*
 
-* **Layout global:** Drawer + Tabbar + shell de navegação.
-* **Telas base:** Splash, Offline, Home e componentes compartilhados.
+* **Global layout:** Drawer + Tabbar + navigation shell.
+* **Base screens:** Splash, Offline, Home, and shared components.
 
-**Referências de implementação:**
+**Implementation references:**
 * `lib/ui/global/`
 * `lib/router.dart`
 * `lib/constants/routes.dart`
 
-### 🏛️ Módulo Institutional (Institutional)
+### Institutional Module
 
-*Responsável pelo conteúdo institucional e legal do aplicativo.*
+*Responsible for the app’s institutional and legal content.*
 
-* **Telas institucionais:** Sobre, Privacidade, Trocas/Devoluções e Termos.
-* **Acesso global:** navegação pelo Drawer e rotas dedicadas.
+* **Institutional screens:** About, Privacy, Exchanges/Returns, and Terms.
+* **Global access:** Navigation through the Drawer and dedicated routes.
 
-**Referências de implementação:**
+**Implementation references:**
 * `lib/ui/institutional/`
 * `documentation/features/legal/institutional-screens/`
 * `lib/constants/routes.dart`
 
 ---
 
-## 4. Requisitos Não Funcionais (NFRs)
+## 4. Non-Functional Requirements (NFRs)
 
-| Categoria | Requisito |
+| Category | Requirement |
 | --- | --- |
-| **Desempenho** | Utilização de **Paginação (Scroll Infinito)** no catálogo para otimizar uso de dados e memória. |
-| **Interface** | Layout **Responsivo** adaptável a diferentes densidades de tela e orientações. Uso do pacote **Flutter Animate** para micro-interações. |
-| **Estabilidade** | Uso de **Riverpod** e **Signals** para garantir gestão de estado segura e reativa. |
-| **Confiabilidade** | Tratamento de erros de rede (Dio) e validação robusta de formulários (**LucidValidation**). |
-| **Legal** | Exibição clara de Termos de Uso e Políticas de Privacidade. |
+| **Performance** | Use of **Pagination (Infinite Scroll)** in the catalog to optimize data and memory usage. |
+| **Interface** | **Responsive** layout adaptable to different screen densities and orientations. Use of the **Flutter Animate** package for micro-interactions. |
+| **Stability** | Use of **Riverpod** and **Signals** to ensure safe and reactive state management. |
+| **Reliability** | Network error handling (Dio) and robust form validation (**LucidValidation**). |
+| **Legal** | Clear display of Terms of Use and Privacy Policies. |
 
 ---
 
-## 5. Estrutura de Módulos (Domain)
+## 5. Module Structure (Domain)
 
-A regra de negócio é segregada nos seguintes domínios, cada um contendo seus DTOs e Interfaces de Serviço:
+Business rules are segregated into the following domains, each containing its DTOs and Service Interfaces:
 
 * **Catalog:** `Product`, `SKU`, `Category`, `Variation`, `Brand`, `Collection`.
 * **Checkout:** `CartItem`, `Customer`, `Discount`, `Installment`, `Order`, `OrderItem`, `Payment`, `Address`.
 * **Marketing:** `Lead`, `Contact`, `Banner`.
-* **Reviewing:** `Comment`, `Author` (atualmente sem interface de serviço implementada).
-* **Shipping:** `ShippingOption`, `FreightQuote`, `DeliveryAddress` (planejado).
-* **Institutional:** conteúdo estático institucional/legal (camada UI).
+* **Reviewing:** `Comment`, `Author` (currently without a service interface implementation).
+* **Shipping:** `ShippingOption`, `FreightQuote`, `DeliveryAddress` (planned).
+* **Institutional:** Static institutional/legal content (UI layer).

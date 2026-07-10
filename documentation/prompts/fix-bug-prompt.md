@@ -1,33 +1,37 @@
+---
+description: Implement a bug fix from a bug report with validation after each task.
+---
+
 # Prompt: Fix Bug
 
-**Objetivo Principal**
-Ler o bug report, planejar a correção e implementar as mudanças necessárias para resolver o problema identificado, garantindo a qualidade do código.
+**Main Objective**
+Read the bug report, plan the fix, and implement the changes required to solve the identified problem while ensuring code quality.
 
-**Entradas**
-*   **Bug Report:** Documento detalhado descrevendo o problema, causas raízes e plano de correção sugerido.
+**Inputs**
+* **Bug Report:** Detailed document describing the problem, root causes, and suggested fix plan.
 
-**Diretrizes de Execução**
+**Execution Guidelines**
 
-1.  **Análise e Planejamento**
-    *   Revise cuidadosamente o Bug Report fornecido.
-    *   Entenda o contexto do erro, os impactos técnicos e as decisões de design envolvidas.
-    *   Elabore ou refine o plano de correção, assegurando conformidade com as diretrizes de arquitetura de cada camada (Core, UI, Drivers, REST).
+1. **Analysis and Planning**
+    * Carefully review the provided Bug Report.
+    * Understand the error context, technical impacts, and design decisions involved.
+    * Build or refine the fix plan, ensuring compliance with each layer’s architectural guidelines (Core, UI, Drivers, REST).
 
-2.  **Decomposição de Tarefas**
-    *   Divida o plano de correção em micro-tarefas atômicas e gerenciáveis.
-    *   Cada tarefa deve ter um escopo claro e resultar em um código compilável.
+2. **Task Decomposition**
+    * Break the fix plan into atomic, manageable micro-tasks.
+    * Each task must have a clear scope and result in compilable code.
 
-3.  **Implementação Iterativa**
-    *   Execute a implementação de cada micro-tarefa sequencialmente.
-    *   Siga rigorosamente as convenções de código e arquitetura do projeto.
+3. **Iterative Implementation**
+    * Execute each micro-task sequentially.
+    * Strictly follow the project’s code and architecture conventions.
 
-4.  **Ciclo de Qualidade e Verificação (Por Tarefa)**
-    *   Ao finalizar a codificação de *cada micro-tarefa*, execute os passos de validação **ANTES** de passar para a próxima, usando o MCP do dart:
-        *   **Formatação:** Execute `dart format .` para garantir o estilo de código.
-        *   **Análise Estática:** Execute `flutter analyze` e corrija todos os erros e avisos (lints).
-        *   **Testes:** Se aplicável, execute ou crie testes para validar a correção.
-    *   **Critério de Aceite:** Não avance com código que apresente erros de linter ou falhas de compilação.
+4. **Quality and Verification Cycle (Per Task)**
+    * After finishing the code for *each micro-task*, execute the validation steps **BEFORE** moving to the next one, using the Dart MCP:
+        * **Formatting:** Run `dart format .` to ensure code style.
+        * **Static Analysis:** Run `flutter analyze` and fix all errors and warnings (lints).
+        * **Tests:** If applicable, run or create tests to validate the fix.
+    * **Acceptance Criteria:** Do not move forward with code that has linter errors or compilation failures.
 
-5.  **Revisão Final**
-    *   Verifique se a solução completa atende aos requisitos descritos no Bug Report.
-    *   Confirme se não foram introduzidos novos efeitos colaterais.
+5. **Final Review**
+    * Verify that the full solution meets the requirements described in the Bug Report.
+    * Confirm that no new side effects were introduced.

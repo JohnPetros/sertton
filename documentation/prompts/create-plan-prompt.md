@@ -1,32 +1,36 @@
-# Prompt: Criar Plano de Implementação de Spec
+---
+description: Convert a technical spec into an atomic bottom-up implementation plan.
+---
 
-**Objetivo:**
-Transformar uma especificação técnica em um plano de implementação detalhado e organizado, passo a passo, para guiar o desenvolvimento de forma eficiente e sistemática.
+# Prompt: Create Spec Implementation Plan
 
-**Entradas:**
-- Documento de Spec técnica
-- Contexto do projeto (arquitetura, padrões, tecnologias)
+**Objective:**
+Transform a technical specification into a detailed and organized implementation plan, step by step, to guide development efficiently and systematically.
 
-**Diretrizes de Execução:**
+**Inputs:**
+- Technical Spec document
+- Project context (architecture, standards, technologies)
 
-## 1. Análise da Especificação
-- Leia e compreenda completamente a spec fornecida
-- Identifique os requisitos funcionais e não-funcionais
-- Mapeie as dependências entre componentes
-- Identifique riscos e pontos de atenção
+**Execution Guidelines:**
 
-## 2. Decomposição Atômica
-- Divida o plano fases em tarefas atômicas.
-- Cada fase deve resultar em um código compilável e funcional isoladamente.
+## 1. Specification Analysis
+- Read and fully understand the provided spec
+- Identify functional and non-functional requirements
+- Map dependencies between components
+- Identify risks and points of attention
 
-## 3. Ordem de Execução (Bottom-Up)
+## 2. Atomic Decomposition
+- Break the phased plan into atomic tasks.
+- Each phase must result in code that is compilable and functional on its own.
 
-Implemente as tarefas seguindo rigorosamente a hierarquia de dependências:
+## 3. Execution Order (Bottom-Up)
 
-1. **Core**: DTOs, entidades de domínio e interfaces de repositórios/serviços
-2. **Data/Rest**: Implementações de interfaces de serviços REST e mapeadores
-3. **Data/Drivers**: Implementações de interfaces de drivers (LocalStorage, APIs externas, etc.)
+Implement tasks by strictly following dependency hierarchy:
+
+1. **Core**: DTOs, domain entities, and repository/service interfaces
+2. **Data/Rest**: REST service interface implementations and mappers
+3. **Data/Drivers**: Driver interface implementations (LocalStorage, external APIs, etc.)
 4. **State Management**: Stores (Signals), Presenters, Controllers, ViewModels
-5. **UI**: Views, Widgets, Pages e componentes visuais
+5. **UI**: Views, Widgets, Pages, and visual components
 
-**Regra fundamental:** Nunca implemente um componente consumidor antes de implementar a lógica/dados que ele consome.
+**Fundamental rule:** Never implement a consuming component before implementing the logic/data it consumes.

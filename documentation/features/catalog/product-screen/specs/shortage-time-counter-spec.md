@@ -41,4 +41,4 @@ Implementar o contador de tempo que conta quanto tempo falta para o estoque acab
 
 ## Usar como referência
 
-*   `ui-layer-guidelines.md` para estrutura de arquivos e padrão MVP.
+*   `ui-layer-rules.md` para estrutura de arquivos e padrão MVP.

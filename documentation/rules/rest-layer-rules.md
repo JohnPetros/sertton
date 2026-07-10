@@ -1,25 +1,25 @@
-# Diretrizes da Camada REST
+# REST Layer Guidelines
 
-A camada **REST** (`lib/rest/`) implementa a comunicação HTTP com APIs externas.
+The **REST** layer (`lib/rest/`) implements HTTP communication with external APIs.
 
 ---
 
-## Padrões de Design
+## Design Patterns
 
 ### Adapter Pattern
 
-`DioRestClient` adapta a biblioteca Dio para a interface `RestClient` do Core:
+`DioRestClient` adapts the Dio library to the Core `RestClient` interface:
 
 ```dart
 class DioRestClient implements RestClient {
   late final Dio _dio;
-  // implementação dos métodos HTTP
+  // HTTP method implementations
 }
 ```
 
 ### Service Pattern
 
-Services implementam interfaces do Core e encapsulam chamadas HTTP:
+Services implement Core interfaces and encapsulate HTTP calls:
 
 ```dart
 class YampiCatalogService extends YampiService implements CatalogService {
@@ -31,9 +31,9 @@ class YampiCatalogService extends YampiService implements CatalogService {
 }
 ```
 
-### Template Method (Classe Base)
+### Template Method (Base Class)
 
-`YampiService` configura automaticamente base URL e headers:
+`YampiService` automatically configures the base URL and headers:
 
 ```dart
 class YampiService {
@@ -46,7 +46,7 @@ class YampiService {
 
 ### Mapper Pattern
 
-Mappers convertem JSON para DTOs:
+Mappers convert JSON into DTOs:
 
 ```dart
 class YampiProductMapper {
@@ -58,22 +58,22 @@ class YampiProductMapper {
 
 ---
 
-## Tecnologias
+## Technologies
 
-| Biblioteca | Função |
-|------------|--------|
-| **dio** | Cliente HTTP |
-| **flutter_riverpod** | Injeção de dependências |
-| **flutter_dotenv** | Variáveis de ambiente |
+| Library | Purpose |
+|------------|---------|
+| **dio** | HTTP client |
+| **flutter_riverpod** | Dependency injection |
+| **flutter_dotenv** | Environment variables |
 
 ---
 
-## Estrutura de Diretórios
+## Directory Structure
 
-```
+```text
 lib/rest/
-├── rest_client.dart         # Provider do RestClient
-├── services.dart            # Providers de serviços
+├── rest_client.dart         # RestClient provider
+├── services.dart            # Service providers
 ├── types/
 │   ├── json.dart            # typedef Json = Map<String, dynamic>
 │   └── query_params.dart
@@ -81,7 +81,7 @@ lib/rest/
 │   └── dio_rest_client.dart
 └── {provider}/              # ex: yampi/
     ├── services/
-    │   ├── {provider}_service.dart         # Classe base
+    │   ├── {provider}_service.dart         # Base class
     │   └── {provider}_{domain}_service.dart
     └── mappers/
         └── {provider}_{entity}_mapper.dart
@@ -89,35 +89,35 @@ lib/rest/
 
 ---
 
-## Convenções de Nomenclatura
+## Naming Conventions
 
-| Tipo | Padrão Arquivo | Padrão Classe |
-|------|----------------|---------------|
+| Type | File Pattern | Class Pattern |
+|------|--------------|---------------|
 | Service Base | `{provider}_service.dart` | `{Provider}Service` |
 | Service Impl | `{provider}_{domain}_service.dart` | `{Provider}{Domain}Service` |
 | Mapper | `{provider}_{entity}_mapper.dart` | `{Provider}{Entity}Mapper` |
 
-### Métodos de Mapper
+### Mapper Methods
 
-| Método | Uso |
-|--------|-----|
-| `toDto(Json)` | Converte único objeto |
-| `toDtoList(Json)` | Converte lista |
-| `toDtoPagination(Json)` | Converte resposta paginada |
+| Method | Usage |
+|--------|-------|
+| `toDto(Json)` | Converts a single object |
+| `toDtoList(Json)` | Converts a list |
+| `toDtoPagination(Json)` | Converts a paginated response |
 
 ---
 
-## Boas Práticas
+## Best Practices
 
-### ✅ Fazer
+### ✅ Do
 
-- Usar interfaces da camada Core
-- Mappers com métodos estáticos
-- Tratar null safety nos Mappers
-- Configuração via EnvDriver
+- Use Core layer interfaces.
+- Keep Mapper methods static.
+- Handle null safety in Mappers.
+- Use `EnvDriver` for configuration.
 
-### ❌ Evitar
+### ❌ Avoid
 
-- Expor Dio para outras camadas
-- Lógica de negócio nos Mappers
-- Hardcode de URLs ou tokens
+- Exposing Dio to other layers.
+- Business logic inside Mappers.
+- Hardcoded URLs or tokens.

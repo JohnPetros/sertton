@@ -1,129 +1,135 @@
-# Prompt: Fazer Commits no Código (Executando Commits Reais)
+---
+description: Commit all pending code changes with standardized, descriptive messages.
+---
 
-**Objetivo Principal**
+# Prompt: Commit Code (Executing Real Commits)
 
-Criar **e executar commits reais** no repositório para todas as alterações detectadas no código, com mensagens altamente descritivas e padronizadas, seguindo rigorosamente as diretrizes de contribuição do projeto.
+**Main Objective**
 
-Você **deve executar comandos git**, não apenas sugerir mensagens.
+Create **and execute real commits** in the repository for all detected code changes, with highly descriptive and standardized messages, strictly following the project's contribution guidelines.
+
+You **must execute git commands**, not just suggest messages.
 
 ---
 
-## 🚨 Regra Crítica
+## Critical Rule
 
-Se existirem arquivos modificados, você é obrigado a:
+If there are modified files, you are required to:
 
-* executar `git add`
-* executar `git commit`
-* repetir o processo até não restarem mudanças pendentes
+* run `git add`
+* run `git commit`
+* repeat the process until there are no pending changes
 
-Nunca apenas sugira commits.
-Nunca pare somente na mensagem.
-**Sempre execute os comandos.**
-
----
-
-## Diretrizes de Execução
-
-### 1️⃣ Detectar Alterações
-
-Execute primeiro:
-
-git status --porcelain
-
-* Se vazio → responda: `No changes to commit`
-* Se houver alterações → continue
+Never just suggest commits.
+Never stop at the message only.
+**Always execute the commands.**
 
 ---
 
-### 2️⃣ Análise do Contexto
+## Execution Guidelines
 
-* Analise **somente o nome e caminho dos arquivos alterados**
-* Não analise o conteúdo
-* Agrupe por responsabilidade
-* Se houver mudanças em camadas diferentes (ex: UI e REST), crie commits separados
+### 1. Detect Changes
 
----
+Run first:
 
-### 3️⃣ Padrão de Mensagem (Strict)
+`git status --porcelain`
 
-Cada commit deve seguir o formato:
-
-emoji prefix: concise description in English
-
-* Mensagem **obrigatoriamente em Inglês**
-* Use apenas prefixos da tabela
-* Um commit por responsabilidade
+* If empty -> reply: `No changes to commit`
+* If there are changes -> continue
 
 ---
 
-## 📋 Tabela de Prefixos (MANTIDA)
+### 2. Context Analysis
 
-| Tipo                     | Prefixo   | Emoji |
+* Analyze **only the names and paths of the changed files**
+* Do not analyze file contents
+* Group by responsibility
+* If there are changes in different layers (for example UI and REST), create separate commits
+
+---
+
+### 3. Message Pattern (Strict)
+
+Each commit must follow this format:
+
+`emoji prefix: concise description in English`
+
+* Message **must be in English**
+* Use only prefixes from the table
+* One commit per responsibility
+
+---
+
+## Prefix Table (Preserved)
+
+| Type | Prefix | Emoji |
 | :----------------------- | :-------- | :---- |
-| Camada de domínio        | domain    | 🌐     |
-| Camada de API REST       | rest      | 📶     |
-| Camada de UI             | ui        | 🖥️     |
-| Camada de banco de dados | db        | 💾     |
-| Use cases                | use case  | ✨     |
-| Interfaces               | interface | 📑     |
-| Tipagem                  | type      | 🏷️     |
-| Documentação             | docs      | 📚     |
-| Correção de bug          | fix       | 🐛     |
-| Refatoração              | refactor  | ♻️     |
-| Teste                    | test      | 🧪     |
-| Release                  | release   | 🔖     |
-| Configuração/Infra       | config    | ⚙️     |
-| Dependências             | deps      | 📦     |
-| Estrutura de pastas      | ftree     | 🗃️     |
-| Trabalho em progresso    | wip       | 🚧     |
+| Domain layer | domain | 🌐 |
+| REST API layer | rest | 📶 |
+| UI layer | ui | 🖥️ |
+| Database layer | db | 💾 |
+| Use cases | use case | ✨ |
+| Interfaces | interface | 📑 |
+| Typing | type | 🏷️ |
+| Documentation | docs | 📚 |
+| Bug fix | fix | 🐛 |
+| Refactoring | refactor | ♻️ |
+| Test | test | 🧪 |
+| Release | release | 🔖 |
+| Config/Infra | config | ⚙️ |
+| Dependencies | deps | 📦 |
+| Folder structure | ftree | 🗃️ |
+| Work in progress | wip | 🚧 |
 
 ---
 
-### 4️⃣ Execução Obrigatória
+### 4. Mandatory Execution
 
-Para cada grupo de arquivos identificado, execute:
+For each identified file group, run:
 
-git add <arquivos-do-grupo>
-git commit -m "emoji prefix: concise description in English"
+`git add <group-files>`
+`git commit -m "emoji prefix: concise description in English"`
 
-Não peça confirmação.
-Não explique antes.
-Não gere apenas sugestão.
-**Execute.**
-
----
-
-### 5️⃣ Exemplos de Referência
-
-🐛 fix(server): ensure only one achievement is unlocked at once
-📑 interface: add AchievementsRepository
-✨ use case: list all challenges
-🧪 test: list all challenges use case
+Do not ask for confirmation.
+Do not explain first.
+Do not generate only a suggestion.
+**Execute it.**
 
 ---
 
-### 6️⃣ Verificação Final (Antes de cada commit)
+### 5. Reference Examples
 
-* mensagem curta e direta
-* emoji corresponde ao prefixo
-* prefixo está na tabela
-* descrição em inglês
-* representa corretamente o grupo
+`🐛 fix(server): ensure only one achievement is unlocked at once`
+`📑 interface: add AchievementsRepository`
+`✨ use case: list all challenges`
+`🧪 test: list all challenges use case`
 
 ---
 
-### 7️⃣ Formato de Saída Obrigatório
+### 6. Final Verification (Before each commit)
 
-Mostre apenas comandos executados:
+* short and direct message
+* emoji matches the prefix
+* prefix exists in the table
+* description is in English
+* correctly represents the group
 
+---
+
+### 7. Required Output Format
+
+Show only executed commands:
+
+```text
 EXECUTING:
 git add src/domain/user.ts
 git commit -m "🌐 domain: add user aggregate"
+```
 
-Sem explicações longas.
-Sem “sugestões”.
-Sem parar antes de commitar.
+No long explanations.
+No “suggestions”.
+Do not stop before committing.
 
 ---
 
-Se você quiser, eu também consigo adaptar esse prompt especificamente para **gh agent**, **codex**, ou **serena**, porque cada um obedece gatilhos diferentes de execução.
+If you want, I can also adapt this prompt specifically for **gh agent**, **codex**, or **serena**, because each one follows different execution triggers.

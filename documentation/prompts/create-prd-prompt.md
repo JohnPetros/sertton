@@ -1,81 +1,85 @@
-# Prompt: Criar PRD
+---
+description: Create a product requirements document from a draft after clarifying missing details.
+---
 
-**Objetivo:**
-Padronizar a criação de Product Requirements Documents (PRDs), garantindo clareza técnica e alinhamento entre as equipes de produto, design e desenvolvimento.
+# Prompt: Create PRD
 
-**Entradas (Inputs):**
-1. Esboço, rascunho ou descrição da funcionalidade.
-2. Informações de contexto, código relevante ou screenshots.
-3. Documentação de referência (se houver).
+**Objective:**
+Standardize the creation of Product Requirements Documents (PRDs), ensuring technical clarity and alignment between product, design, and development teams.
+
+**Inputs:**
+1. Sketch, draft, or feature description.
+2. Context information, relevant code, or screenshots.
+3. Reference documentation (if any).
 
 ---
 
-## INSTRUÇÕES DE EXECUÇÃO
+## EXECUTION INSTRUCTIONS
 
-**Você deve seguir rigorosamente este processo de duas etapas:**
+**You must strictly follow this two-step process:**
 
-### ETAPA 1: DISCOVERY E CLARIFICAÇÃO (CRÍTICO)
-**NÃO GERE O PRD IMEDIATAMENTE.**
-Antes de escrever, analise o pedido e faça perguntas para preencher lacunas. Organize as perguntas em:
+### STEP 1: DISCOVERY AND CLARIFICATION (CRITICAL)
+**DO NOT GENERATE THE PRD IMMEDIATELY.**
+Before writing, analyze the request and ask questions to fill in gaps. Organize the questions into:
 
-1.  **Negócio:** Objetivos, métricas de sucesso, prioridade.
-2.  **UX/Design:** Público-alvo, jornada, dores atuais.
-3.  **Técnico:** Plataformas, integrações, performance, dados.
+1. **Business:** Goals, success metrics, priority.
+2. **UX/Design:** Target audience, journey, current pain points.
+3. **Technical:** Platforms, integrations, performance, data.
 
-**-> Pare e aguarde as minhas respostas antes de continuar.**
+**-> Stop and wait for my answers before continuing.**
 
-### ETAPA 2: ESCRITA DO PRD
-Após receber as respostas, gere o documento completo seguindo estritamente o template abaixo.
+### STEP 2: PRD WRITING
+After receiving the answers, generate the full document strictly following the template below.
 
 ---
 
-## TEMPLATE DO PRD (Estrutura de Saída)
+## PRD TEMPLATE (Output Structure)
 
-### 1. Visão Geral
-*Descreva de forma clara e concisa:*
-- O que é a funcionalidade/produto.
-- Qual problema resolve.
-- Qual o objetivo principal e valor entregue.
+### 1. Overview
+*Describe clearly and concisely:*
+- What the feature/product is.
+- Which problem it solves.
+- The main objective and delivered value.
 
-### 2. Requisitos Funcionais
-*Liste as funcionalidades. Não use IDs numéricos. Use checkboxes para rastreamento.*
+### 2. Functional Requirements
+*List the features. Do not use numeric IDs. Use checkboxes for tracking.*
 
-#### [Nome do Componente/Área]
-**Descrição:** Breve contexto do componente.
+#### [Component/Area Name]
+**Description:** Brief context for the component.
 
-* [ ] **[Nome da Funcionalidade]:** Descrição da ação ou comportamento esperado.
-* [ ] **[Nome da Funcionalidade]:** Descrição da ação ou comportamento esperado.
+* [ ] **[Feature Name]:** Description of the expected action or behavior.
+* [ ] **[Feature Name]:** Description of the expected action or behavior.
 
-*(Repita para todos os componentes)*
+*(Repeat for all components)*
 
-##### Regras de Negócio
-*Liste as regras lógicas e comportamentais (Backend/Lógica).*
+##### Business Rules
+*List logical and behavioral rules (Backend/Logic).*
 
-* **[Nome da Regra]:** Descrição detalhada do comportamento, validações, condições, gatilhos e cálculos.
-* **[Nome da Regra]:** Descrição detalhada...
+* **[Rule Name]:** Detailed description of behavior, validations, conditions, triggers, and calculations.
+* **[Rule Name]:** Detailed description...
 
-##### Regras de UI/UX (se houver)
-*Especifique aspectos visuais e de interação (Frontend).*
+##### UI/UX Rules (if any)
+*Specify visual and interaction aspects (Frontend).*
 
-* [ ] **[Elemento Visual]:** Especificação (Cores, Tipografia, Estados).
-* [ ] **Responsividade:** Comportamento em mobile/desktop.
-* [ ] **Acessibilidade:** Regras de contraste e navegação por teclado.
-* [ ] **Feedback:** Mensagens de erro, sucesso e estados de loading.
-* [ ] **Performance:** (Tempo de carregamento, resposta).
-* [ ] **Segurança:** (Autenticação, proteção de dados).
-* [ ] **Confiabilidade:** (Tratamento de erros, fallbacks).
-* [ ] **Compatibilidade:** (Navegadores, dispositivos).
+* [ ] **[Visual Element]:** Specification (Colors, Typography, States).
+* [ ] **Responsiveness:** Behavior on mobile/desktop.
+* [ ] **Accessibility:** Contrast rules and keyboard navigation.
+* [ ] **Feedback:** Error, success, and loading-state messages.
+* [ ] **Performance:** (Loading and response time).
+* [ ] **Security:** (Authentication, data protection).
+* [ ] **Reliability:** (Error handling, fallbacks).
+* [ ] **Compatibility:** (Browsers, devices).
 
-### 3. Fluxo de Usuário (User Flow)
-*Descreva o caminho passo-a-passo que o usuário percorre, divida em fluxos menores caso necessário.*
+### 3. User Flow
+*Describe the user’s step-by-step path. Split into smaller flows if needed.*
 
-**Nome do fluxo:** Breve contexto do fluxo.
+**Flow name:** Brief context for the flow.
 
-1.  O usuário acessa [Tela/Local].
-2.  O usuário realiza [Ação].
-3.  O sistema valida [Condição]:
-    * **Sucesso:** Ocorre X.
-    * **Falha:** Ocorre Y.
+1. The user accesses [Screen/Location].
+2. The user performs [Action].
+3. The system validates [Condition]:
+    * **Success:** X happens.
+    * **Failure:** Y happens.
 
-### 4. Fora do Escopo (Out of Scope)
-*O que NÃO será desenvolvido nesta versão para evitar scope creep.*
+### 4. Out of Scope
+*What will NOT be developed in this version to avoid scope creep.*

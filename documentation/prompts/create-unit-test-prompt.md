@@ -1,55 +1,47 @@
-# Create Unit/Widget Test Skill 🧪
+---
+description: Create unit and widget tests that follow the project's testing standards.
+---
 
-**Objetivo:**
-Orientar a criação de testes unitários e de widget padronizados e eficientes, garantindo a integridade da lógica nos Presenters e a fidelidade visual e funcional dos Widgets.
+# Create Unit/Widget Test Skill
 
-**Entrada:**
-*   **Código Fonte:** Arquivo do `Widget` (View) e seu respectivo `Presenter`.
+**Objective:**
+Guide the creation of standardized and efficient unit and widget tests, ensuring logical integrity in Presenters and visual/functional fidelity in Widgets.
+
+**Input:**
+* **Source Code:** The `Widget` (View) file and its corresponding `Presenter`.
 
 ---
 
-## 📋 Diretrizes de Execução
+## Execution Guidelines
 
-### 1. Adesão às Normas do Projeto
-*   **Obrigatório:** Siga rigorosamente as diretrizes em [unit-tests-guidelines.md](../unit-tests-guidelines.md).
-*   **Contexto de UI:** Ao testar Widgets, aplique as boas práticas descritas em [ui-layer-guidelines.md](../ui-layer-guidelines.md).
+### 1. Adherence to Project Standards
+* **Required:** Strictly follow the guidelines in [unit-tests-rules.md](../rules/unit-tests-rules.md).
+* **UI Context:** When testing Widgets, apply the best practices described in [ui-layer-rules.md](../rules/ui-layer-rules.md).
 
-### 2. Estrutura e Nomenclatura 📁
-*   **Organização:** Crie os testes no diretório `test/` espelhando a estrutura original em `lib/`.
-*   **Padrão de Nomes:**
-    *   **Views:** `nome_view_test.dart`
-    *   **Presenters:** `nome_presenter_test.dart`
-    *   *Exemplo:* `lib/ui/home/home_view.dart` ➡️ `test/ui/home/home_view_test.dart`.
+### 2. Structure and Naming
+* **Organization:** Create tests in the `test/` directory, mirroring the original structure in `lib/`.
+* **Naming Pattern:**
+    * **Views:** `name_view_test.dart`
+    * **Presenters:** `name_presenter_test.dart`
+    * *Example:* `lib/ui/home/home_view.dart` -> `test/ui/home/home_view_test.dart`.
 
-### 3. Preparação de Dados (Fakers)
-*   **Uso de Fakers:** Utilize classes `Faker` para instanciar DTOs e modelos. Isso garante dados consistentes e facilita a manutenção.
-*   **Ação Pró-ativa:** Se o `Faker` para um DTO específico não existir, **crie-o primeiro** em `test/fakers/<modulo>/`.
-*   **Localização:** Mantenha os fakers organizados na estrutura de pastas correspondente em `test/fakers/`.
+### 3. Data Preparation (Fakers)
+* **Use Fakers:** Use `Faker` classes to instantiate DTOs and models. This ensures consistent data and easier maintenance.
+* **Proactive Action:** If a `Faker` for a specific DTO does not exist, **create it first** in `test/fakers/<module>/`.
+* **Location:** Keep fakers organized in the matching folder structure under `test/fakers/`.
 
-### 4. Estratégia de Teste (Bottom-Up) 🪜
-*   **Hierarquia de Widgets:** Ao testar um widget que compõe outros sub-widgets, siga a ordem **do mais interno para o mais externo**.
-*   **Isolamento:** Garanta que os componentes menores estejam validados antes de testar a integração no componente pai.
+### 4. Test Strategy (Bottom-Up)
+* **Widget Hierarchy:** When testing a widget composed of other sub-widgets, follow the order **from the innermost to the outermost**.
+* **Isolation:** Ensure smaller components are validated before testing integration in the parent component.
 
-### 5. Escopo e Cobertura 🎯
-*   **Dualidade Widget/Presenter:** Se um componente visual for fornecido, é obrigatório criar testes tanto para a **View** (interações e renderização) quanto para o **Presenter** (lógica de estado).
-*   **Componentes Complexos:** Sub-componentes complexos devem possuir seus próprios arquivos de teste dedicados.
+### 5. Scope and Coverage
+* **Widget/Presenter Duality:** If a visual component is provided, it is mandatory to create tests for both the **View** (interactions and rendering) and the **Presenter** (state logic).
+* **Complex Components:** Complex subcomponents must have their own dedicated test files.
 
-### 6. Qualidade e Clean Code
-*   **Código Autoexplicativo:** O código de teste deve ser legível por si só. **Não inclua comentários** desnecessários; utilize nomes de testes descritivos.
-*   **Mocks:** Utilize `mocktail` para a criação de dublês de teste, seguindo o padrão do projeto.
+### 6. Quality and Clean Code
+* **Self-Explanatory Code:** Test code should be readable on its own. **Do not include unnecessary comments**; use descriptive test names.
+* **Mocks:** Use `mocktail` to create test doubles, following the project standard.
 
-### 7. Execução de testes
+### 7. Test Execution
 
-* **Obrigatório:** com `flutter test` execute os testes que foram acabados de criar, verifique se todos passaram. No final de tudo execute todos os testes do projeto para garantir que não houve regressão em nenhum teste.
-
----
-
-## 🚀 Workflow Sugerido
-
-1.  **🔍 Setup:** Crie o arquivo de teste em `test/` espelhando a estrutura original em `lib/` (ex: `lib/ui/home/home_view.dart` -> `test/ui/home/home_view_test.dart`).
-2.  **🎭 Mocking:** Configure as dependências necessárias utilizando `mocktail`.
-3.  **🛠️ Implementação:** Escreva os casos de teste cobrindo:
-    *   Fluxos de sucesso (Happy Path).
-    *   Tratamento de erros e exceções.
-    *   Estados de carregamento (Loading) e vazio (Empty), se aplicável.
-4.  **✅ Validação:** Execute os testes com `flutter test` para validar a implementação e garantir que não houve regressões.
+* **Required:** Run the newly created tests with `flutter test` and verify that they all pass. At the end, run all project tests to ensure there were no regressions.

@@ -116,4 +116,4 @@ Ao implementar a tela completa que usa esses widgets, deve-se usar `YampiCatalog
 
 *   **CatalogService**: Para tipos de retorno e integração futura.
 *   **ProductCardPresenter**: Lógica existente de tratamento de preços.
-*   **MVP Guidelines**: Seguir estritamente `ui-layer-guidelines.md`.
+*   **MVP Rules**: Seguir estritamente `ui-layer-rules.md`.

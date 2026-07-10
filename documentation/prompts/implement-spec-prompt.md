@@ -1,50 +1,53 @@
-# Prompt: Implementar Spec
+---
+description: Implement an approved technical spec iteratively with validation at each step.
+---
 
-**Objetivo:**
-Executar o plano de implementação técnica de forma iterativa, organizada e validada, garantindo qualidade e integração contínua.
+# Prompt: Implement Spec
 
-**Entrada:**
-*   Documento de Spec técnica aprovado/finalizado.
+**Objective:**
+Execute the technical implementation plan iteratively, in an organized and validated way, ensuring quality and continuous integration.
 
-**Diretrizes de Execução:**
+**Input:**
+* Approved/finalized technical Spec document.
 
-1.  **Validação de Diretrizes e Arquitetura:**
-    Antes de iniciar a implementação, certifique-se de que compreende as diretrizes e a estrutura do projeto:
-    *   **Visão macro do projeto:** `documentation\overview.md`
-    *   **Arquitetura:** `documentation\architecture.md`
-    *   **Padronização de Código:** `documentation\code-conventions-guidelines.md`
-    *   **Diretrizes de Camadas:**
-        *   **Core:** `documentation\core-layer-guidelines.md`
-        *   **UI:** `documentation\ui-layer-guidelines.md`
-        *   **REST:** `documentation\rest-layer-guidelines.md`
-        *   **Drivers:** `documentation\drivers-layer-guidelines.md`
+**Execution Guidelines:**
 
-2.  **Planejamento e Tarefas:**
-    *   Caso já tenha sido realizado o planejamento e a definição de tarefas prévias, leve-as em consideração durante a implementação e ignore os passos 3 e 4.
+1. **Validate Guidelines and Architecture:**
+    Before starting implementation, make sure you understand the project guidelines and structure:
+    * **Project macro view:** `documentation\overview.md`
+    * **Architecture:** `documentation\architecture.md`
+    * **Code Standardization:** `documentation\rules\code-conventions-rules.md`
+    * **Layer Guidelines:**
+        * **Core:** `documentation\rules\core-layer-rules.md`
+        * **UI:** `documentation\rules\ui-layer-rules.md`
+        * **REST:** `documentation\rules\rest-layer-rules.md`
+        * **Drivers:** `documentation\rules\drivers-layer-rules.md`
 
-3.  **Decomposição Atômica:**
-    * Divida o plano de implementação em fases e tarefas atômicas.
-    * Cada fase deve resultar em um código compilável e funcional isoladamente.
+2. **Planning and Tasks:**
+    * If planning and task definition were already done earlier, consider them during implementation and ignore steps 3 and 4.
 
-3.  **Ordem de Execução (Bottom-Up):**
-    Implemente as tarefas seguindo rigorosamente a hierarquia de dependências:
-    1.  **Core:** DTOs e interfaces.
-    2.  **Rest:** Implementações de interfaces de serviços Rest.
-    2.  **Drivers:** Implementações de interfaces de drivers.
-    3.  **State Management:** Stores (Signals), Presenters, Controllers.
-    4.  **Interface de Usuário:** Views e Widgets.
-    *   **Regra:** Nunca implemente um componente consumidor (ex: Widget) antes de implementar a lógica/dados que ele consome.
+3. **Atomic Decomposition:**
+    * Break the implementation plan into phases and atomic tasks.
+    * Each phase must result in code that is compilable and functional in isolation.
 
-4.  **Ciclo de Qualidade e Verificação (Por Tarefa):**
-    Ao finalizar a codificação de *cada micro-tarefa*, execute os passos de validação ANTES de passar para a próxima usando o MCP de dart:
-    *   **Formatação:** Execute `dart format .`
-    *   **Análise Estática:** Execute `flutter analyze`.
-    *   **Análise de Testes:** Execute `flutter test`.
-    *   **Critério de Aceite:** Corrija imediatamente quaisquer erros ou recomendações do linter, também corrija erros de testes. Não avance com código "sujo".
+4. **Execution Order (Bottom-Up):**
+    Implement tasks by strictly following dependency hierarchy:
+    1. **Core:** DTOs and interfaces.
+    2. **Rest:** Implementations of Rest service interfaces.
+    3. **Drivers:** Implementations of driver interfaces.
+    4. **State Management:** Stores (Signals), Presenters, Controllers.
+    5. **User Interface:** Views and Widgets.
+    * **Rule:** Never implement a consuming component (for example a Widget) before implementing the logic/data it consumes.
 
-6.  **Consistência de Padrões:**
-    *   **Camada UI:** 
-        *   Sempre que criar um widget interno, crie uma pasta dedicada para ele dentro da estrutura do widget pai.
-        *   Sempre use o padrão MVP (Model-View-Presenter) para a criação de widgets.
-        *   **Importante:** Utilize exclusivamente o `shadcn_flutter` para componentes de interface, evitando o uso de `Material UI`.
+5. **Quality and Verification Cycle (Per Task):**
+    After finishing the code for *each micro-task*, execute the validation steps BEFORE moving to the next one using the Dart MCP:
+    * **Formatting:** Run `dart format .`
+    * **Static Analysis:** Run `flutter analyze`.
+    * **Test Analysis:** Run `flutter test`.
+    * **Acceptance Criteria:** Immediately fix any linter errors or recommendations, and also fix test errors. Do not move forward with "dirty" code.
 
+6. **Standards Consistency:**
+    * **UI Layer:**
+        * Whenever you create an internal widget, create a dedicated folder for it inside the parent widget structure.
+        * Always use the MVP (Model-View-Presenter) pattern when creating widgets.
+        * **Important:** Use only `shadcn_flutter` for UI components, avoiding `Material UI`.
