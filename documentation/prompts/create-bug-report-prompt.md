@@ -1,71 +1,180 @@
 ---
-description: Turn an informal bug description into a structured bug report with a fix plan.
+description: Turn an informal bug description into a clear, actionable bug report for the Sertton project.
 ---
 
 # Prompt: Create Bug Report
 
-**Objective:**
-Transform a sketch or informal error report into a **Professional Bug Report**, standardized and ready to be handed to the development team.
+**Objective:** Convert an informal problem report into a professional, implementation-oriented bug report that the Sertton team can use without extra interpretation.
 
-**Input:**
-* **Problem Sketch:** report document with only the problem generally described
-* **Technical Context (Optional):** [Insert device, OS, app version info, if available]
+The result of this task is always a single Markdown file containing only the bug report.
 
-**Execution Guidelines:**
+This prompt does **not** create a fix spec. If a spec is needed later, it must be created in a separate flow with `documentation/prompts/create-spec-prompt.md`.
 
-1. **Report Analysis:** Interpret the problem sketch and the provided technical context.
-2. Understand the project architecture using the rules for each layer.
-3. **Diagnosis:** Identify probable causes based on the system architecture described in `documentation\architecture.md`. To better understand the feature context, if it exists, review the affected feature’s PRD, located at the root of the bug-reports directory, one level above.
-4. **Layer Mapping:** Determine which layers (UI, Core, REST, Drivers) and specific files are involved.
-5. **Fix Plan:** Build a step-by-step solution, separated by layers, to guide development.
+---
 
-**Required Output Format:**
+## Input
 
-Please generate the response inside a Markdown code block, strictly following this template:
+- Informal bug description
+- Optional technical context:
+  - device or platform
+  - environment
+  - affected feature or flow
+  - screenshots, logs, or reproduction notes
 
-```markdown
-## 🐛 Bug Report: [Short Descriptive Title]
+---
 
-**Identified Problem:**
-[A clear sentence describing the unexpected behavior]
+## Project Context
 
-**Causes:**
-[Brief explanation of the likely technical reasons for the error]
+Sertton is a Flutter/Dart e-commerce app with these layers:
 
-**Context and Analysis:**
-### [Layer Name (for example UI Layer, Core Layer, REST Layer, Drivers Layer)]
+- `lib/core/`
+- `lib/rest/`
+- `lib/drivers/`
+- `lib/ui/`
 
-<!-- Repeat the block below for each affected layer -->
-- File: `[Path/FileName]`
-- Diagnosis: [What is specifically wrong in this location]
+Before writing the report, align with:
 
-**Fix Plan (Spec):**
+- `documentation/overview.md`
+- `documentation/architecture.md`
+- `documentation/rules/rules.md`
 
-### 1. What already exists? (Context/Impact)
-List codebase resources (Services, Widgets, DTOs, Stores, Drivers, etc.) that will be used or impacted. Indicate absolute paths or clear relative paths.
+Use the codebase to ground the diagnosis in real files and real flow ownership.
 
-- **[Layer]**:
-[Component Name] - [Responsibility]
-[Component Name] - [Responsibility]
+---
 
-### 2. What must be created?
-Describe new components required for the fix.
+## Execution Guidelines
 
-- **[Layer]**:
-[Component Name] - [Responsibility]
-[Component Name] - [Responsibility]
+### 1. Analyze the report
 
-### 3. What must be modified?
-List changes to existing code.
+Translate the informal description into:
 
-- **[Layer]**:
-[Component Name] - [Responsibility]
-[Component Name] - [Responsibility]
+- observed behavior
+- expected behavior
+- impact on the user flow
 
-### 4. What must be removed?
-List legacy code or cleanup refactors required (if any).
+Remove ambiguity wherever possible.
 
-- **[Layer]**:
-[Component Name] - [Responsibility]
-[Component Name] - [Responsibility]
+### 2. Diagnose probable causes
+
+Based on the architecture and codebase, identify:
+
+- likely failure points
+- the data source involved
+- the layer where the issue appears to originate
+- any missing validation, mapping, state handling, or integration step
+
+Search for real files involved in the flow, such as:
+
+- widgets or screens where the flow starts
+- presenters or providers that manage state
+- service interfaces in `core`
+- Yampi implementations and mappers in `rest`
+- infrastructure adapters in `drivers`
+
+### 3. Map the impacted layers
+
+Use only the real repository layers:
+
+- `core`
+- `rest`
+- `drivers`
+- `ui`
+
+Associate each diagnosis point with real file paths whenever possible.
+
+### 4. Provide a fix direction
+
+Include only a short technical direction:
+
+- where the fix most likely belongs
+- which files or layers are relevant
+- what kind of correction is likely needed
+
+Do not turn this into an implementation plan or technical spec.
+
+### 5. Save and stop
+
+After saving the bug report:
+
+- report the file path created or updated
+- do not create a spec
+- do not edit any file in `specs/`
+
+---
+
+## Output File
+
+Save a single file to:
+
+- `documentation/features/{domain}/reports/{descriptive-name}-bug-report.md`
+
+---
+
+## Required Template
+
+```md
+---
+title: <short descriptive title>
+domain: <catalog|checkout|marketing|reviewing|shipping|global|institutional|other>
+status: open
+last_updated_at: <YYYY-MM-DD>
+source: <issue, request, or report reference>
+---
+
+# Bug Report: <short descriptive title>
+
+## Observed Behavior
+
+<Objective description of what is going wrong>
+
+## Expected Behavior
+
+<What should happen instead>
+
+## Impact
+
+<Who is affected and how this impacts the product or flow>
+
+## Probable Causes
+
+- <probable cause>
+- <probable cause>
+
+## Context and Analysis
+
+### UI
+- **File:** `path/to/file.dart`
+- **Diagnosis:** <what appears incorrect here>
+
+### Core
+- **File:** `path/to/file.dart`
+- **Diagnosis:** <what appears incorrect here>
+
+### Rest
+- **File:** `path/to/file.dart`
+- **Diagnosis:** <what appears incorrect here>
+
+### Drivers
+- **File:** `path/to/file.dart`
+- **Diagnosis:** <what appears incorrect here>
+
+> Omit any layer section that does not apply.
+
+## Evidence
+
+- <log, screenshot note, reproduction step, or code evidence>
+
+## Fix Direction
+
+<Short paragraph or short bullet list pointing to the most likely correction area without prescribing the full implementation>
 ```
+
+---
+
+## Restrictions
+
+- Do not invent files, methods, or contracts without evidence in the codebase.
+- Separate facts from hypotheses.
+- Do not include implementation phases, tasks, or file creation plans.
+- Do not embed a fix spec inside the bug report.
+- Do not create or update files under `specs/` during this task.
