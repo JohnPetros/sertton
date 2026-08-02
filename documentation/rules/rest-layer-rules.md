@@ -1,123 +1,61 @@
-# REST Layer Guidelines
+# REST Layer Rules
 
-The **REST** layer (`lib/rest/`) implements HTTP communication with external APIs.
+The REST layer (`src/rest`) isolates HTTP transport, Yampi payloads, mapping, and controller orchestration from the UI and domain.
 
----
+## Services
 
-## Design Patterns
+- Services implement the interfaces declared in `src/core/<domain>/interfaces`.
+- Service methods are async object methods and await the HTTP operation before returning.
 
-### Adapter Pattern
-
-`DioRestClient` adapts the Dio library to the Core `RestClient` interface:
-
-```dart
-class DioRestClient implements RestClient {
-  late final Dio _dio;
-  // HTTP method implementations
+```ts
+async fetchCollections() {
+  const response = await restClient.get<YampiResponse<YampiCollection>>("/catalog/collections")
+  return response.mapBody((body) => body.data.map(collectionMapper.toDomain))
 }
 ```
 
-### Service Pattern
+- Do not expose Axios or raw Yampi objects outside `rest`.
+- Do not accept `AbortSignal` in service contracts or service methods.
+- Query parameters are configured through `RestClient`; request-specific transport options remain inside the REST layer.
 
-Services implement Core interfaces and encapsulate HTTP calls:
+## Yampi Types and Mappers
 
-```dart
-class YampiCatalogService extends YampiService implements CatalogService {
-  @override
-  Future<RestResponse<List<ProductDto>>> fetchProducts() async {
-    final response = await restClient.get('/catalog/products');
-    return response.mapBody((body) => YampiProductMapper.toDtoList(body));
-  }
-}
+- Place each Yampi entity in its own file under `src/rest/yampi/types` and re-export it through `index.ts`.
+- Model API fields explicitly. Do not use generic JSON conversion helpers such as `asString`, `asNumber`, or `asObject`.
+- A mapper is a factory function that returns an object.
+
+```ts
+export const YampiCollectionMapper = () => ({
+  toDomain(input: YampiCollection): Collection {
+    return { id: String(input.id), name: input.name }
+  },
+})
 ```
 
-### Template Method (Base Class)
+- Every mapper provides at least `toDomain(yampiEntity): DomainEntity`.
+- Name reverse conversions `toYampi(domainEntity): YampiEntity`.
+- Mappers do not use interfaces and do not contain service, UI, or business orchestration.
 
-`YampiService` automatically configures the base URL and headers:
+## Controllers
 
-```dart
-class YampiService {
-  YampiService(this.restClient, this.envDriver) {
-    restClient.setBaseUrl(envDriver.get(Env.yampiApiUrl));
-    restClient.setHeader('User-Token', envDriver.get(Env.yampiUserToken));
-  }
-}
+- Controllers do not use `createController` or callback shorthand.
+- Define a local schema and return an object exposing `async handle(http)`.
+
+```ts
+type Schema = { params: { collectionId: string } }
+
+export const FetchProductsByCollectionController = (service: ICatalogService) => ({
+  async handle(http: Http<Schema>) {
+    const { collectionId } = http.getRouteParams()
+    const response = await service.fetchProductsByCollection(collectionId)
+    return http.send(response)
+  },
+})
 ```
 
-### Mapper Pattern
+## Responses and Errors
 
-Mappers convert JSON into DTOs:
-
-```dart
-class YampiProductMapper {
-  static ProductDto toDto(Json json) { ... }
-  static List<ProductDto> toDtoList(Json json) { ... }
-  static PaginationResponse<ProductDto> toDtoPagination(Json json) { ... }
-}
-```
-
----
-
-## Technologies
-
-| Library | Purpose |
-|------------|---------|
-| **dio** | HTTP client |
-| **flutter_riverpod** | Dependency injection |
-| **flutter_dotenv** | Environment variables |
-
----
-
-## Directory Structure
-
-```text
-lib/rest/
-├── rest_client.dart         # RestClient provider
-├── services.dart            # Service providers
-├── types/
-│   ├── json.dart            # typedef Json = Map<String, dynamic>
-│   └── query_params.dart
-├── dio/
-│   └── dio_rest_client.dart
-└── {provider}/              # ex: yampi/
-    ├── services/
-    │   ├── {provider}_service.dart         # Base class
-    │   └── {provider}_{domain}_service.dart
-    └── mappers/
-        └── {provider}_{entity}_mapper.dart
-```
-
----
-
-## Naming Conventions
-
-| Type | File Pattern | Class Pattern |
-|------|--------------|---------------|
-| Service Base | `{provider}_service.dart` | `{Provider}Service` |
-| Service Impl | `{provider}_{domain}_service.dart` | `{Provider}{Domain}Service` |
-| Mapper | `{provider}_{entity}_mapper.dart` | `{Provider}{Entity}Mapper` |
-
-### Mapper Methods
-
-| Method | Usage |
-|--------|-------|
-| `toDto(Json)` | Converts a single object |
-| `toDtoList(Json)` | Converts a list |
-| `toDtoPagination(Json)` | Converts a paginated response |
-
----
-
-## Best Practices
-
-### ✅ Do
-
-- Use Core layer interfaces.
-- Keep Mapper methods static.
-- Handle null safety in Mappers.
-- Use `EnvDriver` for configuration.
-
-### ❌ Avoid
-
-- Exposing Dio to other layers.
-- Business logic inside Mappers.
-- Hardcoded URLs or tokens.
+- Return `RestResponse` from services and controllers.
+- Use `mapBody` only to map a successful response body to a domain value.
+- Preserve the status code and error when propagating a failed response.
+- Do not throw for expected HTTP failures; transport clients must return a failed `RestResponse`.

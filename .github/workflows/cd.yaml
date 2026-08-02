@@ -6,46 +6,14 @@ on:
       - "v*.*.*"
 
 concurrency:
-  group: cd-android-deployment-${{ github.ref }}
+  group: cd-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   deploy-android:
     uses: ./.github/workflows/android-cd.yaml
     secrets:
-      ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
-      GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
-      ENV: ${{ secrets.ENV }}
-
-  release:
-    name: Create GitHub Release (attach APK)
-    runs-on: ubuntu-latest
-    needs: [deploy-android]
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Download APK artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: android-app
-          path: dist
-
-      - name: Create GitHub Release with APK
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ls -la dist
-          mv dist/app-release.apk dist/android-app.apk
-          TAG="${GITHUB_REF_NAME}"
-          echo "${GITHUB_REF_NAME}"
-          APK_PATH="dist/android-app.apk"
-
-          gh release create "${GITHUB_REF_NAME}" "dist/android-app.apk" --generate-notes
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

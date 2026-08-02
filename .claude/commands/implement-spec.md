@@ -1,53 +1,135 @@
 ---
-description: Implement an approved technical spec iteratively with validation at each step.
+description: Implement a small technical spec directly in the Sertton codebase without creating a formal plan.
 ---
 
 # Prompt: Implement Spec
 
-**Objective:**
-Execute the technical implementation plan iteratively, in an organized and validated way, ensuring quality and continuous integration.
+**Objective:** Implement a small, well-bounded technical spec directly in the Sertton Flutter project without creating `documentation/plan.md`. Use this prompt only when the spec is clear, the execution order is straightforward, and the change can be validated locally without multi-phase coordination.
 
-**Input:**
-* Approved/finalized technical Spec document.
+---
 
-**Execution Guidelines:**
+## Input
 
-1. **Validate Guidelines and Architecture:**
-    Before starting implementation, make sure you understand the project guidelines and structure:
-    * **Project macro view:** `documentation\overview.md`
-    * **Architecture:** `documentation\architecture.md`
-    * **Code Standardization:** `documentation\rules\code-conventions-rules.md`
-    * **Layer Guidelines:**
-        * **Core:** `documentation\rules\core-layer-rules.md`
-        * **UI:** `documentation\rules\ui-layer-rules.md`
-        * **REST:** `documentation\rules\rest-layer-rules.md`
-        * **Drivers:** `documentation\rules\drivers-layer-rules.md`
+- **Spec path:** `documentation/features/**/specs/*-spec.md`
+- Optional narrowed scope: a section, requirement, or issue inside that spec
+- Optional user constraints: priority, files already touched, or scope limits
 
-2. **Planning and Tasks:**
-    * If planning and task definition were already done earlier, consider them during implementation and ignore steps 3 and 4.
+If the spec path is not explicitly given, infer it only when there is one safe candidate. If multiple plausible specs exist, ask for confirmation.
 
-3. **Atomic Decomposition:**
-    * Break the implementation plan into phases and atomic tasks.
-    * Each phase must result in code that is compilable and functional in isolation.
+---
 
-4. **Execution Order (Bottom-Up):**
-    Implement tasks by strictly following dependency hierarchy:
-    1. **Core:** DTOs and interfaces.
-    2. **Rest:** Implementations of Rest service interfaces.
-    3. **Drivers:** Implementations of driver interfaces.
-    4. **State Management:** Stores (Signals), Presenters, Controllers.
-    5. **User Interface:** Views and Widgets.
-    * **Rule:** Never implement a consuming component (for example a Widget) before implementing the logic/data it consumes.
+## When to Use
 
-5. **Quality and Verification Cycle (Per Task):**
-    After finishing the code for *each micro-task*, execute the validation steps BEFORE moving to the next one using the Dart MCP:
-    * **Formatting:** Run `dart format .`
-    * **Static Analysis:** Run `flutter analyze`.
-    * **Test Analysis:** Run `flutter test`.
-    * **Acceptance Criteria:** Immediately fix any linter errors or recommendations, and also fix test errors. Do not move forward with "dirty" code.
+Use `implement-spec` only when all of the following are true:
 
-6. **Standards Consistency:**
-    * **UI Layer:**
-        * Whenever you create an internal widget, create a dedicated folder for it inside the parent widget structure.
-        * Always use the MVP (Model-View-Presenter) pattern when creating widgets.
-        * **Important:** Use only `shadcn_flutter` for UI components, avoiding `Material UI`.
+- the spec is already clear enough for direct execution
+- the implementation fits a short sequence of edits
+- there is no need for formal phased coordination
+- layer dependencies are simple and obvious
+- validation can be handled with local Flutter/Dart checks and tests
+
+Do not use this prompt when the work involves:
+
+- broad cross-layer refactors
+- a large feature spanning many screens and services
+- unclear ownership between layers
+- multiple high-impact technical decisions still unresolved
+- work that should be decomposed into formal tasks first
+
+In those cases, stop and use `create-plan` followed by `implement-plan`.
+
+---
+
+## Execution Guidelines
+
+### 1. Mandatory reading
+
+Before editing code:
+
+- read the full spec
+- read `documentation/rules/rules.md`
+- identify the affected layers
+- read only the corresponding layer rules
+- inspect the files referenced by the spec
+- inspect similar existing implementations in the same domain
+
+### 2. Scope check
+
+Classify the task before editing:
+
+- **Direct:** safe to implement now with this prompt
+- **Broad:** requires `create-plan` + `implement-plan`
+- **Ambiguous:** requires user clarification before editing
+
+If the task is broad or ambiguous, stop before changing code.
+
+### 3. Implementation
+
+Follow the spec as the source of truth.
+
+Implementation principles:
+
+- make the smallest change that delivers the specified behavior
+- preserve layer boundaries
+- follow neighboring file patterns before introducing new abstractions
+- keep business rules out of the wrong layer
+- if the spec is factually outdated, adjust it only in a small, justified way
+
+For this repository, preserve these boundaries:
+
+- `core` stays free of Flutter widgets and infrastructure details
+- `rest` owns API integration and mapping concerns
+- `drivers` owns infrastructure adapters
+- `ui` owns presentation, interaction, and navigation concerns
+
+### 4. Tests
+
+Add or update tests when the change affects:
+
+- business behavior
+- DTO or mapper behavior
+- service behavior
+- presenter state transitions
+- widget rendering or user interaction
+
+Follow:
+
+- `documentation/rules/unit-tests-rules.md`
+
+Reuse existing project testing patterns rather than inventing new ones.
+
+### 5. Validation
+
+After changing code, run the relevant checks for the affected scope.
+
+Prefer the repository's real Flutter/Dart commands, such as:
+
+- `dart format <paths>`
+- `flutter analyze`
+- `flutter test`
+
+If the change affects UI behavior, also perform the most appropriate additional validation available, such as:
+
+- widget tests
+- targeted manual flow validation in the app
+
+If a command fails because of your change, fix it before finishing. If a failure is pre-existing and outside scope, report it clearly.
+
+### 6. Completion
+
+At the end, report:
+
+- what was implemented
+- the main files changed
+- validation commands executed and results
+- any pending items or follow-up risks
+
+---
+
+## Restrictions
+
+- Do not create a formal plan.
+- Do not use this prompt for large or phased work.
+- Do not invent files, methods, contracts, or patterns without evidence from the codebase or spec.
+- Do not ignore the project rules.
+- Do not silently expand scope beyond the requested spec.

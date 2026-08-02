@@ -1,137 +1,127 @@
 ---
-description: Create a GitHub pull request with a standardized title and body using gh CLI.
+description: Create a standardized pull request with GitHub CLI for the Sertton repository.
 ---
 
 # Prompt: Create PR
 
-**Objective:**
-Standardize Pull Request (PR) creation, ensuring clear descriptions that make code review and task tracking easier. The focus is to use only the **GitHub CLI (gh)** to preserve workflow integrity.
+**Objective:** Create a clean, review-friendly pull request for the Sertton repository using GitHub CLI. The PR must clearly explain what changed, why it changed, and how reviewers should validate it.
 
 ---
 
 ## Input
 
-* A properly implemented and validated Spec.
-* A properly implemented and validated Bug Report.
-* A feature (`feature/`), fix (`fix/`), or refactor (`refactor/`) branch with committed changes.
+- Implemented and validated work
+- A feature, fix, refactor, or docs branch with committed changes
+- Optional related documents:
+  - technical spec
+  - bug report
+  - issue link
+
+---
+
+## Project Context
+
+The PR should reflect Sertton's real structure and conventions:
+
+- Flutter/Dart application
+- layered architecture with `core`, `rest`, `drivers`, and `ui`
+- conventional commit messages with the repository's configured style
+
+Before creating the PR, review:
+
+- the implemented spec or bug report, if one exists
+- the diff and commit history on the branch
+- validation results
 
 ---
 
 ## Execution Guidelines
 
-### 1. Context Analysis
+### 1. Review the branch state
 
-* Review the implemented Spec and the changelog of completed changes.
-* Identify:
+Check whether there are uncommitted changes:
 
-  * technical impacts
-  * design decisions made
-  * risks and side effects
-
----
-
-### 2. Title Definition
-
-* It must be:
-
-  * short
-  * direct
-  * in PT-BR
-  * reflective of the essence of the change
-
-Examples:
-
-* Product listing implementation
-* Fix image loading error
-* Fix navigation to the catalog screen
-
-Do not include prefixes in the title:
-
-```text
-feat/
-fix/
-refactor/
+```bash
+git status --short
+git diff --stat
 ```
 
----
+If there are uncommitted changes, commit them before creating the PR.
 
-### 3. Description Structure (Body)
+If the branch contains unrelated or unfinished work, stop and resolve that before opening the PR.
 
-The PR body must follow the template below.
+### 2. Define the PR title
 
-**Formatting rules:**
+The title must be:
 
-* use Markdown
-* do not use a main `#` title
-* use `##` and lower levels
+- short
+- direct
+- written in English
+- descriptive of the user-facing or technical outcome
 
----
+Do not use commit-style prefixes such as:
 
-## Objective (required)
+- `fix:`
+- `feat:`
+- `refactor:`
 
-Explain why this PR was created and its central purpose.
+Prefer titles like:
 
-## Related Issues (optional)
+- `Fix product image loading on the catalog screen`
+- `Reorganize project documentation prompts`
+- `Add cart item quantity validation`
 
-Link tasks/bugs:
+### 3. Build the PR body
 
-```text
-fixes #123
-closes #456
+Use Markdown and keep it concise but complete.
+
+Required structure:
+
+```md
+## Objective
+
+<Why this PR exists and what it delivers>
+
+## Changes
+
+- <important change>
+- <important change>
+
+## Validation
+
+- <command or validation step>
+- <command or validation step>
+
+## Related References
+
+- Spec: <path or link, if applicable>
+- Bug report: <path or link, if applicable>
+- Issue: <link, if applicable>
+
+## Notes
+
+<Optional reviewer guidance, risks, or follow-up items>
 ```
 
----
+Optional section for fixes:
 
-## Bug Cause (optional - fix only)
+```md
+## Root Cause
 
-Describe the root technical cause.
+<Short technical explanation of the original problem>
+```
 
----
+### 4. Create the PR with GitHub CLI
 
-## Changelog (required)
+Use `gh pr create`.
 
-Technical list of changes:
-
-* changed files
-* modified behavior
-* added rules
-* completed refactors
-
----
-
-## How to Test (required)
-
-Clear step-by-step for the reviewer:
-
-1. ...
-2. ...
-3. ...
-
----
-
-## Notes (optional)
-
-* architectural decisions
-* known limitations
-* tradeoffs
-* next steps
-
----
-
-## 4. Creation via gh CLI
-
-Do not use GitHub MCP.
-Do not use MCP APIs.
-Use only **gh**.
-
-Standard command:
+Example with a body file:
 
 ```bash
 gh pr create \
-  --repo owner/repo \
   --base main \
   --head <branch-name> \
-  --title "<PR Title>" \
+  --title "<pr title>" \
   --body-file pr_body.md
 ```
 
@@ -140,40 +130,31 @@ Or inline:
 ```bash
 gh pr create \
   --base main \
-  --head <branch> \
-  --title "<Title>" \
-  --body "<Formatted description>"
+  --head <branch-name> \
+  --title "<pr title>" \
+  --body "<markdown body>"
 ```
 
----
+### 5. Return the PR link
 
-## 5. Return
-
-After creation:
+After creation, retrieve the URL:
 
 ```bash
-gh pr view --web
-```
-
-or
-
-```bash
-gh pr view --json url
+gh pr view --json url,title
 ```
 
 Return:
 
-* created PR link
-* final title
-* summary of the generated body
+- PR URL
+- final PR title
+- short summary of the body content
 
 ---
 
-If you want, I can also convert this prompt into:
+## Writing Rules
 
-* slash command
-* automatic PR template
-* `gh` script + markdown template
-* CI workflow to validate the PR body
-
-Just tell me which environment you will use.
+- Write the PR title and body in English.
+- Do not dump the full changelog file-by-file unless needed for clarity.
+- Focus on reviewer comprehension: outcome, key changes, and validation.
+- Mention manual validation when UI behavior was tested by hand.
+- Mention remaining risks or follow-up items when relevant.
