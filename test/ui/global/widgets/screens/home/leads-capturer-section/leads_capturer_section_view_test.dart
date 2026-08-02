@@ -39,10 +39,7 @@ void main() {
     testWidgets('should render initial state correctly', (tester) async {
       await tester.pumpWidget(createWidget());
 
-      expect(
-        find.text('Receba novidades e\nofertas incríveis'),
-        findsOneWidget,
-      );
+      expect(find.text('Receba novidades e ofertas incríveis'), findsOneWidget);
       expect(
         find.text(
           'Cadastre-se na nossa newsletter e fique por dentro dos lançamentos exclusivos da loja.',
