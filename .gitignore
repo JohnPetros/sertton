@@ -42,6 +42,8 @@ yarn-error.*
 
 # certificates
 certificates
+secure
+credentials.json
 
 # generated native folders
 /ios
