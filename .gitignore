@@ -12,6 +12,8 @@
 .swiftpm/
 migrate_working_dir/
 
+node_modules/
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -69,3 +71,5 @@ prompt.md
 
 # Terminal Paste Image folder
 .cp-images/
+
+secure
