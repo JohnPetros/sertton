@@ -1,6 +1,0 @@
-export type { Brand } from "@/core/catalog/entities/brand"
-export type { Category } from "@/core/catalog/entities/category"
-export type { Collection } from "@/core/catalog/entities/collection"
-export type { Product } from "@/core/catalog/entities/product"
-export type { Sku } from "@/core/catalog/entities/sku"
-export type { Variation } from "@/core/catalog/entities/variation"
