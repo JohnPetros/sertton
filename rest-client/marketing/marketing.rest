@@ -1,0 +1,14 @@
+@url = {{BASE_URL}}/marketing
+@leadsUrl = {{BASE_URL}}/leads
+
+### Get banners
+GET {{url}}/banners
+
+### Save lead
+POST {{leadsUrl}}
+Content-Type: application/json
+
+{
+  "email": "customer@example.com",
+  "name": "Customer"
+}
