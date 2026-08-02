@@ -13,8 +13,8 @@
 
 No diretório `sertton-react-native-app/`:
 
-- `npm run codecheck` — aprovado.
-- `npm run typecheck` — aprovado.
+- `npm run check:code` — aprovado.
+- `npm run check:types` — aprovado.
 - `npm run test` — aprovado: 7 suítes e 15 testes, incluindo `ConnectivityGuard` e `useConnectivityGuard`.
 - `npm run test:coverage` — aprovado.
 - `npm run export:web` — aprovado; 14 rotas visuais e 15 API Routes exportadas.

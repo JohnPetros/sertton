@@ -1,102 +1,56 @@
-<h1 align="center">🚚 Sertton</h1>
+# Welcome to your Expo app 👋
 
-Aplicativo de e-commerce nativo desenvolvido em **Flutter** para a marca **Sertton**. O projeto foca em alta performance, fluidez de navegação e uma integração robusta com a plataforma **Yampi** para gestão de produtos e pedidos.
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## 🚀 Visão Geral
+## Get started
 
-O objetivo deste aplicativo é oferecer uma experiência de compra completa e premium, incluindo:
+1. Install dependencies
 
--   **Navegação Híbrida:** Menu lateral (Drawer) e navegação inferior (Tabbar) para acesso rápido.
--   **Vitrine Interativa:** Banners dinâmicos e coleções em destaque.
--   **Catálogo Completo:** Busca avançada, filtros inteligentes e detalhes ricos de produtos (SKUs, variações).
--   **Checkout Transparente:** Gestão de carrinho com cálculo de frete e pagamentos integrados (Pix/Boleto).
--   **Área do Cliente:** Histórico de pedidos e acompanhamento de status.
+   ```bash
+   npm install
+   ```
 
-## 🛠 Tech Stack
+2. Start the app
 
-O projeto utiliza as tecnologias mais modernas do ecossistema Flutter:
+   ```bash
+   npx expo start
+   ```
 
--   **Linguagem:** [Dart](https://dart.dev)
--   **Framework:** [Flutter](https://flutter.dev)
--   **Gerenciamento de Estado & DI:** [Riverpod](https://riverpod.dev) + [Signals](https://pub.dev/packages/signals)
--   **Interface (UI):** [Shadcn Flutter](https://pub.dev/packages/shadcn_flutter) + [Flutter Animate](https://pub.dev/packages/flutter_animate)
--   **Navegação:** [GoRouter](https://pub.dev/packages/go_router)
--   **Cliente HTTP:** [Dio](https://pub.dev/packages/dio)
--   **Backend:** Integração RESTful com API Yampi
+In the output, you'll find options to open the app in a
 
-## 🏗 Arquitetura
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-O projeto segue uma **Arquitetura em Camadas (Layered Architecture)**, inspirada em Clean Architecture e MVP (Model-View-Presenter), garantindo desacoplamento e testabilidade.
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-### Estrutura de Camadas:
+## Get a fresh project
 
--   **UI (`lib/ui`)**: Contém Widgets, Telas e Presenters (lógica de apresentação).
--   **Core (`lib/core`)**: Regras de negócio, DTOs, Entidades e Interfaces de serviço através de domínios específicos (Catalog, Checkout, Marketing, Reviewing).
--   **Rest (`lib/rest`)**: Implementações da comunicação com a API (Services e Mappers).
--   **Drivers (`lib/drivers`)**: Implementações de infraestrutura e adaptadores (ex: Variáveis de ambiente).
-
-Para mais detalhes técnicos, consulte a [Documentação de Arquitetura](documentation/architecture.md).
-
-## 📂 Estrutura do Projeto
+When you're ready, run:
 
 ```bash
-lib/
-├── core/           # Regras de Negócio e Contratos (Dominio)
-├── drivers/        # Implementações de Infraestrutura
-├── rest/           # Comunicação com API (Services, Repositories)
-├── ui/             # Camada de Apresentação (Screens, Widgets, Presenters)
-├── constants/      # Constantes globais e Rotas
-├── router.dart     # Configuração de Navegação (GoRouter)
-└── main.dart       # Ponto de entrada
+npm run reset-project
 ```
 
-## ⚙️ Configuração e Instalação
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-### Pré-requisitos
--   Flutter SDK 3.10.7 ou superior.
+### Other setup steps
 
-### Passo a Passo
+- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
+- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
+- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
 
-1.  **Clone o repositório:**
-    ```bash
-    git clone <url-do-repositorio>
-    cd sertton
-    ```
+## Learn more
 
-2.  **Configure o Ambiente:**
-    Crie um arquivo `.env` na raiz do projeto contendo as chaves necessárias (consulte o time de desenvolvimento para obter as credenciais).
+To learn more about developing your project with Expo, look at the following resources:
 
-3.  **Instale as dependências:**
-    ```bash
-    flutter pub get
-    ```
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-4.  **Execute o projeto:**
-    ```bash
-    flutter run
-    ```
+## Join the community
 
-## 📖 Documentação
+Join our community of developers creating universal apps.
 
-Documentações detalhadas estão disponíveis no diretório `documentation/`:
-
--   [Visão Geral do Produto](documentation/overview.md)
--   [Arquitetura e Decisões Técnicas](documentation/architecture.md)
--   [Rules e Convenções](documentation/rules/rules.md)
-    -   [Rules de UI](documentation/rules/ui-layer-rules.md)
-    -   [Convenções de Código](documentation/rules/code-conventions-rules.md)
-    -   [Core e Domínio](documentation/rules/core-layer-rules.md)
-    -   [Camada REST](documentation/rules/rest-layer-rules.md)
-
-## 🧪 Testes
-
-O projeto utiliza `flutter_test`, `mocktail` e `faker` para testes automatizados.
-
-```bash
-flutter test
-```
-
-## 📝 Licença
-
-Todos os direitos reservados à **Sertton**.
-
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

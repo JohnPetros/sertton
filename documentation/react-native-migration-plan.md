@@ -679,18 +679,16 @@ O `package.json` deve expor pelo menos estes scripts:
 ```json
 {
   "scripts": {
-    "codecheck": "biome check .",
-    "codecheck:fix": "biome check --write .",
-    "typecheck": "tsc --noEmit",
+    "check:code": "biome check . && node scripts/verify-boundaries.mjs",
+    "check:types": "tsc --noEmit",
     "test": "jest --runInBand",
     "test:coverage": "jest --coverage --runInBand"
   }
 }
 ```
 
-- `npm run codecheck` executa lint, verificação de formatação e organização de imports sem alterar arquivos.
-- `npm run codecheck:fix` aplica formatação e correções seguras durante o desenvolvimento.
-- `npm run typecheck` executa a validação TypeScript separadamente, pois Biome não substitui o compilador TypeScript.
+- `npm run check:code` executa lint, verificação de formatação, organização de imports e verificação de fronteiras sem alterar arquivos.
+- `npm run check:types` executa a validação TypeScript separadamente, pois Biome não substitui o compilador TypeScript.
 - `npm run test` executa os testes Jest de Views e hooks dos widgets.
 - `npm run test:coverage` executa a mesma suíte e gera coverage restrita aos widgets.
 - O CI e os gates de implementação devem chamar os scripts npm, sem invocar Biome ou `tsc` diretamente.
@@ -829,7 +827,7 @@ A consulta manterá a regra existente: qualquer pessoa que informe um CPF/CNPJ c
 
 ## 7. Fases de implementação
 
-Cada tarefa só pode ser marcada como concluída quando seu resultado observável e suas validações estiverem aprovados. Ao final de tarefas fora da UI, executar `npm run codecheck` e `npm run typecheck`. Ao final de tarefas de widgets, executar também os testes Jest da View e do hook afetados e usar o Maestro MCP somente para abrir e visualizar a tela correspondente no aplicativo compilado.
+Cada tarefa só pode ser marcada como concluída quando seu resultado observável e suas validações estiverem aprovados. Ao final de tarefas fora da UI, executar `npm run check:code` e `npm run check:types`. Ao final de tarefas de widgets, executar também os testes Jest da View e do hook afetados e usar o Maestro MCP somente para abrir e visualizar a tela correspondente no aplicativo compilado.
 
 ### Fase 0 — Congelamento da referência e decisões bloqueantes
 
@@ -844,13 +842,13 @@ Cada tarefa só pode ser marcada como concluída quando seu resultado observáve
 
 - [ ] **RNM-100 — Consolidar o scaffold em `sertton-react-native-app/`.** Partir do projeto Expo já criado com Expo Router em `src/app`, remover o conteúdo demonstrativo, os imports e as declarações diretas não utilizadas de `@expo/ui`, `expo-glass-effect` e `expo-symbols`, sem executar ou modificar o aplicativo Flutter. Esses pacotes podem permanecer no lockfile exclusivamente como dependências transitivas obrigatórias do `expo-router`. Configurar `expo.web.output` como `server` e confirmar uma API Route smoke. **Depende de:** RNM-002. **Resultado:** o scaffold existente inicia localmente em Android, iOS e web, sem código ou dependência direta demonstrativa desnecessária.
 - [ ] **RNM-101 — Validar e fixar versões compatíveis.** Usar como baseline as versões já registradas no scaffold — Expo `~57.0.4`, React Native `0.86.0`, React `19.2.3`, TypeScript `~6.0.3`, Expo Router `~57.0.4` e Reanimated `4.5.0` — e validar a compatibilidade de NativeWind, React Native Reusables, Zod, Lucide, Jest e demais dependências antes de adicioná-las. Registrar a versão do Node, manter npm como package manager e preservar `package-lock.json`. **Depende de:** RNM-100. **Resultado:** instalação reproduzível e `expo-doctor` sem erros.
-- [ ] **RNM-102 — Configurar TypeScript e Biome.** Ativar `strict`, `noUncheckedIndexedAccess`, alias `@/` e o script `typecheck` com `tsc --noEmit`. Configurar `biome.json` para lint, formatação, organização de imports, kebab-case, JSX em arrow functions atribuídas a `const`, proibição de default export em `src/`, override para rotas visuais em `src/app/` e restrições de imports client/server. Não adicionar ESLint ou Prettier. **Depende de:** RNM-100. **Resultado:** `npm run codecheck` e `npm run typecheck` passam; violações das convenções e fronteiras são rejeitadas.
+- [ ] **RNM-102 — Configurar TypeScript e Biome.** Ativar `strict`, `noUncheckedIndexedAccess`, alias `@/` e o script `check:types` com `tsc --noEmit`. Configurar `biome.json` para lint, formatação, organização de imports, kebab-case, JSX em arrow functions atribuídas a `const`, proibição de default export em `src/`, override para rotas visuais em `src/app/` e restrições de imports client/server. Não adicionar ESLint ou Prettier. **Depende de:** RNM-100. **Resultado:** `npm run check:code` e `npm run check:types` passam; violações das convenções e fronteiras são rejeitadas.
 - [ ] **RNM-103 — Configurar NativeWind.** Adicionar CSS global, Metro, Babel quando exigido pela versão, tipos e paths de conteúdo. **Depende de:** RNM-101. **Resultado:** classes funcionam em componente React Native e web.
 - [ ] **RNM-104 — Configurar React Native Reusables.** Inicializar registry/configuração e adicionar somente os componentes necessários: Text, Button, Input, Card, Badge, Dialog, Select, Accordion, Skeleton, Separator, Tabs e Portal. **Depende de:** RNM-103. **Resultado:** catálogo local de componentes renderiza com o tema Sertton.
 - [ ] **RNM-105 — Configurar Reanimated e gestos.** Aplicar plugin e setup exigidos pela versão compatível, envolver a raiz com o provider necessário e validar uma animação. **Depende de:** RNM-101. **Resultado:** animação roda sem warning em build nativo.
 - [ ] **RNM-106 — Configurar Jest para widgets.** Usar `jest-expo`, Testing Library, setup de Reanimated, mocks de SVG/Linking/storage e alias de paths. Limitar a descoberta a `src/ui/**/widgets/**/tests/*.test.tsx` e impedir testes dentro de `src/app/`. **Depende de:** RNM-102 e RNM-105. **Resultado:** um teste smoke de View e um de hook passam localmente a partir da subpasta `tests/` do widget.
 - [ ] **RNM-107 — Copiar assets e preservar a identidade do aplicativo.** Migrar logo, ícone, splash e Lottie. Manter exatamente o Android application ID e o iOS bundle identifier `br.com.sertton.sertton`, o nome Sertton, a assinatura e os registros existentes nas lojas. Usar o scheme `sertton` e definir uma versão superior à Flutter `1.0.15` somente na preparação do release. **Depende de:** RNM-100. **Resultado:** o React Native pode ser publicado como atualização do mesmo aplicativo, sem criar uma nova listagem nas lojas.
-- [ ] **RNM-108 — Criar scripts de qualidade.** Adicionar `codecheck`, `codecheck:fix`, `typecheck`, `test`, `test:coverage`, `doctor`, `start`, builds e export web. `codecheck` deve encapsular lint e formatação do Biome; `typecheck` deve executar `tsc --noEmit`; `test` e `test:coverage` devem encapsular o Jest. **Depende de:** RNM-106. **Resultado:** os scripts npm executam toda a validação estática e os testes de widgets sem comandos avulsos.
+- [ ] **RNM-108 — Criar scripts de qualidade.** Adicionar `check:code`, `check:types`, `test`, `test:coverage`, `doctor`, `start`, builds e export web. `check:code` deve encapsular lint, formatação do Biome e verificação de fronteiras; `check:types` deve executar `tsc --noEmit`; `test` e `test:coverage` devem encapsular o Jest. **Depende de:** RNM-106. **Resultado:** os scripts npm executam toda a validação estática e os testes de widgets sem comandos avulsos.
 - [ ] **RNM-109 — Disponibilizar Maestro MCP para inspeção visual.** Configurar o servidor `maestro mcp` no ambiente de desenvolvimento e confirmar que ele consegue abrir o aplicativo em um emulador Android ou simulador iOS. Não criar `.maestro/`, flows, asserções, testes ou scripts no projeto. **Depende de:** RNM-100 e RNM-107. **Resultado:** o MCP permite visualizar interativamente uma tela implementada; limitações de execução do iOS fora de macOS ficam registradas.
 
 ### Fase 2 — Core TypeScript
@@ -914,7 +912,7 @@ Cada tarefa só pode ser marcada como concluída quando seu resultado observáve
 
 ### Fase 7 — CI, publicação e cutover
 
-- [ ] **RNM-700 — Integrar CI.** Executar install imutável, `npm run codecheck`, `npm run typecheck`, `npm run test`, `npm run test:coverage`, Expo Doctor e export server/web. Não instalar nem executar Maestro ou Flutter no CI React Native. Manter o pipeline Flutter existente inalterado até o cutover. **Depende de:** RNM-108 e RNM-601. **Resultado:** PR não pode integrar com validação falha e as fronteiras cliente/servidor são verificadas.
+- [ ] **RNM-700 — Integrar CI.** Executar install imutável, `npm run check:code`, `npm run check:types`, `npm run test`, `npm run test:coverage`, Expo Doctor e export server/web. Não instalar nem executar Maestro ou Flutter no CI React Native. Manter o pipeline Flutter existente inalterado até o cutover. **Depende de:** RNM-108 e RNM-601. **Resultado:** PR não pode integrar com validação falha e as fronteiras cliente/servidor são verificadas.
 - [ ] **RNM-701 — Configurar EAS Hosting e builds Expo.** Criar perfis development, preview e production; configurar signing, identificadores, variáveis server-side, deploy das API Routes e origem HTTPS estável do BFF no app nativo. **Depende de:** RNM-003, RNM-310 e RNM-700. **Resultado:** builds instaláveis acessam o BFF implantado sem segredos no bundle.
 - [ ] **RNM-702 — Distribuição interna.** Publicar preview para QA/stakeholders, executar o checklist acordado e corrigir bloqueadores. **Depende de:** RNM-606 e RNM-701. **Resultado:** aceite formal para produção.
 - [ ] **RNM-703 — Preparar rollout.** Definir versão, notas, suporte, percentual de rollout e critérios objetivos de rollback. **Depende de:** RNM-702. **Resultado:** plano operacional aprovado.
@@ -969,7 +967,7 @@ Executar a Fase 0 do plano em documentation/react-native-migration-plan.md, conc
 Executar a Fase 1 do plano em documentation/react-native-migration-plan.md, concluindo RNM-100 a RNM-109 dentro de sertton-react-native-app/. Consolidar o scaffold Expo SDK 57, remover o conteúdo demonstrativo e as dependências diretas proibidas, configurar Expo Router com src/app e API Routes server-side, TypeScript estrito, Biome, NativeWind, React Native Reusables, Reanimated, Jest e scripts npm. Preservar os identificadores br.com.sertton.sertton e configurar Maestro MCP somente fora do repositório para visualização interativa. Não executar ou modificar Flutter e não criar testes/flows Maestro. Concluir somente quando todos os resultados observáveis e validações da fase passarem.
 ```
 
-**Validação para encerramento:** instalação imutável; `npm run codecheck`; `npm run typecheck`; `npm run test`; `npm run doctor`; API Route smoke; Android, iOS e web iniciam conforme o ambiente disponível; nenhuma dependência direta/import de `@expo/ui`, `expo-glass-effect` ou `expo-symbols`.
+**Validação para encerramento:** instalação imutável; `npm run check:code`; `npm run check:types`; `npm run test`; `npm run doctor`; API Route smoke; Android, iOS e web iniciam conforme o ambiente disponível; nenhuma dependência direta/import de `@expo/ui`, `expo-glass-effect` ou `expo-symbols`.
 
 ### 8.4. Goal da Fase 2 — Core TypeScript
 
@@ -981,7 +979,7 @@ Executar a Fase 1 do plano em documentation/react-native-migration-plan.md, conc
 Executar a Fase 2 do plano em documentation/react-native-migration-plan.md, concluindo RNM-200 a RNM-207 dentro de sertton-react-native-app/. Implementar RestResponse, erros, constantes, entidades, estruturas, contratos de services/providers/RestClient/mappers e regras puras conforme a arquitetura Core, sem dependências React, Expo, Axios ou Yampi. Respeitar os padrões funcionais, exports nomeados, kebab-case e todas as regras da seção “Execução com goals”. Não adicionar testes diretos fora do escopo de widgets definido pelo plano. Concluir somente quando cada contrato e resultado observável da fase estiver compilando.
 ```
 
-**Validação para encerramento:** `npm run codecheck` e `npm run typecheck`; Core sem imports de infraestrutura/UI; inventário RNM-200 a RNM-207 conferido com o Flutter por leitura estática.
+**Validação para encerramento:** `npm run check:code` e `npm run check:types`; Core sem imports de infraestrutura/UI; inventário RNM-200 a RNM-207 conferido com o Flutter por leitura estática.
 
 ### 8.5. Goal da Fase 3 — REST, BFF e providers
 
@@ -993,7 +991,7 @@ Executar a Fase 2 do plano em documentation/react-native-migration-plan.md, conc
 Executar a Fase 3 do plano em documentation/react-native-migration-plan.md, concluindo RNM-300 a RNM-312 dentro de sertton-react-native-app/. Implementar Axios, mappers e services Yampi funcionais, providers, contratos Http/Controller, ExpoHttp, Route, controllers, Expo API Routes, services Expo cliente e RestContext. Manter credenciais Yampi exclusivamente server-side e impedir imports de rest/yampi no bundle cliente. Preservar a consulta de pedidos por CPF/CNPJ sem autenticação adicional e iniciar storage React Native novo, sem migrar dados Flutter. Não criar testes diretos para essas camadas. Respeitar todas as regras da seção “Execução com goals” e concluir somente quando os resultados observáveis da fase estiverem atendidos.
 ```
 
-**Validação para encerramento:** `npm run codecheck` e `npm run typecheck`; Expo API Routes smoke; inspeção do bundle/fronteiras sem segredo ou import Yampi no cliente; endpoints e composição conferidos contra fixtures sanitizadas.
+**Validação para encerramento:** `npm run check:code` e `npm run check:types`; Expo API Routes smoke; inspeção do bundle/fronteiras sem segredo ou import Yampi no cliente; endpoints e composição conferidos contra fixtures sanitizadas.
 
 ### 8.6. Goal da Fase 4 — Design system, stores e navegação
 
@@ -1005,7 +1003,7 @@ Executar a Fase 3 do plano em documentation/react-native-migration-plan.md, conc
 Executar a Fase 4 do plano em documentation/react-native-migration-plan.md, concluindo RNM-400 a RNM-406 dentro de sertton-react-native-app/. Implementar tokens, componentes compartilhados, CartStore Zustand, árvore Expo Router, tab bar, Drawer e guard de conectividade. Rotas visuais devem apenas retornar widgets de src/ui; funções JSX devem ser const arrow functions e default export fica restrito às rotas visuais. Criar somente os testes Jest de View e hook previstos nas pastas dos widgets. Usar Maestro MCP apenas para visualizar o resultado das telas, sem gerar arquivos ou testes. Concluir somente quando todos os resultados observáveis da fase estiverem aprovados.
 ```
 
-**Validação para encerramento:** `npm run codecheck`; `npm run typecheck`; `npm run test`; navegação validada manualmente; componentes principais visualizados com Maestro contra `documentation/screenshots/flutter/`.
+**Validação para encerramento:** `npm run check:code`; `npm run check:types`; `npm run test`; navegação validada manualmente; componentes principais visualizados com Maestro contra `documentation/screenshots/flutter/`.
 
 ### 8.7. Goal da Fase 5 — Experiências do aplicativo
 
@@ -1017,7 +1015,7 @@ Executar a Fase 4 do plano em documentation/react-native-migration-plan.md, conc
 Executar a Fase 5 do plano em documentation/react-native-migration-plan.md, concluindo RNM-500 a RNM-508 dentro de sertton-react-native-app/. Migrar Splash, Offline, institucional, catálogo, produto, carrinho, Home, marketing e pedidos com paridade funcional e visual. Substituir Presenters por hooks colocalizados e Views por index.tsx, criando para cada widget os testes Jest de hook e View na subpasta tests. Não executar Flutter; usar código e screenshots existentes como referência. Manter pedidos consultáveis por CPF/CNPJ correto, sem autenticação adicional, e não migrar storage Flutter. Usar Maestro somente para visualizar telas. Concluir somente quando todos os estados e resultados observáveis da fase estiverem implementados e validados.
 ```
 
-**Validação para encerramento:** `npm run codecheck`; `npm run typecheck`; `npm run test`; fluxos funcionais revisados manualmente; telas e estados visualizados com Maestro; nenhuma divergência silenciosa em relação à matriz.
+**Validação para encerramento:** `npm run check:code`; `npm run check:types`; `npm run test`; fluxos funcionais revisados manualmente; telas e estados visualizados com Maestro; nenhuma divergência silenciosa em relação à matriz.
 
 ### 8.8. Goal da Fase 6 — Testes, acessibilidade e paridade
 
@@ -1029,7 +1027,7 @@ Executar a Fase 5 do plano em documentation/react-native-migration-plan.md, conc
 Executar a Fase 6 do plano em documentation/react-native-migration-plan.md, concluindo RNM-600 a RNM-606 dentro de sertton-react-native-app/. Finalizar a rastreabilidade dos testes Jest de Views e hooks, validar rotas manualmente, auditar acessibilidade e performance, revisar paridade visual e executar os checklists ponta a ponta em builds apropriados. Maestro MCP deve ser usado exclusivamente para visualizar as telas e comparar manualmente sua aparência; não criar flows, YAML, asserções, scripts ou jobs Maestro. Respeitar todas as regras da seção “Execução com goals” e concluir somente quando as evidências e resultados observáveis da fase estiverem aprovados.
 ```
 
-**Validação para encerramento:** `npm run codecheck`; `npm run typecheck`; `npm run test`; `npm run test:coverage`; `npm run doctor`; checklists manuais de Android/iOS; auditorias e diferenças visuais documentadas.
+**Validação para encerramento:** `npm run check:code`; `npm run check:types`; `npm run test`; `npm run test:coverage`; `npm run doctor`; checklists manuais de Android/iOS; auditorias e diferenças visuais documentadas.
 
 ### 8.9. Goal da Fase 7 — CI, publicação e cutover
 
@@ -1129,8 +1127,8 @@ O Maestro será uma ferramenta exclusivamente visual. Jest continuará sendo a �
 Após cada tarefa de código:
 
 ```bash
-npm run codecheck
-npm run typecheck
+npm run check:code
+npm run check:types
 npm run test
 ```
 
@@ -1171,7 +1169,7 @@ A migração estará concluída apenas quando:
 - as rotas, estados e fluxos do inventário tiverem paridade aprovada;
 - as Views Flutter estiverem rastreadas para `tests/<nome-do-widget>.test.tsx` e os Presenters para `tests/use-<nome-do-widget>.test.tsx`;
 - as telas tiverem sido visualizadas com auxílio do Maestro MCP e sua fidelidade estiver aprovada em Android e iOS;
-- `npm run codecheck`, `npm run typecheck`, `npm run test`, `npm run test:coverage`, Expo Doctor e builds estiverem verdes no CI;
+- `npm run check:code`, `npm run check:types`, `npm run test`, `npm run test:coverage`, Expo Doctor e builds estiverem verdes no CI;
 - checkout, catálogo, leads e pedidos tiverem sido validados contra ambiente real autorizado;
 - o rollout e os critérios de rollback estiverem documentados;
 - a documentação principal refletir a arquitetura React Native;

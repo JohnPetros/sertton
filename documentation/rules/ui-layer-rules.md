@@ -1,130 +1,45 @@
-# UI Layer Guidelines
+# UI Layer Rules
 
-The **UI** layer (`lib/ui/`) is responsible for visual presentation and user interaction.
+The UI layer is located in `src/ui`. It renders React Native views and coordinates user interaction through hooks; it must not contain domain or transport logic.
 
----
-
-## Design Patterns
-
-### MVP (Model-View-Presenter)
-
-| Component | Responsibility | Suffix |
-|------------|----------------|--------|
-| **View** | Visual rendering, receives user events | `*_view.dart` |
-| **Presenter** | State logic, orchestration, service calls | `*_presenter.dart` |
-
-```dart
-// Presenter
-class ProductsListPresenter {
-  final CatalogService _catalogService;
-  late final products = futureSignal(() => _catalogService.fetchProducts());
-
-  ProductsListPresenter(this._catalogService);
-}
-
-// View
-class ProductListView extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final presenter = ref.watch(presenterProvider);
-    // render using presenter.products
-  }
-}
-```
-
-### Barrel Pattern (Index Files)
-
-Each component exposes an `index.dart` with a public `typedef`:
-
-```dart
-// index.dart
-import 'catalog_screen_view.dart';
-typedef CatalogScreen = CatalogScreenView;
-```
-
-### Internal Widgets
-
-- If you need to create an internal widget, create a folder for it inside the larger widget's folder. Do not create a `widgets` or `components` folder inside the parent widget.
-- Internal widgets must also follow the MVP (Model-View-Presenter) pattern.
-
-### Signals (Reactive State)
-
-| Type | Usage |
-|------|-------|
-| `signal<T>` | Simple synchronous state |
-| `futureSignal<T>` | Asynchronous state (`Future`) |
-| `computed<T>` | Derived state |
-
----
-
-## Technologies
-
-| Library | Purpose |
-|------------|---------|
-| **flutter_riverpod** | Dependency injection and providers |
-| **signals** | Fine-grained reactive state management |
-| **shadcn_flutter** | UI kit with modern components |
-| **go_router** | Declarative navigation |
-
----
-
-## Directory Structure
+## Screen Structure
 
 ```text
-lib/ui/
-└── {module}/
-    └── widgets/
-        ├── screens/
-        │   └── {screen}/
-        │       ├── {screen}_screen_view.dart
-        │       ├── {screen}_screen_presenter.dart (optional)
-        │       ├── index.dart
-        │       └── {component}/
-        │           ├── {component}_view.dart
-        │           ├── {component}_presenter.dart
-        │           └── index.dart
-        └── components/  (reusable widgets)
+src/ui/<domain>/widgets/screens/<screen>/
+├── index.tsx
+└── use-<screen>.ts
 ```
 
----
+- `index.tsx` is declarative presentation only.
+- `use-<screen>.ts` owns `useState`, `useEffect`, `useCallback`, service calls, validation, navigation, and event handlers.
+- The view destructures the hook result directly: `const { products, refresh } = useCatalogScreen()`.
+- Do not assign hook results to `state` and do not create state or business/event functions inside a screen view.
 
-## Naming Conventions
+## Widgets
 
-| Type | File Pattern | Class Pattern |
-|------|--------------|---------------|
-| View | `{name}_view.dart` | `{Name}View` |
-| Screen | `{screen}_screen_view.dart` | `{Screen}ScreenView` |
-| Presenter | `{name}_presenter.dart` | `{Name}Presenter` |
-| Export | `index.dart` | `typedef {Name} = {Name}View` |
+- Apply the same view/hook split to stateful shared widgets.
+- `src/ui/reusables` contains generic primitives and is exempt from the hook split when no domain behavior exists.
+- Never declare an internal widget in the `index.tsx` file of another widget.
+- Create an internal widget in its own folder inside the parent widget, for example `home/product-card/index.tsx`.
+- If an internal widget has state, effects, navigation, or event logic, create its hook in the same folder (for example `home/product-card/use-product-card.ts`).
+- Views may compose JSX and pass handlers returned by hooks; hooks own the handler implementation.
 
----
+## Dependencies
 
-## Widget Types
+- UI depends on `core` contracts and UI-safe providers only.
+- Obtain services through `useRestContext`; do not instantiate HTTP clients or Yampi services in a view or hook.
+- Never import Axios, Yampi types, or REST mappers into UI.
+- Keep domain rules in `core` and HTTP transformations in `rest`.
 
-| Type | Base Class | Usage |
-|------|------------|-------|
-| **Screen** | `ConsumerWidget` or `StatelessWidget` | Full screen (route) |
-| **Layout** | `StatelessWidget` | Navigation shell |
-| **Component** | `ConsumerWidget` | Reusable stateful widget |
+## Navigation and State
 
----
+- Navigation actions belong in hooks, not screen views.
+- Keep screen-local state in the matching hook.
+- Use Zustand stores for shared client state such as the cart.
+- Represent loading, empty, and error states explicitly in the hook result.
 
-## Best Practices
+## Style and Tests
 
-### ✅ Do
-
-- Every widget must follow the MVP (Model-View-Presenter) pattern.
-- If a widget only contains visual code, it should contain only the View and `index.dart`.
-- Separate View from Presenter.
-- Use Signals for local state.
-- Use `ConsumerWidget` to access providers.
-- Create `index.dart` files for exports.
-- Break complex widgets into components.
-- When creating an internal widget inside a larger widget, create a folder for it inside the larger widget's folder.
-
-### ❌ Avoid
-
-- Business logic in the View.
-- Direct service calls (use Presenters).
-- Monolithic widgets.
-- Direct imports of `*_view.dart` (use `index.dart`).
+- Use NativeWind `className` and shared widgets before adding one-off styling primitives.
+- Keep accessibility label and role props on interactive React Native elements.
+- Test hooks for behavior and screen/widget views for rendered states and user interactions.

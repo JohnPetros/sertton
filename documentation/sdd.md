@@ -60,7 +60,7 @@ The pipeline is orchestrated by dedicated prompts in `documentation/prompts/`. E
   - the execution order is obvious;
   - few files will be changed;
   - there are no new contracts across multiple apps;
-  - validation fits within `typecheck`, `codecheck`, and local tests for the affected workspace.
+  - validation fits within `check:types`, `check:code`, and local tests for the affected workspace.
 - If the task turns out to be broad or ambiguous during reading, the flow must stop and move to `create-plan` + `implement-plan`.
 - It remains mandatory to read `documentation/rules/rules.md` and the rules for the affected layers before editing code.
 
@@ -73,8 +73,8 @@ The pipeline is orchestrated by dedicated prompts in `documentation/prompts/`. E
 - Implementation order: `core` -> `drivers/infra` -> `API layer` -> `UI`.
 - Never implement a consuming layer before the layer it consumes.
 - Mandatory verification after each task:
-  - `npm run codecheck` (lint and formatting)
-  - `npm run typecheck`
+  - `npm run check:code` (lint and formatting)
+  - `npm run check:types`
   - `npm run test`
 - Progress is tracked in the checkboxes inside `plan.md` itself.
 - Partially completed plans resume from the first pending task.
@@ -148,5 +148,5 @@ problem report -> bug report -> separate fix spec -> direct implementation or pl
 3. **Each layer has its own rules.** Reading the rules before implementing is mandatory, not optional.
 4. **Choose the right weight.** Small specs may go straight to `implement-spec`; specs with meaningful dependencies require a formal plan.
 5. **Bottom-up whenever there is dependency across layers.** Core before infra, infra before API, API before UI.
-6. **Continuous verification.** Lint, typecheck, and tests must pass within the affected scope; in a formal plan, they must pass after each task.
+6. **Continuous verification.** Code checks, type checks, and tests must pass within the affected scope; in a formal plan, they must pass after each task.
 7. **Documentation evolves with the code.** Spec, PRD, architecture, and rules are updated together with the implementation, never afterward.

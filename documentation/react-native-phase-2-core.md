@@ -27,8 +27,8 @@ Data: 2026-07-10.
 
 | Comando/verificação | Resultado |
 | --- | --- |
-| `npm run codecheck` | Passou; Biome valida `src/core` e as declarações TypeScript adicionadas |
-| `npm run typecheck` | Passou com `tsc --noEmit` |
+| `npm run check:code` | Passou; Biome valida `src/core` e as declarações TypeScript adicionadas |
+| `npm run check:types` | Passou com `tsc --noEmit` |
 | Busca de fronteiras proibidas em `src/core` | Passou; sem imports React, Expo, Axios, REST ou UI |
 | `git diff --check` | Passou |
 
