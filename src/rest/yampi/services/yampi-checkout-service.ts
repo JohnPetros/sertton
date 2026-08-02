@@ -47,14 +47,12 @@ export const YampiCheckoutService = ({
     },
 
     async fetchOrdersByCustomer(customerDocument) {
-      console.log("fetchOrdersByCustomer", customerDocument)
       const response = await restClient.get<YampiResponse<YampiOrder>>("/orders", {
         query: {
           customer_document: customerDocument,
           include: "items,shipping_address,status,transactions",
         },
       })
-      console.log(response.body)
       return response.mapBody((body) => body.data.map(orderMapper.toDomain))
     },
 
