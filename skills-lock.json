@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "maestro-mobile-testing": {
+      "source": "tovimx/maestro-mobile-testing-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "0da465e616e3c96744ba5d0641054c4468e7bd801cde67ba6a915a89cfe465d3"
+    }
+  }
+}
