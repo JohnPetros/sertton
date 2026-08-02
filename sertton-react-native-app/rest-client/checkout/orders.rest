@@ -1,0 +1,12 @@
+@url = {{BASE_URL}}/orders
+
+### Get orders by customer
+GET {{url}}?customerDocument=44606238895&include=items,shipping_address,status,transactions
+
+### Create orders session
+POST {{url}}/session
+Content-Type: application/json
+
+{
+  "customerDocument": "12345678901"
+}

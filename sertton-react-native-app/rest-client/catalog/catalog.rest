@@ -1,0 +1,29 @@
+@url = {{BASE_URL}}/catalog
+
+### Get brands
+GET {{url}}/brands
+
+### Get categories
+GET {{url}}/categories
+
+### Get collections
+GET {{url}}/collections
+
+### Get products
+GET {{url}}/products
+
+### Get products with filters
+GET {{url}}/products?page=1&categoryId=category-id&query=shirt&brandsIds=brand-id-1&brandsIds=brand-id-2
+
+@productId = product-id
+
+### Get product
+GET {{url}}/products/{{productId}}
+
+### Get similar products
+GET {{url}}/products/{{productId}}/similar
+
+@collectionId = collection-id
+
+### Get products by collection
+GET {{url}}/collections/{{collectionId}}/products
