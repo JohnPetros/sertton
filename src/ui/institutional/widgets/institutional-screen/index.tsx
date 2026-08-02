@@ -3,12 +3,12 @@ import { AppText } from "@/ui/shared/widgets/app-text"
 import { ScrollView, View } from "react-native"
 
 export type InstitutionalSection = {
-   content: string
-   title: string
+  content: string
+  title: string
 }
 type InstitutionalScreenProps = {
-   sections:  InstitutionalSection[]
-   title: string
+  sections: InstitutionalSection[]
+  title: string
 }
 export const InstitutionalScreen = ({ sections, title }: InstitutionalScreenProps) => (
   <View className="flex-1 bg-background">
