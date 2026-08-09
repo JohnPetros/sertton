@@ -127,3 +127,49 @@ jobs:
 
       - name: Submit Android build to Google Play
         run: eas submit --platform android --profile production --latest --non-interactive
+
+  web:
+    name: Build and deploy Web
+    needs: sync-version
+    runs-on: ubuntu-latest
+    env:
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Download synchronized app config
+        uses: actions/download-artifact@v4
+        with:
+          name: release-app-config
+          path: .release-app-config
+
+      - name: Apply synchronized app config
+        run: cp .release-app-config/app.json app.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Expo and EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Load production environment
+        run: eas env:pull --environment production --path .env.local
+
+      - name: Export Web app
+        run: npm run build:web
+
+      - name: Deploy Web app
+        run: eas deploy --environment production --non-interactive
