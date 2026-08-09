@@ -78,7 +78,10 @@
     "build:web": "npx expo export --platform web",
     "deploy:web": "npm run build:web && eas deploy --environment production",
     "doctor": "npx expo-doctor",
-    "build:android": "eas build --platform android",
+    "release": "bash scripts/create-release.sh",
+    "build:android": "eas-cli@latest build --platform android --profile production",
+    "preview:android": "eas-cli@latest build --platform android --profile preview",
+    "deploy:android": "npx eas-cli@latest submit --platform android --profile production",
     "build:ios": "eas build --platform ios",
     "export:web": "expo export --platform web"
   },
