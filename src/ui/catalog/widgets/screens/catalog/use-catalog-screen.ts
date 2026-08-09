@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react"
 import { useLocalSearchParams } from "expo-router"
+import { useCallback, useEffect, useState } from "react"
 
 import type { Brand, Category, Product } from "@/core/catalog/entities"
 import { useRestContext } from "@/ui/shared/contexts/rest-context/rest-context"

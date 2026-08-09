@@ -1,13 +1,13 @@
+import { ScrollView, View } from "react-native"
 import { AppHeader } from "@/ui/shared/widgets/app-header"
 import { AppText } from "@/ui/shared/widgets/app-text"
-import { ScrollView, View } from "react-native"
 
 export type InstitutionalSection = {
   content: string
   title: string
 }
 type InstitutionalScreenProps = {
-  sections: InstitutionalSection[]
+  sections: readonly InstitutionalSection[]
   title: string
 }
 export const InstitutionalScreen = ({ sections, title }: InstitutionalScreenProps) => (
