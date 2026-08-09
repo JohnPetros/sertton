@@ -1,19 +1,129 @@
 name: Continuous Deployment
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
-
-concurrency:
-  group: cd-${{ github.ref }}
-  cancel-in-progress: true
+  release:
+    types: [published]
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: release-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+env:
+  RELEASE_TAG: ${{ github.event.release.tag_name }}
 
 jobs:
-  deploy-android:
-    uses: ./.github/workflows/android-cd.yaml
-    secrets:
+  sync-version:
+    name: Sync release version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set_version.outputs.version }}
+
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+
+      - name: Set app.json version from release tag
+        id: set_version
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const tag = process.env.RELEASE_TAG;
+          const version = tag.replace(/^v/, '');
+
+          if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(version)) {
+            throw new Error(`Invalid release tag "${tag}". Use vMAJOR.MINOR.PATCH, for example v1.0.16.`);
+          }
+
+          const path = 'app.json';
+          const appConfig = JSON.parse(fs.readFileSync(path, 'utf8'));
+          appConfig.expo.version = version;
+          fs.writeFileSync(path, `${JSON.stringify(appConfig, null, 2)}\n`);
+
+          fs.mkdirSync('.release-app-config', { recursive: true });
+          fs.copyFileSync(path, '.release-app-config/app.json');
+          fs.writeFileSync(process.env.GITHUB_OUTPUT, `version=${version}\n`, { flag: 'a' });
+          console.log(`Using expo.version ${version} from release tag ${tag}`);
+          NODE
+
+      - name: Upload synchronized app config
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-app-config
+          path: .release-app-config/app.json
+          if-no-files-found: error
+
+      - name: Persist app.json version on main
+        run: |
+          git fetch origin main
+          git switch --force-create release-version-sync origin/main
+
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          const version = process.env.RELEASE_TAG.replace(/^v/, '');
+          const path = 'app.json';
+          const appConfig = JSON.parse(fs.readFileSync(path, 'utf8'));
+          appConfig.expo.version = version;
+          fs.writeFileSync(path, `${JSON.stringify(appConfig, null, 2)}\n`);
+          NODE
+
+          if git diff --quiet -- app.json; then
+            echo "app.json already contains ${RELEASE_TAG#v}"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app.json
+          git commit -m "chore(release): sync app version ${RELEASE_TAG#v}"
+          git push origin HEAD:main
+
+  android:
+    name: Build and submit Android
+    needs: sync-version
+    runs-on: ubuntu-latest
+    env:
       EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Download synchronized app config
+        uses: actions/download-artifact@v4
+        with:
+          name: release-app-config
+          path: .release-app-config
+
+      - name: Apply synchronized app config
+        run: cp .release-app-config/app.json app.json
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Expo and EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build Android production artifact
+        run: eas build --platform android --profile production --non-interactive --wait
+
+      - name: Submit Android build to Google Play
+        run: eas submit --platform android --profile production --latest --non-interactive
