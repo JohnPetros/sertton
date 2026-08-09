@@ -77,13 +77,12 @@
     "test:coverage": "jest --coverage --passWithNoTests",
     "build:web": "npx expo export --platform web",
     "deploy:web": "npm run build:web && eas deploy --environment production",
-    "doctor": "npx expo-doctor",
-    "release": "bash scripts/create-release.sh",
     "build:android": "eas-cli@latest build --platform android --profile production",
-    "preview:android": "eas-cli@latest build --platform android --profile preview",
+    "build:android:preview": "npx eas-cli@latest build --platform android --profile preview --local",
     "deploy:android": "npx eas-cli@latest submit --platform android --profile production",
     "build:ios": "eas build --platform ios",
-    "export:web": "expo export --platform web"
+    "doctor": "npx expo-doctor",
+    "release": "bash scripts/create-release.sh"
   },
   "private": true
 }
