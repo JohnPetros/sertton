@@ -3,7 +3,7 @@ import Constants from "expo-constants"
 import { AppError } from "@/core/shared/errors/app-error"
 import { RestResponse } from "@/core/shared/responses/rest-response"
 
-const publicBffOrigin = process.env.EXPO_PUBLIC_BFF_ORIGIN?.replace(/\/$/, "") ?? ""
+const publicBffOrigin = process.env.EXPO_PUBLIC_BFF_URL?.replace(/\/$/, "") ?? ""
 const developmentBffOrigin = (() => {
   if (!__DEV__ || publicBffOrigin) return ""
   const hostUri = Constants.expoConfig?.hostUri
