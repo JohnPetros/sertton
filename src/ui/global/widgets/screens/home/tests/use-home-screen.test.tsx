@@ -1,4 +1,4 @@
-import { act, renderHook } from "@testing-library/react-native"
+import { act, renderHook, waitFor } from "@testing-library/react-native"
 import { router } from "expo-router"
 import { type Mock, mock } from "ts-jest-mocker"
 import { ProductFaker } from "@/core/catalog/entities/fakers/product-faker"
@@ -78,12 +78,11 @@ describe("useHomeScreen", () => {
 
     const { result } = renderHook(() => useHomeScreen())
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 10))
-    })
+    await waitFor(() =>
+      expect(result.current.collections).toEqual([{ collection, products: [product] }]),
+    )
 
     expect(result.current.banners).toEqual([banner])
-    expect(result.current.collections).toEqual([{ collection, products: [product] }])
     expect(result.current.payments).toEqual([payment])
     expect(catalogService.fetchProductsByCollection).toHaveBeenCalledWith(collection.id)
   })
@@ -101,11 +100,9 @@ describe("useHomeScreen", () => {
 
     const { result } = renderHook(() => useHomeScreen())
 
-    await act(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 10))
-    })
-
-    expect(result.current.error).toBe("Não foi possível carregar o conteúdo da loja.")
+    await waitFor(() =>
+      expect(result.current.error).toBe("Não foi possível carregar o conteúdo da loja."),
+    )
   })
 
   it("should reject an invalid newsletter email without calling the service", async () => {
